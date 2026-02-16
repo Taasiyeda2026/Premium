@@ -2,66 +2,71 @@
 <html lang="he">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>נקודת הפתיחה | START</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Rubik', sans-serif;
     direction: rtl;
     background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #0f172a;
+    -webkit-text-size-adjust: 100%;
 }
 
 .wrapper {
-    max-width: 820px;
-    margin: 40px auto;
-    padding: 20px;
+    width: 100%;
+    padding: 16px;
 }
 
 .card {
+    width: 100%;
     background: #ffffff;
-    border-radius: 18px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
 .logo {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .logo img {
-    height: 70px;
+    max-width: 140px;
+    height: auto;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 800;
     color: #111827;
 }
 
 .subtitle {
-    font-size: 15px;
+    font-size: 14px;
     color: #6366f1;
     font-weight: 600;
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
 .intro {
-    font-size: 16px;
-    line-height: 1.9;
-    margin-bottom: 35px;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 28px;
     color: #374151;
 }
 
@@ -70,68 +75,98 @@ h1 {
 }
 
 .section-title {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: #111827;
+}
+
+/* תיבת שאלות */
+.questions-box {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    margin-bottom: 24px;
 }
 
 .option {
     border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 12px;
+    padding: 14px;
     margin-bottom: 10px;
     display: flex;
+    gap: 12px;
     align-items: flex-start;
-    gap: 10px;
-    transition: 0.2s ease;
-    cursor: pointer;
-}
-
-.option:hover {
-    border-color: #6366f1;
-    background: #f5f7ff;
+    background: #ffffff;
 }
 
 .option input {
-    margin-top: 4px;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
 }
 
-.option input:checked + span {
-    font-weight: 600;
-    color: #111827;
+.option span {
+    font-size: 14px;
+    line-height: 1.6;
 }
 
+.option:active {
+    background: #eef2ff;
+}
+
+/* שדות קלט */
 .name-input,
 .answer-input {
     width: 100%;
     border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px; /* חשוב למנוע zoom באייפון */
     margin-top: 6px;
     font-family: 'Rubik', sans-serif;
 }
 
 .answer-input {
-    height: 70px;
+    height: 90px;
     resize: none;
 }
 
 .footer {
-    margin-top: 35px;
+    margin-top: 30px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     color: #9ca3af;
     letter-spacing: 0.5px;
 }
 
-@media (max-width: 600px) {
-    .card {
-        padding: 25px;
+/* מסכים גדולים */
+@media (min-width: 768px) {
+
+    .wrapper {
+        max-width: 820px;
+        margin: 40px auto;
     }
+
+    .card {
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
     h1 {
-        font-size: 22px;
+        font-size: 28px;
+    }
+
+    .questions-box {
+        padding: 20px;
+    }
+
+    .option:hover {
+        border-color: #6366f1;
+        background: #f5f7ff;
+        transition: 0.2s ease;
     }
 }
 
@@ -169,6 +204,8 @@ h1 {
 
 <div class="section-title">בחרו שאלה אחת:</div>
 
+<div class="questions-box">
+
 <label class="option">
 <input type="radio" name="question">
 <span>משהו שמפריע לי ביומיום או לא עובד כמו שצריך</span>
@@ -193,6 +230,8 @@ h1 {
 <input type="radio" name="question">
 <span>מוצר שאני משתמש/ת והייתי משפר/ת בו משהו</span>
 </label>
+
+</div>
 
 <div class="section-title">השם שלי:</div>
 <input type="text" class="name-input" placeholder="כתבו כאן את שמכם">
