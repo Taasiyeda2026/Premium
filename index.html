@@ -5,89 +5,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>נקודת הפתיחה | START</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 body {
     margin: 0;
     font-family: 'Rubik', sans-serif;
     direction: rtl;
-    background: #ffffff;
-    color: #111827;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #0f172a;
 }
 
-.container {
-    max-width: 720px;
+.wrapper {
+    max-width: 820px;
     margin: 40px auto;
-    padding: 30px;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo img {
+    height: 70px;
 }
 
 .header {
-    border-right: 5px solid #111827;
-    padding-right: 14px;
+    text-align: center;
     margin-bottom: 25px;
 }
 
 h1 {
     margin: 0;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
 }
 
 .subtitle {
-    font-size: 14px;
-    color: #6b7280;
+    font-size: 15px;
+    color: #6366f1;
+    font-weight: 600;
+    margin-top: 6px;
 }
 
 .intro {
-    font-size: 15px;
-    line-height: 1.8;
-    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 35px;
+    color: #374151;
+}
+
+.intro strong {
+    color: #111827;
 }
 
 .section-title {
-    font-weight: 600;
-    margin-bottom: 12px;
-    margin-top: 25px;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #111827;
 }
 
 .option {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px 14px;
     margin-bottom: 10px;
     display: flex;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.option:hover {
+    border-color: #6366f1;
+    background: #f5f7ff;
 }
 
 .option input {
     margin-top: 4px;
 }
 
+.option input:checked + span {
+    font-weight: 600;
+    color: #111827;
+}
+
 .name-input,
 .answer-input {
     width: 100%;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 10px;
-    font-family: 'Rubik', sans-serif;
+    border-radius: 8px;
+    padding: 12px;
     font-size: 14px;
+    margin-top: 6px;
+    font-family: 'Rubik', sans-serif;
 }
 
 .answer-input {
-    height: 60px;
+    height: 70px;
     resize: none;
 }
 
 .footer {
     margin-top: 35px;
-    font-size: 12px;
+    text-align: center;
+    font-size: 13px;
     color: #9ca3af;
+    letter-spacing: 0.5px;
 }
+
+@media (max-width: 600px) {
+    .card {
+        padding: 25px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrapper">
+<div class="card">
+
+<div class="logo">
+<img src="logo.png" alt="לוגו הקורס">
+</div>
 
 <div class="header">
 <h1>נקודת הפתיחה | START</h1>
@@ -95,45 +153,46 @@ h1 {
 </div>
 
 <div class="intro">
-רגע לפני שקורס יזמות פרימיום מתחיל,  
-אנחנו רוצים להכיר אתכם ולשמוע איך אתם חושבים.  
+<strong>רגע לפני שקורס יזמות פרימיום מתחיל,</strong><br>
+אנחנו רוצים להכיר אתכם ולשמוע איך אתם חושבים.<br><br>
 
-כשתורכם מגיע, בחרו שאלה אחת מתוך הרשימה,  
-אמרו את שמכם ושתפו במשפט קצר.  
+כשתורכם מגיע,<br>
+בחרו שאלה אחת מתוך הרשימה,<br>
+אמרו את שמכם ושתפו במשפט קצר.<br><br>
 
-אין כאן תשובות נכונות או לא נכונות.  
-כל תשובה מתקבלת.  
+אין כאן תשובות נכונות או לא נכונות.<br>
+<strong>כל תשובה מתקבלת.</strong><br><br>
 
-ההשתתפות פתוחה לבחירתכם —  
+ההשתתפות פתוחה לבחירתכם —<br>
 אם מישהו רוצה רק להקשיב, זה לגמרי בסדר.
 </div>
 
 <div class="section-title">בחרו שאלה אחת:</div>
 
-<div class="option">
+<label class="option">
 <input type="radio" name="question">
-<label>משהו שמפריע לי ביומיום או לא עובד כמו שצריך</label>
-</div>
+<span>משהו שמפריע לי ביומיום או לא עובד כמו שצריך</span>
+</label>
 
-<div class="option">
+<label class="option">
 <input type="radio" name="question">
-<label>יוזמה שלקחתי לאחרונה (גם אם קטנה)</label>
-</div>
+<span>יוזמה שלקחתי לאחרונה (גם אם קטנה)</span>
+</label>
 
-<div class="option">
+<label class="option">
 <input type="radio" name="question">
-<label>בשבילי, יזמות היא…</label>
-</div>
+<span>בשבילי, יזמות היא…</span>
+</label>
 
-<div class="option">
+<label class="option">
 <input type="radio" name="question">
-<label>בעיה שהייתי רוצה לפתור בעולם</label>
-</div>
+<span>בעיה שהייתי רוצה לפתור בעולם</span>
+</label>
 
-<div class="option">
+<label class="option">
 <input type="radio" name="question">
-<label>מוצר שאני משתמש/ת והייתי משפר/ת בו משהו</label>
-</div>
+<span>מוצר שאני משתמש/ת והייתי משפר/ת בו משהו</span>
+</label>
 
 <div class="section-title">השם שלי:</div>
 <input type="text" class="name-input" placeholder="כתבו כאן את שמכם">
@@ -142,9 +201,10 @@ h1 {
 <textarea class="answer-input" placeholder="כתבו כאן תשובה קצרה..."></textarea>
 
 <div class="footer">
-Accelerator Mindset · פתיחות · חשיבה יזמית · יצירתיות
+ACCELERATOR MINDSET · חשיבה יזמית · פתיחות · יצירתיות
 </div>
 
+</div>
 </div>
 
 </body>
