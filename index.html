@@ -1,250 +1,1017 @@
-<!DOCTYPE html>
-<html lang="he">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>נקודת הפתיחה | START</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Rubik', sans-serif;
-    direction: rtl;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    -webkit-text-size-adjust: 100%;
-}
-
-.wrapper {
-    width: 100%;
-    padding: 16px;
-}
-
-.card {
-    width: 100%;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-}
-
-.logo {
-    text-align: center;
-    margin-bottom: 18px;
-}
-
-.logo img {
-    max-width: 140px;
-    height: auto;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 800;
-    color: #111827;
-}
-
-.subtitle {
-    font-size: 14px;
-    color: #6366f1;
-    font-weight: 600;
-    margin-top: 4px;
-}
-
-.intro {
-    font-size: 15px;
-    line-height: 1.8;
-    margin-bottom: 28px;
-    color: #374151;
-}
-
-.intro strong {
-    color: #111827;
-}
-
-.section-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #111827;
-}
-
-/* תיבת שאלות */
-.questions-box {
-    background: #f8fafc;
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-    margin-bottom: 24px;
-}
-
-.option {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    background: #ffffff;
-}
-
-.option input {
-    width: 20px;
-    height: 20px;
-    margin-top: 3px;
-}
-
-.option span {
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.option:active {
-    background: #eef2ff;
-}
-
-/* שדות קלט */
-.name-input,
-.answer-input {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    padding: 14px;
-    font-size: 16px; /* חשוב למנוע zoom באייפון */
-    margin-top: 6px;
-    font-family: 'Rubik', sans-serif;
-}
-
-.answer-input {
-    height: 90px;
-    resize: none;
-}
-
-.footer {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 12px;
-    color: #9ca3af;
-    letter-spacing: 0.5px;
-}
-
-/* מסכים גדולים */
-@media (min-width: 768px) {
-
-    .wrapper {
-        max-width: 820px;
-        margin: 40px auto;
+<!doctype html>
+<html lang="he" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>קורס יזמות פרימיום | אסם שדרות</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #eef2f7;
+      --bg-mid:  #e4eaf3;
+      --bg-deep: #d8e2ef;
+      --accent:  #3b7dd8;
+      --accent2: #2563b0;
+      --text-dark: #1a2a3a;
+      --text-mid:  #3a5068;
+      --text-soft: #5a7a96;
+      --card-bg:   rgba(255,255,255,0.72);
+      --card-border: rgba(59,125,216,0.16);
     }
 
-    .card {
-        padding: 40px;
-        border-radius: 18px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    * { font-family: 'Heebo', sans-serif; }
+
+    body {
+      background: linear-gradient(140deg, var(--bg-main) 0%, var(--bg-mid) 55%, var(--bg-deep) 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
     }
 
-    h1 {
-        font-size: 28px;
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 24px rgba(59,125,216,0.07);
     }
 
-    .questions-box {
-        padding: 20px;
+    .glow-text { text-shadow: 0 0 32px rgba(59,125,216,0.18); }
+
+    .step-card {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(59,125,216,0.15);
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    /* גריד שלבי התהליך — כל 10 התיבות אחידות ברוחב, אורך ורווח */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    @media (min-width: 768px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    }
+    .steps-grid > * {
+      height: 100%;
+      box-sizing: border-box;
+    }
+    /* Demo Day — אותו גודל בדיוק כמו שאר התיבות */
+    .steps-grid > .demo-day-card {
+      grid-column: auto;
+      height: 100%;
+    }
+    .step-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      border-color: rgba(59,125,216,0.38);
+      box-shadow: 0 20px 40px -10px rgba(59,125,216,0.18);
     }
 
-    .option:hover {
-        border-color: #6366f1;
-        background: #f5f7ff;
-        transition: 0.2s ease;
+    .step-number {
+      background: linear-gradient(135deg, #3b7dd8 0%, #2563b0 100%);
+      box-shadow: 0 4px 16px rgba(59,125,216,0.35);
+      color: #fff;
     }
-}
 
-</style>
-</head>
+    .cta-button {
+      background: linear-gradient(135deg, #3b7dd8 0%, #1d4ed8 50%, #0ea5e9 100%);
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+      box-shadow: 0 8px 32px rgba(59,125,216,0.32);
+      transition: all 0.3s ease;
+      color: #fff;
+    }
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 16px 48px rgba(59,125,216,0.42);
+    }
 
-<body>
+    @keyframes gradient-shift {
+      0%,100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
 
-<div class="wrapper">
-<div class="card">
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-16px); }
+    }
+    .floating { animation: float 6s ease-in-out infinite; }
 
-<div class="logo">
-<img src="logo.png" alt="לוגו הקורס">
-</div>
+    @keyframes pulse-glow {
+      0%,100% { opacity: 0.18; }
+      50%     { opacity: 0.38; }
+    }
+    .pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
 
-<div class="header">
-<h1>נקודת הפתיחה | START</h1>
-<div class="subtitle">קורס יזמות פרימיום</div>
-</div>
+    .info-card {
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(59,125,216,0.14);
+    }
 
-<div class="intro">
-<strong>רגע לפני שקורס יזמות פרימיום מתחיל,</strong><br>
-אנחנו רוצים להכיר אתכם ולשמוע איך אתם חושבים.<br><br>
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+    .scroll-indicator { animation: bounce 2s infinite; }
 
-כשתורכם מגיע,<br>
-בחרו שאלה אחת מתוך הרשימה,<br>
-אמרו את שמכם ושתפו במשפט קצר.<br><br>
+    .role-card { transition: all 0.3s ease; }
+    .role-card:hover { box-shadow: 0 12px 32px rgba(59,125,216,0.14); transform: translateY(-4px); }
 
-אין כאן תשובות נכונות או לא נכונות.<br>
-<strong>כל תשובה מתקבלת.</strong><br><br>
+    /* ── Quiz name form ── */
+    .name-form input {
+      background: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(59,125,216,0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      width: 100%;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .name-form input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,125,216,0.12); }
+    .name-form input::placeholder { color: var(--text-soft); }
 
-ההשתתפות פתוחה לבחירתכם —<br>
-אם מישהו רוצה רק להקשיב, זה לגמרי בסדר.
-</div>
+    /* ── Quiz answers ── */
+    .quiz-answer {
+      background: rgba(255,255,255,0.78);
+      border: 1.5px solid rgba(59,125,216,0.18);
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-align: right;
+      color: var(--text-mid);
+      width: 100%;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .quiz-answer:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: rgba(59,125,216,0.07);
+      color: var(--text-dark);
+    }
+    .quiz-answer.selected {
+      border-color: var(--accent);
+      background: rgba(59,125,216,0.12);
+      color: var(--accent2);
+      font-weight: 600;
+    }
 
-<div class="section-title">בחרו שאלה אחת:</div>
+    /* ── Modal ── */
+    #role-modal > div {
+      background: #0f1e2e;
+      border: 1px solid rgba(59,125,216,0.3);
+      color: #e2eaf4;
+    }
 
-<div class="questions-box">
+    /* ── Sending overlay ── */
+    #send-overlay {
+      position: fixed; inset: 0;
+      background: rgba(14,30,50,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-<label class="option">
-<input type="radio" name="question">
-<span>משהו שמפריע לי ביומיום או לא עובד כמו שצריך</span>
-</label>
+    footer { border-top: 1px solid rgba(59,125,216,0.15); }
 
-<label class="option">
-<input type="radio" name="question">
-<span>יוזמה שלקחתי לאחרונה (גם אם קטנה)</span>
-</label>
+    /* ── Role preference mini-quiz ── */
+    .role-pref-item { transition: all 0.2s; }
+    .role-pref-item:has(.role-pref-cb:checked) {
+      border-color: var(--accent) !important;
+      background: rgba(59,125,216,0.10) !important;
+    }
+    .role-pref-cb:disabled + span { opacity: 0.45; }
+    .role-pref-item:has(.role-pref-cb:disabled:not(:checked)) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-<label class="option">
-<input type="radio" name="question">
-<span>בשבילי, יזמות היא…</span>
-</label>
+    /* ══════════════════════════════════════
+       MOBILE-FIRST — גלילה אופקית ורוחב
+    ══════════════════════════════════════ */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
 
-<label class="option">
-<input type="radio" name="question">
-<span>בעיה שהייתי רוצה לפתור בעולם</span>
-</label>
+    /* כפתורים — גובה מינימום 44px לכל המסכים */
+    button, .cta-button, .quiz-answer, .role-pref-item {
+      min-height: 44px;
+    }
+    .quiz-answer {
+      min-height: 52px;
+      padding: 14px 16px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
 
-<label class="option">
-<input type="radio" name="question">
-<span>מוצר שאני משתמש/ת והייתי משפר/ת בו משהו</span>
-</label>
+    /* ── שלבי התהליך — מובייל: עמודה אחת ── */
+    @media (max-width: 767px) {
+      /* Hero */
+      section.relative.min-h-screen { padding-top: 3rem; padding-bottom: 3rem; }
+      h1#main-title { font-size: 2.4rem !important; line-height: 1.15 !important; }
+      p#subtitle { font-size: 1rem !important; }
 
-</div>
+      /* Sections padding */
+      section.relative.py-20 { padding-top: 3rem; padding-bottom: 3rem; }
+      section.relative.py-24 { padding-top: 3rem; padding-bottom: 3rem; }
 
-<div class="section-title">השם שלי:</div>
-<input type="text" class="name-input" placeholder="כתבו כאן את שמכם">
+      /* Glass card padding */
+      .glass-card.rounded-3xl { padding: 1.25rem !important; }
 
-<div class="section-title">התשובה שלי (עד שתי שורות):</div>
-<textarea class="answer-input" placeholder="כתבו כאן תשובה קצרה..."></textarea>
+      /* Accelerator section */
+      .flex.items-center.gap-4.mb-8 { flex-wrap: wrap; gap: 0.75rem; }
 
-<div class="footer">
-ACCELERATOR MINDSET · חשיבה יזמית · פתיחות · יצירתיות
-</div>
+      /* Grid — force single column on mobile */
+      .grid.md\:grid-cols-2,
+      .grid.lg\:grid-cols-3,
+      .grid.lg\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
 
-</div>
-</div>
+      /* Steps grid */
+      .grid.md\:grid-cols-2.gap-6 {
+        grid-template-columns: 1fr !important;
+      }
+      .md\:col-span-2 { grid-column: span 1 !important; }
 
-</body>
+      /* Role cards headers — wrap long English titles */
+      .role-card h3 {
+        font-size: 1rem !important;
+        word-break: break-word;
+        hyphens: auto;
+      }
+      .role-card .flex.items-center.gap-3 { flex-wrap: wrap; gap: 0.5rem; }
+
+      /* Team toggle buttons — full width */
+      .flex.justify-center.gap-4.mb-12 {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 0.5rem;
+      }
+      .toggle-team {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1rem;
+      }
+
+      /* CTA button — full width on mobile */
+      #cta-button {
+        width: 100% !important;
+        justify-content: center;
+        padding: 1rem !important;
+        font-size: 1rem !important;
+      }
+      section.relative.py-24 .glass-card { padding: 1.5rem !important; }
+
+      /* Quiz section */
+      #quiz-section { padding-top: 2rem; padding-bottom: 2rem; }
+      #name-form-section { padding: 1.5rem !important; }
+      #mini-quiz-section { padding: 1.5rem !important; }
+      .name-form { max-width: 100% !important; }
+      .name-form input { font-size: 1rem; padding: 14px 14px; }
+
+      /* Mini quiz labels — wrap text cleanly */
+      .role-pref-item span { font-size: 0.9rem !important; line-height: 1.4; }
+      .role-pref-item { padding: 0.75rem !important; align-items: flex-start; }
+      .role-pref-cb { margin-top: 3px; }
+      #mini-quiz-next { max-width: 100% !important; }
+
+      /* Quiz answers */
+      .quiz-answer { font-size: 0.95rem; padding: 14px 14px; }
+
+      /* Results */
+      #results-container .glass-card { padding: 1.5rem !important; }
+      #results-container .glass-card { padding: 1.5rem !important; }
+
+      /* Modal — full screen on mobile */
+      #role-modal { padding: 0.5rem !important; align-items: flex-end; }
+      #role-modal > div {
+        border-radius: 1.5rem 1.5rem 0 0 !important;
+        max-height: 88vh !important;
+        padding: 1.5rem !important;
+      }
+      #modal-title { font-size: 1.3rem !important; }
+
+      /* Floating icons — smaller on mobile */
+      .floating .glass-card { width: 3.5rem !important; height: 3.5rem !important; font-size: 1.5rem !important; }
+      .flex.justify-center.gap-8.mb-12 { gap: 1rem !important; }
+
+      /* Decorative blobs — smaller so they don't clip */
+      .fixed.inset-0 .absolute { width: 12rem !important; height: 12rem !important; }
+
+      /* Core principle card */
+      .rounded-2xl.p-8.border-2 { padding: 1.25rem !important; }
+      .rounded-2xl.p-8.border-2 h3 { font-size: 1.2rem !important; }
+
+      /* Step cards */
+      .step-card { padding: 1rem !important; }
+      .step-card h3 { font-size: 1rem !important; }
+      .step-number.w-12 { width: 2.5rem !important; height: 2.5rem !important; font-size: 1rem !important; }
+
+      /* Info cards */
+      .info-card { padding: 1rem !important; }
+
+      /* Section headings */
+      h2.text-3xl { font-size: 1.6rem !important; }
+      h2.glow-text { margin-bottom: 2rem !important; }
+
+      /* Scroll indicator */
+      .scroll-indicator { margin-top: 1rem; }
+
+      /* Footer */
+      footer { padding: 2rem 1rem; }
+    }
+
+    /* ── Tablet — 768-1023px ── */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .grid.lg\:grid-cols-3 { grid-template-columns: repeat(2, 1fr) !important; }
+      .grid.lg\:grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+      #role-modal > div { max-height: 85vh; }
+    }
+
+    /* ── Safe area for notch phones ── */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      footer { padding-bottom: calc(2.5rem + env(safe-area-inset-bottom)); }
+    }
+  </style>
+ </head>
+ <body class="overflow-x-hidden">
+
+  <!-- Sending overlay -->
+  <div id="send-overlay" style="display:none;">
+    <div class="text-center text-white">
+      <div class="spinner mx-auto mb-4"></div>
+      <p class="text-lg font-semibold">שולח תוצאות...</p>
+    </div>
+  </div>
+
+  <div id="app-wrapper" class="w-full min-h-screen overflow-auto">
+
+    <!-- Decorative blobs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-16 right-8  w-80 h-80 rounded-full blur-3xl pulse-glow" style="background:rgba(59,125,216,0.14)"></div>
+      <div class="absolute bottom-32 left-8 w-96 h-96 rounded-full blur-3xl pulse-glow" style="background:rgba(14,165,233,0.10);animation-delay:2s"></div>
+      <div class="absolute top-1/2 right-1/3 w-64 h-64 rounded-full blur-3xl pulse-glow" style="background:rgba(99,102,241,0.08);animation-delay:4s"></div>
+    </div>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 py-16 md:py-20">
+      <div class="max-w-5xl mx-auto text-center relative z-10">
+
+
+        <h1 id="main-title" class="text-4xl md:text-5xl lg:text-7xl font-black mb-6 glow-text leading-tight" style="color:var(--text-dark)">
+          קורס יזמות
+          <span class="block bg-gradient-to-l from-blue-600 via-sky-500 to-cyan-400 bg-clip-text text-transparent"> פרימיום </span>
+        </h1>
+
+        <p id="subtitle" class="text-base md:text-xl lg:text-2xl mb-4 font-semibold" style="color:var(--accent)">מודל אקסלרטור תעשייתי | Demo Day | אסם</p>
+        <p class="text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style="color:var(--text-soft)">
+          תוכנית מעשית המדמה עבודה אמיתית באקסלרטור תעשייתי.<br>
+          מהגדרת בעיה אמיתית ועד הצגת פתרון טכנולוגי מגובש.
+        </p>
+
+        <div class="flex justify-center gap-8 mb-12">
+          <div class="floating" style="animation-delay:0s"><div class="glass-card w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">💡</div></div>
+          <div class="floating" style="animation-delay:0.5s"><div class="glass-card w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">🚀</div></div>
+          <div class="floating" style="animation-delay:1s"><div class="glass-card w-16 h-16 rounded-2xl flex items-center justify-center text-3xl">🎯</div></div>
+        </div>
+
+        <div class="scroll-indicator" style="color:var(--text-soft)">
+          <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          <span class="text-sm">גללו למטה לפרטים</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ ACCELERATOR ═══════════════ -->
+    <section class="relative py-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="glass-card rounded-3xl p-8 md:p-12">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 step-number rounded-2xl flex items-center justify-center text-2xl">⚡</div>
+            <h2 class="text-3xl md:text-4xl font-bold" style="color:var(--text-dark)">מה זה אקסלרטור?</h2>
+          </div>
+          <p class="text-xl leading-relaxed mb-8" style="color:var(--text-mid)">
+            <strong style="color:var(--accent)">אקסלרטור (Accelerator)</strong> הוא מסגרת האצה למיזמים בתחילת דרכם.
+            צוותים עובדים בפרק זמן מוגדר, מתקדמים בשלבים ברורים, מקבלים ליווי מקצועי –
+            ובסיום מציגים את המיזם באירוע Demo Day.
+          </p>
+          <div class="info-card rounded-2xl p-6 text-center">
+            <span class="text-2xl mb-2 block">🌟</span>
+            <p class="font-semibold text-lg" style="color:var(--accent)">כך עובדים היום סטארטאפים אמיתיים.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ HOW WE WORK ═══════════════ -->
+    <section class="relative py-20 px-4">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 glow-text" style="color:var(--text-dark)">איך עובדים בקורס?</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">👥</div><p style="color:var(--text-mid)">הכיתה מתחלקת לצוותים של <strong style="color:var(--accent)">3–4 תלמידים</strong></p></div>
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">🎯</div><p style="color:var(--text-mid)">כל צוות פועל כ<strong style="color:var(--accent)">יחידת מיזם עצמאית</strong></p></div>
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">📌</div><p style="color:var(--text-mid)">לכל חבר צוות יש <strong style="color:var(--accent)">תחום אחריות ברור</strong></p></div>
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">📅</div><p style="color:var(--text-mid)">כל הצוותים מתקדמים לפי <strong style="color:var(--accent)">אותו לוח זמנים</strong></p></div>
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">🎓</div><p style="color:var(--text-mid)">באמצע התהליך מתקיים <strong style="color:var(--accent)">מפגש מנטורינג מקצועי</strong></p></div>
+          <div class="info-card rounded-2xl p-6 text-center"><div class="text-4xl mb-4">🏆</div><p style="color:var(--text-mid)">בסיום – <strong style="color:var(--accent)">הצגה רשמית באסם שדרות</strong></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ STEPS ═══════════════ -->
+    <section class="relative py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-6 glow-text" style="color:var(--text-dark)">שלבי התהליך</h2>
+        <p class="text-center mb-16 max-w-2xl mx-auto" style="color:var(--text-soft)">הדגש הוא על תהליך, עומק חשיבה ואיכות ביצוע – לא על תחרות בין צוותים.</p>
+        <div class="steps-grid">
+          <!-- Steps 1-9 -->
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">1</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">הגדרת בעיה</h3><p style="color:var(--text-soft)">ניסוח בעיה ממוקדת, אמיתית ורלוונטית – לא רעיון באוויר.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">2</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">חקר והעמקה</h3><p style="color:var(--text-soft)">בדיקת פתרונות קיימים, ניתוח קהל יעד, הבנת ההקשר הטכנולוגי והתעשייתי.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">3</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">פיתוח רעיונות</h3><p style="color:var(--text-soft)">סיעור מוחות מובנה ובחינת חלופות באופן שיטתי.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">4</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">בחירת רעיון מוביל</h3><p style="color:var(--text-soft)">בחירה מבוססת קריטריונים: התאמה לבעיה | ערך ייחודי | היתכנות | רלוונטיות למשתמש.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">5</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">מנטורינג תעשייתי</h3><p style="color:var(--text-soft)">הצגת הרעיון בפני אנשי מקצוע מאסם שדרות וקבלת משוב מקצועי.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">6</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">אפיון מוצרי</h3><p style="color:var(--text-soft)">הגדרת אופן הפעולה, חוויית המשתמש, מבנה הפתרון והערך המוסף.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">7</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">הדמיה / מודל רעיוני</h3><p style="color:var(--text-soft)">יצירת המחשה ברורה של הקונספט: מודל פיזי / הדמיה דיגיטלית / תרשים מערכת / אפיון אפליקציה.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">8</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">פוסטר חקר טכנולוגי</h3><p style="color:var(--text-soft)">הצגת התהליך באופן מקצועי: בעיה | חקר | ממצאים | קבלת החלטות | אפיון פתרון | מסקנות.</p></div></div></div>
+          <div class="step-card rounded-2xl p-6"><div class="flex items-start gap-4"><div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">9</div><div><h3 class="text-xl font-bold mb-2" style="color:var(--accent)">פיץ' (Pitch)</h3><p style="color:var(--text-soft)">הצגה מקצועית וממוקדת: הבעיה | ההזדמנות | הפתרון | הערך הייחודי | הכיוון העתידי. כל חבר צוות מציג חלק.</p></div></div></div>
+          <!-- Demo Day -->
+          <div class="demo-day-card rounded-2xl p-6" style="background:linear-gradient(to left,rgba(59,125,216,0.09),rgba(14,165,233,0.06));border:1px solid rgba(59,125,216,0.28)">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold shrink-0 bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg">🏆</div>
+              <div>
+                <h3 class="text-xl font-bold mb-2" style="color:#92400e">Demo Day</h3>
+                <p style="color:var(--text-soft)">אירוע מסכם שבו תציגו את המיזם שלכם בפני נציגי תעשייה באסם שדרות.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ ROLES ═══════════════ -->
+    <section class="relative py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-6 glow-text" style="color:var(--text-dark)">מבנה התפקידים בצוות</h2>
+        <p class="text-center mb-16 max-w-2xl mx-auto" style="color:var(--text-soft)">בחרו בגודל הצוות שלכם וחקרו את התפקידים השונים</p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-3 mb-10 px-2">
+          <button id="team-3-btn" class="toggle-team w-full sm:w-auto px-6 py-3 rounded-xl font-bold border-2 transition-all text-center" style="border-color:var(--accent);background:rgba(59,125,216,0.12);color:var(--accent)" data-team="3">צוות של 3 תלמידים</button>
+          <button id="team-4-btn" class="toggle-team w-full sm:w-auto px-6 py-3 rounded-xl font-bold border-2 transition-all text-center" style="border-color:rgba(59,125,216,0.25);color:var(--text-soft)" data-team="4">צוות של 4 תלמידים</button>
+        </div>
+
+        <!-- Team 3 -->
+        <div id="team-3-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10">
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="project">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">📋</div><h3 class="text-xl font-bold" style="color:var(--accent)">Project &amp; Strategy Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל מיזם ותהליך</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:var(--accent)">אחריות על שלמות התהליך:</p><ul class="list-disc list-inside space-y-1"><li>ניהול התקדמות המיזם</li><li>שמירה על קשר בין בעיה לפתרון</li><li>תיעוד החלטות מרכזיות</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:var(--accent)"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="research">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">🔍</div><h3 class="text-xl font-bold" style="color:#0369a1">Research &amp; Validation Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל חקר ואימות צורך</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:#0369a1">אחריות על הביסוס העובדתי:</p><ul class="list-disc list-inside space-y-1"><li>ריכוז חקר שוק</li><li>הגדרת קהל יעד</li><li>איסוף נתונים אמינים</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:#0369a1"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="product">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">💡</div><h3 class="text-xl font-bold" style="color:#0e7490">Product &amp; Communication Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל מוצר ותקשורת</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:#0e7490">אחריות על הצורה המוצרית:</p><ul class="list-disc list-inside space-y-1"><li>תרגום רעיון למוצר</li><li>הגדרת תכונות מרכזיות</li><li>בניית סקיצה / מודל רעיוני</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:#0e7490"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Team 4 -->
+        <div id="team-4-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 hidden">
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="project">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">📋</div><h3 class="text-xl font-bold" style="color:var(--accent)">Project &amp; Strategy Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל מיזם ותהליך</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:var(--accent)">אחריות מלאה:</p><ul class="list-disc list-inside space-y-1"><li>ניהול התקדמות וקשר בין שלבים</li><li>ניסוח סופי של האתגר</li><li>תיאום בין כל תחומי העבודה</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:var(--accent)"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="research">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">🔍</div><h3 class="text-xl font-bold" style="color:#0369a1">Research &amp; Validation Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל חקר ואימות צורך</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:#0369a1">אחריות מלאה:</p><ul class="list-disc list-inside space-y-1"><li>זיהוי צורך בשיטתיות</li><li>בדיקת פתרונות קיימים</li><li>זיהוי יתרון יחסי ברור</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:#0369a1"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="product">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">🛠️</div><h3 class="text-xl font-bold" style="color:#0e7490">Product Development Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל מוצר ופיתוח קונספט</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:#0e7490">אחריות מלאה:</p><ul class="list-disc list-inside space-y-1"><li>תרגום רעיון למוצר מוגדר</li><li>בניית סקיצה / תרשים זרימה</li><li>בדיקת היתכנות</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:#0e7490"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+          <div class="role-card glass-card rounded-2xl p-6 cursor-pointer" data-role="communication">
+            <div class="flex items-center gap-3 mb-4"><div class="text-3xl">🎤</div><h3 class="text-xl font-bold" style="color:#b45309">Communication &amp; Presentation Lead</h3></div>
+            <p class="text-sm mb-4" style="color:var(--text-soft)">מוביל תקשורת והצגה</p>
+            <div class="text-sm leading-relaxed" style="color:var(--text-soft)"><p class="font-semibold mb-2" style="color:#b45309">אחריות מלאה:</p><ul class="list-disc list-inside space-y-1"><li>בניית מבנה פיץ' ברור</li><li>ארגון הפוסטר בצורה מסודרת</li><li>ניסוח מסרים ברורים</li></ul></div>
+            <button class="expand-role mt-4 text-sm font-semibold inline-flex items-center gap-1" style="color:#b45309"><span>לפרטים נוספים</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Core Principle -->
+        <div class="rounded-2xl p-8 border-2" style="border-color:rgba(202,138,4,0.35);background:linear-gradient(to right,rgba(254,249,195,0.85),rgba(255,237,213,0.85))">
+          <h3 class="text-2xl font-bold mb-4" style="color:#92400e">✨ עקרון יסוד</h3>
+          <p class="mb-3" style="color:#78350f">כל התפקידים שווים בחשיבותם. אין תפקיד "חשוב יותר" — יש תחום אחריות שונה.</p>
+          <p style="color:#92400e">המיזם מצליח רק כאשר: <strong>אסטרטגיה ברורה + חקר מבוסס + מוצר מדויק + תקשורת בהירה</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ ROLE MODAL ═══════════════ -->
+    <div id="role-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div class="rounded-t-3xl sm:rounded-3xl w-full sm:max-w-2xl max-h-[88vh] overflow-y-auto p-6 sm:p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <span id="modal-icon" class="text-4xl">📋</span>
+            <h3 id="modal-title" class="text-xl sm:text-3xl font-bold" style="color:#e2eaf4"></h3>
+          </div>
+          <button id="close-modal" class="text-2xl hover:text-white" style="color:#94a3b8">×</button>
+        </div>
+        <div id="modal-content" class="space-y-6" style="color:#cbd5e1"></div>
+        <button id="close-modal-btn" class="mt-8 w-full py-3 rounded-xl font-semibold transition-all cta-button">סגור</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════ CTA ═══════════════ -->
+    <section class="relative py-24 px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="glass-card rounded-3xl p-10 md:p-16">
+          <div class="text-6xl mb-6">🚀</div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color:var(--text-dark)">מוכנים להתחיל?</h2>
+          <p class="text-xl mb-10" style="color:var(--text-mid)">ענו על שאלון קצר כדי לגלות איזה תפקיד מתאים לכם בצוות המיזם</p>
+          <button id="cta-button" class="cta-button w-full md:w-auto inline-flex items-center justify-center gap-3 text-lg md:text-xl font-bold px-8 py-4 rounded-2xl">
+            <span>לשאלון התאמה לתפקידים</span>
+            <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+          <p class="text-sm mt-6" style="color:var(--text-soft)">השאלון לוקח כ-3 דקות</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ QUIZ ═══════════════ -->
+    <section id="quiz-section" class="relative py-20 px-4 hidden">
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Name form -->
+        <div id="name-form-section" class="glass-card rounded-3xl p-8 mb-8 text-center">
+          <div class="text-5xl mb-4">👤</div>
+          <h2 class="text-2xl font-bold mb-2" style="color:var(--text-dark)">קודם כל – מי את/ה?</h2>
+          <p class="mb-8" style="color:var(--text-soft)">מלא/י שם מלא כדי שהתוצאה תישמר עם הזהות שלך</p>
+          <div class="name-form space-y-4 w-full max-w-sm mx-auto">
+            <input type="text" id="input-first" placeholder="שם פרטי" autocomplete="given-name" />
+            <input type="text" id="input-last"  placeholder="שם משפחה" autocomplete="family-name" />
+            <button id="start-quiz-btn" class="cta-button w-full py-3 rounded-xl font-bold text-lg">
+              התחל/י את השאלון ←
+            </button>
+          </div>
+          <p id="name-error" class="text-red-500 text-sm mt-3 hidden">נא למלא שם פרטי ושם משפחה</p>
+        </div>
+
+        <!-- Mini quiz: role preference -->
+        <div id="mini-quiz-section" class="glass-card rounded-3xl p-8 mb-6 hidden">
+          <div class="text-4xl mb-3 text-center">🎭</div>
+          <h2 class="text-2xl font-bold mb-2 text-center" style="color:var(--text-dark)">איזה תפקידים מעניינים אותך?</h2>
+          <p class="text-center mb-8" style="color:var(--text-soft)">בחר/י <strong style="color:var(--accent)">2 תפקידים</strong> שנראים לך הכי מתאימים</p>
+          <ul class="space-y-3 w-full max-w-md mx-auto" id="role-pref-list">
+            <li>
+              <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
+                <input type="checkbox" value="Project & Strategy Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">📋 <strong style="color:var(--accent)">Project & Strategy Lead</strong> — מוביל מיזם ותהליך</span>
+              </label>
+            </li>
+            <li>
+              <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
+                <input type="checkbox" value="Research & Validation Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">🔍 <strong style="color:#0369a1">Research & Validation Lead</strong> — מוביל חקר ואימות</span>
+              </label>
+            </li>
+            <li>
+              <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
+                <input type="checkbox" value="Product Development Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">💡 <strong style="color:#0e7490">Product Development Lead</strong> — מוביל מוצר</span>
+              </label>
+            </li>
+            <li>
+              <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
+                <input type="checkbox" value="Communication & Presentation Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">🎤 <strong style="color:#b45309">Communication & Presentation Lead</strong> — מוביל תקשורת</span>
+              </label>
+            </li>
+          </ul>
+          <p id="pref-error" class="text-red-500 text-sm text-center mt-4 hidden">נא לבחור בדיוק 2 תפקידים</p>
+          <button id="mini-quiz-next" class="cta-button mt-6 w-full py-3 rounded-xl font-bold text-lg block">
+            המשך לשאלון ←
+          </button>
+        </div>
+
+        <!-- Questions -->
+        <div id="quiz-container" class="space-y-6 hidden"></div>
+
+        <!-- Submit button - shown after all questions answered -->
+        <div id="submit-section" class="hidden mt-6">
+          <p id="submit-error" class="text-red-500 text-sm text-center mb-3 hidden">יש לענות על כל השאלות לפני השליחה</p>
+          <button id="submit-btn" class="cta-button w-full py-4 rounded-2xl font-bold text-lg">
+            שליחה ✓
+          </button>
+        </div>
+
+        <!-- Completion screen - shown after successful submission -->
+        <div id="completion-screen" class="hidden">
+          <div class="glass-card rounded-3xl p-8 md:p-12 text-center">
+            <!-- Progress bar 100% -->
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-8 overflow-hidden">
+              <div class="h-2 rounded-full transition-all duration-1000" style="width:100%;background:linear-gradient(to left,#3b7dd8,#0ea5e9)"></div>
+            </div>
+            <div class="text-5xl mb-6">✅</div>
+            <h2 class="text-2xl font-bold mb-4" style="color:var(--text-dark)">תודה.</h2>
+            <p class="text-lg leading-relaxed max-w-md mx-auto" style="color:var(--text-mid)">
+              התשובות נקלטו בהצלחה.<br>
+              צוותי המיזם ייבנו על בסיס הנתונים שנאספו.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="relative py-10 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <p style="color:var(--text-soft)">© 2026 יזמות פרימיום | תעשיידע</p>
+      </div>
+    </footer>
+
+  </div><!-- /app-wrapper -->
+
+  <script>
+  // ════════════════════════════════════════════════
+  //  ⚙️  CONFIGURATION — עדכן כאן את ה-URL שלך!
+  // ════════════════════════════════════════════════
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+  //   ^ הדבק כאן את ה-URL שתקבל מ-Google Apps Script (ראה הוראות בתחתית)
+
+  // ════════════════════════════════════════════════
+  //  Role Data
+  // ════════════════════════════════════════════════
+  const rolesData = {
+    project: {
+      icon:'📋', title:'Project & Strategy Lead',
+      essence:'אחריות על שלמות התהליך היזמי ועל הקוהרנטיות האסטרטגית של המיזם לכל אורכו.',
+      responsibilities_3:['ניהול התקדמות המיזם בהתאם לשלבי הקורס','שמירה על קשר ברור בין בעיה לפתרון','ניסוח סופי של הגדרת האתגר','תיעוד החלטות מרכזיות','בקרה שוטפת על עמידה ביעדים','סיוע בזיהוי סטיות מהכיוון'],
+      responsibilities_4:['ניהול התקדמות המיזם בהתאם לשלבי הקורס','שמירה על קשר ברור ומנומק בין בעיה לפתרון','ניסוח סופי של הגדרת האתגר','תיעוד החלטות מרכזיות','בקרה שוטפת על עמידה ביעדים','תיאום בין כל תחומי החקר, הפיתוח וההצגה'],
+      professional_duties:['לוודא שכל רעיון נבחן ביחס ישיר לבעיה','לוודא שכל החלטה מתקבלת על בסיס נימוק והיגיון','שאלות עומק: האם זה משרת את המטרה?','שמירה על בהירות אסטרטגית לאורך הדרך','מניעת קפיצות מחשבתיות'],
+      partnership:['כל החלטה מתקבלת לאחר דיון משותף','כל חברי הצוות משתתפים בניסוח הבעיה','מוביל התהליך אינו מחליט לבד','משתתף בפועל בחקר, בפיתוח ובהצגה','תפקידו הוא להוביל את התהליך — לא לשלוט בו']
+    },
+    research: {
+      icon:'🔍', title:'Research & Validation Lead',
+      essence:'אחריות על הביסוס העובדתי של המיזם ועל בדיקת תקפות הצורך.',
+      responsibilities_3:['ריכוז חקר שוק וסקירת פתרונות קיימים','הגדרת קהל יעד ברור ומדויק','בניית פרסונה המייצגת משתמש אמיתי','איסוף נתונים ממקורות אמינים','בדיקת רלוונטיות הפתרון למציאות','דיוק והצלבת נתונים לפני הצגה'],
+      responsibilities_4:['הובלת תהליך זיהוי הצורך בשיטתיות','בדיקת פתרונות קיימים ומתחרים','הגדרת קהל יעד ובניית פרסונה מדויקת','איסוף נתונים ממקורות אמינים','זיהוי יתרון יחסי ברור','דיוק והטמעת נתוני החקר בפוסטר'],
+      professional_duties:['לוודא שהמיזם מבוסס על צורך אמיתי','להוביל השוואה שיטתית בין פתרונות קיימים','לזהות יתרון יחסי ברור','לבדוק האם הבעיה משמעותית לקהל היעד','שאלה עקבית: מה הבסיס העובדתי?'],
+      partnership:['כל חבר צוות מחויב להביא לפחות מקור מידע','כל חבר צוות משתתף בניתוח הממצאים','לא מבצע את החקר לבדו','לא כותב את חלק החקר לבדו','המשימה היא הובלה מקצועית']
+    },
+    product: {
+      icon:'💡', title:'Product & Communication Lead',
+      essence:'אחריות על תרגום הרעיון למבנה מוצרי ברור וקוהרנטי.',
+      responsibilities_3:['ניסוח תיאור ברור ומדויק של המוצר','הגדרת תכונות מרכזיות (Features)','תכנון סקיצה / מבנה אפליקציה','ארגון מבנה הפוסטר','בניית מבנה הפיץ\' וחלוקת תפקידי דיבור','שמירה על קו עיצובי ואחידות מסר'],
+      responsibilities_4:['ניסוח תיאור מדויק של הפתרון','הגדרת תכונות מרכזיות (Features)','בניית סקיצה / תרשים זרימה','בדיקת היתכנות בסיסית','שמירה על התאמה בין בעיה לפתרון','חידוד אופן פעולת המוצר'],
+      professional_duties:['לוודא שהמוצר מובן בתוך 60 שניות','לוודא שהפתרון תואם את הבעיה','שמירה על בהירות ושפה מקצועית','מניעת עומס מידע','המסר המרכזי חד, פשוט וזכיר'],
+      partnership:['כל חבר צוות משתתף בבניית הקונספט','כל חבר צוות כותב חלק בפוסטר','כל חבר צוות מציג חלק','לא מציג לבדו','האחריות היא הובלה ותיאום']
+    },
+    communication: {
+      icon:'🎤', title:'Communication & Presentation Lead',
+      essence:'אחריות על בהירות המסר, מבנה ההצגה וארגון התוצרים הסופיים.',
+      responsibilities_4:['בניית מבנה פיץ\' ברור ולוגי','ארגון מבנה הפוסטר','ניסוח מסרים קצרים ומדויקים','תיאום חלוקת דיבור','בדיקת בהירות מול קהל חיצוני'],
+      professional_duties:['לוודא שהמיזם מובן בתוך דקה','המסר חד ובהיר','שמירה על ניסוח מקצועי','בדיקה: האם אדם שלא היה בתהליך יבין?','ההצגה מייצגת את כל הצוות'],
+      partnership:['כל חבר צוות משתתף בכתיבת הפוסטר','כל חבר צוות מציג חלק','לא מציג לבדו','משתף את הצוות בכל שינוי ניסוח','האחריות היא הובלה ותיאום']
+    }
+  };
+
+  // ════════════════════════════════════════════════
+  //  Quiz Questions
+  // ════════════════════════════════════════════════
+  const quizQuestions = [
+    { q:'כשהצוות תקוע בבעיה, מה אתה עושה?', answers:[
+      {t:'מנהל דיון, שומר על הכיוון',          s:{project:10,research:2,product:2,communication:1}},
+      {t:'מחפש נתונים חדשים, בודק הנחות',       s:{project:2,research:10,product:2,communication:1}},
+      {t:'חושב איך לפתור מעשית, מציע דגם',      s:{project:2,research:2,product:10,communication:1}},
+      {t:'מסביר לכולם מה לעשות בצורה ברורה',   s:{project:1,research:1,product:2,communication:10}}
+    ]},
+    { q:'מה הכישרון הגדול שלך?', answers:[
+      {t:'ארגון ותיעוד, שמירה על הדרך הנכונה', s:{project:10,research:3,product:2,communication:1}},
+      {t:'חיפוש עובדות, ניתוח, בדיקת הנחות',  s:{project:2,research:10,product:2,communication:1}},
+      {t:'בנייה ודמיון, תרגום רעיונות למציאות', s:{project:2,research:2,product:10,communication:1}},
+      {t:'הסברה ברורה, ארגון מסרים, דיבור ציבורי', s:{project:1,research:1,product:2,communication:10}}
+    ]},
+    { q:'איך אתה מתמודד עם קונפליקט בצוות?', answers:[
+      {t:'מחזיר אותנו למטרה המרכזית',          s:{project:10,research:2,product:2,communication:2}},
+      {t:'בודק עובדות כדי לברר למי יש צדק',   s:{project:2,research:10,product:2,communication:1}},
+      {t:'חושב איך הרעיון פועל בפועל',          s:{project:2,research:2,product:10,communication:1}},
+      {t:'מדבר לכל אחד בנפרד, מביא להסכמה',  s:{project:1,research:1,product:1,communication:10}}
+    ]},
+    { q:'איזה חלק בתהליך הכי מעניין אותך?', answers:[
+      {t:'הביטחון שהכל ממוגדר ועל המסילה',    s:{project:10,research:2,product:1,communication:2}},
+      {t:'הבנת הקהל, מציאת הצורך האמיתי',     s:{project:2,research:10,product:2,communication:1}},
+      {t:"לעבור מרעיון ל'משהו שעובד'",         s:{project:2,research:1,product:10,communication:1}},
+      {t:'לספר לאחרים על הרעיון בצורה ברורה', s:{project:1,research:1,product:1,communication:10}}
+    ]},
+    { q:'אם צריך להכין משהו בזמן קצר, מה קודם?', answers:[
+      {t:'עושה תוכנית — מה, באיזה סדר, מי',   s:{project:10,research:2,product:2,communication:1}},
+      {t:'מחפש מה שכבר קיים, בודק מה נעשה',  s:{project:2,research:10,product:1,communication:1}},
+      {t:'מצייר / כותב — מה זה צריך להיראות', s:{project:1,research:1,product:10,communication:1}},
+      {t:'מסביר לכולם — מה הכי חשוב',         s:{project:1,research:1,product:1,communication:10}}
+    ]},
+    { q:'מה משמעות להצליח במיזם?', answers:[
+      {t:'שהמיזם מתעדכן לפי מה שלמדנו',       s:{project:10,research:3,product:2,communication:1}},
+      {t:'שהנתונים מדויקים וממוסדים',          s:{project:2,research:10,product:2,communication:1}},
+      {t:'שהפתרון ממש עובד ורלוונטי לקהל',    s:{project:1,research:2,product:10,communication:1}},
+      {t:'שהמסר בהיר וכולם מבינים אותו',       s:{project:1,research:1,product:1,communication:10}}
+    ]},
+    { q:'בעמדת Demo Day, מה האחריות שלך?', answers:[
+      {t:'שכל השלבים מובנים בצורה ברורה',     s:{project:10,research:2,product:3,communication:3}},
+      {t:'שהתוצאה מבוססת על נתונים אמיתיים',  s:{project:2,research:10,product:2,communication:1}},
+      {t:'שברור איך הפתרון פועל',              s:{project:2,research:2,product:10,communication:2}},
+      {t:'שהמיזם מוצג בצורה מרשימה',          s:{project:1,research:1,product:2,communication:10}}
+    ]},
+    { q:'מי אתה בצוות?', answers:[
+      {t:'המנהל — שומר על כיוון וסדר',         s:{project:10,research:2,product:1,communication:2}},
+      {t:'החוקר — מביא עובדות וממצאים',        s:{project:2,research:10,product:1,communication:1}},
+      {t:'הבנאי — הופך רעיונות למשהו שעובד', s:{project:1,research:1,product:10,communication:1}},
+      {t:'המסביר — מציג ומשכנע אחרים',        s:{project:1,research:1,product:1,communication:10}}
+    ]}
+  ];
+
+  // ════════════════════════════════════════════════
+  //  State
+  // ════════════════════════════════════════════════
+  let studentFirst = '', studentLast = '';
+  let preferredRoles = [];
+  let scores = {project:0, research:0, product:0, communication:0};
+  let answered = 0;
+
+  // ════════════════════════════════════════════════
+  //  Team toggle
+  // ════════════════════════════════════════════════
+  document.querySelectorAll('.toggle-team').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.toggle-team').forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = 'var(--text-soft)';
+        b.style.borderColor = 'rgba(59,125,216,0.25)';
+      });
+      this.style.background = 'rgba(59,125,216,0.12)';
+      this.style.color = 'var(--accent)';
+      this.style.borderColor = 'var(--accent)';
+      document.getElementById('team-3-container').classList.toggle('hidden', this.dataset.team !== '3');
+      document.getElementById('team-4-container').classList.toggle('hidden', this.dataset.team !== '4');
+    });
+  });
+
+  // ════════════════════════════════════════════════
+  //  Role Modal
+  // ════════════════════════════════════════════════
+  document.querySelectorAll('.expand-role').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const card = this.closest('[data-role]');
+      const role = rolesData[card.dataset.role];
+      const isT3 = card.closest('#team-3-container');
+      const resp = isT3 ? (role.responsibilities_3 || role.responsibilities_4) : role.responsibilities_4;
+      document.getElementById('modal-icon').textContent = role.icon;
+      document.getElementById('modal-title').textContent = role.title;
+      document.getElementById('modal-content').innerHTML = `
+        <div><h4 class="text-lg font-bold mb-2" style="color:#e2eaf4">📌 מהות התפקיד</h4><p>${role.essence}</p></div>
+        <div><h4 class="text-lg font-bold mb-3" style="color:#e2eaf4">📋 תחומי אחריות</h4><ul class="space-y-2">${resp.map(r=>`<li class="flex gap-2"><span style="color:#60a5fa">✓</span><span>${r}</span></li>`).join('')}</ul></div>
+        <div><h4 class="text-lg font-bold mb-3" style="color:#e2eaf4">⚡ אחריות מקצועית</h4><ul class="space-y-2">${role.professional_duties.map(d=>`<li class="flex gap-2"><span style="color:#38bdf8">→</span><span>${d}</span></li>`).join('')}</ul></div>
+        <div><h4 class="text-lg font-bold mb-3" style="color:#e2eaf4">🤝 חובת שותפות</h4><ul class="space-y-2">${role.partnership.map(p=>`<li class="flex gap-2"><span style="color:#67e8f9">◆</span><span>${p}</span></li>`).join('')}</ul></div>`;
+      document.getElementById('role-modal').classList.remove('hidden');
+    });
+  });
+  const closeModal = () => document.getElementById('role-modal').classList.add('hidden');
+  document.getElementById('close-modal').addEventListener('click', closeModal);
+  document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+  document.getElementById('role-modal').addEventListener('click', e => { if(e.target === e.currentTarget) closeModal(); });
+
+  // ════════════════════════════════════════════════
+  //  CTA → show quiz
+  // ════════════════════════════════════════════════
+  document.getElementById('cta-button').addEventListener('click', () => {
+    document.getElementById('quiz-section').classList.remove('hidden');
+    setTimeout(() => document.getElementById('quiz-section').scrollIntoView({behavior:'smooth',block:'start'}), 100);
+  });
+
+  // ════════════════════════════════════════════════
+  //  Name form → show mini quiz
+  // ════════════════════════════════════════════════
+  document.getElementById('start-quiz-btn').addEventListener('click', () => {
+    const first = document.getElementById('input-first').value.trim();
+    const last  = document.getElementById('input-last').value.trim();
+    if (!first || !last) {
+      document.getElementById('name-error').classList.remove('hidden');
+      return;
+    }
+    document.getElementById('name-error').classList.add('hidden');
+    studentFirst = first;
+    studentLast  = last;
+    document.getElementById('name-form-section').classList.add('hidden');
+    document.getElementById('mini-quiz-section').classList.remove('hidden');
+  });
+
+  // ════════════════════════════════════════════════
+  //  Mini quiz — max 2 checkboxes
+  // ════════════════════════════════════════════════
+  const cbs = document.querySelectorAll('.role-pref-cb');
+  cbs.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const checked = [...cbs].filter(c => c.checked);
+      // enforce max 2
+      cbs.forEach(c => {
+        if (!c.checked) c.disabled = checked.length >= 2;
+      });
+      // visual feedback
+      document.querySelectorAll('.role-pref-item').forEach(label => {
+        const input = label.querySelector('.role-pref-cb');
+        if (input.disabled && !input.checked) {
+          label.style.opacity = '0.45';
+          label.style.cursor  = 'not-allowed';
+        } else {
+          label.style.opacity = '1';
+          label.style.cursor  = 'pointer';
+        }
+      });
+    });
+  });
+
+  document.getElementById('mini-quiz-next').addEventListener('click', () => {
+    const checked = [...cbs].filter(c => c.checked);
+    if (checked.length !== 2) {
+      document.getElementById('pref-error').classList.remove('hidden');
+      return;
+    }
+    document.getElementById('pref-error').classList.add('hidden');
+    preferredRoles = checked.map(c => c.value);
+    document.getElementById('mini-quiz-section').classList.add('hidden');
+    buildQuiz();
+    document.getElementById('quiz-container').classList.remove('hidden');
+  });
+
+  // ════════════════════════════════════════════════
+  //  Build Quiz
+  // ════════════════════════════════════════════════
+  function buildQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    answered = 0;
+    scores = {project:0,research:0,product:0,communication:0};
+
+    quizQuestions.forEach((q, qi) => {
+      const div = document.createElement('div');
+      div.className = 'glass-card rounded-2xl p-6';
+      div.dataset.answered = 'false';
+      div.innerHTML = `
+        <p class="text-sm font-semibold mb-1" style="color:var(--accent)">שאלה ${qi+1} / ${quizQuestions.length}</p>
+        <p class="text-lg font-bold mb-5" style="color:var(--text-dark)">${q.q}</p>
+        <div class="space-y-3">
+          ${q.answers.map((a,ai)=>`
+            <button class="quiz-answer" data-q="${qi}" data-a="${ai}">${a.t}</button>
+          `).join('')}
+        </div>`;
+      container.appendChild(div);
+    });
+
+    container.querySelectorAll('.quiz-answer').forEach(btn => btn.addEventListener('click', handleAnswer));
+  }
+
+  function handleAnswer(e) {
+    const btn = e.currentTarget;
+    const qi = +btn.dataset.q, ai = +btn.dataset.a;
+    const card = btn.closest('.glass-card');
+
+    // Already answered this question — ignore
+    if (card.dataset.answered === 'true') return;
+    card.dataset.answered = 'true';
+
+    const s = quizQuestions[qi].answers[ai].s;
+    Object.keys(s).forEach(r => scores[r] += s[r]);
+    answered++;
+
+    // Disable all answers in this card
+    card.querySelectorAll('.quiz-answer').forEach(b => {
+      b.disabled = true;
+      b.style.opacity = '0.5';
+    });
+    btn.classList.add('selected');
+    btn.style.opacity = '1';
+
+    // Show submit button after all answered
+    if (answered === quizQuestions.length) {
+      document.getElementById('submit-section').classList.remove('hidden');
+      document.getElementById('submit-error').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('submit-section').scrollIntoView({behavior:'smooth', block:'center'});
+      }, 300);
+    }
+  }
+
+  // ════════════════════════════════════════════════
+  //  Submit button — validate + send + show completion
+  // ════════════════════════════════════════════════
+  let submitted = false;
+
+  document.getElementById('submit-btn').addEventListener('click', async () => {
+    // Prevent double submission
+    if (submitted) return;
+
+    // Validate all questions answered
+    if (answered < quizQuestions.length) {
+      const errEl = document.getElementById('submit-error');
+      errEl.classList.remove('hidden');
+      // Highlight unanswered cards
+      document.querySelectorAll('#quiz-container .glass-card').forEach(card => {
+        if (card.dataset.answered !== 'true') {
+          card.style.borderColor = 'rgba(220,38,38,0.5)';
+          card.style.background  = 'rgba(254,226,226,0.5)';
+          setTimeout(() => {
+            card.style.borderColor = '';
+            card.style.background  = '';
+          }, 2000);
+        }
+      });
+      // Scroll to first unanswered
+      const first = document.querySelector('#quiz-container .glass-card[data-answered="false"]');
+      if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    // Disable submit button immediately
+    submitted = true;
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ שולח...';
+    submitBtn.style.opacity = '0.7';
+
+    // Compute dominant role (for Sheets only — not shown to user)
+    let maxScore = 0, resultRole = '';
+    Object.keys(scores).forEach(r => { if(scores[r] > maxScore){ maxScore = scores[r]; resultRole = r; } });
+
+    // Send to Sheets
+    await sendToSheets(studentFirst, studentLast, resultRole, preferredRoles);
+
+    // Hide all quiz stages
+    document.getElementById('name-form-section').classList.add('hidden');
+    document.getElementById('mini-quiz-section').classList.add('hidden');
+    document.getElementById('quiz-container').classList.add('hidden');
+    document.getElementById('submit-section').classList.add('hidden');
+
+    // Show completion screen
+    document.getElementById('completion-screen').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('completion-screen').scrollIntoView({behavior:'smooth', block:'center'});
+    }, 100);
+  });
+
+  // ════════════════════════════════════════════════
+  //  Send to Google Sheets via Apps Script
+  // ════════════════════════════════════════════════
+  async function sendToSheets(firstName, lastName, role, preferred) {
+    const timestamp = new Date().toLocaleString('he-IL', {timeZone:'Asia/Jerusalem'});
+    const payload = {
+      firstName,
+      lastName,
+      role,
+      preferred1: preferred[0] || '',
+      preferred2: preferred[1] || '',
+      timestamp
+    };
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode:   'no-cors',
+        headers:{ 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch(err) {
+      // Silent fail — data still goes through with no-cors
+      console.error('Send error:', err);
+    }
+  }
+  </script>
+ </body>
 </html>
