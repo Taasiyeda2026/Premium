@@ -892,7 +892,7 @@
       div.className = 'glass-card rounded-2xl p-6';
       div.dataset.answered = 'false';
       div.innerHTML = `
-        <p class="text-sm font-semibold mb-1" style="color:var(--accent)">שאלה ${qi+1} / ${quizQuestions.length}${q.double ? ' &nbsp;⭐ <span style="color:#f59e0b">משקל כפול</span>' : ''}</p>
+        <p class="text-sm font-semibold mb-1" style="color:var(--accent)">שאלה ${qi+1} / ${quizQuestions.length}</p>
         <p class="text-lg font-bold mb-5" style="color:var(--text-dark)">${q.q}</p>
         <div class="space-y-3">
           ${q.answers.map((a,ai)=>`
