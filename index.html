@@ -374,6 +374,10 @@
       <div class="max-w-5xl mx-auto text-center relative z-10">
 
 
+        <div class="flex justify-center mb-8">
+          <img src="logo.png" alt="לוגו" class="h-20 md:h-28 object-contain">
+        </div>
+
         <h1 id="main-title" class="text-4xl md:text-5xl lg:text-7xl font-black mb-6 glow-text leading-tight" style="color:var(--text-dark)">
           קורס יזמות
           <span class="block bg-gradient-to-l from-blue-600 via-sky-500 to-cyan-400 bg-clip-text text-transparent"> פרימיום </span>
@@ -592,26 +596,26 @@
           <ul class="space-y-3 w-full max-w-md mx-auto" id="role-pref-list">
             <li>
               <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
-                <input type="checkbox" value="Project & Strategy Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
-                <span class="text-lg">📋 <strong style="color:var(--accent)">Project & Strategy Lead</strong> — מוביל מיזם ותהליך</span>
+                <input type="checkbox" value="a" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">📋 <strong style="color:var(--accent)">A – Project & Strategy Lead</strong> — מוביל תהליך</span>
               </label>
             </li>
             <li>
               <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
-                <input type="checkbox" value="Research & Validation Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
-                <span class="text-lg">🔍 <strong style="color:#0369a1">Research & Validation Lead</strong> — מוביל חקר ואימות</span>
+                <input type="checkbox" value="b" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">🔍 <strong style="color:#0369a1">B – Research & Validation Lead</strong> — חוקר ומוודא</span>
               </label>
             </li>
             <li>
               <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
-                <input type="checkbox" value="Product Development Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
-                <span class="text-lg">💡 <strong style="color:#0e7490">Product Development Lead</strong> — מוביל מוצר</span>
+                <input type="checkbox" value="c" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">💡 <strong style="color:#0e7490">C – Product Development Lead</strong> — מפתח פתרון</span>
               </label>
             </li>
             <li>
               <label class="role-pref-item flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all" style="background:rgba(255,255,255,0.75);border:1.5px solid rgba(59,125,216,0.18)">
-                <input type="checkbox" value="Communication & Presentation Lead" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
-                <span class="text-lg">🎤 <strong style="color:#b45309">Communication & Presentation Lead</strong> — מוביל תקשורת</span>
+                <input type="checkbox" value="d" class="role-pref-cb w-5 h-5 accent-blue-600 shrink-0">
+                <span class="text-lg">🎤 <strong style="color:#b45309">D – Communication & Presentation Lead</strong> — מסביר ומשכנע</span>
               </label>
             </li>
           </ul>
@@ -708,53 +712,53 @@
   //  Quiz Questions
   // ════════════════════════════════════════════════
   const quizQuestions = [
-    { q:'כשהצוות תקוע בבעיה, מה אתה עושה?', answers:[
-      {t:'מנהל דיון, שומר על הכיוון',          s:{project:10,research:2,product:2,communication:1}},
-      {t:'מחפש נתונים חדשים, בודק הנחות',       s:{project:2,research:10,product:2,communication:1}},
-      {t:'חושב איך לפתור מעשית, מציע דגם',      s:{project:2,research:2,product:10,communication:1}},
-      {t:'מסביר לכולם מה לעשות בצורה ברורה',   s:{project:1,research:1,product:2,communication:10}}
+    { q:'כשמשהו נתקע – מה האינסטינקט הראשון שלך?', double:false, answers:[
+      {t:'לארגן את הדברים ולהחזיר סדר',                   role:'a'},
+      {t:'לבדוק מה בדיוק לא עובד',                        role:'b'},
+      {t:'לחשוב על פתרון אחר או רעיון חדש',               role:'c'},
+      {t:'להסביר לאחרים מה כדאי לעשות עכשיו',             role:'d'}
     ]},
-    { q:'מה הכישרון הגדול שלך?', answers:[
-      {t:'ארגון ותיעוד, שמירה על הדרך הנכונה', s:{project:10,research:3,product:2,communication:1}},
-      {t:'חיפוש עובדות, ניתוח, בדיקת הנחות',  s:{project:2,research:10,product:2,communication:1}},
-      {t:'בנייה ודמיון, תרגום רעיונות למציאות', s:{project:2,research:2,product:10,communication:1}},
-      {t:'הסברה ברורה, ארגון מסרים, דיבור ציבורי', s:{project:1,research:1,product:2,communication:10}}
+    { q:'מה נותן לך סיפוק אמיתי?', double:false, answers:[
+      {t:'לראות שדברים מתקדמים בזכותי',                   role:'a'},
+      {t:'להבין לעומק איך משהו עובד',                     role:'b'},
+      {t:'ליצור משהו חדש שלא היה קודם',                   role:'c'},
+      {t:'להעביר רעיון בצורה ברורה לאחרים',               role:'d'}
     ]},
-    { q:'איך אתה מתמודד עם קונפליקט בצוות?', answers:[
-      {t:'מחזיר אותנו למטרה המרכזית',          s:{project:10,research:2,product:2,communication:2}},
-      {t:'בודק עובדות כדי לברר למי יש צדק',   s:{project:2,research:10,product:2,communication:1}},
-      {t:'חושב איך הרעיון פועל בפועל',          s:{project:2,research:2,product:10,communication:1}},
-      {t:'מדבר לכל אחד בנפרד, מביא להסכמה',  s:{project:1,research:1,product:1,communication:10}}
+    { q:'כשאתה מקבל רעיון חדש – מה אתה עושה קודם?', double:false, answers:[
+      {t:'בונה לו תוכנית מסודרת',                         role:'a'},
+      {t:'שואל אם זה באמת הגיוני וישים',                  role:'b'},
+      {t:'מוסיף לו שדרוג או טוויסט',                      role:'c'},
+      {t:'מדמיין איך נציג אותו',                          role:'d'}
     ]},
-    { q:'איזה חלק בתהליך הכי מעניין אותך?', answers:[
-      {t:'הביטחון שהכל ממוגדר ועל המסילה',    s:{project:10,research:2,product:1,communication:2}},
-      {t:'הבנת הקהל, מציאת הצורך האמיתי',     s:{project:2,research:10,product:2,communication:1}},
-      {t:"לעבור מרעיון ל'משהו שעובד'",         s:{project:2,research:1,product:10,communication:1}},
-      {t:'לספר לאחרים על הרעיון בצורה ברורה', s:{project:1,research:1,product:1,communication:10}}
+    { q:'איזה סוג משימה מושך אותך יותר?', double:true, answers:[
+      {t:'להוביל תהליך ולהזיז דברים',                     role:'a'},
+      {t:'לחקור, לבדוק ולהבין לעומק',                     role:'b'},
+      {t:'לבנות/לעצב/לפתח משהו',                          role:'c'},
+      {t:'להציג ולשכנע אנשים',                             role:'d'}
     ]},
-    { q:'אם צריך להכין משהו בזמן קצר, מה קודם?', answers:[
-      {t:'עושה תוכנית — מה, באיזה סדר, מי',   s:{project:10,research:2,product:2,communication:1}},
-      {t:'מחפש מה שכבר קיים, בודק מה נעשה',  s:{project:2,research:10,product:1,communication:1}},
-      {t:'מצייר / כותב — מה זה צריך להיראות', s:{project:1,research:1,product:10,communication:1}},
-      {t:'מסביר לכולם — מה הכי חשוב',         s:{project:1,research:1,product:1,communication:10}}
+    { q:'כשאתה עובד על משהו חשוב – מה חשוב לך במיוחד?', double:false, answers:[
+      {t:'שהכול יהיה ברור ומסודר',                        role:'a'},
+      {t:'שהבסיס יהיה אמיתי ומדויק',                      role:'b'},
+      {t:'שהפתרון יהיה יצירתי ושונה',                     role:'c'},
+      {t:'שאנשים יבינו ויתחברו לזה',                      role:'d'}
     ]},
-    { q:'מה משמעות להצליח במיזם?', answers:[
-      {t:'שהמיזם מתעדכן לפי מה שלמדנו',       s:{project:10,research:3,product:2,communication:1}},
-      {t:'שהנתונים מדויקים וממוסדים',          s:{project:2,research:10,product:2,communication:1}},
-      {t:'שהפתרון ממש עובד ורלוונטי לקהל',    s:{project:1,research:2,product:10,communication:1}},
-      {t:'שהמסר בהיר וכולם מבינים אותו',       s:{project:1,research:1,product:1,communication:10}}
+    { q:'מה לדעתך גורם לרעיון להצליח?', double:false, answers:[
+      {t:'שיש מי שמוביל ודואג שכולם מתקדמים',             role:'a'},
+      {t:'שהוא מבוסס על צורך אמיתי',                      role:'b'},
+      {t:'שהמוצר באמת עובד',                              role:'c'},
+      {t:'שהוא מוסבר בצורה משכנעת',                       role:'d'}
     ]},
-    { q:'בעמדת Demo Day, מה האחריות שלך?', answers:[
-      {t:'שכל השלבים מובנים בצורה ברורה',     s:{project:10,research:2,product:3,communication:3}},
-      {t:'שהתוצאה מבוססת על נתונים אמיתיים',  s:{project:2,research:10,product:2,communication:1}},
-      {t:'שברור איך הפתרון פועל',              s:{project:2,research:2,product:10,communication:2}},
-      {t:'שהמיזם מוצג בצורה מרשימה',          s:{project:1,research:1,product:2,communication:10}}
+    { q:'ביום ההצגה – מה יהיה לך הכי חשוב?', double:false, answers:[
+      {t:'שהכול ייראה מקצועי ומאורגן',                    role:'a'},
+      {t:'שהרעיון יהיה מבוסס היטב',                       role:'b'},
+      {t:'שיראו שהפתרון עובד',                            role:'c'},
+      {t:'שהקהל יבין ויתלהב',                             role:'d'}
     ]},
-    { q:'מי אתה בצוות?', answers:[
-      {t:'המנהל — שומר על כיוון וסדר',         s:{project:10,research:2,product:1,communication:2}},
-      {t:'החוקר — מביא עובדות וממצאים',        s:{project:2,research:10,product:1,communication:1}},
-      {t:'הבנאי — הופך רעיונות למשהו שעובד', s:{project:1,research:1,product:10,communication:1}},
-      {t:'המסביר — מציג ומשכנע אחרים',        s:{project:1,research:1,product:1,communication:10}}
+    { q:'איזה תפקיד מרגיש לך הכי טבעי?', double:true, answers:[
+      {t:'להוביל ולתכנן',                                  role:'a'},
+      {t:'לבדוק ולוודא',                                   role:'b'},
+      {t:'לפתח ולבנות',                                    role:'c'},
+      {t:'להציג ולשכנע',                                   role:'d'}
     ]}
   ];
 
@@ -763,7 +767,8 @@
   // ════════════════════════════════════════════════
   let studentFirst = '', studentLast = '';
   let preferredRoles = [];
-  let scores = {project:0, research:0, product:0, communication:0};
+  let scores = {a:0, b:0, c:0, d:0};
+  let chosenRoles = [];
   let answered = 0;
 
   // ════════════════════════════════════════════════
@@ -879,14 +884,15 @@
     const container = document.getElementById('quiz-container');
     container.innerHTML = '';
     answered = 0;
-    scores = {project:0,research:0,product:0,communication:0};
+    scores = {a:0, b:0, c:0, d:0};
+    chosenRoles = [];
 
     quizQuestions.forEach((q, qi) => {
       const div = document.createElement('div');
       div.className = 'glass-card rounded-2xl p-6';
       div.dataset.answered = 'false';
       div.innerHTML = `
-        <p class="text-sm font-semibold mb-1" style="color:var(--accent)">שאלה ${qi+1} / ${quizQuestions.length}</p>
+        <p class="text-sm font-semibold mb-1" style="color:var(--accent)">שאלה ${qi+1} / ${quizQuestions.length}${q.double ? ' &nbsp;⭐ <span style="color:#f59e0b">משקל כפול</span>' : ''}</p>
         <p class="text-lg font-bold mb-5" style="color:var(--text-dark)">${q.q}</p>
         <div class="space-y-3">
           ${q.answers.map((a,ai)=>`
@@ -908,8 +914,11 @@
     if (card.dataset.answered === 'true') return;
     card.dataset.answered = 'true';
 
-    const s = quizQuestions[qi].answers[ai].s;
-    Object.keys(s).forEach(r => scores[r] += s[r]);
+    const q = quizQuestions[qi];
+    const role = q.answers[ai].role;
+    const pts = q.double ? 2 : 1;
+    scores[role] += pts;
+    chosenRoles[qi] = role;
     answered++;
 
     // Disable all answers in this card
@@ -967,12 +976,60 @@
     submitBtn.textContent = '⏳ שולח...';
     submitBtn.style.opacity = '0.7';
 
-    // Compute dominant role (for Sheets only — not shown to user)
-    let maxScore = 0, resultRole = '';
-    Object.keys(scores).forEach(r => { if(scores[r] > maxScore){ maxScore = scores[r]; resultRole = r; } });
+    // ── Step 2: preferred bonus (+1 each) ──
+    preferredRoles.forEach(r => { scores[r] += 1; });
 
-    // Send to Sheets
-    await sendToSheets(studentFirst, studentLast, resultRole, preferredRoles);
+    // ── Role name map ──
+    const roleNames = {
+      a: 'A – Project & Strategy Lead',
+      b: 'B – Research & Validation Lead',
+      c: 'C – Product Development Lead',
+      d: 'D – Communication & Presentation Lead'
+    };
+
+    // ── Tiebreak helper ──
+    function breakTie(candidates) {
+      if (candidates.length === 1) return candidates[0];
+      // Rule 1: double-weight questions (indices 3 and 7)
+      const dScores = {};
+      candidates.forEach(r => dScores[r] = 0);
+      [3, 7].forEach(qi => { if (chosenRoles[qi] && dScores[chosenRoles[qi]] !== undefined) dScores[chosenRoles[qi]]++; });
+      const maxD = Math.max(...candidates.map(r => dScores[r]));
+      const after1 = candidates.filter(r => dScores[r] === maxD);
+      if (after1.length === 1) return after1[0];
+      // Rule 2: preferred role
+      const inPref = after1.filter(r => preferredRoles.includes(r));
+      const pool = inPref.length > 0 ? inPref : after1;
+      // Rule 3: Q1 answer
+      if (pool.includes(chosenRoles[0])) return chosenRoles[0];
+      return pool[0];
+    }
+
+    // ── Steps 3–4: sort & tiebreak ──
+    let sorted = Object.entries(scores).sort((x, y) => y[1] - x[1]);
+    const maxScore = sorted[0][1];
+    const tiedFirst = sorted.filter(e => e[1] === maxScore).map(e => e[0]);
+    const top1key = breakTie(tiedFirst);
+
+    const rem2 = sorted.filter(e => e[0] !== top1key);
+    const max2 = rem2[0][1];
+    const tiedSecond = rem2.filter(e => e[1] === max2).map(e => e[0]);
+    const top2key = breakTie(tiedSecond);
+
+    const top3key = rem2.filter(e => e[0] !== top2key)[0][0];
+
+    // ── Step 5: gap & preference match ──
+    const gap = scores[top1key] - scores[top2key];
+    const gapLabel = gap >= 3 ? 'מובהק' : gap >= 1 ? 'בינוני' : 'גמיש מאוד';
+    const prefInTop = [top1key, top2key].filter(r => preferredRoles.includes(r)).length;
+    const prefMatch = prefInTop === 2 ? 'כן' : prefInTop === 1 ? 'חלקי' : 'לא';
+
+    // ── Send to Sheets ──
+    await sendToSheets(studentFirst, studentLast, {
+      top1: roleNames[top1key], top2: roleNames[top2key], top3: roleNames[top3key],
+      scoreA: scores.a, scoreB: scores.b, scoreC: scores.c, scoreD: scores.d,
+      gap, gapLabel, prefMatch
+    }, preferredRoles.map(r => roleNames[r] || r));
 
     // Hide all quiz stages
     document.getElementById('name-form-section').classList.add('hidden');
@@ -990,12 +1047,21 @@
   // ════════════════════════════════════════════════
   //  Send to Google Sheets via Apps Script
   // ════════════════════════════════════════════════
-  async function sendToSheets(firstName, lastName, role, preferred) {
+  async function sendToSheets(firstName, lastName, result, preferred) {
     const timestamp = new Date().toLocaleString('he-IL', {timeZone:'Asia/Jerusalem'});
     const payload = {
       firstName,
       lastName,
-      role,
+      top1:     result.top1,
+      top2:     result.top2,
+      top3:     result.top3,
+      scoreA:   result.scoreA,
+      scoreB:   result.scoreB,
+      scoreC:   result.scoreC,
+      scoreD:   result.scoreD,
+      gap:      result.gap,
+      gapLabel: result.gapLabel,
+      prefMatch: result.prefMatch,
       preferred1: preferred[0] || '',
       preferred2: preferred[1] || '',
       timestamp
@@ -1008,7 +1074,6 @@
         body: JSON.stringify(payload)
       });
     } catch(err) {
-      // Silent fail — data still goes through with no-cors
       console.error('Send error:', err);
     }
   }
