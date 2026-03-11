@@ -1,35 +1,144 @@
 <!doctype html>
 <html lang="he" dir="rtl" class="h-full">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>השלבים הבאים – פורצות דרך</title>
+  <title>השלבים הבאים</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/main/icon/favicon.png">
   <link rel="apple-touch-icon" href="/main/icon/favicon.png">
-  <meta name="theme-color" content="#ec4899">
+  <meta name="theme-color" content="#0ea5e9">
+
   <style>
-    * { font-family: 'Rubik', sans-serif; box-sizing: border-box; }
-    body { margin: 0; background: #faf5ff; min-height: 100vh; }
-    .gradient-text {
-      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    * {
+      font-family: 'Rubik', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 22%),
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 26%),
+        radial-gradient(circle at bottom center, rgba(14, 165, 233, 0.10), transparent 30%),
+        linear-gradient(180deg, #03111f 0%, #071a2d 45%, #0a223c 100%);
+      color: #eaf6ff;
+      overflow: hidden;
+    }
+
+    .glow-text {
+      background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 35%, #38bdf8 65%, #60a5fa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow:
+        0 0 18px rgba(56, 189, 248, 0.28),
+        0 0 38px rgba(59, 130, 246, 0.18);
+    }
+
+    .glass-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(12, 25, 45, 0.82), rgba(8, 19, 36, 0.88));
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.06) inset,
+        0 20px 60px rgba(2, 8, 23, 0.55),
+        0 0 35px rgba(14, 165, 233, 0.10);
+      backdrop-filter: blur(14px);
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 35%, transparent 65%, rgba(56,189,248,0.06));
+      pointer-events: none;
+    }
+
+    .glow-button {
+      background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 55%, #38bdf8 100%);
+      box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.35),
+        0 0 24px rgba(56, 189, 248, 0.26);
+    }
+
+    .glow-button:hover {
+      box-shadow:
+        0 16px 34px rgba(37, 99, 235, 0.42),
+        0 0 30px rgba(56, 189, 248, 0.32);
+    }
+
+    .icons-glow {
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.28))
+              drop-shadow(0 0 18px rgba(59, 130, 246, 0.22));
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(20px);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .orb-1 {
+      width: 220px;
+      height: 220px;
+      top: 8%;
+      right: 8%;
+      background: rgba(14, 165, 233, 0.18);
+    }
+
+    .orb-2 {
+      width: 180px;
+      height: 180px;
+      bottom: 10%;
+      left: 10%;
+      background: rgba(59, 130, 246, 0.18);
+    }
+
+    .orb-3 {
+      width: 140px;
+      height: 140px;
+      top: 58%;
+      right: 18%;
+      background: rgba(125, 211, 252, 0.14);
     }
   </style>
- </head>
- <body>
-  <div class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-    <div class="text-6xl mb-8 tracking-widest">🔧⚙️💻🛠️🚀📐</div>
-    <h1 class="text-4xl font-extrabold gradient-text mb-4">בקרוב כאן</h1>
-    <p class="text-xl text-gray-600 max-w-md leading-relaxed mb-10">העמוד הזה עוד נבנה — וזה בדיוק העניין.<br>גם המוצר שלכם התחיל ממשהו קטן.</p>
-    <a href="/main/idea/idea-to-product.html" class="inline-block text-white text-lg font-bold px-8 py-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
-      חזרה ←
-    </a>
+</head>
+
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="min-h-screen flex flex-col items-center justify-center p-6 text-center relative">
+    <div class="glass-card w-full max-w-2xl rounded-[32px] px-8 py-12 md:px-12 md:py-14">
+      <div class="text-6xl md:text-7xl mb-8 tracking-[0.25em] icons-glow">🔧⚙️💻🛠️🚀📐</div>
+
+      <h1 class="text-4xl md:text-6xl font-extrabold glow-text mb-5">
+        בקרוב כאן
+      </h1>
+
+      <p class="text-lg md:text-2xl text-sky-100/85 max-w-xl mx-auto leading-relaxed mb-10">
+        העמוד הזה עוד נבנה — וזה בדיוק העניין.
+        <br>
+        גם המוצר שלכם התחיל ממשהו קטן.
+      </p>
+
+      <a
+        href="index.html"
+        class="glow-button inline-flex items-center justify-center gap-2 text-white text-lg md:text-xl font-extrabold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 active:scale-95"
+      >
+        חזרה
+        <span>←</span>
+      </a>
+    </div>
   </div>
- </body>
+</body>
 </html>
