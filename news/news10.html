@@ -4,23 +4,88 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>מבקר באתר הייצור נפצע לאחר שנפל לבור לא מסומן</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;margin:0;color:#1a1a1a;line-height:1.8}
-    .wrap{max-width:980px;margin:24px auto;background:#fff;padding:24px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    h1{margin:0 0 10px;font-size:2rem}.sub{font-size:1.15rem;color:#444;margin-bottom:14px}
-    .meta{font-size:.95rem;color:#666;border-bottom:2px solid #c40000;padding-bottom:12px;margin-bottom:18px}
-    h2{margin:22px 0 8px;color:#111}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:28px}
-    .btn{background:#b00000;color:#fff;text-decoration:none;padding:10px 14px;border-radius:8px;font-weight:700}
+    :root {
+      --primary: #8e2f57;
+      --secondary: #f1dce6;
+      --hero-bg: #6c2344;
+      --ink: #1f1f1f;
+      --muted: #5c636e;
+      --paper: #ffffff;
+      --line: #d8dde4;
+      --shadow: 0 24px 58px rgba(13, 22, 36, .12);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Heebo", Arial, sans-serif; background: #eef2f6; color: var(--ink); line-height: 1.9; }
+    .top-strip { background: linear-gradient(90deg, var(--hero-bg), var(--primary)); color: #fff; text-align: center; padding: 8px 12px; font-weight: 700; font-size: .9rem; letter-spacing: .03em; }
+    .site-shell { max-width: 1080px; margin: 0 auto; padding: 18px 14px 36px; }
+    .site-logo-wrap { text-align: center; margin-bottom: 12px; }
+    .site-logo { max-width: 165px; width: 100%; height: auto; }
+    .article-shell { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+    .masthead { padding: 20px 18px; border-bottom: 1px solid var(--line); background: #f8fafc; text-align: center; }
+    .paper-title { margin: 0; font-family: "Frank Ruhl Libre", serif; font-size: clamp(2.2rem, 5vw, 3.8rem); }
+    .paper-subtitle { margin-top: 6px; color: var(--muted); font-size: .9rem; letter-spacing: .08em; }
+    .article-wrap { padding: 24px 22px 26px; }
+    .article-hero { background: linear-gradient(160deg, var(--hero-bg) 0%, #1f2d3a 100%); color: #fff; border-radius: 14px; padding: 20px 18px; margin-bottom: 20px; }
+    .kicker-row { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; display: flex; gap: 8px; align-items: center; color: #dce7f7; }
+    .kicker-row .sep { opacity: .6; }
+    .headline { margin: 8px 0 10px; font-family: "Frank Ruhl Libre", serif; font-size: clamp(1.9rem, 3.7vw, 3rem); line-height: 1.25; }
+    .subheadline { margin: 0 0 12px; color: #ebf1fa; font-size: clamp(1rem, 1.8vw, 1.25rem); }
+    .byline { border-top: 1px solid rgba(255,255,255,.35); padding-top: 10px; color: #d6dfea; font-size: .92rem; }
+    .hero-image-wrap { margin: 18px 0 0; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.07); padding: 8px; border-radius: 10px; }
+    .hero-image { width: 100%; height: clamp(180px, 32vw, 320px); object-fit: cover; border-radius: 8px; display: block; }
+    figcaption { font-size: .78rem; margin-top: 6px; color: #d5dce8; }
+    .side-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; align-items: stretch; }
+    .side-hero .hero-visual .hero-image-wrap { margin: 0; height: 100%; }
+    .side-hero .hero-image { height: 100%; min-height: 220px; }
+    .image-card { background: var(--secondary); border: 2px solid color-mix(in srgb, var(--primary) 42%, white); border-radius: 14px; padding: 10px; margin: 0 0 20px; }
+    .image-card .hero-image-wrap { margin: 0; border-color: color-mix(in srgb, var(--primary) 28%, white); background: #fff; }
+    .inline-image, .between-image { margin: 22px 0; }
+    .between-image .hero-image-wrap { margin-top: 0; border-color: color-mix(in srgb, var(--primary) 24%, white); background: var(--secondary); }
+    .article-content { font-size: 1.05rem; }
+    .article-content h2 { font-family: "Frank Ruhl Libre", serif; font-size: 1.55rem; margin: 26px 0 10px; border-right: 4px solid var(--primary); padding-right: 10px; }
+    .article-content p { margin: 0 0 14px; text-align: justify; }
+    .article-content p:first-of-type::first-letter { float: right; font-family: "Frank Ruhl Libre", serif; font-size: 4.5rem; line-height: 3.4rem; padding-left: .5rem; color: var(--primary); font-weight: 900; }
+    .article-content .quote-box, .article-content .info-box, .article-content .highlight-box { background: var(--secondary); border: 1px solid color-mix(in srgb, var(--primary) 26%, white); border-radius: 10px; padding: 14px 16px; margin: 20px 0; }
+    .article-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; border-top: 1px solid var(--line); padding-top: 18px; }
+    .action-link { text-decoration: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; transition: .2s; }
+    .action-link.back { background: #f2f4f8; color: #1d2530; border: 1px solid #cad2dd; }
+    .action-link.questions { background: var(--primary); color: #fff; border: 1px solid transparent; min-width: 170px; text-align: center; }
+    .action-link:hover { transform: translateY(-1px); }
+    .bottom-center { text-align: center; margin-top: 8px; }
+    .site-footer { text-align: center; padding: 14px; background: #13171c; color: #cdd5df; font-size: .9rem; margin-top: 12px; }
+    @media (max-width: 840px) {
+      .side-hero { grid-template-columns: 1fr; }
+      .side-hero .hero-image { min-height: 200px; }
+      .article-wrap { padding: 20px 16px 22px; }
+    }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>מבקר באתר הייצור נפצע לאחר שנפל לבור לא מסומן</h1>
-    <p class="sub">נציג של חברה שותפה שהגיע לסיור מקצועי במתחם ייצור חדש נפצע ברגלו לאחר שנפל לאזור עבודות תשתית; הבדיקה מתמקדת כעת בשאלת האחריות על סימון, גידור וליווי מבקרים בשטח פעיל.</p>
-    <div class="meta">מאת: דסק פרימיום | 11 במרץ 2026 | זמן קריאה: 4 דקות</div>
-
-    <p>מבקר באתר ייצור חדש של חברת תעשייה גדולה נפצע לאחר שנפל לבור עבודות שלא סומן כראוי במהלך סיור מקצועי במתחם. לפי פרטים ראשוניים, מדובר בנציג של חברה שותפה שהגיע למקום במסגרת פגישת עבודה וסיור שטח, ובמהלך המעבר בין אזורי האתר מעד ונפל אל תוך אזור תשתית פתוח בעומק של כמה עשרות סנטימטרים. המבקר פונה לקבלת טיפול רפואי עם חבלה ברגלו, והאירוע הוביל לפתיחת בדיקה פנימית ולמעורבות של גורמי בטיחות חיצוניים.</p>
+  <div class="top-strip">עדכון חדשותי מתמשך | מערכת פרימיום</div>
+  <main class="site-shell">
+    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="לוגו פרימיום" /></div>
+    <article class="article-shell">
+      <header class="masthead">
+        <h2 class="paper-title">פרימיום</h2>
+        <div class="paper-subtitle">מהדורת חדשות | סיקור עכשווי ומבוקר</div>
+      </header>
+      <section class="article-wrap">
+        <header class="article-hero">
+          <div class="kicker-row"><span>חדשות פרימיום</span><span class="sep">•</span><span>עדכון מערכת</span></div>
+          <h1 class="headline">מבקר באתר הייצור נפצע לאחר שנפל לבור לא מסומן</h1>
+          <p class="subheadline">נציג של חברה שותפה שהגיע לסיור מקצועי במתחם ייצור חדש נפצע ברגלו לאחר שנפל לאזור עבודות תשתית; הבדיקה מתמקדת כעת בשאלת האחריות על סימון, גידור וליווי מבקרים בשטח פעיל.</p>
+          <div class="byline">מאת: דסק פרימיום | 11 במרץ 2026 | זמן קריאה: 4 דקות</div>
+          
+        </header>
+<div class="image-card"><figure class="hero-image-wrap ">
+            <img class="hero-image" src="../images/background.png" alt="תמונת אילוסטרציה לכתבה" loading="lazy" />
+            <figcaption>צילום אילוסטרציה | מערכת פרימיום</figcaption>
+          </figure></div>
+        <section class="article-content"><p>מבקר באתר ייצור חדש של חברת תעשייה גדולה נפצע לאחר שנפל לבור עבודות שלא סומן כראוי במהלך סיור מקצועי במתחם. לפי פרטים ראשוניים, מדובר בנציג של חברה שותפה שהגיע למקום במסגרת פגישת עבודה וסיור שטח, ובמהלך המעבר בין אזורי האתר מעד ונפל אל תוך אזור תשתית פתוח בעומק של כמה עשרות סנטימטרים. המבקר פונה לקבלת טיפול רפואי עם חבלה ברגלו, והאירוע הוביל לפתיחת בדיקה פנימית ולמעורבות של גורמי בטיחות חיצוניים.</p>
     <p>לפי גורמים המעורים בפרטים, האירוע התרחש בשטח שבו בוצעו באותם ימים עבודות תשתית על ידי קבלן משנה, כחלק מהשלמות אחרונות לקראת הרחבת קו הייצור. במהלך העבודות הוסר מעקה בטיחות זמני שהוצב במקום קודם לכן, אך בשלב מסוים לא הוחזר למקומו ולא הוצב תחתיו גידור חלופי מספק. בנוסף, לפי אחת הגרסאות הנבדקות, באזור לא היה שילוט בולט דיו ולא נעשה שימוש באמצעי סימון זוהרים שיכלו להבליט את הסכנה עבור מי שאינו מכיר את תנאי השטח.</p>
     <p>באתר עצמו עובדים באותה עת כמה גורמים במקביל: צוותי ייצור, אחזקה, לוגיסטיקה, קבלני ביצוע, נציגי חברות חיצוניות ואורחים המגיעים לפגישות או לסיורים. גורמים בענף מציינים כי דווקא במתחמים מסוג זה, שבהם חלק מן האזורים פעילים וחלקם עדיין בתהליכי עבודה, קיימת חשיבות מיוחדת להגדרה ברורה של אזורים מותרים למעבר, לאופן הליווי של מבקרים ולשמירה קפדנית על הפרדה בין מסלול בטוח לבין שטחי עבודה מסוכנים.</p>
 
@@ -42,12 +107,16 @@
     <h2>תגובת החברה והמשך הבדיקה</h2>
     <p>מהחברה נמסר כי עם קרות האירוע הופסק מיידית הסיור, הוזעקו אנשי רפואה ובטיחות, והאזור נסגר לכניסה עד להשלמת בדיקה מלאה. עוד נמסר כי החברה פועלת בשיתוף פעולה עם כלל הגורמים הרלוונטיים, ובוחנת מחדש את הנהלים הקשורים לעבודות קבלן, ליווי מבקרים, סימון אזורים מסוכנים ובקרת גידור במתחם פעיל.</p>
     <p>בחברה ציינו כי במקביל לבדיקה, ניתנה הנחיה לבצע סריקה מיידית של כלל אזורי העבודה באתר, לרענן את הוראות הליווי למבקרים ולוודא שכל שטח המצוי בעבודה מסומן, מגודר ומופרד באופן שאינו מאפשר מעבר מקרי. גורמים בענף העריכו כי המקרה צפוי להוביל לרענון נהלים מחמיר, במיוחד בכל הנוגע לניהול "בטיחות צד ג׳" — כלומר האחריות לשלומם של אורחים, ספקים, קבלנים ונציגים חיצוניים שאינם חלק מן הכוח הקבוע באתר.</p>
-    <p>נכון לעכשיו, הבדיקה עדיין נמשכת, ובשלב זה טרם פורסמו כלל הממצאים בנוגע לרצף הכשלים שהוביל לאירוע או לחלוקת האחריות המלאה בין הנהלת האתר, הקבלן המבצע והגורמים שליוו את הסיור. בחברה הדגישו כי תוצאות מלאות יפורסמו לאחר השלמת איסוף העדויות, בדיקת התיעוד וסיכום כלל הנתונים מן השטח.</p>
-
-    <div class="actions">
-      <a class="btn" href="allnews.html">חזרה לעמוד הכתבות</a>
-      <a class="btn" href="newswork.html">לדף השאלות</a>
-    </div>
+    <p>נכון לעכשיו, הבדיקה עדיין נמשכת, ובשלב זה טרם פורסמו כלל הממצאים בנוגע לרצף הכשלים שהוביל לאירוע או לחלוקת האחריות המלאה בין הנהלת האתר, הקבלן המבצע והגורמים שליוו את הסיור. בחברה הדגישו כי תוצאות מלאות יפורסמו לאחר השלמת איסוף העדויות, בדיקת התיעוד וסיכום כלל הנתונים מן השטח.</p></section>
+        <div class="article-actions">
+          <a class="action-link back" href="allnews.html">← חזרה ל־allnews.html</a>
+        </div>
+        <div class="bottom-center">
+          <a class="action-link questions" href="newswork.html">לדף השאלות → newswork.html</a>
+        </div>
+      </section>
+      <footer class="site-footer">© פרימיום | תעשיידע</footer>
+    </article>
   </main>
 </body>
 </html>
