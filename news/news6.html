@@ -4,244 +4,120 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>גלידות הוסרו מהמדפים – חשד לכשל חמור בייצור ובאחסון</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #eef3f9;
-      --card: #ffffff;
-      --text: #12243a;
-      --muted: #5f6f84;
-      --accent: #c1121f;
-      --accent-dark: #7f0d15;
-      --line: #d8e1ee;
-      --soft: #f5f8fd;
+      --page-bg: #f4efe7;
+      --paper: #fbf8f2;
+      --paper-2: #f6f1e8;
+      --text: #1f1f1f;
+      --muted: #5e5a54;
+      --line: #d9d1c4;
+      --line-dark: #1f1f1f;
+      --accent: #2a2a2a;
+      --accent-soft: #efe1d2;
+      --footer-bg: #1a1a1a;
+      --footer-text: #c8c8c8;
+      --secondary-accent: #c96a12;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: "Assistant", "Heebo", Arial, sans-serif;
+      font-family: "Heebo", Arial, sans-serif;
       background:
-        radial-gradient(circle at 94% -14%, rgba(193,18,31,.18), transparent 30%),
-        radial-gradient(circle at 8% 20%, rgba(9,87,178,.10), transparent 28%),
-        var(--bg);
+        radial-gradient(circle at top right, rgba(139, 0, 0, 0.07), transparent 24%),
+        radial-gradient(circle at top left, rgba(0, 0, 0, 0.04), transparent 20%),
+        var(--page-bg);
       color: var(--text);
-      line-height: 1.85;
+      line-height: 1.95;
+      zoom: 0.6;
     }
-    .top-strip {
-      background: linear-gradient(90deg, #a40f1a, #cf1624 42%, #a40f1a);
-      color: #fff;
-      padding: 7px 12px;
-      font-weight: 700;
-      font-size: .88rem;
-      letter-spacing: .25px;
-      border-bottom: 3px solid #7f0d15;
-      box-shadow: 0 8px 18px rgba(108, 12, 20, .3);
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      align-items: center;
-    }
-    .top-strip .dot { width: 8px; height: 8px; background: #ffd149; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 209, 73, .22); }
-    .container { max-width: 980px; margin: 0 auto; padding: 16px 14px 34px; }
-    .article-shell {
-      background: var(--card);
-      border: 1px solid #d9e3ef;
-      border-radius: 26px;
-      overflow: hidden;
-      box-shadow: 0 30px 70px rgba(16, 34, 58, .17);
-    }
-    .hero {
-      position: relative;
-      min-height: 180px;
-      background: linear-gradient(130deg, #111e32 0%, #1f3350 62%, #2f4c74 100%);
-      color: #fff;
-      padding: 22px 20px 16px;
-      isolation: isolate;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(4,11,23,.16), rgba(4,11,23,.76));
-      z-index: -1;
-    }
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255,255,255,.13);
-      border: 1px solid rgba(255,255,255,.36);
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: .83rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: .3px;
-      text-transform: uppercase;
-    }
-    h1 { margin: 0; font-size: clamp(1.55rem, 2.8vw, 2.35rem); line-height: 1.25; text-wrap: balance; }
-    .lead {
-      margin-top: 12px;
-      font-size: clamp(0.96rem, 1.15vw, 1.1rem);
-      color: #eef3fb;
-      max-width: 82ch;
-      font-weight: 500;
-    }
-    .meta-row {
-      margin-top: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: .8rem;
-      color: #dfe7f3;
-    }
-    .meta-chip {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.26);
-      border-radius: 999px;
-      padding: 4px 10px;
-    }
-    .hero-image-wrap {
-      margin: -10px 20px 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 3px solid #fff;
-      box-shadow: 0 14px 26px rgba(15,35,62,.2);
-      position: relative;
-      z-index: 3;
-      background: #e8edf6;
-    }
-    .hero-image { width: 100%; height: min(38vw, 320px); object-fit: cover; display: block; }
-    .content {
-      display: grid;
-      grid-template-columns: minmax(0,1fr) 260px;
-      gap: 16px;
-      padding: 20px 18px 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7fafe 100%);
-    }
-    .article-body { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; box-shadow: 0 8px 16px rgba(17,34,60,.06); }
-    .article-body p { margin: 0 0 12px; font-size: 0.97rem; }
-    .article-body h2 {
-      margin: 20px 0 8px;
-      font-size: 1.06rem;
-      line-height: 1.35;
-      border-right: 5px solid var(--accent);
-      padding: 3px 9px 3px 0;
-      background: linear-gradient(90deg, rgba(193,18,31,.12), transparent 70%);
-      border-radius: 8px;
-    }
-    .sidebar { display: grid; gap: 10px; align-content: start; }
-    .news-box {
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px 10px;
-      box-shadow: inset 0 1px 0 #fff;
-    }
-    .news-box h3 { margin: 0 0 6px; font-size: .88rem; color: var(--accent-dark); }
-    .news-box p { margin: 0; font-size: .84rem; color: #384c66; line-height: 1.5; }
-    .highlight {
-      background: linear-gradient(110deg, #fff3f5, #ffe6ea);
-      border: 1px solid #ffcfd6;
-      border-right: 5px solid var(--accent);
-      border-radius: 12px;
-      padding: 11px 12px;
-      margin: 16px 0 8px;
-      color: #4a1920;
-      font-weight: 700;
-      box-shadow: 0 8px 16px rgba(193,18,31,.1);
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 8px;
-      color: var(--accent-dark);
-      text-decoration: none;
-      border: 1px solid #d7aab0;
-      background: #fff;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: .84rem;
-      transition: .2s ease;
-    }
-    .back-link:hover { transform: translateY(-1px); box-shadow: 0 8px 14px rgba(127,13,21,.16); background: #fff6f7; }
-    .question-link-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 16px;
-    }
-    .question-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #1b3150;
-      background: #f2f6fc;
-      border: 1px solid #cbd8ea;
-      border-radius: 999px;
-      padding: 7px 14px;
-      font-size: .88rem;
-      font-weight: 700;
-      transition: .2s ease;
-    }
-    .question-link:hover {
-      background: #e7eef9;
-      border-color: #b8cae1;
-      transform: translateY(-1px);
-    }
-    footer {
-      text-align:center;
-      color:#50647d;
-      margin-top:14px;
-      font-size:.84rem;
-      padding: 12px 10px 0;
-      border-top: 1px solid #d7e0ec;
-    }
-    @media (max-width: 930px) {
-      .content { grid-template-columns: 1fr; }
-      .sidebar { grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
-    }
-    @media (max-width: 680px) {
-      .hero { padding: 20px 14px 16px; }
-      .hero-image-wrap { margin: -6px 10px 0; }
-      .content { padding: 16px 10px 14px; }
-      .article-body { padding: 16px 12px; }
-      .article-body p { font-size: 0.95rem; }
-      h1 { font-size: clamp(1.35rem, 7vw, 1.8rem); }
-      .lead { font-size: .93rem; }
-    }
-</style>
+    .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;letter-spacing:.2px;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
+    .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
+    .site-shell {max-width:1160px;margin:0 auto;padding:18px 16px 36px;}
+    .site-logo-wrap {display:flex;justify-content:center;margin-bottom:14px;}
+    .site-logo {max-width:160px;width:100%;height:auto;display:block;}
+    .article-shell {background: var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(38,31,22,.14);}
+    .masthead {background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);border-top:3px solid var(--line-dark);border-bottom:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.05);padding:22px 20px 16px;}
+    .masthead-row {display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
+    .paper-title-wrap {text-align:center;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:14px 10px;}
+    .paper-title {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:900;color:var(--line-dark);line-height:1;letter-spacing:-.03em;}
+    .paper-subtitle {margin-top:8px;font-size:.88rem;color:var(--muted);letter-spacing:.12em;}
+    .article-wrap {padding:26px 22px 24px;}
+    .kicker-row {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+    .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
+    .intro-grid{display:block;}
+    .intro-top{display:block;}
+    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;color:var(--line-dark);max-width:980px;}
+    .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;font-weight:400;max-width:860px;}
+    .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
+    .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
+    .hero-image-wrap {margin:22px 0 24px;border:1px solid var(--line);background:#ece7de;padding:8px;}
+    .hero-image {width:100%;height:min(26vw,220px);object-fit:cover;display:block;filter:saturate(.92) contrast(1.03);}
+    .image-caption {margin-top:8px;font-size:.83rem;color:var(--muted);text-align:center;font-weight:500;}
+    .article-content {column-count:2;column-gap:40px;column-rule:1px solid #d8d1c7;font-size:1.08rem;color:#26231f;text-align:justify;}
+    .article-content > * {break-inside: avoid;-webkit-column-break-inside: avoid;page-break-inside: avoid;}
+    .article-content p {margin:0 0 16px;}
+    .article-content .lead-paragraph::first-letter {float:right;font-family:"Frank Ruhl Libre",serif;font-size:5.2rem;line-height:3.8rem;padding-left:.65rem;padding-top:.25rem;font-weight:900;color:var(--accent);}
+    .section-title {margin:24px 0 12px;font-family:"Frank Ruhl Libre",serif;font-size:1.65rem;font-weight:700;color:var(--line-dark);line-height:1.3;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+    .quote-box {margin:20px 0;padding:16px 18px;background:#f0e6d9;border-right:4px solid var(--accent);position:relative;font-family:"Frank Ruhl Libre",serif;font-size:1.22rem;line-height:1.7;color:#2d2824;}
+    .quote-box::before {content:'"';position:absolute;right:-2px;top:-14px;font-size:4.2rem;color:rgba(139,0,0,.18);line-height:1;font-family:"Frank Ruhl Libre",serif;}
+    .info-box {margin:20px 0;padding:16px 18px;border:1px solid #2a2a2a;background:#faf6f1;}
+    .info-box h3 {margin:0 0 10px;font-family:"Frank Ruhl Libre",serif;font-size:1.15rem;color:#c96a12;}
+    .info-box ul {margin:0;padding:0 18px 0 0;} .info-box li {margin-bottom:8px;}
+    .highlight-box {margin:22px 0;padding:18px;background:#202020;color:#f2ebe2;font-size:1.02rem;font-weight:500;border:1px solid #c96a12;}
+    .conclusion-box {margin-top:22px;padding-top:18px;border-top:2px solid var(--line-dark);font-weight:500;}
+    .article-actions {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);}
+    .action-link {display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:112px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.78rem;line-height:1;transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;border:1px solid transparent;position:relative;top:0;box-shadow:0 3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.08);}
+    .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border-color:#c8bbb1;}
+    .action-link.back:hover {background:linear-gradient(180deg,#fffefe 0%,#efe7e1 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(40,40,40,.2),0 8px 14px rgba(40,40,40,.14);}
+    .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border-color:#bfd0e3;}
+    .action-link.questions:hover {background:linear-gradient(180deg,#f8fbff 0%,#dbe7f6 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,55,93,.18),0 8px 14px rgba(31,55,93,.14);}
+    .action-link:active {transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18),0 3px 6px rgba(0,0,0,.08);}
+    .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
+
+    .hero-image-wrap{max-width:86%;margin:18px auto 22px;border-color:#b8b0a4;background:#e6ded2;} .section-title{border-bottom-color:var(--secondary-accent);} .byline-separator{background:var(--secondary-accent);} 
+
+    @media (max-width: 900px) { body{zoom:1;} .site-shell{max-width:100%;padding:14px 12px 24px;} .article-content{column-count:1;column-gap:0;column-rule:none;font-size:1rem;} .byline{justify-content:center;} .intro-top{display:block !important;} .hero-image{height:210px;} .hero-image-wrap{max-width:100%;margin:18px 0 22px;} }
+    @media (max-width:640px) { body{zoom:1;} .site-shell{padding:10px 10px 22px;} .masthead{padding:18px 14px 14px;} .article-wrap{padding:18px 14px 18px;} .headline{font-size:1.72rem;line-height:1.3;} .subheadline{font-size:.98rem;line-height:1.75;} .action-link{min-width:104px;padding:6px 10px;font-size:.75rem;} }
+  </style>
 </head>
 <body>
   <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
-  <main class="container">
+  <main class="site-shell">
+    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="פרימיום תעשיידע" /></div>
     <article class="article-shell">
-      <header class="hero">
-        <div class="kicker">כתבה 6</div>
-        <h1>גלידות הוסרו מהמדפים – חשד לכשל חמור בייצור ובאחסון</h1>
-        <p class="lead">עשרות נקודות מכירה קיבלו הנחיה לעצור שיווק מיידי של מוצרי גלידה בעקבות דיווחים על תחלואה, תלונות צרכנים וממצאים ראשוניים.</p>
-        <div class="meta-row">
-          <span class="meta-chip">חדשות צרכנות ובטיחות</span>
-          <span class="meta-chip">דסק פרימיום</span>
-          <span class="meta-chip">קריאה: 4 דקות</span>
-        </div>
+      <header class="masthead">
+        <div class="masthead-row"><span>יום רביעי, 11 במרץ 2026</span><span>גיליון 006</span></div>
+        <div class="paper-title-wrap"><h1 class="paper-title">חדשות היום</h1><div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div></div>
       </header>
-      <div class="hero-image-wrap">
-        <img class="hero-image" src="../images/news6.png" alt="תמונה לכתבה 6" />
-      </div>
-      <section class="content">
-        <div class="article-body">
-          <p>רשתות שיווק, מינימרקטים, קיוסקים ומספר מוסדות ציבוריים ברחבי הארץ החלו להסיר בימים האחרונים ממדפי ההקפאה מוצרי גלידה של מותג מוכר, לאחר שהצטברו דיווחים על תחלואה, תלונות צרכנים וממצאים ראשוניים שהעלו חשד לליקויים בתנאי הייצור, האחסון או ההפצה. בניגוד למוצר מדף יבש, מוצר קפוא תלוי מאוד בשמירה רציפה על תנאים מדויקים. לכן, כל שינוי קטן בדרך – במפעל, במחסן, במשאית או במקפיא בנקודת המכירה – עשוי להשפיע על איכותו, יציבותו ובמקרים מסוימים גם על בטיחותו.</p>
-          <h2>מה קרה בפועל</h2>
+      <section class="article-wrap">
+        <div class="kicker-row"><span class="kicker-main">כתבה 6</span><span class="kicker-sep">|</span><span class="kicker-sub">חדשות צרכנות ובטיחות</span></div>
+        <h2 class="headline">גלידות הוסרו מהמדפים – חשד לכשל חמור בייצור ובאחסון</h2>
+        <p class="subheadline">עשרות נקודות מכירה קיבלו הנחיה לעצור שיווק מיידי של מוצרי גלידה בעקבות דיווחים על תחלואה, תלונות צרכנים וממצאים ראשוניים.</p>
+        <div class="byline"><span><strong>מאת:</strong> דסק פרימיום</span><span class="byline-separator"></span><span>11 במרץ 2026</span><span class="byline-separator"></span><span>זמן קריאה: 4 דקות</span></div>
+
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="../images/news6.png" alt="תמונה לכתבה 6" />
+          <div class="image-caption">תמונה לכתבה 6</div>
+        </div>
+        <div class="article-content">
+          <p class="lead-paragraph">רשתות שיווק, מינימרקטים, קיוסקים ומספר מוסדות ציבוריים ברחבי הארץ החלו להסיר בימים האחרונים ממדפי ההקפאה מוצרי גלידה של מותג מוכר, לאחר שהצטברו דיווחים על תחלואה, תלונות צרכנים וממצאים ראשוניים שהעלו חשד לליקויים בתנאי הייצור, האחסון או ההפצה. בניגוד למוצר מדף יבש, מוצר קפוא תלוי מאוד בשמירה רציפה על תנאים מדויקים. לכן, כל שינוי קטן בדרך – במפעל, במחסן, במשאית או במקפיא בנקודת המכירה – עשוי להשפיע על איכותו, יציבותו ובמקרים מסוימים גם על בטיחותו.</p>
+          <h3 class="section-title">מה קרה בפועל</h3>
           <p>לפי גורמים המעורים בפרטים, מדובר במהלך נרחב יחסית הכולל מספר טעמים, גדלים ואצוות ייצור, לאחר שבחברה ובמערכת הבריאות החלו לבדוק קשר אפשרי בין צריכת המוצרים לבין סדרת מקרים רפואיים שדווחו בשבועות האחרונים. חלק מהדיווחים כללו תסמינים חריפים במערכת העיכול, חום גבוה, חולשה כללית ובמקרים מסוימים גם צורך באשפוז. כאשר תחלואה, תלונות צרכנים וממצאים ראשוניים מופיעים יחד, קשה לראות בכך מקריות בלבד. גם אם טרם הוכח קשר מלא, ההצטברות עצמה מייצרת תמונה שמחייבת תגובה מהירה.</p>
           <p>בשלב זה טרם פורסמה קביעה סופית באשר למקור הבעיה, אך גורמים מקצועיים אמרו כי אחת האפשרויות הנבדקות היא תקלה שהתפתחה באחת מחוליות השרשרת – משלב הייצור ועד שלב ההגעה למקפיאים בנקודות המכירה. זהו היבט חשוב מאוד בלמידה על בטיחות מזון: הבעיה אינה חייבת להתחיל דווקא בפס הייצור. לעיתים מוצר יוצא תקין מן המפעל, אך נפגע בהמשך עקב הובלה לא מתאימה, פתיחה תכופה של מקפיאים, כשלי סימון, או טיפול לקוי בנקודת המכירה.</p>
-          <h2>למה זה משמעותי לציבור</h2>
+          <h3 class="section-title">למה זה משמעותי לציבור</h3>
           <p>במוצר כמו גלידה, שליטה בטמפרטורה אינה רק עניין של איכות החוויה לצרכן אלא חלק מהותי מן הבטיחות. מוצר שעבר הפשרה חלקית והוקפא מחדש עלול לשנות מרקם, לאבד יציבות, ובחלק מהמקרים גם לאפשר תנאים נוחים יותר להתפתחות בעיות מיקרוביולוגיות או לפגיעה בשלמות המוצר. לכן, שרשרת הקירור נתפסת בענף המזון כמערכת אחת רציפה: אם חוליה אחת נשברת, כל המערכת נפגעת.</p>
           <p>בימים האחרונים הגיעו למוקדי השירות של רשתות המזון והחברה עצמה תלונות מצד צרכנים שתיארו ריח חריג, שינוי במרקם, המסה מהירה מהרגיל ולעיתים גם טעם לא אופייני במוצר. הסימנים האלה חשובים במיוחד, מפני שהם אינם מצביעים בהכרח על סוג התקלה, אבל כן מאותתים שהמוצר אינו יציב ואינו תואם את מה שהצרכן מצפה לקבל.</p>
-          <h2>התמונה הרחבה מאחורי האירוע</h2>
+          <h3 class="section-title">התמונה הרחבה מאחורי האירוע</h3>
           <p>צרכנית מאזור המרכז סיפרה כי לאחר פתיחת האריזה הרגישה מיד שמשהו אינו רגיל. לדבריה, לא היה מדובר רק בטעם, אלא גם במרקם שונה, כאילו המוצר עבר שינוי בדרך. בהמשך, שני בני משפחתה לא הרגישו טוב. עדויות כאלה אינן מהוות הוכחה מדעית, אך הן חלק מן התמונה הכוללת: הן מספקות סימנים מהשטח, מעוררות בדיקה, ולעיתים מסייעות לזהות דפוס שחוזר ביותר ממקרה אחד.</p>
-          <h2>מבט מקצועי: אחריות ובקרה</h2>
+          <h3 class="section-title">מבט מקצועי: אחריות ובקרה</h3>
           <p>גם עובדים בנקודות מכירה שונות דיווחו על מוצרים שהגיעו עם קרטונים לחים מבחוץ, אריזות שנראו כאילו עברו שינוי טמפרטורה, ובחלק מהמקרים גם סימון לא ברור של תאריכי ייצור או תוקף. הפרטים הללו משמעותיים מאוד. קרטון לח, אריזה שעברה הקפאה והפשרה, או סימון שאינו ברור – כל אלה עשויים להצביע על פגיעה בשליטה בתהליך. הם גם מעלים שאלות לגבי יכולת המעקב של היצרן והמשווק: האם ניתן לזהות בדיוק מאיזו אצווה הגיע כל מוצר, היכן עבר, ומה קרה לו בדרך.</p>
           <p>ברשתות מזון גדולות נהוג לעקוב אחרי נתוני שינוע, זמני קבלה, טמפרטורות אחסון ותיעוד החזרת מוצרים. כאשר מתעורר חשד לבעיה, המסמכים האלה הופכים לפתע לכלי קריטי. הם אמורים לאפשר לשחזר את המסלול שעשה המוצר, להבין האם מדובר בתקלה חד-פעמית, ולבדוק אם נקודות מכירה שונות קיבלו סחורה מאותו מקור ובאותם תנאים. אם התיעוד חסר או לא מדויק, קשה הרבה יותר להבין בזמן מה בדיוק השתבש.</p>
           <p>גורמים בענף הסבירו כי אצל מוצרי מזון קפואים כל חריגה קטנה יכולה להיות משמעותית. אם יש בעיה בטמפרטורה, בהובלה או בסימון, לעיתים קשה לזהות אותה בזמן – וכשזה מתגלה, זה כבר מאוחר מדי. לכן, בשוק המזון הקפוא נדרשת משמעת תפעולית גבוהה במיוחד לאורך כל המסלול.</p>
@@ -256,29 +132,20 @@
           <p>בכמה רשתות כבר נתלו הודעות ללקוחות, ובמוקדי השירות נפתח נוהל מיוחד לפניות ולהחזרות. צרכנים שקנו את המוצרים התבקשו שלא לצרוך אותם עד להבהרות נוספות. עבור נקודות המכירה עצמן, אירוע כזה יוצר עומס נוסף: טיפול בפניות, הוצאת מלאי, מיון מוצרים, תיעוד החזרות ומתן מענה ללקוחות מודאגים. לכן, הבעיה אינה נשארת רק בידי היצרן, אלא מתפזרת לאורך כל שרשרת השיווק והשירות.</p>
           <p>נכון לעכשיו, עדיין לא ברור אם מקור הבעיה הוא בקו ייצור מסוים, בתנאי אחסון, בשלב ההובלה או בשילוב של כמה גורמים יחד. גם היקף המוצרים המדויק שעשוי להיות מושפע עדיין נמצא בבדיקה. במערכת הבריאות הדגישו כי יימסרו ממצאים מסודרים רק לאחר השלמת החקירה והצלבת כלל הנתונים. עד אז, בענף כולו עוקבים בדריכות אחר ההתפתחויות – לא רק בשל השפעתן על החברה עצמה, אלא גם משום שמדובר במקרה מבחן משמעותי לשאלות של בקרת איכות, בטיחות מזון ויכולת תגובה בזמן אמת.</p>
           <p>מאחורי מוצר שנראה פשוט על המדף – גלידה באריזת משפחה – מסתתרת מערכת מורכבת של ייצור, סימון, הובלה, אחסון ופיקוח. כשאחת החוליות בה נחלשת, ההשלכות יכולות להגיע הרבה מעבר למקפיא שבסופר. דווקא בגלל שמדובר במוצר יומיומי ומוכר, האירוע הזה מדגיש עד כמה קל לשכוח שמאחורי כל מוצר עומדת מערכת שלמה שחייבת לפעול בדיוק, בעקביות ובאחריות. עבור תלמידים, זו הזדמנות טובה לקרוא כתבה שלא מספקת תשובה אחת ברורה, אלא דורשת מהם לאסוף פרטים, להשוות בין סימנים, ולשאול היכן באמת מתחילה הבעיה – במוצר, בתהליך, בפיקוח, או בקשר ביניהם.</p>
-          <div class="highlight">לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.</div>
-          <a class="back-link" href="allnews.html">← חזרה לעמוד הכתבות</a>
-        </div>
-        <aside class="sidebar">
-          <div class="news-box">
+          <div class="highlight-box">לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.</div>
+          <div class="info-box">
             <h3>על מה הכתבה מדגישה?</h3>
-            <p>הכתבה מציגה את האירוע, מנתחת את נקודת הכשל ומחדדת את המשמעות לציבור ולמערכות הבקרה.</p>
+            <ul>
+              <li><strong>על מה הכתבה מדגישה?:</strong> הכתבה מציגה את האירוע, מנתחת את נקודת הכשל ומחדדת את המשמעות לציבור ולמערכות הבקרה.</li>
+              <li><strong>למה זה חשוב לקוראים?:</strong> האירוע ממחיש כיצד פרטי תהליך, סימון או בקרת איכות משפיעים על בטיחות, אמון ואחריות.</li>
+              <li><strong>שורה תחתונה:</strong> ניהול איכות מקצועי מחייב תגובה מהירה, שקיפות לציבור ובדיקה מעמיקה לפני חזרה לשגרה.</li>
+            </ul>
           </div>
-          <div class="news-box">
-            <h3>למה זה חשוב לקוראים?</h3>
-            <p>האירוע ממחיש כיצד פרטי תהליך, סימון או בקרת איכות משפיעים על בטיחות, אמון ואחריות.</p>
-          </div>
-          <div class="news-box">
-            <h3>שורה תחתונה</h3>
-            <p>ניהול איכות מקצועי מחייב תגובה מהירה, שקיפות לציבור ובדיקה מעמיקה לפני חזרה לשגרה.</p>
-          </div>
-        </aside>
+        </div>
+        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a></div>
       </section>
+      <footer class="site-footer">© פרימיום | תעשיידע</footer>
     </article>
-    <div class="question-link-wrap">
-      <a class="question-link" href="newswork.html">לדף השאלות</a>
-    </div>
-    <footer>© פרימיום | תעשיידע</footer>
   </main>
 </body>
 </html>
