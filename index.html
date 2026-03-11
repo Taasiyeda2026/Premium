@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>עמוד כתבות ראשי</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(196,0,0,0.10), transparent 22%),
+        radial-gradient(circle at top left, rgba(0,0,0,0.04), transparent 18%),
+        linear-gradient(180deg, #f8f8f8 0%, #eeeeee 100%);
+      color: #111;
+      line-height: 1.6;
+    }
+
+    .top-bar {
+      background: linear-gradient(90deg, #8f0000 0%, #c40000 45%, #8f0000 100%);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(139, 0, 0, 0.28);
+    }
+
+    header {
+      background: rgba(255,255,255,0.94);
+      border-bottom: 4px solid #c40000;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      backdrop-filter: blur(4px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 18px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-logo {
+      display: block;
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 12px;
+    }
+
+    .logo {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 900;
+      color: #111;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,250,250,0.96) 100%);
+      border-radius: 18px;
+      padding: 30px 26px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.10);
+      margin-bottom: 28px;
+      border-top: 6px solid #c40000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(196,0,0,0.07), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 12px;
+      color: #111;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #444;
+      max-width: 850px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+      color: #111;
+      border-right: 6px solid #c40000;
+      padding-right: 12px;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+      border-radius: 18px;
+      padding: 20px;
+      min-height: 180px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.09);
+      border: 1px solid #ececec;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle, rgba(196,0,0,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.14);
+      border-color: #dfc7c7;
+    }
+
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(180deg, #fdeaea 0%, #f8d6d6 100%);
+      color: #a40000;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 10px rgba(164, 0, 0, 0.08);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      border: 1px solid #e7e7e7;
+      background: #ececec;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+    }
+
+    .article-card h2 {
+      font-size: 1.18rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      color: #111;
+    }
+
+    .article-card p {
+      font-size: 0.97rem;
+      color: #555;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .article-btn {
+      display: inline-block;
+      align-self: flex-start;
+      text-align: center;
+      text-decoration: none;
+      background: linear-gradient(180deg, #d10000 0%, #a40000 100%);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 16px rgba(164, 0, 0, 0.22);
+    }
+
+    .article-btn:hover {
+      background: linear-gradient(180deg, #b70000 0%, #8f0000 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(164, 0, 0, 0.28);
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 30px 20px 40px;
+      font-size: 0.95rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        font-size: 0.86rem;
+        padding: 8px 12px;
+      }
+
+      .header-inner {
+        padding: 18px 14px 16px;
+      }
+
+      .site-logo {
+        max-width: 130px;
+        margin-bottom: 10px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      .subtitle {
+        font-size: 0.92rem;
+      }
+
+      main {
+        margin: 20px auto;
+        padding: 0 12px 28px;
+      }
+
+      .hero {
+        padding: 18px 14px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: 1.35rem;
+        line-height: 1.35;
+      }
+
+      .hero p {
+        font-size: 0.96rem;
+        line-height: 1.7;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+        padding-right: 10px;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .article-card {
+        padding: 14px;
+        border-radius: 14px;
+        min-height: auto;
+      }
+
+      .article-image {
+        height: 170px;
+        margin-bottom: 12px;
+      }
+
+      .article-card h2 {
+        font-size: 1.02rem;
+        margin-bottom: 8px;
+      }
+
+      .article-card p {
+        font-size: 0.92rem;
+        margin-bottom: 14px;
+      }
+
+      .article-btn {
+        width: 100%;
+        align-self: stretch;
+        padding: 10px 12px;
+        font-size: 0.92rem;
+      }
+
+      footer {
+        padding: 24px 16px 32px;
+        font-size: 0.88rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo {
+        font-size: 1.55rem;
+      }
+
+      .hero h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero p {
+        font-size: 0.92rem;
+      }
+
+      .article-image {
+        height: 150px;
+      }
+    }
+
+      .article-card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">מהדורה מיוחדת | עמוד כתבות ראשי</div>
+
+  <header>
+    <div class="header-inner">
+      <img class="site-logo" src="images/logo.png" alt="לוגו תעשיידע" />
+      <div class="logo">חדשות היום</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>ברוכים הבאים לעמוד הכתבות</h1>
+      <p>
+        לפניכם כתבות שונות בנושא איכות ובטיחות. לחצו על אחת מהכתבות כדי לעבור לעמוד המתאים, לקרוא את הכתבה שנבחרה ולהמשיך במשימה.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">לבחירה</h2>
+      <div class="articles-grid">
+        <article class="article-card">
+          <span class="tag">כתבה 1</span>
+          <img class="article-image" src="images/article1.jpg" alt="ריקול למוצר ניקוי בעקבות ליקוי" />
+          <h2>ריקול למוצר ניקוי בעקבות ליקוי</h2>
+          <p>תיאור קצר של הכתבה, שייתן תחושה של אתר חדשות אמיתי ויעזור להבין על מה מדובר.</p>
+          <a class="article-btn" href="article1.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 2</span>
+          <img class="article-image" src="images/article2.jpg" alt="איסוף יזום לשני מוצרי מזון" />
+          <h2>איסוף יזום לשני מוצרי מזון</h2>
+          <p>תיאור קצר נוסף. אפשר לכתוב כאן תקציר בן שורה או שתיים לכל כתבה.</p>
+          <a class="article-btn" href="article2.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 3</span>
+          <img class="article-image" src="images/article3.jpg" alt="ריקול רחב בעקבות חשד לסלמונלה" />
+          <h2>ריקול רחב בעקבות חשד לסלמונלה</h2>
+          <p>כאן ניתן להוסיף פתיח חדשותי קצר שימשוך את הקוראים לבחור בכתבה.</p>
+          <a class="article-btn" href="article3.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 4</span>
+          <img class="article-image" src="images/article4.jpg" alt="פציעה במתחם חבלים ובדיקת בטיחות" />
+          <h2>פציעה במתחם חבלים ובדיקת בטיחות</h2>
+          <p>מקום לתיאור קצר וממוקד, בסגנון ידיעה חדשותית או פתיח עיתונאי.</p>
+          <a class="article-btn" href="article4.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 5</span>
+          <img class="article-image" src="images/article5.jpg" alt="תאונה במעבדה העלתה שאלות בטיחות" />
+          <h2>תאונה במעבדה העלתה שאלות בטיחות</h2>
+          <p>כפתור זה יוביל לכתבה החמישית. אפשר להחליף את הטקסט בהתאם לנושא.</p>
+          <a class="article-btn" href="article5.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 6</span>
+          <img class="article-image" src="images/article6.jpg" alt="גלידות הוסרו מחשש לכשל בייצור" />
+          <h2>גלידות הוסרו מחשש לכשל בייצור</h2>
+          <p>גם כאן אפשר לנסח תיאור קצר שייתן תחושת אמינות ומבנה של פורטל חדשות.</p>
+          <a class="article-btn" href="article6.html">לקריאת הכתבה</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; פרימיום | תעשיידע
+  </footer>
+</body>
+</html>
