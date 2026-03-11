@@ -415,8 +415,20 @@
       }
 
       .section {
-        break-inside: avoid;
+        break-inside: auto;
         box-shadow: none;
+      }
+
+      .section-head,
+      .section-body,
+      .q {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      @page {
+        size: A4;
+        margin: 12mm;
       }
     }
   </style>
@@ -476,6 +488,7 @@
                 </select>
               </div>
             </div>
+
           </div>
         </section>
 
