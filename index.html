@@ -119,7 +119,7 @@
 
     .articles-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
 
@@ -220,6 +220,18 @@
       padding: 30px 20px 40px;
       font-size: 0.95rem;
       text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        zoom: 75%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 768px) {
@@ -341,7 +353,7 @@
 
   <header>
     <div class="header-inner">
-      <img class="site-logo" src="images/logo.png" alt="לוגו תעשיידע" />
+      <img class="site-logo" src="images/logo.png" alt="תעשיידע" />
       <div class="logo">חדשות היום</div>
     </div>
   </header>
