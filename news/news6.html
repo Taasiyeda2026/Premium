@@ -36,7 +36,7 @@
         var(--page-bg);
       color: var(--text);
       line-height: 1.95;
-      zoom: 0.6;
+      zoom: 0.75;
     }
     .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;letter-spacing:.2px;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
     .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
@@ -54,7 +54,7 @@
     .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
     .intro-grid{display:block;}
     .intro-top{display:block;}
-    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;color:var(--line-dark);max-width:980px;}
+    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;text-wrap:balance;color:var(--line-dark);max-width:980px;}
     .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;font-weight:400;max-width:860px;}
     .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
     .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
@@ -77,7 +77,9 @@
     .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border-color:#c8bbb1;}
     .action-link.back:hover {background:linear-gradient(180deg,#fffefe 0%,#efe7e1 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(40,40,40,.2),0 8px 14px rgba(40,40,40,.14);}
     .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border-color:#bfd0e3;}
+    .action-link.next {color:#1f4b7a;background:linear-gradient(180deg,#eef5ff 0%,#d7e6fb 100%);border-color:#9cb9de;}
     .action-link.questions:hover {background:linear-gradient(180deg,#f8fbff 0%,#dbe7f6 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,55,93,.18),0 8px 14px rgba(31,55,93,.14);}
+    .action-link.next:hover {background:linear-gradient(180deg,#f5f9ff 0%,#cfe1fa 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,75,122,.18),0 8px 14px rgba(31,75,122,.14);}
     .action-link:active {transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18),0 3px 6px rgba(0,0,0,.08);}
     .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
 
@@ -140,7 +142,7 @@
             </ul>
           </div>
         </div>
-        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a></div>
+        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a><a class="action-link next" href="news7.html">לכתבה הבאה</a></div>
       </section>
       <footer class="site-footer">© פרימיום | תעשיידע</footer>
     </article>
