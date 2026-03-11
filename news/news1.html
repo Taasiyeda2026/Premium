@@ -4,268 +4,611 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>קריאה להחזרת מוצר ניקוי: ליקוי בסימון העלה חשש לסיכון בשימוש</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #eef3f9;
-      --card: #ffffff;
-      --text: #12243a;
-      --muted: #5f6f84;
-      --accent: #c1121f;
-      --accent-dark: #7f0d15;
-      --line: #d8e1ee;
-      --soft: #f5f8fd;
+      --page-bg: #f4efe7;
+      --paper: #fbf8f2;
+      --paper-2: #f6f1e8;
+      --text: #1f1f1f;
+      --muted: #5e5a54;
+      --line: #d9d1c4;
+      --line-dark: #1f1f1f;
+      --accent: #8b0000;
+      --accent-soft: #efe3de;
+      --footer-bg: #1a1a1a;
+      --footer-text: #c8c8c8;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: "Assistant", "Heebo", Arial, sans-serif;
+      font-family: "Heebo", Arial, sans-serif;
       background:
-        radial-gradient(circle at 94% -14%, rgba(193,18,31,.18), transparent 30%),
-        radial-gradient(circle at 8% 20%, rgba(9,87,178,.10), transparent 28%),
-        var(--bg);
+        radial-gradient(circle at top right, rgba(139, 0, 0, 0.07), transparent 24%),
+        radial-gradient(circle at top left, rgba(0, 0, 0, 0.04), transparent 20%),
+        var(--page-bg);
       color: var(--text);
-      line-height: 1.85;
+      line-height: 1.95;
+      zoom: 0.6;
     }
+
     .top-strip {
-      background: linear-gradient(90deg, #a40f1a, #cf1624 42%, #a40f1a);
+      background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);
       color: #fff;
-      padding: 7px 12px;
+      padding: 8px 14px;
       font-weight: 700;
-      font-size: .88rem;
-      letter-spacing: .25px;
-      border-bottom: 3px solid #7f0d15;
-      box-shadow: 0 8px 18px rgba(108, 12, 20, .3);
+      font-size: 0.9rem;
+      letter-spacing: .2px;
+      border-bottom: 3px solid #6e0910;
+      box-shadow: 0 8px 18px rgba(97, 12, 18, 0.22);
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 10px;
-      align-items: center;
+      flex-wrap: wrap;
+      text-align: center;
     }
-    .top-strip .dot { width: 8px; height: 8px; background: #ffd149; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 209, 73, .22); }
-    .container { max-width: 980px; margin: 0 auto; padding: 16px 14px 34px; }
+
+    .top-strip .dot {
+      width: 8px;
+      height: 8px;
+      background: #ffd84d;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255, 216, 77, 0.2);
+    }
+
+    .site-shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 18px 16px 36px;
+    }
+
+    .site-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .site-logo {
+      max-width: 160px;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .article-shell {
-      background: var(--card);
-      border: 1px solid #d9e3ef;
-      border-radius: 26px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 30px 70px rgba(16, 34, 58, .17);
+      box-shadow: 0 24px 60px rgba(38, 31, 22, 0.14);
     }
-    .hero {
-      position: relative;
-      min-height: 180px;
-      background: linear-gradient(130deg, #111e32 0%, #1f3350 62%, #2f4c74 100%);
-      color: #fff;
+
+    .masthead {
+      background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);
+      border-top: 3px solid var(--line-dark);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       padding: 22px 20px 16px;
-      isolation: isolate;
     }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(4,11,23,.16), rgba(4,11,23,.76));
-      z-index: -1;
-    }
-    .kicker {
-      display: inline-flex;
+
+    .masthead-row {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 7px;
-      background: rgba(255,255,255,.13);
-      border: 1px solid rgba(255,255,255,.36);
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: .83rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: .3px;
-      text-transform: uppercase;
+      gap: 10px;
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      flex-wrap: wrap;
     }
-    h1 { margin: 0; font-size: clamp(1.55rem, 2.8vw, 2.35rem); line-height: 1.25; text-wrap: balance; }
-    .lead {
-      margin-top: 12px;
-      font-size: clamp(0.96rem, 1.15vw, 1.1rem);
-      color: #eef3fb;
-      max-width: 82ch;
-      font-weight: 500;
+
+    .masthead-center {
+      flex: 1;
+      text-align: center;
     }
-    .meta-row {
-      margin-top: 14px;
+
+    .paper-title-wrap {
+      text-align: center;
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+      padding: 14px 10px;
+    }
+
+    .paper-title {
+      margin: 0;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 900;
+      color: var(--line-dark);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .paper-subtitle {
+      margin-top: 8px;
+      font-size: .88rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+    }
+
+    .article-wrap {
+      padding: 26px 22px 24px;
+    }
+
+    .kicker-row {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 10px;
-      font-size: .8rem;
-      color: #dfe7f3;
+      margin-bottom: 10px;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
-    .meta-chip {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.26);
-      border-radius: 999px;
-      padding: 4px 10px;
+
+    .kicker-main { color: var(--accent); }
+    .kicker-sep { color: var(--muted); }
+    .kicker-sub { color: var(--line-dark); }
+
+    .headline {
+      margin: 0;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(1.95rem, 4.2vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.24;
+      color: var(--line-dark);
+      text-wrap: initial;
+      max-width: 980px;
     }
-    .hero-image-wrap {
-      margin: -10px 20px 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 3px solid #fff;
-      box-shadow: 0 14px 26px rgba(15,35,62,.2);
-      position: relative;
-      z-index: 3;
-      background: #e8edf6;
+
+    .headline-line {
+      display: block;
     }
-    .hero-image { width: 100%; height: min(38vw, 320px); object-fit: cover; display: block; }
-    .content {
-      display: grid;
-      grid-template-columns: minmax(0,1fr) 260px;
-      gap: 16px;
-      padding: 20px 18px 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7fafe 100%);
+
+    .subheadline {
+      margin: 12px 0 18px;
+      font-size: clamp(1rem, 1.6vw, 1.32rem);
+      line-height: 1.85;
+      color: #47423d;
+      font-weight: 400;
+      max-width: 860px;
     }
-    .article-body { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; box-shadow: 0 8px 16px rgba(17,34,60,.06); }
-    .article-body p { margin: 0 0 12px; font-size: 0.97rem; }
-    .article-body h2 {
-      margin: 20px 0 8px;
-      font-size: 1.06rem;
-      line-height: 1.35;
-      border-right: 5px solid var(--accent);
-      padding: 3px 9px 3px 0;
-      background: linear-gradient(90deg, rgba(193,18,31,.12), transparent 70%);
-      border-radius: 8px;
-    }
-    .sidebar { display: grid; gap: 10px; align-content: start; }
-    .news-box {
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px 10px;
-      box-shadow: inset 0 1px 0 #fff;
-    }
-    .news-box h3 { margin: 0 0 6px; font-size: .88rem; color: var(--accent-dark); }
-    .news-box p { margin: 0; font-size: .84rem; color: #384c66; line-height: 1.5; }
-    .highlight {
-      background: linear-gradient(110deg, #fff3f5, #ffe6ea);
-      border: 1px solid #ffcfd6;
-      border-right: 5px solid var(--accent);
-      border-radius: 12px;
-      padding: 11px 12px;
-      margin: 16px 0 8px;
-      color: #4a1920;
-      font-weight: 700;
-      box-shadow: 0 8px 16px rgba(193,18,31,.1);
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 8px;
-      color: var(--accent-dark);
-      text-decoration: none;
-      border: 1px solid #d7aab0;
-      background: #fff;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: .84rem;
-      transition: .2s ease;
-    }
-    .back-link:hover { transform: translateY(-1px); box-shadow: 0 8px 14px rgba(127,13,21,.16); background: #fff6f7; }
-    .question-link-wrap {
+
+    .byline {
       display: flex;
-      justify-content: center;
-      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 2px solid var(--line-dark);
+      font-size: .95rem;
+      color: #2f2b28;
     }
-    .question-link {
+
+    .byline-separator {
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .hero-image-wrap {
+      margin: 22px 0 24px;
+      border: 1px solid var(--line);
+      background: #ece7de;
+      padding: 8px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: min(39vw, 360px);
+      object-fit: cover;
+      display: block;
+      filter: saturate(.92) contrast(1.03);
+    }
+
+    .image-caption {
+      margin-top: 8px;
+      font-size: .83rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .article-content {
+      column-count: 2;
+      column-gap: 40px;
+      column-rule: 1px solid #d8d1c7;
+      font-size: 1.08rem;
+      color: #26231f;
+      text-align: justify;
+    }
+
+    .article-content > * {
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .article-content p {
+      margin: 0 0 16px;
+    }
+
+    .article-content .lead-paragraph::first-letter {
+      float: right;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 5.2rem;
+      line-height: 3.8rem;
+      padding-left: 0.65rem;
+      padding-top: 0.25rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .section-title {
+      margin: 24px 0 12px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--line-dark);
+      line-height: 1.3;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .quote-box {
+      margin: 20px 0;
+      padding: 16px 18px;
+      background: #f2ece3;
+      border-right: 4px solid var(--accent);
+      position: relative;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.22rem;
+      line-height: 1.7;
+      color: #2d2824;
+    }
+
+    .quote-box::before {
+      content: '"';
+      position: absolute;
+      right: -2px;
+      top: -14px;
+      font-size: 4.2rem;
+      color: rgba(139,0,0,.18);
+      line-height: 1;
+      font-family: "Frank Ruhl Libre", serif;
+    }
+
+    .info-box {
+      margin: 20px 0;
+      padding: 16px 18px;
+      border: 1px solid var(--line-dark);
+      background: #faf7f1;
+    }
+
+    .info-box h3 {
+      margin: 0 0 10px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.15rem;
+      color: var(--accent);
+    }
+
+    .info-box ul {
+      margin: 0;
+      padding: 0 18px 0 0;
+    }
+
+    .info-box li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      margin: 22px 0;
+      padding: 18px;
+      background: #1b1b1b;
+      color: #f8f4ee;
+      font-size: 1.02rem;
+      font-weight: 500;
+    }
+
+    .conclusion-box {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 2px solid var(--line-dark);
+      font-weight: 500;
+    }
+
+    .article-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .action-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      color: #1b3150;
-      background: #f2f6fc;
-      border: 1px solid #cbd8ea;
+      min-width: 112px;
+      padding: 6px 12px;
       border-radius: 999px;
-      padding: 7px 14px;
-      font-size: .88rem;
       font-weight: 700;
-      transition: .2s ease;
+      font-size: 0.78rem;
+      line-height: 1;
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
+      border: 1px solid transparent;
+      position: relative;
+      top: 0;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.18), 0 6px 12px rgba(0,0,0,0.08);
     }
-    .question-link:hover {
-      background: #e7eef9;
-      border-color: #b8cae1;
+
+    .action-link.back {
+      color: var(--accent);
+      background: linear-gradient(180deg, #ffffff 0%, #f8efec 100%);
+      border-color: #cfb0aa;
+    }
+
+    .action-link.back:hover {
+      background: linear-gradient(180deg, #fffefe 0%, #f5e4e0 100%);
       transform: translateY(-1px);
+      box-shadow: 0 4px 0 rgba(116, 34, 24, 0.2), 0 8px 14px rgba(120, 32, 18, 0.14);
     }
-    footer {
-      text-align:center;
-      color:#50647d;
-      margin-top:14px;
-      font-size:.84rem;
-      padding: 12px 10px 0;
-      border-top: 1px solid #d7e0ec;
+
+    .action-link.questions {
+      color: #233752;
+      background: linear-gradient(180deg, #f6f9fe 0%, #e4edf8 100%);
+      border-color: #bfd0e3;
     }
-    @media (max-width: 930px) {
-      .content { grid-template-columns: 1fr; }
-      .sidebar { grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
+
+    .action-link.questions:hover {
+      background: linear-gradient(180deg, #f8fbff 0%, #dbe7f6 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 0 rgba(31, 55, 93, 0.18), 0 8px 14px rgba(31, 55, 93, 0.14);
     }
-    @media (max-width: 680px) {
-      .hero { padding: 20px 14px 16px; }
-      .hero-image-wrap { margin: -6px 10px 0; }
-      .content { padding: 16px 10px 14px; }
-      .article-body { padding: 16px 12px; }
-      .article-body p { font-size: 0.95rem; }
-      h1 { font-size: clamp(1.35rem, 7vw, 1.8rem); }
-      .lead { font-size: .93rem; }
+
+    .action-link:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.18), 0 3px 6px rgba(0,0,0,0.08);
     }
-</style>
+
+    .action-link:focus-visible {
+      outline: 2px solid rgba(139, 0, 0, 0.25);
+      outline-offset: 2px;
+    }
+
+    .site-footer {
+      text-align: center;
+      margin-top: 18px;
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      border-radius: 0 0 22px 22px;
+      padding: 18px 14px;
+      font-size: .9rem;
+    }
+
+    .site-footer small {
+      display: block;
+      margin-top: 6px;
+      font-size: .78rem;
+      color: #9b9b9b;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        zoom: 1;
+      }
+
+      .site-shell {
+        max-width: 100%;
+        padding: 14px 12px 24px;
+      }
+
+      .article-shell {
+        border-radius: 18px;
+        box-shadow: 0 14px 30px rgba(38, 31, 22, 0.12);
+      }
+
+      .masthead-row {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .byline {
+        justify-content: center;
+      }
+
+      .article-content {
+        column-count: 1;
+        column-gap: 0;
+        column-rule: none;
+        font-size: 1rem;
+      }
+
+      .headline {
+        font-size: clamp(1.95rem, 5.9vw, 2.6rem);
+        line-height: 1.28;
+      }
+
+      .subheadline {
+        font-size: 1.06rem;
+        line-height: 1.8;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        zoom: 1;
+      }
+
+      .site-shell {
+        padding: 10px 10px 22px;
+      }
+
+      .masthead {
+        padding: 18px 14px 14px;
+      }
+
+      .paper-title {
+        font-size: clamp(2.1rem, 12vw, 3.2rem);
+      }
+
+      .article-wrap {
+        padding: 18px 14px 18px;
+      }
+
+      .subheadline {
+        font-size: 0.98rem;
+        line-height: 1.75;
+      }
+
+      .headline {
+        font-size: 1.72rem;
+        line-height: 1.3;
+      }
+
+      .headline-line {
+        display: inline;
+      }
+
+      .headline-line:first-child::after {
+        content: " ";
+      }
+
+      .hero-image {
+        height: 210px;
+      }
+
+      .article-content .lead-paragraph::first-letter {
+        font-size: 4.1rem;
+        line-height: 3rem;
+        padding-left: .5rem;
+      }
+
+      .article-actions {
+        gap: 7px;
+      }
+
+      .action-link {
+        min-width: 104px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
-  <main class="container">
+  <div class="top-strip">
+    <span class="dot"></span>
+    <span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span>
+  </div>
+
+  <main class="site-shell">
+    <div class="site-logo-wrap">
+      <img class="site-logo" src="../images/logo.png" alt="פרימיום תעשיידע" />
+    </div>
+
     <article class="article-shell">
-      <header class="hero">
-        <div class="kicker">כתבה 1</div>
-        <h1>קריאה להחזרת מוצר ניקוי: ליקוי בסימון העלה חשש לסיכון בשימוש</h1>
-        <p class="lead">מוצר ניקוי נגד עובש וטחב, שנמכר בישראל, נקרא להחזרה לאחר שבבדיקה רשמית נמצא כי אינו עומד בדרישות התקן.</p>
-        <div class="meta-row">
-          <span class="meta-chip">חדשות צרכנות ובטיחות</span>
-          <span class="meta-chip">דסק פרימיום</span>
-          <span class="meta-chip">קריאה: 4 דקות</span>
+      <header class="masthead">
+        <div class="masthead-row">
+          <span>יום רביעי, 11 במרץ 2026</span>
+          <span>גיליון 001</span>
+        </div>
+
+        <div class="paper-title-wrap">
+          <h1 class="paper-title">חדשות היום</h1>
+          <div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div>
         </div>
       </header>
-      <div class="hero-image-wrap">
-        <img class="hero-image" src="../images/news1.png" alt="תמונה לכתבה 1" />
-      </div>
-      <section class="content">
-        <div class="article-body">
-          <p>מוצר ניקוי ביתי פופולרי נגד עובש וטחב נקרא להחזרה מן השוק, לאחר שבבדיקה רשמית נמצא כי הוא אינו עומד בדרישות התקן הישראלי. לפי הודעת הגורמים המפקחים, מדובר בנוזל ניקוי שנמצא כי חסר בו סימון מהותי בשפה העברית, לרבות מידע על גורמי סיכון ואמצעי זהירות. לכאורה, מדובר בפרט טכני בלבד – תווית, ניסוח, שפה. אולם בפועל, דווקא פרטים כאלה עשויים לקבוע אם מוצר יומיומי יהיה בטוח לשימוש או יהפוך למקור לסיכון.</p>
-          <h2>מה קרה בפועל</h2>
-          <p>הבדיקה העלתה כי המוצר אינו מתאים לדרישות התקן הרשמי החל על חומרים ותערובות מסוכנים. סוג הסיכון שהוגדר במקרה זה הוא סיכון כימי. המשמעות היא שלא די בכך שהמוצר מצליח להסיר עובש או לנקות את המשטח. כאשר מדובר בחומר כימי, על האריזה להבהיר לצרכן באופן בולט וברור מה הסכנות האפשריות, באילו תנאים נכון להשתמש במוצר, האם יש צורך באוורור, ממה יש להימנע, ומה יש לעשות במקרה של מגע עם העור, העיניים או מערכת הנשימה.</p>
-          <p>בין הליקויים שנמצאו צוין כי חסר על המוצר סימון ברור בעברית שיכול לסייע לצרכנים להבין מהם הסיכונים האפשריים, כיצד נכון להשתמש במוצר, ובאילו תנאים יש לנקוט זהירות מיוחדת. המשמעות היא שהצרכן עלול להשתמש במוצר מבלי להבין באופן מלא את הסכנות האפשריות ואת אופן השימוש הבטוח. עבור אדם שמכיר היטב חומרי ניקוי, ייתכן שהפער הזה ייראה קטן. אך עבור רוב הציבור, התווית היא המקור הראשון ולעיתים היחיד למידע. כאשר המידע הזה חסר, הבעיה עוברת מן האריזה אל השימוש עצמו.</p>
-          <h2>למה זה משמעותי לציבור</h2>
-          <p>חומרי ניקוי מסוג זה משמשים לעיתים קרובות בחללים סגורים כמו חדרי אמבטיה, שירותים, מטבחים ומחסנים. במצבים כאלה, שימוש לא נכון בחומר ניקוי עלול לגרום לגירוי בעור, לפגיעה בעיניים, לשאיפת אדים או לשימוש לא בטוח בסביבה שאינה מאווררת. לעיתים אנשים משלבים כמה חומרי ניקוי יחד, מעבירים את החומר לכלי אחר, או משתמשים בו זמן ממושך בלי להבין את ההשלכות. לכן, לאזהרות שעל גבי האריזה יש חשיבות גבוהה מאוד – לא רק מבחינה משפטית או רגולטורית, אלא מבחינה מעשית של שמירה על בריאות המשתמש.</p>
-          <p>בהודעת הריקול נמסר כי כל מי שמחזיק במוצר מתבקש להפסיק את השימוש בו לאלתר ולפנות אל המשווק לצורך החזרת המוצר וקבלת החזר כספי. עצם הקריאה להפסיק שימוש מיידי מחדדת שמבחינת הגורמים האחראים, אין מדובר רק בפגם צורני או בניסוח לא מושלם, אלא בכשל שמצדיק הוצאה מהירה של המוצר מן השוק.</p>
-          <h2>התמונה הרחבה מאחורי האירוע</h2>
-          <p>בענף מוצרי הצריכה מסבירים כי מקרים כאלה ממחישים עד כמה איכות של מוצר אינה נמדדת רק בשאלה אם הוא עובד, אלא גם בדרך שבה הוא מוצג לצרכן. אריזה, הוראות שימוש, שפת האזהרות, ניסוח ברור ונראות של מידע קריטי – כל אלה הם חלק בלתי נפרד מן המוצר עצמו. במילים אחרות, מוצר איכותי הוא לא רק חומר טוב בתוך הבקבוק, אלא גם מוצר שניתן להשתמש בו באופן בטוח, אחראי ומובן.</p>
-          <h2>מבט מקצועי: אחריות ובקרה</h2>
-          <p>מבחינה לימודית, המקרה הזה מדגים נקודה חשובה במיוחד: לפעמים הבעיה במוצר אינה מתחילה בכשל בפעולה שלו, אלא בכשל בתקשורת שבין היצרן לצרכן. כאשר מידע חיוני אינו מופיע, או מופיע בצורה לא מספקת, נוצר פער בין מה שהיצרן יודע לבין מה שהמשתמש מבין. הפער הזה עלול להפוך במהירות לבעיה של בטיחות, איכות ואחריות.</p>
-          <div class="highlight">לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.</div>
-          <a class="back-link" href="allnews.html">← חזרה לעמוד הכתבות</a>
+
+      <section class="article-wrap">
+        <div class="kicker-row">
+          <span class="kicker-main">כתבה 1</span>
+          <span class="kicker-sep">|</span>
+          <span class="kicker-sub">חדשות צרכנות ובטיחות</span>
         </div>
-        <aside class="sidebar">
-          <div class="news-box">
-            <h3>על מה הכתבה מדגישה?</h3>
-            <p>הכתבה מציגה את האירוע, מנתחת את נקודת הכשל ומחדדת את המשמעות לציבור ולמערכות הבקרה.</p>
+
+        <h2 class="headline"><span class="headline-line">קריאה להחזרת מוצר ניקוי:</span><span class="headline-line">ליקוי בסימון העלה חשש לסיכון בשימוש</span></h2>
+
+        <p class="subheadline">מוצר ניקוי נגד עובש וטחב, שנמכר בישראל, נקרא להחזרה לאחר שבבדיקה רשמית נמצא כי אינו עומד בדרישות התקן.</p>
+
+        <div class="byline">
+          <span><strong>מאת:</strong> דסק פרימיום</span>
+          <span class="byline-separator"></span>
+          <span>11 במרץ 2026</span>
+          <span class="byline-separator"></span>
+          <span>זמן קריאה: 4 דקות</span>
+        </div>
+
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="../images/news1.png" alt="תמונה לכתבה 1" />
+          <div class="image-caption">מוצר ניקוי ביתי שנקרא להחזרה לאחר שנמצא כי סימון הבטיחות שעל האריזה אינו עומד בדרישות.</div>
+        </div>
+
+        <div class="article-content">
+          <p class="lead-paragraph">מוצר ניקוי ביתי פופולרי נגד עובש וטחב נקרא להחזרה מן השוק, לאחר שבבדיקה רשמית נמצא כי הוא אינו עומד בדרישות התקן הישראלי. לפי הודעת הגורמים המפקחים, מדובר בנוזל ניקוי שנמצא כי חסר בו סימון מהותי בשפה העברית, לרבות מידע על גורמי סיכון ואמצעי זהירות. לכאורה, מדובר בפרט טכני בלבד – תווית, ניסוח, שפה. אולם בפועל, דווקא פרטים כאלה עשויים לקבוע אם מוצר יומיומי יהיה בטוח לשימוש או יהפוך למקור לסיכון.</p>
+
+          <h3 class="section-title">מה קרה בפועל</h3>
+
+          <p>הבדיקה העלתה כי המוצר אינו מתאים לדרישות התקן הרשמי החל על חומרים ותערובות מסוכנים. סוג הסיכון שהוגדר במקרה זה הוא סיכון כימי. המשמעות היא שלא די בכך שהמוצר מצליח להסיר עובש או לנקות את המשטח. כאשר מדובר בחומר כימי, על האריזה להבהיר לצרכן באופן בולט וברור מה הסכנות האפשריות, באילו תנאים נכון להשתמש במוצר, האם יש צורך באוורור, ממה יש להימנע, ומה יש לעשות במקרה של מגע עם העור, העיניים או מערכת הנשימה.</p>
+
+          <p>בין הליקויים שנמצאו צוין כי חסר על המוצר סימון ברור בעברית שיכול לסייע לצרכנים להבין מהם הסיכונים האפשריים, כיצד נכון להשתמש במוצר, ובאילו תנאים יש לנקוט זהירות מיוחדת. המשמעות היא שהצרכן עלול להשתמש במוצר מבלי להבין באופן מלא את הסכנות האפשריות ואת אופן השימוש הבטוח. עבור אדם שמכיר היטב חומרי ניקוי, ייתכן שהפער הזה ייראה קטן. אך עבור רוב הציבור, התווית היא המקור הראשון ולעיתים היחיד למידע. כאשר המידע הזה חסר, הבעיה עוברת מן האריזה אל השימוש עצמו.</p>
+
+          <blockquote class="quote-box">כאשר מידע חיוני על מוצר כימי אינו מופיע בצורה ברורה, הסיכון אינו נשאר על המדף — הוא עובר ישירות אל רגע השימוש.</blockquote>
+
+          <h3 class="section-title">למה זה משמעותי לציבור</h3>
+
+          <p>חומרי ניקוי מסוג זה משמשים לעיתים קרובות בחללים סגורים כמו חדרי אמבטיה, שירותים, מטבחים ומחסנים. במצבים כאלה, שימוש לא נכון בחומר ניקוי עלול לגרום לגירוי בעור, לפגיעה בעיניים, לשאיפת אדים או לשימוש לא בטוח בסביבה שאינה מאווררת. לעיתים אנשים משלבים כמה חומרי ניקוי יחד, מעבירים את החומר לכלי אחר, או משתמשים בו זמן ממושך בלי להבין את ההשלכות. לכן, לאזהרות שעל גבי האריזה יש חשיבות גבוהה מאוד – לא רק מבחינה משפטית או רגולטורית, אלא מבחינה מעשית של שמירה על בריאות המשתמש.</p>
+
+          <p>בהודעת הריקול נמסר כי כל מי שמחזיק במוצר מתבקש להפסיק את השימוש בו לאלתר ולפנות אל המשווק לצורך החזרת המוצר וקבלת החזר כספי. עצם הקריאה להפסיק שימוש מיידי מחדדת שמבחינת הגורמים האחראים, אין מדובר רק בפגם צורני או בניסוח לא מושלם, אלא בכשל שמצדיק הוצאה מהירה של המוצר מן השוק.</p>
+
+          <div class="info-box">
+            <h3>נקודות מפתח לדיון</h3>
+            <ul>
+              <li>מה חסר על גבי האריזה מלבד שם המוצר?</li>
+              <li>למה סימון בטיחות ברור הוא חלק מאיכות המוצר עצמו?</li>
+              <li>איך מידע חסר יכול להפוך לבעיה של בטיחות בשימוש היומיומי?</li>
+              <li>מי אחראי לוודא שהצרכן מבין את הסיכונים ואת אופן השימוש הנכון?</li>
+            </ul>
           </div>
-          <div class="news-box">
-            <h3>למה זה חשוב לקוראים?</h3>
-            <p>האירוע ממחיש כיצד פרטי תהליך, סימון או בקרת איכות משפיעים על בטיחות, אמון ואחריות.</p>
+
+          <h3 class="section-title">התמונה הרחבה מאחורי האירוע</h3>
+
+          <p>בענף מוצרי הצריכה מסבירים כי מקרים כאלה ממחישים עד כמה איכות של מוצר אינה נמדדת רק בשאלה אם הוא עובד, אלא גם בדרך שבה הוא מוצג לצרכן. אריזה, הוראות שימוש, שפת האזהרות, ניסוח ברור ונראות של מידע קריטי – כל אלה הם חלק בלתי נפרד מן המוצר עצמו. במילים אחרות, מוצר איכותי הוא לא רק חומר טוב בתוך הבקבוק, אלא גם מוצר שניתן להשתמש בו באופן בטוח, אחראי ומובן.</p>
+
+          <h3 class="section-title">מבט מקצועי: אחריות ובקרה</h3>
+
+          <p>מבחינה לימודית, המקרה הזה מדגים נקודה חשובה במיוחד: לפעמים הבעיה במוצר אינה מתחילה בכשל בפעולה שלו, אלא בכשל בתקשורת שבין היצרן לצרכן. כאשר מידע חיוני אינו מופיע, או מופיע בצורה לא מספקת, נוצר פער בין מה שהיצרן יודע לבין מה שהמשתמש מבין. הפער הזה עלול להפוך במהירות לבעיה של בטיחות, איכות ואחריות.</p>
+
+          <div class="highlight-box">
+            לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.
           </div>
-          <div class="news-box">
-            <h3>שורה תחתונה</h3>
-            <p>ניהול איכות מקצועי מחייב תגובה מהירה, שקיפות לציבור ובדיקה מעמיקה לפני חזרה לשגרה.</p>
+
+          <div class="conclusion-box">
+            מקרה כזה ממחיש שבקרת איכות אינה מסתיימת במפעל או במילוי הבקבוק. היא נמשכת גם באריזה, בניסוח, באזהרות וביכולת של המשתמש להבין בדיוק כיצד להשתמש במוצר בצורה בטוחה.
           </div>
-        </aside>
+        </div>
+
+        <div class="article-actions">
+          <a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a>
+          <a class="action-link questions" href="newswork.html">לדף השאלות</a>
+        </div>
       </section>
+
+      <footer class="site-footer">
+        © פרימיום | תעשיידע
+      </footer>
     </article>
-    <div class="question-link-wrap">
-      <a class="question-link" href="newswork.html">לדף השאלות</a>
-    </div>
-    <footer>© פרימיום | תעשיידע</footer>
   </main>
 </body>
 </html>
