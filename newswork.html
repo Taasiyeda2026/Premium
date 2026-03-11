@@ -1,1 +1,850 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>דף עבודה – זיהוי בעיה מתוך כתבה</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #eef4fb;
+      --card: rgba(255,255,255,0.9);
+      --card-strong: #ffffff;
+      --line: #d7e2f0;
+      --text: #1b2b42;
+      --muted: #5f6f84;
+      --primary: #1f6fe5;
+      --primary-dark: #1658ba;
+      --secondary: #00a6b8;
+      --soft-blue: #eef5ff;
+      --soft-cyan: #eefbfd;
+      --success: #1f9d67;
+      --danger: #d64c4c;
+      --shadow: 0 16px 40px rgba(30, 54, 92, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(31,111,229,0.12), transparent 28%),
+        radial-gradient(circle at top left, rgba(0,166,184,0.10), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
+      min-height: 100vh;
+    }
+
+    .page-shell {
+      width: min(1080px, calc(100% - 28px));
+      margin: 24px auto 90px;
+    }
+
+    .sheet {
+      background: var(--card);
+      border: 1px solid rgba(215,226,240,0.9);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 28px 28px 24px;
+      background:
+        linear-gradient(135deg, rgba(31,111,229,0.09), rgba(0,166,184,0.08)),
+        linear-gradient(180deg, #ffffff, #f8fbff);
+      border-bottom: 1px solid #e6edf7;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      background: rgba(31,111,229,0.08);
+      top: -80px;
+      left: -60px;
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      background: rgba(0,166,184,0.08);
+      bottom: -70px;
+      right: -40px;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid #e4ebf6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(29, 54, 102, 0.08);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 86%;
+      height: 86%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-kicker {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(31,111,229,0.10);
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 860px;
+    }
+
+    .hero-note {
+      position: relative;
+      z-index: 2;
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .hero-chip {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid #e6eef9;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: #29405f;
+      box-shadow: 0 8px 20px rgba(24, 50, 92, 0.05);
+    }
+
+    .toolbar {
+      padding: 18px 28px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #3f8cff);
+      box-shadow: 0 12px 24px rgba(31,111,229,0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+
+    .btn-soft {
+      color: var(--primary-dark);
+      background: #edf4ff;
+      border: 1px solid #d7e6ff;
+    }
+
+    .btn-soft:hover {
+      background: #e4efff;
+    }
+
+    .btn-danger {
+      color: #a52b2b;
+      background: #fff2f2;
+      border: 1px solid #ffd4d4;
+    }
+
+    .btn-danger:hover {
+      background: #ffe9e9;
+    }
+
+    .content {
+      padding: 22px 28px 34px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #223653;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      color: var(--text);
+      padding: 14px 15px;
+      font: inherit;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #89b7ff;
+      box-shadow: 0 0 0 4px rgba(31,111,229,0.10);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+
+    .section {
+      margin-top: 24px;
+      border: 1px solid #e5ecf6;
+      border-radius: var(--radius-xl);
+      background: var(--card-strong);
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(28, 45, 84, 0.04);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e9eff8;
+      background: linear-gradient(180deg, #f9fbff, #f2f7ff);
+    }
+
+    .section-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7);
+    }
+
+    .icon-a { background: #e9f2ff; }
+    .icon-b { background: #eefbf7; }
+    .icon-c { background: #f2f7ff; }
+    .icon-d { background: #eefbfd; }
+    .icon-e { background: #f7f3ff; }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.22rem;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-body {
+      padding: 18px 20px;
+    }
+
+    .q {
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px dashed #dce6f2;
+    }
+
+    .q:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .q-title {
+      font-size: 1.03rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #1d3350;
+    }
+
+    .q-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .ideas-hint {
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, #f7fbff, #eff7ff);
+      border: 1px solid #dfeaf8;
+      border-radius: 14px;
+      color: #37506d;
+      font-size: 0.95rem;
+    }
+
+    .ideas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .summary-box {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fbfdff, #f4f9ff);
+      border: 1px solid #e4edf8;
+    }
+
+    .summary-box h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .summary-box ul {
+      margin: 0;
+      padding-right: 20px;
+    }
+
+    .summary-box li {
+      margin-bottom: 10px;
+      color: #36506c;
+    }
+
+    .bottom-note {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 0.92rem;
+    }
+
+    .mini-fab {
+      position: fixed;
+      left: 16px;
+      z-index: 999;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 14px 28px rgba(18, 29, 53, 0.20);
+      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+    }
+
+    .mini-fab:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .fab-top {
+      bottom: 76px;
+      background: linear-gradient(135deg, #1f2f49, #102038);
+    }
+
+    .fab-print {
+      bottom: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    @media (max-width: 900px) {
+      .meta-grid,
+      .hero-note,
+      .ideas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100%, calc(100% - 14px));
+        margin: 10px auto 82px;
+      }
+
+      .hero,
+      .toolbar,
+      .content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .section-head,
+      .section-body {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .brand-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+      }
+
+      .hero-top {
+        align-items: flex-start;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      .sheet {
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .toolbar,
+      .mini-fab,
+      .bottom-note {
+        display: none !important;
+      }
+
+      .hero {
+        padding-top: 16px;
+      }
+
+      input[type="text"],
+      textarea {
+        box-shadow: none !important;
+        transform: none !important;
+        border-color: #c8d4e3;
+      }
+
+      .section {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mini-fab fab-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="חזרה למעלה">↑</button>
+  <button class="mini-fab fab-print" onclick="window.print()" title="הדפסה / PDF">🖨</button>
+
+  <div class="page-shell">
+    <div class="sheet">
+
+      <header class="hero">
+        <div class="hero-top">
+          <div class="brand">
+            <div class="brand-logo">
+              <!-- שים כאן את קובץ הלוגו שלך בשם logo.png באותה תיקייה -->
+              <img src="logo.png" alt="לוגו" onerror="this.style.display='none'; this.parentNode.innerHTML='📰';">
+            </div>
+
+            <div class="brand-text">
+              <div class="brand-kicker">דף עבודה אינטראקטיבי</div>
+              <h1>דף עבודה – זיהוי בעיה מתוך כתבה</h1>
+              <p>
+                קוראים כתבה מן המציאות, מזהים מתוכה בעיה אמיתית, מבינים מי מושפע ממנה ומהו הצורך שעולה ממנה,
+                ורק אחר כך חושבים על כיווני פתרון אפשריים.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note">
+          <div class="hero-chip">קודם קוראים ומבינים את הכתבה לעומק.</div>
+          <div class="hero-chip">אחר כך מזהים את הבעיה, ההשפעה והצורך.</div>
+          <div class="hero-chip">רק בסוף מציעים רעיונות לפתרון.</div>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="window.print()">הדפסה / שמירה כ־PDF</button>
+        <button class="btn btn-soft" onclick="exportTxt()">ייצוא לטקסט</button>
+        <button class="btn btn-soft" onclick="saveNow()">שמירה עכשיו</button>
+        <button class="btn btn-danger" onclick="resetFormData()">איפוס הדף</button>
+      </div>
+
+      <main class="content">
+
+        <div class="meta-grid">
+          <div class="field">
+            <label for="teamNames">שמות חברי הקבוצה</label>
+            <input id="teamNames" type="text" data-save placeholder="כתבו את שמות חברי הקבוצה" />
+          </div>
+
+          <div class="field">
+            <label for="articleName">שם הכתבה שבחרנו</label>
+            <input id="articleName" type="text" data-save placeholder="כתבו את שם הכתבה" />
+          </div>
+
+          <div class="field">
+            <label for="articleSource">קישור / מקור</label>
+            <input id="articleSource" type="text" data-save placeholder="הדביקו קישור או כתבו את מקור הכתבה" />
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon icon-a">📖</div>
+            <div>
+              <h2>חלק א – הבנת הכתבה</h2>
+              <p>מטרת החלק הזה היא להבין מה מתואר בכתבה ומי מעורב במצב.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">1. על מה הכתבה מספרת?</div>
+              <div class="q-note">כתבו בקצרה, ב־2–3 משפטים, מה קורה בכתבה.</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">2. מי הדמויות, הקבוצות או הגורמים המרכזיים המופיעים בכתבה?</div>
+              <div class="q-note">כתבו מי מעורב במצב המתואר.</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon icon-b">🔎</div>
+            <div>
+              <h2>חלק ב – זיהוי הבעיה</h2>
+              <p>כאן מנסים לנסח את הבעיה עצמה, ולא רק לתאר את מה שקרה.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">3. מהי הבעיה המרכזית שעולה מן הכתבה?</div>
+              <div class="q-note">נסחו במשפט או שניים את הקושי המרכזי.</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">4. אילו בעיות נוספות זיהיתם?</div>
+              <div class="q-note">חשבו על קשיים נוספים שמופיעים בכתבה, גם אם אינם כתובים באופן ישיר.</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">5. מה ההבדל בין מה שקרה בכתבה לבין הבעיה עצמה?</div>
+              <div class="q-note">נסו להסביר: מהו האירוע או המצב, ומהו הקושי שעולה ממנו?</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon icon-c">🎯</div>
+            <div>
+              <h2>חלק ג – הבנת ההשפעה והצורך</h2>
+              <p>בודקים מי מושפע מן הבעיה, ומה חסר או צריך להשתנות בעקבותיה.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">6. מי נפגע מן הבעיה, וכיצד?</div>
+              <div class="q-note">ציינו אילו אנשים, קבוצות או גורמים מושפעים, והסבירו באיזה אופן.</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">7. איזה צורך עולה מתוך הבעיה?</div>
+              <div class="q-note">מה חסר כרגע? מה צריך להשתנות, להשתפר או להיפתר?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">8. למה חשוב לטפל בבעיה הזאת?</div>
+              <div class="q-note">הסבירו בקצרה מדוע מדובר בבעיה שכדאי להשקיע בפתרונה.</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon icon-d">💡</div>
+            <div>
+              <h2>חלק ד – חשיבה יזמית וטכנולוגית</h2>
+              <p>רק אחרי שמבינים היטב את הבעיה והצורך, מתחילים לחשוב על כיווני פתרון.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">9. ערכו סיעור מוחות: אילו רעיונות לפתרון אפשר להציע?</div>
+              <div class="ideas-hint">
+                אפשר לחשוב על מוצר פיזי, מוצר דיגיטלי או אפליקציה, שירות חדש, מערכת חכמה, או שיפור של פתרון קיים.
+              </div>
+
+              <div class="ideas-grid">
+                <div class="field">
+                  <label>רעיון 1</label>
+                  <input type="text" data-save />
+                </div>
+
+                <div class="field">
+                  <label>רעיון 2</label>
+                  <input type="text" data-save />
+                </div>
+
+                <div class="field">
+                  <label>רעיון 3</label>
+                  <input type="text" data-save />
+                </div>
+
+                <div class="field">
+                  <label>רעיון 4</label>
+                  <input type="text" data-save />
+                </div>
+
+                <div class="field" style="grid-column: 1 / -1;">
+                  <label>רעיון 5</label>
+                  <input type="text" data-save />
+                </div>
+              </div>
+            </div>
+
+            <div class="q">
+              <div class="q-title">10. בחרו רעיון אחד שנראה לכם מתאים במיוחד. מהו הרעיון שבחרתם?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">11. איזו בעיה הרעיון שלכם פותר?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">12. למי הרעיון מיועד?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">13. איך הרעיון עובד בקצרה?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">14. למה לדעתכם הרעיון הזה יכול להיות יעיל?</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon icon-e">📝</div>
+            <div>
+              <h2>חלק ה – סיכום קצר</h2>
+              <p>מסכמים מה למדנו על הדרך שבה מזהים בעיה מתוך מציאות אמיתית.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">15. מה למדנו מן הכתבה על הדרך שבה מזהים בעיה?</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <div class="summary-box">
+          <h3>דגשים חשובים לעבודה</h3>
+          <ul>
+            <li>קודם מבינים את הכתבה, ורק אחר כך מנסחים את הבעיה.</li>
+            <li>לא כל מה שמתואר בכתבה הוא הבעיה עצמה.</li>
+            <li>לפעמים צריך להסיק את הבעיה מתוך הפרטים.</li>
+            <li>פתרון טוב מתחיל בזיהוי מדויק של הבעיה והצורך.</li>
+          </ul>
+        </div>
+
+        <div class="bottom-note">
+          הדף שומר את התוכן אוטומטית בדפדפן המקומי.
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "article_problem_worksheet_v2";
+
+    function getFields() {
+      return [...document.querySelectorAll("[data-save]")];
+    }
+
+    function saveFormData() {
+      const values = getFields().map(el => el.value);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+    }
+
+    function loadFormData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const values = JSON.parse(raw);
+        getFields().forEach((el, i) => {
+          el.value = values[i] || "";
+        });
+      } catch (err) {
+        console.error("טעינה נכשלה", err);
+      }
+    }
+
+    function saveNow() {
+      saveFormData();
+      alert("הדף נשמר בדפדפן.");
+    }
+
+    function resetFormData() {
+      if (!confirm("למחוק את כל התשובות בדף?")) return;
+      getFields().forEach(el => el.value = "");
+      localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function exportTxt() {
+      const labels = [
+        "שמות חברי הקבוצה",
+        "שם הכתבה שבחרנו",
+        "קישור / מקור",
+        "1. על מה הכתבה מספרת?",
+        "2. מי הדמויות, הקבוצות או הגורמים המרכזיים המופיעים בכתבה?",
+        "3. מהי הבעיה המרכזית שעולה מן הכתבה?",
+        "4. אילו בעיות נוספות זיהיתם?",
+        "5. מה ההבדל בין מה שקרה בכתבה לבין הבעיה עצמה?",
+        "6. מי נפגע מן הבעיה, וכיצד?",
+        "7. איזה צורך עולה מתוך הבעיה?",
+        "8. למה חשוב לטפל בבעיה הזאת?",
+        "רעיון 1",
+        "רעיון 2",
+        "רעיון 3",
+        "רעיון 4",
+        "רעיון 5",
+        "10. מהו הרעיון שבחרתם?",
+        "11. איזו בעיה הרעיון שלכם פותר?",
+        "12. למי הרעיון מיועד?",
+        "13. איך הרעיון עובד בקצרה?",
+        "14. למה לדעתכם הרעיון הזה יכול להיות יעיל?",
+        "15. מה למדנו מן הכתבה על הדרך שבה מזהים בעיה?"
+      ];
+
+      const values = getFields().map(el => el.value || "");
+      let text = "דף עבודה – זיהוי בעיה מתוך כתבה\n\n";
+
+      values.forEach((value, i) => {
+        text += labels[i] + ":\n" + value + "\n\n";
+      });
+
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "worksheet-article-problem.txt";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    getFields().forEach(el => {
+      el.addEventListener("input", saveFormData);
+    });
+
+    loadFormData();
+  </script>
+</body>
+</html>
