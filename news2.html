@@ -6,102 +6,236 @@
   <title>"טעם לא אופייני": חברת מזון הודיעה על איסוף יזום של שני מוצרים חדשים</title>
   <style>
     :root {
-      --bg: #f2f5f9;
+      --bg: #eef3f9;
       --card: #ffffff;
-      --text: #132238;
-      --muted: #5c6b80;
+      --text: #12243a;
+      --muted: #5f6f84;
       --accent: #c1121f;
-      --accent-dark: #8d0f18;
-      --line: #d8e0ea;
+      --accent-dark: #7f0d15;
+      --line: #d8e1ee;
+      --soft: #f5f8fd;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Assistant", "Heebo", Arial, sans-serif;
-      background: radial-gradient(circle at 85% -10%, #ffdfe3 0%, transparent 35%), var(--bg);
+      background:
+        radial-gradient(circle at 94% -14%, rgba(193,18,31,.18), transparent 30%),
+        radial-gradient(circle at 8% 20%, rgba(9,87,178,.10), transparent 28%),
+        var(--bg);
       color: var(--text);
-      line-height: 1.8;
+      line-height: 1.85;
     }
     .top-strip {
-      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-dark));
+      background: linear-gradient(90deg, #a40f1a, #cf1624 42%, #a40f1a);
       color: #fff;
-      text-align: center;
-      padding: 9px 12px;
+      padding: 10px 16px;
       font-weight: 700;
-      font-size: .92rem;
-      letter-spacing: .2px;
+      font-size: .95rem;
+      letter-spacing: .25px;
+      border-bottom: 3px solid #7f0d15;
+      box-shadow: 0 8px 18px rgba(108, 12, 20, .3);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
     }
-    .container { max-width: 980px; margin: 0 auto; padding: 20px 16px 40px; }
+    .top-strip .dot { width: 8px; height: 8px; background: #ffd149; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 209, 73, .22); }
+    .container { max-width: 1180px; margin: 0 auto; padding: 22px 16px 46px; }
     .article-shell {
       background: var(--card);
-      border-radius: 20px;
-      box-shadow: 0 16px 36px rgba(18,36,62,.14);
+      border: 1px solid #d9e3ef;
+      border-radius: 26px;
       overflow: hidden;
-      border: 1px solid #e7edf4;
+      box-shadow: 0 30px 70px rgba(16, 34, 58, .17);
     }
-    .article-header {
-      padding: 28px 22px 18px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    .hero {
+      position: relative;
+      min-height: 220px;
+      background: linear-gradient(130deg, #111e32 0%, #1f3350 62%, #2f4c74 100%);
+      color: #fff;
+      padding: 30px 26px 22px;
+      isolation: isolate;
     }
-    .kicker { color: var(--accent); font-weight: 800; font-size: .9rem; margin-bottom: 6px; }
-    h1 { margin: 0 0 10px; font-size: clamp(1.5rem, 3.2vw, 2.4rem); line-height: 1.35; }
-    .subtitle { margin: 0; color: var(--muted); font-size: 1.05rem; }
-    .meta { color: #6b7788; font-size: .92rem; margin-top: 10px; }
-    .hero-image { width: 100%; height: min(47vw, 390px); object-fit: cover; display:block; background:#e9edf2; }
-    .content { padding: 24px 22px; }
-    h2 {
-      margin: 28px 0 8px;
-      font-size: 1.25rem;
-      border-right: 5px solid var(--accent);
-      padding-right: 10px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4,11,23,.16), rgba(4,11,23,.76));
+      z-index: -1;
     }
-    p { margin: 0 0 16px; font-size: 1.03rem; }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .83rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 1.2; text-wrap: balance; }
+    .lead {
+      margin-top: 16px;
+      font-size: clamp(1.08rem, 1.6vw, 1.28rem);
+      color: #eef3fb;
+      max-width: 82ch;
+      font-weight: 500;
+    }
+    .meta-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: .85rem;
+      color: #dfe7f3;
+    }
+    .meta-chip {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+    .hero-image-wrap {
+      margin: -34px 24px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 24px 40px rgba(15,35,62,.26);
+      position: relative;
+      z-index: 3;
+      background: #e8edf6;
+    }
+    .hero-image { width: 100%; height: min(54vw, 470px); object-fit: cover; display: block; }
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 260px;
+      gap: 22px;
+      padding: 28px 24px 26px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7fafe 100%);
+    }
+    .article-body { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 22px 18px; box-shadow: 0 10px 20px rgba(17,34,60,.06); }
+    .article-body p { margin: 0 0 16px; font-size: 1.07rem; }
+    .article-body h2 {
+      margin: 26px 0 10px;
+      font-size: 1.22rem;
+      line-height: 1.35;
+      border-right: 6px solid var(--accent);
+      padding: 4px 11px 4px 0;
+      background: linear-gradient(90deg, rgba(193,18,31,.12), transparent 70%);
+      border-radius: 8px;
+    }
+    .sidebar { display: grid; gap: 12px; align-content: start; }
+    .news-box {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: inset 0 1px 0 #fff;
+    }
+    .news-box h3 { margin: 0 0 7px; font-size: .95rem; color: var(--accent-dark); }
+    .news-box p { margin: 0; font-size: .93rem; color: #384c66; line-height: 1.6; }
     .highlight {
-      background: #fff4f5;
-      border: 1px solid #ffd9dd;
-      border-right: 4px solid var(--accent);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin: 18px 0;
-      color: #4f1f24;
-      font-weight: 600;
+      background: linear-gradient(110deg, #fff3f5, #ffe6ea);
+      border: 1px solid #ffcfd6;
+      border-right: 5px solid var(--accent);
+      border-radius: 14px;
+      padding: 14px 15px;
+      margin: 22px 0 10px;
+      color: #4a1920;
+      font-weight: 700;
+      box-shadow: 0 8px 16px rgba(193,18,31,.1);
     }
     .back-link {
-      display: inline-block;
-      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
       color: var(--accent-dark);
       text-decoration: none;
       border: 1px solid #d7aab0;
       background: #fff;
-      padding: 7px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
+      font-weight: 700;
       font-size: .9rem;
       transition: .2s ease;
     }
-    .back-link:hover { background: #fff0f2; }
-    footer { text-align:center; color:#556478; margin-top:22px; font-size:.92rem; }
+    .back-link:hover { transform: translateY(-1px); box-shadow: 0 8px 14px rgba(127,13,21,.16); background: #fff6f7; }
+    footer {
+      text-align:center;
+      color:#50647d;
+      margin-top:18px;
+      font-size:.92rem;
+      padding: 12px 10px 0;
+      border-top: 1px solid #d7e0ec;
+    }
+    @media (max-width: 930px) {
+      .content { grid-template-columns: 1fr; }
+      .sidebar { grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
+    }
     @media (max-width: 680px) {
-      .article-header, .content { padding: 20px 14px; }
-      p { font-size: .98rem; }
-      .subtitle { font-size: .98rem; }
+      .hero { padding: 24px 16px 20px; }
+      .hero-image-wrap { margin: -20px 12px 0; }
+      .content { padding: 20px 12px 18px; }
+      .article-body { padding: 16px 12px; }
+      .article-body p { font-size: 1rem; }
+      h1 { font-size: clamp(1.5rem, 8vw, 2rem); }
+      .lead { font-size: .99rem; }
     }
 </style>
 </head>
 <body>
-  <div class="top-strip">מהדורת חדשות לימודית | פרימיום</div>
+  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
   <main class="container">
     <article class="article-shell">
-      <header class="article-header">
+      <header class="hero">
         <div class="kicker">כתבה 2</div>
         <h1>"טעם לא אופייני": חברת מזון הודיעה על איסוף יזום של שני מוצרים חדשים</h1>
-        <p class="subtitle">שני מוצרים חדשים מסדרת יוגורט שהושקה לאחרונה נאספו מהמדפים, לאחר שבתהליכי בקרה נמצאו גביעים בודדים בעלי טעם לא אופייני.</p>
+        <p class="lead">שני מוצרים חדשים מסדרת יוגורט שהושקה לאחרונה נאספו מהמדפים, לאחר שבתהליכי בקרה נמצאו גביעים בודדים בעלי טעם לא אופייני.</p>
+        <div class="meta-row">
+          <span class="meta-chip">חדשות צרכנות ובטיחות</span>
+          <span class="meta-chip">דסק פרימיום</span>
+          <span class="meta-chip">קריאה: 4 דקות</span>
+        </div>
       </header>
-      <img class="hero-image" src="images/news2.png" alt="תמונה לכתבה 2" />
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="images/news2.png" alt="תמונה לכתבה 2" />
+      </div>
       <section class="content">
-        <p>חברת מזון גדולה הודיעה על איסוף יזום של שני מוצרים חדשים מסדרת יוגורט, זמן קצר בלבד לאחר שהחלה לשווק אותם לראשונה. לפי הודעת החברה, מדובר בשני טעמים חדשים של יוגורט מועשר – וניל ואננס – שהושקו באותו שבוע. עצם העובדה שמדובר במוצר חדש יחסית הופכת את האירוע למשמעותי במיוחד: שלב ההשקה הוא הרגע שבו חברה מבקשת לבנות אמון, ליצור רושם חיובי ולהוכיח שהמוצר עומד בסטנדרטים שלה. לכן, כל חריגה שמתגלית דווקא בשלב הזה מקבלת משקל גבוה מאוד.</p><p>בהודעה לציבור נמסר כי במהלך תהליכי בקרה שגרתיים למוצר חדש נמצא כי בגביעים בודדים הופיע טעם לא אופייני למוצר. בעקבות הממצא החליטה החברה לעצור את שיווק שני הטעמים החדשים ולהחזיר גם את המוצרים שכבר נשלחו לנקודות המכירה. הניסוח הזה מעניין במיוחד, משום שהוא אינו מצביע מיד על זיהום, סכנה ודאית או פגם מובהק, אלא על סימן ראשוני לכך שמשהו במוצר אינו תואם את מה שהיה אמור להתקבל.</p><p>בחברה הדגישו כי ההחזרה היזומה נוגעת רק לשני הטעמים החדשים, וכי יתר המוצרים בסדרה נבדקו ונמצאו תקינים. בנוסף נמסר כי החברה פועלת בתיאום עם משרד הבריאות, וכי צרכנים המחזיקים במוצרים מתבקשים לא לצרוך אותם ולפנות לשירות הלקוחות לצורך קבלת מידע ושובר זיכוי. הודעה כזאת מלמדת כי גם כאשר אין עדיין מסקנה סופית, עצם הופעת החריגה מספיקה כדי לעצור את התהליך ולבחון אותו מחדש.</p><p>למרות שבהודעת החברה לא נמסר על סכנה בריאותית ברורה, עצם ההחלטה לעצור את השיווק זמן קצר לאחר ההשקה מצביעה על כך שהתגלה פער בין מה שהחברה ציפתה לקבל מן המוצר לבין מה שנמצא בפועל. כאשר מדובר במוצר מזון חדש, גם שינוי שנראה קטן – כמו טעם חריג, ריח לא רגיל או תחושה שונה – עשוי להיחשב סימן לבעיה שיש לבדוק ברצינות. בעולם המזון, חריגה קטנה לכאורה יכולה להיות רמז מוקדם לכשל רחב יותר.</p><p>בענף המזון מסבירים כי תהליכי בקרה במוצרים חדשים נועדו לא רק לוודא שהמוצר טעים, אלא לבדוק אם הוא עקבי, יציב, מתאים למפרט שנקבע מראש, ומגיע לצרכן בדיוק כפי שתוכנן. כאשר מופיע טעם שאינו אופייני למוצר, הדבר עלול להעיד על בעיה באחד משלבי הייצור, ההרכב, האחסון, ההובלה או הבקרה. לפעמים מדובר בשינוי קל בפורמולה, לפעמים בסטייה בתנאי טמפרטורה, ולפעמים בתהליך שלא נשמר באופן מדויק לאורך זמן.</p><p>האירוע הזה חשוב במיוחד ללמידה על איכות, משום שהוא מראה שלא כל בעיית איכות נראית לעין מיד. לפעמים אין אריזה קרועה, אין שינוי בצבע, ואין דיווח על סכנה רפואית ברורה. ובכל זאת, עצם העובדה שהמוצר אינו תואם את מה שהוגדר כסטנדרט היא כבר בעיה. איכות אינה נמדדת רק בכך שמוצר אינו מזיק, אלא גם בכך שהוא עקבי, צפוי, נשלט ועומד במפרט של עצמו.</p><p>מנקודת מבט תעשייתית, איסוף יזום כזה הוא גם ביטוי לאחריות וגם סימן לכך שמערכת הבקרה זיהתה חריגה לפני שהאירוע התרחב. אבל הוא גם מעלה שאלות חשובות: מתי בדיוק נוצר הפער? האם ניתן היה לזהות אותו מוקדם יותר? האם הכשל נוגע רק למוצרים הבודדים שנמצאו, או שיש כאן אינדיקציה לתהליך שדורש בדיקה עמוקה יותר? אלה בדיוק השאלות שמקרה כזה מזמן לתלמידים.</p>
-        <div class="highlight">לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.</div>
-        <a class="back-link" href="index.html">חזרה לעמוד הכתבות</a>
+        <div class="article-body">
+          <p>חברת מזון גדולה הודיעה על איסוף יזום של שני מוצרים חדשים מסדרת יוגורט, זמן קצר בלבד לאחר שהחלה לשווק אותם לראשונה. לפי הודעת החברה, מדובר בשני טעמים חדשים של יוגורט מועשר – וניל ואננס – שהושקו באותו שבוע. עצם העובדה שמדובר במוצר חדש יחסית הופכת את האירוע למשמעותי במיוחד: שלב ההשקה הוא הרגע שבו חברה מבקשת לבנות אמון, ליצור רושם חיובי ולהוכיח שהמוצר עומד בסטנדרטים שלה. לכן, כל חריגה שמתגלית דווקא בשלב הזה מקבלת משקל גבוה מאוד.</p>
+          <h2>מה קרה בפועל</h2>
+          <p>בהודעה לציבור נמסר כי במהלך תהליכי בקרה שגרתיים למוצר חדש נמצא כי בגביעים בודדים הופיע טעם לא אופייני למוצר. בעקבות הממצא החליטה החברה לעצור את שיווק שני הטעמים החדשים ולהחזיר גם את המוצרים שכבר נשלחו לנקודות המכירה. הניסוח הזה מעניין במיוחד, משום שהוא אינו מצביע מיד על זיהום, סכנה ודאית או פגם מובהק, אלא על סימן ראשוני לכך שמשהו במוצר אינו תואם את מה שהיה אמור להתקבל.</p>
+          <p>בחברה הדגישו כי ההחזרה היזומה נוגעת רק לשני הטעמים החדשים, וכי יתר המוצרים בסדרה נבדקו ונמצאו תקינים. בנוסף נמסר כי החברה פועלת בתיאום עם משרד הבריאות, וכי צרכנים המחזיקים במוצרים מתבקשים לא לצרוך אותם ולפנות לשירות הלקוחות לצורך קבלת מידע ושובר זיכוי. הודעה כזאת מלמדת כי גם כאשר אין עדיין מסקנה סופית, עצם הופעת החריגה מספיקה כדי לעצור את התהליך ולבחון אותו מחדש.</p>
+          <h2>למה זה משמעותי לציבור</h2>
+          <p>למרות שבהודעת החברה לא נמסר על סכנה בריאותית ברורה, עצם ההחלטה לעצור את השיווק זמן קצר לאחר ההשקה מצביעה על כך שהתגלה פער בין מה שהחברה ציפתה לקבל מן המוצר לבין מה שנמצא בפועל. כאשר מדובר במוצר מזון חדש, גם שינוי שנראה קטן – כמו טעם חריג, ריח לא רגיל או תחושה שונה – עשוי להיחשב סימן לבעיה שיש לבדוק ברצינות. בעולם המזון, חריגה קטנה לכאורה יכולה להיות רמז מוקדם לכשל רחב יותר.</p>
+          <p>בענף המזון מסבירים כי תהליכי בקרה במוצרים חדשים נועדו לא רק לוודא שהמוצר טעים, אלא לבדוק אם הוא עקבי, יציב, מתאים למפרט שנקבע מראש, ומגיע לצרכן בדיוק כפי שתוכנן. כאשר מופיע טעם שאינו אופייני למוצר, הדבר עלול להעיד על בעיה באחד משלבי הייצור, ההרכב, האחסון, ההובלה או הבקרה. לפעמים מדובר בשינוי קל בפורמולה, לפעמים בסטייה בתנאי טמפרטורה, ולפעמים בתהליך שלא נשמר באופן מדויק לאורך זמן.</p>
+          <h2>התמונה הרחבה מאחורי האירוע</h2>
+          <p>האירוע הזה חשוב במיוחד ללמידה על איכות, משום שהוא מראה שלא כל בעיית איכות נראית לעין מיד. לפעמים אין אריזה קרועה, אין שינוי בצבע, ואין דיווח על סכנה רפואית ברורה. ובכל זאת, עצם העובדה שהמוצר אינו תואם את מה שהוגדר כסטנדרט היא כבר בעיה. איכות אינה נמדדת רק בכך שמוצר אינו מזיק, אלא גם בכך שהוא עקבי, צפוי, נשלט ועומד במפרט של עצמו.</p>
+          <h2>מבט מקצועי: אחריות ובקרה</h2>
+          <p>מנקודת מבט תעשייתית, איסוף יזום כזה הוא גם ביטוי לאחריות וגם סימן לכך שמערכת הבקרה זיהתה חריגה לפני שהאירוע התרחב. אבל הוא גם מעלה שאלות חשובות: מתי בדיוק נוצר הפער? האם ניתן היה לזהות אותו מוקדם יותר? האם הכשל נוגע רק למוצרים הבודדים שנמצאו, או שיש כאן אינדיקציה לתהליך שדורש בדיקה עמוקה יותר? אלה בדיוק השאלות שמקרה כזה מזמן לתלמידים.</p>
+          <div class="highlight">לסיכום לימודי: חשוב לבחון לא רק את התוצאה הסופית, אלא גם את הנהלים, התקשורת, הבקרה והאחריות לאורך כל הדרך.</div>
+          <a class="back-link" href="index.html">← חזרה לעמוד הכתבות</a>
+        </div>
+        <aside class="sidebar">
+          <div class="news-box">
+            <h3>על מה הכתבה מדגישה?</h3>
+            <p>הכתבה מציגה את האירוע, מנתחת את נקודת הכשל ומחדדת את המשמעות לציבור ולמערכות הבקרה.</p>
+          </div>
+          <div class="news-box">
+            <h3>למה זה חשוב לקוראים?</h3>
+            <p>האירוע ממחיש כיצד פרטי תהליך, סימון או בקרת איכות משפיעים על בטיחות, אמון ואחריות.</p>
+          </div>
+          <div class="news-box">
+            <h3>שורה תחתונה</h3>
+            <p>ניהול איכות מקצועי מחייב תגובה מהירה, שקיפות לציבור ובדיקה מעמיקה לפני חזרה לשגרה.</p>
+          </div>
+        </aside>
       </section>
     </article>
     <footer>© פרימיום | תעשיידע</footer>
