@@ -1,11 +1,5 @@
-(function registerPwaServiceWorker() {
-  if (!('serviceWorker' in navigator)) {
-    return;
-  }
-
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/service-worker.js').catch(function (error) {
-      console.error('Service worker registration failed:', error);
-    });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Premium/service-worker.js');
   });
-})();
+}
