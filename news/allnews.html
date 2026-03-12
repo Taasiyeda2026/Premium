@@ -42,7 +42,7 @@
     }
 
     .header-inner {
-      max-width: 1040px;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 18px 16px 14px;
       text-align: center;
@@ -72,7 +72,7 @@
     }
 
     main {
-      max-width: 1040px;
+      max-width: 1440px;
       margin: 24px auto;
       padding: 0 16px 30px;
     }
@@ -119,8 +119,14 @@
 
     .articles-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      .articles-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     .article-card {
@@ -448,23 +454,6 @@
           <h2>מאוחר מדי על המדף</h2>
           <p>תלונות של צרכנים הובילו לגילוי שבבי מתכת בסדרת חטיפי הדגנים.</p>
           <a class="article-btn" href="news10.html">לקריאת הכתבה</a>
-        </article>
-
-
-        <article class="article-card">
-          <span class="tag">כתבה 11</span>
-          <img class="article-image" src="../images/news11.png" alt="כתבה 11" />
-          <h2>כתבה 11</h2>
-          <p>המשך סדרת כתבות החדשות.</p>
-          <a class="article-btn" href="news11.html">לקריאת הכתבה</a>
-        </article>
-
-        <article class="article-card">
-          <span class="tag">כתבה 12</span>
-          <img class="article-image" src="../images/news12.png" alt="כתבה 12" />
-          <h2>כתבה 12</h2>
-          <p>המשך סדרת כתבות החדשות.</p>
-          <a class="article-btn" href="news12.html">לקריאת הכתבה</a>
         </article>
       </div>
     </section>
