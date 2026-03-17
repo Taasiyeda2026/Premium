@@ -1,5 +1,5 @@
 const CACHE_NAME = 'premium-static-v1';
-const BASE = '/Premium/';
+const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
   BASE,
