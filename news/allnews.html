@@ -60,6 +60,50 @@
       z-index: 1;
     }
 
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+      border: 1px solid #e3d7d7;
+      box-shadow:
+        0 4px 0 rgba(0,0,0,0.12),
+        0 10px 16px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 3;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #d5c1c1;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.10),
+        0 14px 20px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .home-link:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 2px 0 rgba(0,0,0,0.10),
+        0 6px 12px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #8f0000;
+    }
+
     .site-logo {
       display: block;
       max-width: 145px;
@@ -260,6 +304,18 @@
         padding: 18px 14px 16px;
       }
 
+      .home-link {
+        right: 12px;
+        top: 12px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .home-link svg {
+        width: 18px;
+        height: 18px;
+      }
+
       .site-logo {
         max-width: 130px;
         margin-bottom: 8px;
@@ -364,6 +420,11 @@
 
   <header>
     <div class="header-inner">
+      <a class="home-link" href="index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
       <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
       <div class="logo">חדשות היום</div>
     </div>
