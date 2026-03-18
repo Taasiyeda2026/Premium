@@ -431,6 +431,107 @@
       text-align: center;
     }
 
+
+    @media print {
+      @page {
+        size: auto;
+        margin: 14mm;
+      }
+
+      html,
+      body {
+        direction: rtl;
+        background: #ffffff !important;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        color: #111;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .newsletter {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .newsletter::before,
+      .newsletter::after,
+      .hero-banner::before,
+      .hero-banner::after,
+      .hero-graphic-wrap::before,
+      .hero-graphic-wrap::after,
+      .content-box::before,
+      .panel-title::after {
+        display: none !important;
+      }
+
+      .top-brand,
+      .hero-banner,
+      .panel,
+      .content-box,
+      .footer-strip {
+        background: #ffffff !important;
+        box-shadow: none !important;
+      }
+
+      .top-brand,
+      .hero-banner,
+      .panel,
+      .content-box,
+      .footer-strip,
+      .newsletter,
+      .hero-graphic-wrap {
+        border-color: #cfcfcf !important;
+      }
+
+      .home-link,
+      .problem-mark,
+      .panel-links {
+        display: none !important;
+      }
+
+      .top-brand,
+      .hero-banner,
+      .panel,
+      .content-box,
+      .footer-strip,
+      .page-footer {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .cards-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .panel,
+      .panel.problem-panel {
+        min-height: 0;
+        padding-bottom: 18px;
+        overflow: visible;
+      }
+
+      .box-text {
+        color: #1f1f1f;
+        line-height: 1.7;
+      }
+
+      .page-footer {
+        margin-top: 10px;
+        color: #333;
+      }
+    }
+
     @media (max-width: 760px) {
       body {
         padding: 14px 10px 30px;
