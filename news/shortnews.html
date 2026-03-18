@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e3a5f" />
-  <title>פעילות המשך – תקצירי הכתבות</title>
-  <link rel="manifest" href="../manifest.json" />
+  <title>זיהוי בעיה</title>
+  <link rel="manifest" href="/Premium/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
   <link rel="apple-touch-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../styles/pwa.css" />
@@ -16,15 +16,14 @@
   <style>
     :root {
       --bg-main: #f6f3ed;
-      --bg-soft: #fbf8f2;
       --bg-card: #ffffff;
-      --bg-paper: #f8f4ec;
       --text-main: #1d1d1d;
       --text-soft: #58534d;
       --line: #dfd5c7;
       --accent: #8f0000;
       --accent-2: #c40000;
-      --accent-soft: #f3e6e2;
+      --secondary: #405a78;
+      --secondary-2: #6f87a1;
       --shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
       --shadow-hover: 0 18px 34px rgba(0, 0, 0, 0.14);
     }
@@ -65,7 +64,7 @@
     }
 
     .header-inner {
-      max-width: 1440px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 18px 16px 14px;
       text-align: center;
@@ -94,16 +93,52 @@
       color: #666;
     }
 
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 18px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+      border: 1px solid #e3d7d7;
+      box-shadow:
+        0 4px 0 rgba(0,0,0,0.12),
+        0 10px 16px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 3;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #d5c1c1;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.10),
+        0 14px 20px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #8f0000;
+    }
+
     main {
-      max-width: 1440px;
+      max-width: 1280px;
       margin: 24px auto;
       padding: 0 16px 34px;
     }
 
     .hero {
       background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,250,250,0.96) 100%);
-      border-radius: 16px;
-      padding: 24px 22px;
+      border-radius: 18px;
+      padding: 26px 24px;
       box-shadow: var(--shadow);
       margin-bottom: 22px;
       border-top: 5px solid var(--accent-2);
@@ -119,37 +154,38 @@
       pointer-events: none;
     }
 
-    .hero h1 {
-      font-family: "Frank Ruhl Libre", serif;
-      font-size: clamp(1.55rem, 2.8vw, 2.2rem);
-      margin-bottom: 10px;
-      color: #111;
+    .hero-copy {
       position: relative;
       z-index: 1;
     }
 
-    .hero p {
-      font-size: 0.97rem;
-      color: #444;
-      max-width: 950px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-note {
-      margin-top: 14px;
+    .lesson-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 14px;
+      padding: 7px 14px;
+      border-radius: 999px;
       background: linear-gradient(180deg, #fff7f7 0%, #f8e8e8 100%);
       border: 1px solid #ebd0d0;
       color: #8a1a1a;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.86rem;
-      font-weight: 700;
-      position: relative;
-      z-index: 1;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .hero-copy h1 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(1.7rem, 3.1vw, 2.45rem);
+      margin-bottom: 12px;
+      color: #111;
+      line-height: 1.2;
+    }
+
+    .hero-copy p {
+      font-size: 1rem;
+      color: #444;
+      max-width: 920px;
+      line-height: 1.95;
     }
 
     .section-title {
@@ -165,6 +201,7 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 16px;
+      margin-bottom: 24px;
     }
 
     .article-card {
@@ -226,39 +263,64 @@
     .article-card p {
       font-size: 0.9rem;
       color: #555;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       flex-grow: 1;
       position: relative;
       z-index: 1;
     }
 
-    .article-btn {
-      display: inline-block;
-      align-self: flex-start;
+    .article-actions {
+      display: flex;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .article-btn,
+    .article-link {
+      flex: 0 0 auto;
+      width: 88px;
+      min-width: 88px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       text-decoration: none;
-      background: linear-gradient(180deg, #d10000 0%, #a40000 100%);
-      color: white;
-      padding: 8px 12px;
+      padding: 9px 8px;
       border-radius: 10px;
       font-weight: 800;
       font-size: 0.86rem;
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 16px rgba(164, 0, 0, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
       border: none;
       cursor: pointer;
-      position: relative;
-      z-index: 1;
+    }
+
+    .article-btn {
+      color: white;
+      background: linear-gradient(180deg, #d10000 0%, #a40000 100%);
     }
 
     .article-btn:hover {
       background: linear-gradient(180deg, #b70000 0%, #8f0000 100%);
       transform: translateY(-1px);
-      box-shadow: 0 12px 20px rgba(164, 0, 0, 0.28);
+      box-shadow: 0 12px 20px rgba(164, 0, 0, 0.24);
     }
 
-    .activity-panel {
-      margin-top: 26px;
+    .article-link {
+      color: white;
+      background: linear-gradient(180deg, var(--secondary-2) 0%, var(--secondary) 100%);
+    }
+
+    .article-link:hover {
+      background: linear-gradient(180deg, #5f7894 0%, #374e69 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(64, 90, 120, 0.22);
+    }
+
+    .summary-panel {
       background: linear-gradient(180deg, #fdfaf5 0%, #f7f1e7 100%);
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -266,41 +328,45 @@
       overflow: hidden;
     }
 
-    .activity-header {
+    .summary-header {
       padding: 16px 18px;
       border-bottom: 1px solid var(--line);
       background: linear-gradient(90deg, #fff 0%, #f7eee9 100%);
     }
 
-    .activity-header h3 {
+    .summary-header h2 {
       font-family: "Frank Ruhl Libre", serif;
       font-size: 1.55rem;
       color: #1f1f1f;
       margin-bottom: 4px;
     }
 
-    .activity-header p {
+    .summary-header p {
       font-size: 0.95rem;
       color: #5b5650;
     }
 
+    .summary-empty {
+      padding: 34px 20px 38px;
+      text-align: center;
+      color: #5f5a54;
+    }
+
+    .summary-empty h3 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      color: #1f1f1f;
+    }
+
     .summary-view {
-      padding: 22px 18px 18px;
-      min-height: 340px;
       display: none;
-      animation: fadeIn 0.28s ease;
+      padding: 22px 18px 18px;
     }
 
     .summary-view.active {
       display: block;
-    }
-
-    .summary-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
+      animation: fadeIn 0.25s ease;
     }
 
     .summary-badge {
@@ -312,22 +378,12 @@
       color: #8f0000;
       font-weight: 800;
       font-size: 0.82rem;
-    }
-
-    .summary-category {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #ece7df;
-      color: #4f4a44;
-      font-weight: 700;
-      font-size: 0.82rem;
+      margin-bottom: 12px;
     }
 
     .summary-title {
       font-family: "Frank Ruhl Libre", serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-size: clamp(1.8rem, 3vw, 2.45rem);
       line-height: 1.25;
       margin-bottom: 16px;
       color: #171717;
@@ -346,354 +402,71 @@
       background: linear-gradient(90deg, var(--accent-2) 0%, rgba(196,0,0,0.12) 100%);
     }
 
-    
-
     .summary-text {
-      background: rgba(255,255,255,0.88);
+      background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(252,246,239,0.95) 100%);
       border: 1px solid #e4dacc;
-      border-radius: 16px;
-      padding: 18px 18px 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      border-right: 6px solid #c40000;
+      border-radius: 18px;
+      padding: 24px 22px 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 24px rgba(0,0,0,0.04);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .summary-text::before {
+      content: "“";
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: rgba(196, 0, 0, 0.12);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .summary-text::after {
+      content: "”";
+      position: absolute;
+      left: 16px;
+      bottom: -42px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: rgba(196, 0, 0, 0.10);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .summary-intro {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7f7 0%, #f7e6e6 100%);
+      border: 1px solid #ebd2d2;
+      color: #8f0000;
+      font-size: 0.82rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 10px rgba(143,0,0,0.06);
     }
 
     .summary-text p {
       margin-bottom: 11px;
       font-size: 1rem;
       color: #2c2925;
+      position: relative;
+      z-index: 1;
     }
 
     .summary-text p:last-child {
       margin-bottom: 0;
-    }
-
-    .activity-tools {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 16px;
-    }
-
-    .tool-box {
-      background: #fff;
-      border: 1px solid #e6dccf;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.05);
-    }
-
-    .tool-box h4 {
-      font-size: 1rem;
-      color: #8f0000;
-      margin-bottom: 10px;
-    }
-
-    .tool-box ul {
-      padding-right: 18px;
-      color: #444;
-      font-size: 0.94rem;
-    }
-
-    .tool-box li {
-      margin-bottom: 8px;
-    }
-
-    .focus-line {
-      font-size: 1rem;
-      color: #2d2925;
-      line-height: 1.8;
-      font-weight: 500;
-    }
-
-    .empty-state {
-      padding: 36px 20px 40px;
-      text-align: center;
-      color: #5f5a54;
-    }
-
-    .empty-state h3 {
-      font-family: "Frank Ruhl Libre", serif;
-      font-size: 1.65rem;
-      margin-bottom: 10px;
-      color: #1f1f1f;
-    }
-
-    .empty-state p {
-      max-width: 780px;
-      margin: 0 auto;
-      font-size: 0.98rem;
-    }
-
-    .actions-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-    }
-
-    .action-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      min-width: 132px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.82rem;
-      line-height: 1;
-      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
-      border: 1px solid transparent;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.18), 0 6px 12px rgba(0,0,0,0.08);
-    }
-
-    .action-link.back {
-      color: var(--accent);
-      background: linear-gradient(180deg, #ffffff 0%, #f8efec 100%);
-      border-color: #cfb0aa;
-    }
-
-    .action-link.secondary {
-      color: #233752;
-      background: linear-gradient(180deg, #f6f9fe 0%, #e4edf8 100%);
-      border-color: #bfd0e3;
-    }
-
-    .action-link.instructions {
-      color: white;
-      background: linear-gradient(180deg, #d10000 0%, #8f0000 100%);
-      border-color: #8f0000;
-      cursor: pointer;
-    }
-
-    .action-link.instructions:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 0 rgba(0,0,0,0.18), 0 10px 18px rgba(143,0,0,0.22);
-    }
-
-    .instructions-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(20, 18, 18, 0.58);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 1000;
-      backdrop-filter: blur(4px);
-    }
-
-    .instructions-modal.active {
-      display: flex;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .instructions-dialog {
-      width: min(760px, 100%);
-      background: linear-gradient(180deg, #fffdf9 0%, #f8f1e7 100%);
-      border: 1px solid #e3d3c1;
-      border-top: 6px solid var(--accent-2);
-      border-radius: 22px;
-      box-shadow: 0 24px 46px rgba(0,0,0,0.18);
-      overflow: hidden;
-    }
-
-    .instructions-dialog-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px 20px 14px;
-      background: linear-gradient(90deg, #fff 0%, #f6e8e4 100%);
-      border-bottom: 1px solid #eadbcb;
-    }
-
-    .instructions-dialog-header h4 {
-      font-family: "Frank Ruhl Libre", serif;
-      font-size: 1.45rem;
-      color: #1f1f1f;
-    }
-
-    .instructions-close {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid #d9c4c4;
-      background: #fff;
-      color: #8f0000;
-      font-size: 1.4rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .instructions-dialog-body {
-      padding: 20px;
-    }
-
-    .instructions-dialog-body p {
-      font-size: 1rem;
-      color: #2b2824;
-      margin-bottom: 12px;
-      line-height: 1.9;
-    }
-
-    .instructions-dialog-body ul {
-      margin: 14px 0 18px;
-      padding-right: 20px;
-    }
-
-    .instructions-dialog-body li {
-      margin-bottom: 10px;
-      color: #393530;
-      font-size: 0.98rem;
-      line-height: 1.8;
-    }
-
-    .instructions-highlight {
-      margin-top: 12px;
-      padding: 14px 16px;
-      background: linear-gradient(180deg, #fff5f5 0%, #f7e4e4 100%);
-      border: 1px solid #e9cccc;
-      border-radius: 16px;
-      color: #7c1010;
-      font-weight: 700;
-    }
-
-    .response-workspace {
-      margin-top: 18px;
-      background: linear-gradient(180deg, #fffdf9 0%, #f8f3eb 100%);
-      border: 1px solid #e5d8c9;
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-
-    .response-workspace-header {
-      margin-bottom: 14px;
-    }
-
-    .response-workspace-header h4 {
-      font-size: 1.14rem;
-      color: #8f0000;
-      margin-bottom: 6px;
-    }
-
-    .response-workspace-header p {
-      font-size: 0.93rem;
-      color: #5d564f;
-    }
-
-    .response-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .field-box {
-      background: rgba(255,255,255,0.92);
-      border: 1px solid #e8ddd0;
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-
-    .field-box.full {
-      grid-column: 1 / -1;
-    }
-
-    .field-box label {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #2d2a27;
-      margin-bottom: 8px;
-    }
-
-    .field-box textarea,
-    .field-box select {
-      width: 100%;
-      border: 1px solid #d9cbbd;
-      border-radius: 12px;
-      background: #fff;
-      padding: 12px 13px;
-      font-family: "Heebo", Arial, sans-serif;
-      font-size: 0.96rem;
-      color: #222;
-      resize: vertical;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .field-box textarea {
-      min-height: 110px;
-      line-height: 1.7;
-    }
-
-    .field-box textarea.short {
-      min-height: 86px;
-    }
-
-    .field-box textarea:focus,
-    .field-box select:focus {
-      outline: none;
-      border-color: #b94b4b;
-      box-shadow: 0 0 0 4px rgba(196, 0, 0, 0.08);
-    }
-
-    .field-note {
-      margin-top: 8px;
-      font-size: 0.83rem;
-      color: #6e675f;
-    }
-
-    .response-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid #e4d7c8;
-    }
-
-    .response-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 140px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-family: "Heebo", Arial, sans-serif;
-      font-size: 0.9rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .12s ease, box-shadow .12s ease;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.18), 0 6px 12px rgba(0,0,0,0.08);
-    }
-
-    .response-btn.primary {
-      background: linear-gradient(180deg, #d10000 0%, #8f0000 100%);
-      color: white;
-      border-color: #8f0000;
-    }
-
-    .response-btn.secondary {
-      background: linear-gradient(180deg, #ffffff 0%, #f7efea 100%);
-      color: #8f0000;
-      border-color: #d9bcbc;
-    }
-
-    .response-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .save-status {
-      font-size: 0.88rem;
-      color: #5c564e;
-      font-weight: 700;
     }
 
     footer {
@@ -705,114 +478,70 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (min-width: 1200px) {
-      body {
-        zoom: 0.72;
-      }
+      body { zoom: 0.72; }
     }
 
     @media (max-width: 1200px) {
-      .articles-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+      .articles-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 1024px) {
-      .articles-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .activity-tools {
-        grid-template-columns: 1fr;
-      }
-
-      .response-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 980px) {
+      .articles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 768px) {
-      body {
-        zoom: 1;
-      }
-
-      .header-inner {
-        padding: 18px 14px 16px;
-      }
-
-      .site-logo {
-        max-width: 130px;
-      }
-
-      main {
-        margin: 20px auto;
-        padding: 0 12px 28px;
-      }
-
-      .hero {
-        padding: 18px 14px;
-      }
-
-      .articles-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .article-card {
-        min-height: auto;
-      }
-
-      .summary-view {
-        padding: 18px 14px 16px;
-      }
-
-      .summary-title {
-        font-size: 1.65rem;
-      }
-
-      .summary-text {
-        padding: 20px 16px 16px;
-      }
-
+      body { zoom: 1; }
+      .header-inner { padding: 18px 14px 16px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .site-logo { max-width: 130px; }
+      main { margin: 20px auto; padding: 0 12px 28px; }
+      .hero { padding: 18px 14px; }
+      .hero-copy h1 { font-size: 1.8rem; }
+      .hero-copy p,
+      .summary-header p,
+      .summary-text p,
+      .article-card p { font-size: 0.94rem; }
+      .articles-grid { grid-template-columns: 1fr; gap: 14px; }
+      .article-card { min-height: auto; }
+      .article-actions { flex-direction: row; }
+      .summary-view { padding: 18px 14px 16px; }
+      .summary-text { padding: 20px 16px 16px; }
       .summary-text::before,
-      .summary-text::after {
-        font-size: 5.2rem;
-      }
-
-      .summary-text p {
-        font-size: 0.96rem;
-      }
+      .summary-text::after { font-size: 5.2rem; }
     }
   </style>
 </head>
 <body>
-  <div class="top-bar">מהדורה מיוחדת | פעילות המשך – תקצירי הכתבות</div>
+  <div class="top-bar">שיעור 4 | זיהוי בעיה</div>
 
   <header>
     <div class="header-inner">
+      <a class="home-link" href="index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
       <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
       <div class="logo">חדשות היום</div>
-      <div class="subtitle">עמוד בחירה לפעילות המשך המבוססת על תקצירי הכתבות</div>
+      <div class="subtitle">בוחרים כתבה, פותחים תקציר, ומתקדמים לעמוד הכתבה המלאה</div>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <h1>בחרו כתבה וחזרו אל עיקרי המקרה</h1>
-      <p>
-        לפניכם תקצירי כל הכתבות בניסוח תמציתי. לחצו על אחת מהכתבות כדי לפתוח את התקציר המלא, להתמקד בבעיה המרכזית,
-        ולבחון מה לא עבד, מה יצר סיכון או קושי, ומה דורש זיהוי, שיפור או מניעה.
-      </p>
+      <div class="hero-copy">
+        <div class="lesson-chip">שיעור 4 | מדייקים בעיה מתוך כתבה</div>
+        <h1>בחרו כתבה והתחילו מדף העבודה הקצר</h1>
+        <p>
+          בכל כרטיס אפשר לפתוח קודם <strong>תקציר</strong> קצר כדי להבין את המקרה, ולצידו לעבור ישירות אל <strong>הכתבה</strong> המלאה. כך אפשר להתחיל מהבנה ממוקדת של הבעיה, ואז להעמיק לפי הצורך.
+        </p>
+      </div>
     </section>
 
     <section>
@@ -820,127 +549,21 @@
       <div class="articles-grid" id="articlesGrid"></div>
     </section>
 
-    <section class="activity-panel">
-      <div class="activity-header">
-        <h3>תקציר הכתבה הנבחרת</h3>
-        <p>כאן נפתח התקציר המלא של הכתבה שבחרתם, בדיוק לפי הנוסח שנקבע לפעילות.</p>
+    <section class="summary-panel">
+      <div class="summary-header">
+        <h2>תקציר הכתבה</h2>
+        <p>לחצו על כפתור „תקציר” באחת הכתבות כדי לפתוח כאן את התקציר הקצר.</p>
       </div>
 
-      <div class="empty-state" id="emptyState">
+      <div class="summary-empty" id="summaryEmpty">
         <h3>ממתין לבחירה</h3>
-        <p>
-          בחרו אחת מן הכתבות למעלה. לאחר הבחירה יוצג התקציר המלא, יחד עם נקודות מיקוד לפעילות ההמשך.
-        </p>
+        <p>בחרו אחת מהכתבות למעלה, או עברו ישירות לעמוד הכתבה המלאה.</p>
       </div>
 
       <div class="summary-view" id="summaryView">
-        <div class="summary-meta">
-          <span class="summary-badge" id="summaryNumber"></span>
-          <span class="summary-category">חדשות צרכנות, איכות ובטיחות</span>
-        </div>
-
+        <div class="summary-badge" id="summaryBadge"></div>
         <h3 class="summary-title" id="summaryTitle"></h3>
-
         <div class="summary-text" id="summaryText"></div>
-
-        <div class="activity-tools">
-          <div class="tool-box">
-            <h4>מיקוד לפעילות</h4>
-            <ul>
-              <li>מה לא עבד עכשיו?</li>
-              <li>מה יצר קושי, סיכון או פגיעה?</li>
-              <li>מה צריך לשפר, למנוע, לזהות מוקדם יותר או לדייק?</li>
-              <li>מהי הבעיה המרכזית במשפט אחד בלבד?</li>
-            </ul>
-          </div>
-
-          <div class="tool-box">
-            <h4>שורת חשיבה</h4>
-            <div class="focus-line" id="challengeLine">
-              אתגר: כיצד אפשר לזהות את הכשל בזמן, בצורה ברורה ומוקדמת יותר?
-            </div>
-          </div>
-        </div>
-
-        <div class="response-workspace">
-          <div class="response-workspace-header">
-            <h4>דף עבודה אינטראקטיבי</h4>
-            <p>ענו כאן בקצרה ובדיוק. כל כתבה שומרת תשובות נפרדות, כך שאפשר לעבור בין כתבות ולחזור אליהן.</p>
-          </div>
-
-          <div class="response-grid">
-            <div class="field-box">
-              <label for="mainProblemInput">מה הבעיה המרכזית?</label>
-              <textarea id="mainProblemInput" class="short" placeholder="כתבו בקצרה מה באמת לא עובד במקרה הזה."></textarea>
-            </div>
-
-            <div class="field-box">
-              <label for="affectedInput">מי מושפע ממנה?</label>
-              <textarea id="affectedInput" class="short" placeholder="לדוגמה: צרכנים, עובדים, מבקרים, הנהלה, ספקים."></textarea>
-            </div>
-
-            <div class="field-box">
-              <label for="additionalIssuesInput">אילו בעיות נוספות עולות?</label>
-              <textarea id="additionalIssuesInput" placeholder="כתבו בקצרה אילו קשיים, סיכונים או ליקויים נוספים עולים מהמקרה."></textarea>
-            </div>
-
-            <div class="field-box">
-              <label for="domainInput">באיזה תחום מדובר?</label>
-              <select id="domainInput">
-                <option value="">בחרו תחום</option>
-                <option value="בטיחות">בטיחות</option>
-                <option value="איכות">איכות</option>
-                <option value="ייצור">ייצור</option>
-                <option value="אריזה וסימון">אריזה וסימון</option>
-                <option value="שרשרת אספקה">שרשרת אספקה</option>
-                <option value="תחזוקה ובקרה">תחזוקה ובקרה</option>
-                <option value="לוגיסטיקה וקירור">לוגיסטיקה וקירור</option>
-                <option value="בטיחות מבקרים ועובדים">בטיחות מבקרים ועובדים</option>
-                <option value="אחר">אחר</option>
-              </select>
-              <div class="field-note">אפשר לבחור את התחום המרכזי גם אם יש כמה תחומים משיקים.</div>
-            </div>
-
-            <div class="field-box full">
-              <label for="oneSentenceInput">בסיום: נסחו במשפט אחד בלבד את הבעיה המרכזית</label>
-              <textarea id="oneSentenceInput" class="short" placeholder="משפט אחד בלבד. לא פתרון, לא רעיון למוצר, אלא רק ניסוח מדויק של הבעיה."></textarea>
-              <div class="field-note">המטרה היא לזקק את הבעיה בצורה שתאפשר בהמשך להפוך אותה לאתגר טוב לעבודה.</div>
-            </div>
-          </div>
-
-          <div class="response-actions">
-            <button class="response-btn primary" id="saveResponseBtn" type="button">שמור תשובות</button>
-            <button class="response-btn secondary" id="clearResponseBtn" type="button">נקה תשובות לכתבה זו</button>
-            <span class="save-status" id="saveStatus">התשובות נשמרות במכשיר הזה.</span>
-          </div>
-        </div>
-
-        <div class="actions-row">
-          <a class="action-link back" href="allnews.html">חזרה לעמוד הכתבות</a>
-          <a class="action-link secondary" href="newswork.html">מעבר לדף העבודה</a>
-          <button class="action-link instructions" id="instructionsBtn" type="button">הנחיות למשימה</button>
-        </div>
-      </div>
-
-      <div class="instructions-modal" id="instructionsModal" aria-hidden="true">
-        <div class="instructions-dialog" role="dialog" aria-modal="true" aria-labelledby="instructionsTitle">
-          <div class="instructions-dialog-header">
-            <h4 id="instructionsTitle">הנחיות למשימת ניתוח הבעיה</h4>
-            <button class="instructions-close" id="instructionsClose" type="button" aria-label="סגירה">×</button>
-          </div>
-          <div class="instructions-dialog-body">
-            <p>בדף הפעילות ענו בקצרה והתמקדו בעיקר.</p>
-            <ul>
-              <li>מה הבעיה המרכזית?</li>
-              <li>מי מושפע ממנה?</li>
-              <li>אילו בעיות נוספות עולות?</li>
-              <li>ובאיזה תחום מדובר?</li>
-            </ul>
-            <p>אני לא רוצה שתחזרו על כל הכתבה, אלא שתתמקדו בעיקר.</p>
-            <p>בסיום, כל צוות ינסח במשפט אחד בלבד את הבעיה המרכזית.</p>
-            <div class="instructions-highlight">לא פתרון, לא רעיון למוצר ולא מה צריך לעשות — אלא רק מה באמת לא עובד. זה חשוב, כי ניסוח מדויק של הבעיה יעזור לנו בהמשך להפוך אותה לאתגר טוב לעבודה.</div>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -952,312 +575,191 @@
   <script>
     const articles = [
       {
-        number: "כתבה 1",
-        title: "הסוד שעל האריזה",
-        teaser: "לפעמים דווקא המידע שלא הופיע על האריזה הוא מה שיצר את הסיכון.",
+        number: 'כתבה 1',
+        title: 'הסוד שעל האריזה',
+        teaser: 'לפעמים המידע שלא מופיע על האריזה הוא מה שיוצר את הסיכון.',
+        link: 'news1.html',
         paragraphs: [
-          "מוצר ניקוי הוסר מהשוק לאחר שהתברר כי על האריזה לא הופיע סימון בטיחותי מלא וברור בעברית.",
-          "חסרו אזהרות והנחיות שימוש חשובות לצרכנים.",
-          "החשש הוא שלא בגלל תקלה במוצר עצמו נוצר הסיכון, אלא בגלל המידע שלא הופיע עליו.",
-          "כאשר צרכן לא מבין בדיוק איך להשתמש במוצר, הסיכון לשימוש שגוי עולה.",
-          "המקרה מעלה שאלות על אחריות יצרן, סימון נכון והעברת מידע לציבור.",
-          "לעיתים האריזה עצמה היא חלק מהבטיחות של המוצר."
-        ],
-        challenge: "אתגר: איך אפשר לוודא שמידע בטיחותי חיוני מופיע על האריזה בצורה ברורה, מלאה ונגישה?"
+          'מוצר ניקוי הוסר מהשוק לאחר שהתברר כי על האריזה לא הופיע סימון בטיחותי מלא וברור בעברית.',
+          'חסרו אזהרות והנחיות שימוש חשובות לצרכנים.',
+          'החשש הוא שלא בגלל תקלה במוצר עצמו נוצר הסיכון, אלא בגלל המידע שלא הופיע עליו.',
+          'כאשר צרכן לא מבין בדיוק איך להשתמש במוצר, הסיכון לשימוש שגוי עולה.',
+          'המקרה מעלה שאלות על אחריות יצרן, סימון נכון והעברת מידע לציבור.',
+          'לעיתים האריזה עצמה היא חלק מהבטיחות של המוצר.'
+        ]
       },
       {
-        number: "כתבה 2",
-        title: "כשההגנה לא עבדה",
-        teaser: "האירוע העלה חשד לכך שכמה שכבות הגנה כשלו יחד, ולא רק רכיב אחד.",
+        number: 'כתבה 2',
+        title: 'כשההגנה לא עבדה',
+        teaser: 'כשל במערכות הגנה עלול להופיע בכמה שכבות בו־זמנית.',
+        link: 'news2.html',
         paragraphs: [
-          "במהלך עבודות תחזוקה במפעל מזון התרחשה דליפת אמוניה ממערכת הקירור.",
-          "שלושה עובדים פונו לקבלת טיפול, וחלק מהמפעל הושבת.",
-          "לפי הבדיקה הראשונית, מערכת האוורור האוטומטית לא הופעלה בזמן.",
-          "עלו גם שאלות לגבי ציוד המיגון, נתיבי המילוט, סימון האזור ורמת התיאום בין הצוותים.",
-          "נבדק האם היו התרעות קודמות על תקלות שלא טופלו במועד.",
-          "המקרה מצביע על אפשרות לכשל בכמה שכבות הגנה בו־זמנית."
-        ],
-        challenge: "אתגר: איך אפשר לזהות מראש כשל מצטבר במערכות ההגנה לפני שהוא הופך לאירוע מסוכן?"
+          'במהלך עבודות תחזוקה במפעל מזון התרחשה דליפת אמוניה ממערכת הקירור.',
+          'שלושה עובדים פונו לקבלת טיפול, וחלק מהמפעל הושבת.',
+          'לפי הבדיקה הראשונית, מערכת האוורור האוטומטית לא הופעלה בזמן.',
+          'עלו גם שאלות לגבי ציוד המיגון, נתיבי המילוט, סימון האזור ורמת התיאום בין הצוותים.',
+          'נבדק האם היו התרעות קודמות על תקלות שלא טופלו במועד.',
+          'המקרה מצביע על אפשרות לכשל בכמה שכבות הגנה בו־זמנית.'
+        ]
       },
       {
-        number: "כתבה 3",
-        title: "הכל בגלל שוקולד",
-        teaser: "חומר גלם אחד עלול להשפיע על כמה מוצרים שונים לאורך כל שרשרת הייצור.",
+        number: 'כתבה 3',
+        title: 'הכל בגלל שוקולד',
+        teaser: 'חומר גלם אחד עלול להשפיע על כמה מוצרים שונים בבת אחת.',
+        link: 'news3.html',
         paragraphs: [
-          "חברת מזון ביצעה ריקול רחב לאחר חשד לסלמונלה בחומר גלם של שוקולד נוזלי.",
-          "החומר שימש בכמה מוצרים שונים ולכן הבעיה לא הוגבלה למוצר אחד בלבד.",
-          "הייצור הופסק, ונפתחה בדיקה של קווי הייצור, המכלים ותהליכי הניקוי.",
-          "נדרש מעקב אחר אצוות שכבר שווקו לשוק.",
-          "גם חברה נוספת עלולה להיות מושפעת אם קיבלה את אותו חומר גלם.",
-          "האירוע מדגיש את הרגישות של שרשרת האספקה ואת החשיבות של בקרת איכות במזון."
-        ],
-        challenge: "אתגר: איך אפשר לזהות במהירות חומר גלם בעייתי ולמנוע ממנו להשפיע על כמה מוצרים במקביל?"
+          'חברת מזון ביצעה ריקול רחב לאחר חשד לסלמונלה בחומר גלם של שוקולד נוזלי.',
+          'החומר שימש בכמה מוצרים שונים ולכן הבעיה לא הוגבלה למוצר אחד בלבד.',
+          'הייצור הופסק, ונפתחה בדיקה של קווי הייצור, המכלים ותהליכי הניקוי.',
+          'נדרש מעקב אחר אצוות שכבר שווקו לשוק.',
+          'גם חברה נוספת עלולה להיות מושפעת אם קיבלה את אותו חומר גלם.',
+          'האירוע מדגיש את הרגישות של שרשרת האספקה ואת החשיבות של בקרת איכות במזון.'
+        ]
       },
       {
-        number: "כתבה 4",
-        title: "איפה הגלידה שלי?",
-        teaser: "הקושי היה להבין באיזה שלב בדרך נוצר הכשל שפגע במוצר הרגיש.",
+        number: 'כתבה 4',
+        title: 'איפה הגלידה שלי?',
+        teaser: 'כאשר לא ברור באיזה שלב נוצר הכשל, קשה לזהות את מקור הבעיה.',
+        link: 'news4.html',
         paragraphs: [
-          "צרכנים דיווחו על גלידות עם ריח חריג, טעם לא רגיל ומרקם חשוד.",
-          "עלה חשד לכשל בייצור, באחסון או בהפצה.",
-          "אחת האפשרויות שנבדקות היא הפשרה חלקית והקפאה מחדש בדרך.",
-          "בחלק מהמקרים היה קושי לקרוא את תאריך הייצור או מספר האצווה.",
-          "לא ברור עדיין אם מקור הבעיה במפעל, בהובלה או בנקודת המכירה.",
-          "המקרה מדגיש עד כמה שרשרת קירור תקינה חשובה למוצרי מזון רגישים."
-        ],
-        challenge: "אתגר: איך אפשר לעקוב בצורה ברורה אחרי מצב המוצר לאורך כל שרשרת הקירור ולזהות חריגה בזמן?"
+          'צרכנים דיווחו על גלידות עם ריח חריג, טעם לא רגיל ומרקם חשוד.',
+          'עלה חשד לכשל בייצור, באחסון או בהפצה.',
+          'אחת האפשרויות שנבדקות היא הפשרה חלקית והקפאה מחדש בדרך.',
+          'בחלק מהמקרים היה קושי לקרוא את תאריך הייצור או מספר האצווה.',
+          'לא ברור עדיין אם מקור הבעיה במפעל, בהובלה או בנקודת המכירה.',
+          'המקרה מדגיש עד כמה שרשרת קירור תקינה חשובה למוצרי מזון רגישים.'
+        ]
       },
       {
-        number: "כתבה 5",
-        title: "טעם של טעות",
-        teaser: "לפעמים הבעיה הראשונה במוצר חדש מתגלה דווקא דרך החוויה של הצרכן.",
+        number: 'כתבה 5',
+        title: 'טעם של טעות',
+        teaser: 'לפעמים חריגה מתגלה דרך טעם או ריח, ולא דרך סימן שנראה לעין.',
+        link: 'news5.html',
         paragraphs: [
-          "שני מוצרי יוגורט חדשים הוסרו לאחר שהתגלה בהם טעם לא אופייני.",
-          "הבעיה התגלתה זמן קצר לאחר ההשקה, בשלב רגיש במיוחד של חדירת מוצר חדש לשוק.",
-          "נבדק אם מקור הבעיה הוא בהרכב, בתהליך הייצור, בקירור או באריזה.",
-          "מדובר בבעיה שלא תמיד רואים בעין, אלא מרגישים בטעם או בריח.",
-          "עולה שאלה אם אפשר היה לזהות את החריגה מוקדם יותר.",
-          "המקרה מראה שגם מוצר חדש ומסקרן חייב לעבור בקרה קפדנית."
-        ],
-        challenge: "אתגר: איך אפשר לזהות חריגת טעם או ריח מוקדם יותר, עוד לפני שהמוצר מגיע לצרכן?"
+          'שני מוצרי יוגורט חדשים הוסרו לאחר שהתגלה בהם טעם לא אופייני.',
+          'הבעיה התגלתה זמן קצר לאחר ההשקה, בשלב רגיש במיוחד של חדירת מוצר חדש לשוק.',
+          'נבדק אם מקור הבעיה הוא בהרכב, בתהליך הייצור, בקירור או באריזה.',
+          'מדובר בבעיה שלא תמיד רואים בעין, אלא מרגישים בטעם או בריח.',
+          'עולה שאלה אם אפשר היה לזהות את החריגה מוקדם יותר.',
+          'המקרה מראה שגם מוצר חדש ומסקרן חייב לעבור בקרה קפדנית.'
+        ]
       },
       {
-        number: "כתבה 6",
-        title: "המקום שלא סומן",
-        teaser: "כמה ליקויים קטנים יחד יכולים להפוך סביבת ביקור למקום מסוכן.",
+        number: 'כתבה 6',
+        title: 'המקום שלא סומן',
+        teaser: 'כמה ליקויים קטנים יכולים להצטבר יחד לסכנה ממשית.',
+        link: 'news6.html',
         paragraphs: [
-          "מבקר באתר ייצור נפצע לאחר שנפל לאזור עבודות שלא סומן ולא גודר היטב.",
-          "לפי הדיווחים, מעקה בטיחות זמני הוסר ולא הוחזר.",
-          "השילוט במקום לא היה ברור דיו, ובחלק מהשטח הייתה תאורה חלקית.",
-          "נבדק האם לכל המבקרים ניתן ליווי מספק לאורך הסיור.",
-          "האירוע מעלה שאלות על אחריות הנהלת האתר ועל תיאום עם קבלן המשנה.",
-          "לפעמים לא כשל אחד גדול יוצר את הסכנה, אלא כמה ליקויים קטנים שמצטברים."
-        ],
-        challenge: "אתגר: איך אפשר לזהות ולהשלים במהירות ליקויי סימון, גידור וליווי לפני כניסת מבקרים לאזורי עבודה?"
+          'מבקר באתר ייצור נפצע לאחר שנפל לאזור עבודות שלא סומן ולא גודר היטב.',
+          'לפי הדיווחים, מעקה בטיחות זמני הוסר ולא הוחזר.',
+          'השילוט במקום לא היה ברור דיו, ובחלק מהשטח הייתה תאורה חלקית.',
+          'נבדק האם לכל המבקרים ניתן ליווי מספק לאורך הסיור.',
+          'האירוע מעלה שאלות על אחריות הנהלת האתר ועל תיאום עם קבלן המשנה.',
+          'לפעמים לא כשל אחד גדול יוצר את הסכנה, אלא כמה ליקויים קטנים שמצטברים.'
+        ]
       },
       {
-        number: "כתבה 7",
-        title: "הכתובת שלא הייתה",
-        teaser: "במקרה הזה, טעות קטנה בסימון עלולה להפוך למצב מסוכן מאוד עבור חלק מהצרכנים.",
+        number: 'כתבה 7',
+        title: 'הכתובת שלא הייתה',
+        teaser: 'מידע חסר על אריזה עלול להפוך למצב מסוכן עבור חלק מהצרכנים.',
+        link: 'news7.html',
         paragraphs: [
-          "סדרת רטבים ירדה מהמדפים לאחר שהתברר כי אלרגן מסוג בוטנים לא סומן על האריזה.",
-          "עבור חלק מהצרכנים זה לא רק מידע חסר, אלא סכנה בריאותית ממשית.",
-          "נבדק אם מקור הטעות הוא אצל ספק חומרי גלם או בתהליך אישור התווית.",
-          "עולה גם השאלה האם אותה בעיה קיימת במוצרים נוספים.",
-          "המקרה מדגיש עד כמה מידע מדויק על האריזה הוא חלק מהבטיחות עצמה.",
-          "טעות בסימון יכולה להפוך מוצר רגיל למוצר מסוכן לאוכלוסייה מסוימת."
-        ],
-        challenge: "אתגר: איך אפשר למנוע טעות בסימון אלרגנים ולוודא שמידע קריטי לא יישמט מהאריזה?"
+          'סדרת רטבים ירדה מהמדפים לאחר שהתברר כי אלרגן מסוג בוטנים לא סומן על האריזה.',
+          'עבור חלק מהצרכנים זה לא רק מידע חסר, אלא סכנה בריאותית ממשית.',
+          'נבדק אם מקור הטעות הוא אצל ספק חומרי גלם או בתהליך אישור התווית.',
+          'עולה גם השאלה האם אותה בעיה קיימת במוצרים נוספים.',
+          'המקרה מדגיש עד כמה מידע מדויק על האריזה הוא חלק מהבטיחות עצמה.',
+          'טעות בסימון יכולה להפוך מוצר רגיל למוצר מסוכן לאוכלוסייה מסוימת.'
+        ]
       },
       {
-        number: "כתבה 8",
-        title: "האריזה שלא שמרה",
-        teaser: "פגם קטן מאוד באריזה עלול להשפיע על טריות המוצר בלי שיראו זאת מיד.",
+        number: 'כתבה 8',
+        title: 'האריזה שלא שמרה',
+        teaser: 'גם פגם קטן מאוד באטימה עלול להשפיע על בטיחות המוצר.',
+        link: 'news8.html',
         paragraphs: [
-          "מוצרי עוף ארוזים הוסרו מהמדפים בשל חשש לפגם קטן באטימת האריזה.",
-          "החשש הוא שחדירת אוויר פגעה בטריות המוצר וקיצרה את חיי המדף שלו.",
-          "לא כל פגם נראה מיד לעין, ולכן הזיהוי עלול להתעכב.",
-          "נבדק אם מקור הכשל הוא במכונת האריזה או בבדיקות האיכות.",
-          "עולה גם השאלה אם התקלה פגעה במוצרים נוספים מאותו קו ייצור.",
-          "המקרה מדגיש את החשיבות של אריזה תקינה כחלק מבטיחות המזון."
-        ],
-        challenge: "אתגר: איך אפשר לזהות פגם קטן באטימה מוקדם יותר ולמנוע ממוצר לא תקין להגיע למדף?"
+          'מוצרי עוף ארוזים הוסרו מהמדפים בשל חשש לפגם קטן באטימת האריזה.',
+          'החשש הוא שחדירת אוויר פגעה בטריות המוצר וקיצרה את חיי המדף שלו.',
+          'לא כל פגם נראה מיד לעין, ולכן הזיהוי עלול להתעכב.',
+          'נבדק אם מקור הכשל הוא במכונת האריזה או בבדיקות האיכות.',
+          'עולה גם השאלה אם התקלה פגעה במוצרים נוספים מאותו קו ייצור.',
+          'המקרה מדגיש את החשיבות של אריזה תקינה כחלק מבטיחות המזון.'
+        ]
       },
       {
-        number: "כתבה 9",
-        title: "כששתי מעלות חסרו",
-        teaser: "כאשר מערכת אוטומטית מסתמכת על נתון שגוי, כל התהליך עלול להיפגע בלי שיבחינו בכך מיד.",
+        number: 'כתבה 9',
+        title: 'כששתי מעלות חסרו',
+        teaser: 'מערכת בקרה שמסתמכת על נתון שגוי עלולה לא לזהות את הבעיה בזמן.',
+        link: 'news9.html',
         paragraphs: [
-          "במפעל למוצרי חלב עלה חשד שחיישן טמפרטורה הציג נתונים לא נכונים בתהליך הפסטור.",
-          "אם הנתונים שגויים, ייתכן שהתהליך לא בוצע בתנאים הנדרשים.",
-          "מערכת אוטומטית עלולה להסתמך על נתון שגוי בלי לזהות את הבעיה בזמן.",
-          "כעת בודקים את מצב החיישנים, הבקרים ותהליכי הכיול.",
-          "נבדק גם אם מוצרים נוספים מאותו קו ייצור הושפעו.",
-          "המקרה מראה עד כמה מערכת בקרה מדויקת חיונית לאיכות ולבטיחות."
-        ],
-        challenge: "אתגר: איך אפשר לזהות בזמן נתון טמפרטורה שגוי לפני שהוא משפיע על תהליך ייצור שלם?"
+          'במפעל למוצרי חלב עלה חשד שחיישן טמפרטורה הציג נתונים לא נכונים בתהליך הפסטור.',
+          'אם הנתונים שגויים, ייתכן שהתהליך לא בוצע בתנאים הנדרשים.',
+          'מערכת אוטומטית עלולה להסתמך על נתון שגוי בלי לזהות את הבעיה בזמן.',
+          'כעת בודקים את מצב החיישנים, הבקרים ותהליכי הכיול.',
+          'נבדק גם אם מוצרים נוספים מאותו קו ייצור הושפעו.',
+          'המקרה מראה עד כמה מערכת בקרה מדויקת חיונית לאיכות ולבטיחות.'
+        ]
       },
       {
-        number: "כתבה 10",
-        title: "מתכות מדי על המדף",
-        teaser: "הזיהוי הגיע מאוחר, רק אחרי שהמוצר כבר יצא לשוק והגיע לציבור.",
+        number: 'כתבה 10',
+        title: 'מאוחר מדי על המדף',
+        teaser: 'כאשר הזיהוי מאוחר, המוצרים כבר מגיעים לציבור לפני שעוצרים את התקלה.',
+        link: 'news10.html',
         paragraphs: [
-          "שבבי מתכת נמצאו בחטיפים, ורק תלונות צרכנים הובילו לבדיקה רחבה.",
-          "לפי החשד, חלקי מתכת נשרו ממכונה במהלך הייצור.",
-          "גלאי המתכות היה מכויל לרגישות נמוכה מדי ולכן לא זיהה חלקיקים קטנים.",
-          "גם סימני שחיקה מוקדמים במכונה לא הובילו לעצירה בזמן.",
-          "זהו מקרה שבו הזיהוי התרחש מאוחר מדי — רק אחרי שהמוצרים כבר הגיעו לציבור.",
-          "המקרה מדגיש את החשיבות של תחזוקה מונעת ובקרת איכות אמינה."
-        ],
-        challenge: "אתגר: איך אפשר לזהות שחיקה או זיהום מתכתי מוקדם יותר, עוד במהלך הייצור ולא רק אחרי תלונות צרכנים?"
+          'שבבי מתכת נמצאו בחטיפים, ורק תלונות צרכנים הובילו לבדיקה רחבה.',
+          'לפי החשד, חלקי מתכת נשרו ממכונה במהלך הייצור.',
+          'גלאי המתכות היה מכויל לרגישות נמוכה מדי ולכן לא זיהה חלקיקים קטנים.',
+          'גם סימני שחיקה מוקדמים במכונה לא הובילו לעצירה בזמן.',
+          'זהו מקרה שבו הזיהוי התרחש מאוחר מדי — רק אחרי שהמוצרים כבר הגיעו לציבור.',
+          'המקרה מדגיש את החשיבות של תחזוקה מונעת ובקרת איכות אמינה.'
+        ]
       }
     ];
 
-    const articlesGrid = document.getElementById("articlesGrid");
-    const emptyState = document.getElementById("emptyState");
-    const summaryView = document.getElementById("summaryView");
-    const summaryNumber = document.getElementById("summaryNumber");
-    const summaryTitle = document.getElementById("summaryTitle");
-    const summaryText = document.getElementById("summaryText");
-    const challengeLine = document.getElementById("challengeLine");
-    const instructionsBtn = document.getElementById("instructionsBtn");
-    const instructionsModal = document.getElementById("instructionsModal");
-    const instructionsClose = document.getElementById("instructionsClose");
-    const mainProblemInput = document.getElementById("mainProblemInput");
-    const affectedInput = document.getElementById("affectedInput");
-    const additionalIssuesInput = document.getElementById("additionalIssuesInput");
-    const domainInput = document.getElementById("domainInput");
-    const oneSentenceInput = document.getElementById("oneSentenceInput");
-    const saveResponseBtn = document.getElementById("saveResponseBtn");
-    const clearResponseBtn = document.getElementById("clearResponseBtn");
-    const saveStatus = document.getElementById("saveStatus");
-
-    const STORAGE_KEY = "premiumNewsFollowupResponses";
-    let currentArticleIndex = null;
+    const articlesGrid = document.getElementById('articlesGrid');
+    const summaryEmpty = document.getElementById('summaryEmpty');
+    const summaryView = document.getElementById('summaryView');
+    const summaryBadge = document.getElementById('summaryBadge');
+    const summaryTitle = document.getElementById('summaryTitle');
+    const summaryText = document.getElementById('summaryText');
 
     function createCards() {
       articles.forEach((article, index) => {
-        const card = document.createElement("article");
-        card.className = "article-card";
+        const card = document.createElement('article');
+        card.className = 'article-card';
         card.innerHTML = `
           <span class="tag">${article.number}</span>
           <h2>${article.title}</h2>
           <p>${article.teaser}</p>
-          <button class="article-btn" type="button" data-index="${index}">לפתיחת התקציר</button>
+          <div class="article-actions">
+            <button class="article-btn" type="button" data-index="${index}">תקציר</button>
+            <a class="article-link" href="${article.link}">לכתבה</a>
+          </div>
         `;
         articlesGrid.appendChild(card);
       });
     }
 
-    function renderArticle(index) {
+    function renderSummary(index) {
       const article = articles[index];
       if (!article) return;
 
-      currentArticleIndex = index;
-      emptyState.style.display = "none";
-      summaryView.classList.add("active");
-      summaryNumber.textContent = article.number;
+      summaryEmpty.style.display = 'none';
+      summaryView.classList.add('active');
+      summaryBadge.textContent = article.number;
       summaryTitle.textContent = article.title;
-      challengeLine.textContent = article.challenge;
-      summaryText.innerHTML = `<div class="summary-intro">תקציר הכתבה</div>` + article.paragraphs.map(paragraph => `<p>${paragraph}</p>`).join("");
-      loadResponseForm(index);
-
-      summaryView.scrollIntoView({ behavior: "smooth", block: "start" });
+      summaryText.innerHTML = `<div class="summary-intro">תקציר הכתבה</div>` + article.paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+      summaryView.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    articlesGrid.addEventListener("click", (event) => {
-      const button = event.target.closest(".article-btn");
+    articlesGrid.addEventListener('click', (event) => {
+      const button = event.target.closest('.article-btn');
       if (!button) return;
-      renderArticle(Number(button.dataset.index));
-    });
-
-    function getStoredResponses() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-      } catch (error) {
-        return {};
-      }
-    }
-
-    function setStoredResponses(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    function loadResponseForm(index) {
-      const storedResponses = getStoredResponses();
-      const response = storedResponses[index] || {};
-
-      mainProblemInput.value = response.mainProblem || "";
-      affectedInput.value = response.affected || "";
-      additionalIssuesInput.value = response.additionalIssues || "";
-      domainInput.value = response.domain || "";
-      oneSentenceInput.value = response.oneSentence || "";
-      saveStatus.textContent = "אפשר לענות כאן ולשמור את התשובות לכתבה שנבחרה.";
-    }
-
-    function collectCurrentResponse() {
-      return {
-        mainProblem: mainProblemInput.value.trim(),
-        affected: affectedInput.value.trim(),
-        additionalIssues: additionalIssuesInput.value.trim(),
-        domain: domainInput.value,
-        oneSentence: oneSentenceInput.value.trim()
-      };
-    }
-
-    function saveCurrentResponse(message = "התשובות נשמרו לכתבה זו.") {
-      if (currentArticleIndex === null) {
-        saveStatus.textContent = "בחרו קודם כתבה ואז כתבו את התשובות.";
-        return;
-      }
-
-      const storedResponses = getStoredResponses();
-      storedResponses[currentArticleIndex] = collectCurrentResponse();
-      setStoredResponses(storedResponses);
-      saveStatus.textContent = message;
-    }
-
-    function clearCurrentResponse() {
-      if (currentArticleIndex === null) {
-        saveStatus.textContent = "בחרו קודם כתבה כדי לנקות את התשובות שלה.";
-        return;
-      }
-
-      mainProblemInput.value = "";
-      affectedInput.value = "";
-      additionalIssuesInput.value = "";
-      domainInput.value = "";
-      oneSentenceInput.value = "";
-
-      const storedResponses = getStoredResponses();
-      delete storedResponses[currentArticleIndex];
-      setStoredResponses(storedResponses);
-      saveStatus.textContent = "התשובות לכתבה זו נוקו.";
-    }
-
-    function openInstructionsModal() {
-      instructionsModal.classList.add("active");
-      instructionsModal.setAttribute("aria-hidden", "false");
-    }
-
-    function closeInstructionsModal() {
-      instructionsModal.classList.remove("active");
-      instructionsModal.setAttribute("aria-hidden", "true");
-    }
-
-    instructionsBtn.addEventListener("click", openInstructionsModal);
-    instructionsClose.addEventListener("click", closeInstructionsModal);
-
-    instructionsModal.addEventListener("click", (event) => {
-      if (event.target === instructionsModal) {
-        closeInstructionsModal();
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && instructionsModal.classList.contains("active")) {
-        closeInstructionsModal();
-      }
-    });
-
-    saveResponseBtn.addEventListener("click", () => {
-      saveCurrentResponse();
-    });
-
-    clearResponseBtn.addEventListener("click", () => {
-      clearCurrentResponse();
-    });
-
-    [mainProblemInput, affectedInput, additionalIssuesInput, domainInput, oneSentenceInput].forEach((field) => {
-      field.addEventListener("input", () => {
-        if (currentArticleIndex !== null) {
-          saveCurrentResponse("טיוטת התשובות נשמרה אוטומטית.");
-        }
-      });
+      renderSummary(Number(button.dataset.index));
     });
 
     createCards();
   </script>
-  <script src="../pwa-register.js" defer></script>
+  <script src="/Premium/pwa-register.js" defer></script>
 </body>
 </html>
