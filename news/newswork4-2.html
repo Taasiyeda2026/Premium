@@ -754,10 +754,13 @@
           </div>
           <div class="tool-num">2</div>
         </div>
+
         <div class="field" style="margin-bottom: 12px;">
           <label>בחרו כיוון אחד מרכזי</label>
+          <div class="mini-note">סמנו כיוון אחד, ואז כתבו במשפט קצר למה זה הכיוון שהכי מתאים לבעיה.</div>
         </div>
-        <div class="choice-grid">
+
+        <div class="choice-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir1" value="לשפר"><label for="dir1">לשפר</label></div>
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir2" value="למנוע"><label for="dir2">למנוע</label></div>
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir3" value="לזהות מוקדם יותר"><label for="dir3">לזהות מוקדם יותר</label></div>
@@ -765,6 +768,11 @@
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir5" value="להפוך לברור יותר"><label for="dir5">להפוך לברור יותר</label></div>
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir6" value="להפוך לבטוח יותר"><label for="dir6">להפוך לבטוח יותר</label></div>
           <div class="choice"><input type="radio" name="thinkingDirection" id="dir7" value="להפוך למדויק יותר"><label for="dir7">להפוך למדויק יותר</label></div>
+        </div>
+
+        <div class="field" style="margin-top: 14px;">
+          <label for="directionReason">למה בחרתן דווקא בכיוון הזה?</label>
+          <textarea id="directionReason" class="short" placeholder="כתבו בקצרה למה זה הכיוון המתאים ביותר להמשך החשיבה"></textarea>
         </div>
       </section>
 
@@ -777,29 +785,31 @@
           </div>
           <div class="tool-num">3</div>
         </div>
-        <div class="formula">איך אפשר ______ את ______ עבור ______ בשלב ______ כך ש־______?</div>
-        <div class="tool-grid" style="margin-top: 14px;">
+
+
+        <div class="tool-grid" style="margin-top: 14px; grid-template-columns: 1fr;">
           <div class="field">
-            <label for="challengeVerb">איך אפשר...</label>
-            <input id="challengeVerb" type="text" placeholder="לשפר / למנוע / לצמצם...">
+            <label for="challengeVerb">1. איך אפשר...</label>
+            <textarea id="challengeVerb" class="short" placeholder="לשפר / למנוע / לצמצם..."></textarea>
           </div>
           <div class="field">
-            <label for="challengeWhat">את מה?</label>
-            <input id="challengeWhat" type="text" placeholder="למשל: תהליך הזיהוי, הסימון, הבקרה">
+            <label for="challengeWhat">2. את מה?</label>
+            <textarea id="challengeWhat" class="short" placeholder="למשל: תהליך הזיהוי, הסימון, הבקרה"></textarea>
           </div>
           <div class="field">
-            <label for="challengeForWhom">עבור מי?</label>
-            <input id="challengeForWhom" type="text" placeholder="למי זה מיועד או עבור מי זה נדרש">
+            <label for="challengeForWhom">3. עבור מי?</label>
+            <textarea id="challengeForWhom" class="short" placeholder="למי זה מיועד או עבור מי זה נדרש"></textarea>
           </div>
           <div class="field">
-            <label for="challengeStage">באיזה שלב?</label>
-            <input id="challengeStage" type="text" placeholder="למשל: בשלב הייצור / ההובלה / השימוש">
+            <label for="challengeStage">4. באיזה שלב?</label>
+            <textarea id="challengeStage" class="short" placeholder="למשל: בשלב הייצור / ההובלה / השימוש"></textarea>
           </div>
-          <div class="field span-2">
-            <label for="challengeImpact">כך ש־...</label>
+          <div class="field">
+            <label for="challengeImpact">5. כך ש־...</label>
             <textarea id="challengeImpact" class="short" placeholder="מה התוצאה הרצויה של האתגר"></textarea>
           </div>
         </div>
+
         <div class="preview-box" style="margin-top: 14px;">
           <strong>אתגר מנוסח:</strong>
           <div id="challengePreview" style="margin-top: 8px; line-height: 1.9; color: #4d5a74;">עדיין לא הושלם ניסוח האתגר.</div>
@@ -815,18 +825,43 @@
           </div>
           <div class="tool-num">4</div>
         </div>
+
+        <div class="tool-grid">
+          <div class="field span-2">
+            <label for="tool4Define">שלב 1 – מגדירים את הבעיה במילים שלכן</label>
+            <textarea id="tool4Define" placeholder="נסחו בקצרה מה הבעיה, למי היא מפריעה, באיזה שלב היא מופיעה ומה ההשפעה שלה"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="tool4Focus">שלב 2 – מהו כיוון החשיבה שנבחר?</label>
+            <textarea id="tool4Focus" class="short" placeholder="כתבו את הכיוון שנבחר ולמה הוא מתאים לבעיה"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="tool4Draft">שלב 3 – ניסוח ביניים של האתגר</label>
+            <textarea id="tool4Draft" class="short" placeholder="נסחו כאן אתגר ראשוני לפני בחירה סופית"></textarea>
+          </div>
+        </div>
+
+        <div class="preview-box" style="margin-top: 14px; margin-bottom: 14px;">
+          <strong>סיכום אוטומטי מהכלים הקודמים:</strong>
+          <div class="mini-note" style="margin-top: 8px;">
+            
+          </div>
+        </div>
+
         <div class="tool-grid-3">
           <div class="preview-box">
-            <strong>שלב 1 – הבעיה</strong>
-            <div id="tool4ProblemSummary" class="mini-note" style="margin-top: 8px;">כאן יופיע סיכום אוטומטי של הבעיה שהוגדרה.</div>
+            <strong>שלב 1</strong>
+            <div id="tool4ProblemSummary" class="mini-note" style="margin-top: 8px;"></div>
           </div>
           <div class="preview-box">
-            <strong>שלב 2 – כיוון החשיבה</strong>
-            <div id="tool4DirectionSummary" class="mini-note" style="margin-top: 8px;">כאן יופיע כיוון החשיבה שנבחר.</div>
+            <strong>שלב 2</strong>
+            <div id="tool4DirectionSummary" class="mini-note" style="margin-top: 8px;"></div>
           </div>
           <div class="preview-box">
-            <strong>שלב 3 – האתגר</strong>
-            <div id="tool4ChallengeSummary" class="mini-note" style="margin-top: 8px;">כאן יופיע ניסוח האתגר המלא.</div>
+            <strong>שלב 3</strong>
+            <div id="tool4ChallengeSummary" class="mini-note" style="margin-top: 8px;"></div>
           </div>
         </div>
       </section>
@@ -1057,10 +1092,10 @@
       challengePreview.textContent = challengeText;
       tool4ProblemSummary.textContent = problemWhat || problemWho || problemStage || problemImpact
         ? `הבעיה: ${problemWhat || 'לא הושלם'} | למי: ${problemWho || 'לא הושלם'} | שלב: ${problemStage || 'לא הושלם'} | השפעה: ${problemImpact || 'לא הושלם'}`
-        : 'כאן יופיע סיכום אוטומטי של הבעיה שהוגדרה.';
+        : '';
       tool4DirectionSummary.textContent = direction
         ? `כיוון החשיבה שנבחר: ${direction}`
-        : 'כאן יופיע כיוון החשיבה שנבחר.';
+        : '';
       tool4ChallengeSummary.textContent = challengeText;
     }
 
@@ -1160,4 +1195,7 @@
 
     loadData();
     updateSummaries();
-    updateScoreAnalysis
+    updateScoreAnalysis();
+  </script>
+</body>
+</html>
