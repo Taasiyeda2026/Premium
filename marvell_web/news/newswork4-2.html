@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מבעיה לאתגר | פרימיום Marvell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #edf1f7;
+      --panel: #ffffff;
+      --line: #d0dce8;
+      --text: #0d2045;
+      --muted: #3a5070;
+      --primary: #1a3a7a;
+      --accent: #2f6fed;
+      --good: #1b8a5a;
+      --warn: #c44949;
+      --shadow: 0 16px 34px rgba(13,32,69,0.08);
+      --radius: 22px;
+    }
+    body {
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(13,32,69,0.09), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(47,111,237,0.07), transparent 22%),
+        linear-gradient(180deg, #edf1f7 0%, #e4eaf4 100%);
+      color: var(--text);
+      padding: 24px 16px 40px;
+    }
+    .page {
+      width: 100%; max-width: 1060px; margin: 0 auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(247,249,253,0.94) 100%);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 30px;
+      box-shadow: 0 24px 52px rgba(13,32,69,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+      overflow: hidden; position: relative;
+    }
+    .page::before {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 34%);
+      pointer-events: none;
+    }
+    .topbar {
+      background: linear-gradient(90deg, #0d2045 0%, #1a3a7a 45%, #0d2045 100%);
+      color: white; text-align: center; padding: 10px 16px;
+      font-size: 0.88rem; font-weight: 800; letter-spacing: 0.2px;
+      box-shadow: 0 4px 12px rgba(13,32,69,0.22);
+    }
+    .header {
+      padding: 18px 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,249,252,0.88) 100%);
+      border-bottom: 1px solid var(--line); position: relative;
+    }
+    .home-link {
+      position: absolute; right: 20px; top: 18px;
+      width: 42px; height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f1f3f9 100%);
+      border: 1px solid #d0dce8;
+      box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 16px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.92);
+      transition: transform 0.16s ease;
+    }
+    .home-link:hover { transform: translateY(-2px); }
+    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .brand-logo { width: 48px; height: 48px; object-fit: contain; border-radius: 10px; border: 1px solid #d0dce8; background: #fff; }
+    .brand-name { font-size: 1.35rem; font-weight: 700; color: #0d2045; }
+    .body { padding: 24px 20px 28px; display: grid; gap: 22px; }
+    .hero {
+      background: linear-gradient(135deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.95) 100%);
+      border-radius: 22px; padding: 22px 20px;
+      border: 1px solid rgba(207,220,234,0.96);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+    .hero h1 { font-size: clamp(1.4rem, 2.8vw, 2rem); font-weight: 900; color: #0d2045; margin-bottom: 10px; }
+    .hero p { font-size: 0.97rem; color: var(--muted); line-height: 1.9; max-width: 800px; }
+    .panel {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 20px 18px;
+      box-shadow: var(--shadow);
+    }
+    .panel-title {
+      font-size: 1.05rem; font-weight: 900; color: #0d2045;
+      border-right: 5px solid #1a3a7a; padding-right: 10px; margin-bottom: 14px;
+    }
+    .example-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;
+    }
+    @media (max-width: 600px) { .example-row { grid-template-columns: 1fr; } }
+    .example-box {
+      border-radius: 14px; padding: 14px 14px;
+      font-size: 0.93rem; line-height: 1.75;
+    }
+    .example-box.bad {
+      background: linear-gradient(180deg, #fef5f5 0%, #faeaea 100%);
+      border: 1px solid #f0c8c8; color: #7a2020;
+    }
+    .example-box.good {
+      background: linear-gradient(180deg, #f0f8f4 0%, #e4f2ea 100%);
+      border: 1px solid #b8dcc8; color: #1b5a38;
+    }
+    .example-label {
+      font-size: 0.78rem; font-weight: 800; margin-bottom: 7px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .badge-bad {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      background: #f0c8c8; color: #7a2020; font-size: 0.72rem; font-weight: 800;
+    }
+    .badge-good {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      background: #b8dcc8; color: #1b5a38; font-size: 0.72rem; font-weight: 800;
+    }
+    .field-box {
+      background: #f6f9fc; border: 1px solid #d0dce8;
+      border-radius: 16px; padding: 14px; margin-bottom: 14px;
+    }
+    .field-box:last-child { margin-bottom: 0; }
+    .field-box label {
+      display: block; font-size: 0.92rem; font-weight: 800;
+      color: #1a3a7a; margin-bottom: 7px;
+    }
+    .field-box textarea, .field-box input, .field-box select {
+      width: 100%; border: 1px solid #c0cdd8; border-radius: 11px;
+      background: #fff; padding: 10px 12px;
+      font-family: "Heebo", Arial, sans-serif;
+      font-size: 0.95rem; color: #222; resize: vertical;
+    }
+    .field-box textarea { min-height: 80px; line-height: 1.8; }
+    .field-box textarea:focus, .field-box input:focus, .field-box select:focus {
+      outline: none; border-color: #1a3a7a;
+      box-shadow: 0 0 0 3px rgba(26,58,122,0.09);
+    }
+    .field-note { margin-top: 6px; font-size: 0.82rem; color: #6e7e90; line-height: 1.6; }
+    .links-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      padding-top: 16px; border-top: 1px solid var(--line); margin-top: 16px;
+    }
+    .mini-link, .print-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 7px; min-width: 138px; padding: 10px 14px; border-radius: 11px;
+      text-decoration: none; font-size: 0.88rem; font-weight: 800;
+      color: #0d2045;
+      background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
+      border: 1px solid #c8d5e2;
+      box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 18px rgba(13,32,69,0.09), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.16s ease;
+      white-space: nowrap; font-family: "Heebo", Arial, sans-serif; cursor: pointer;
+    }
+    .mini-link:hover, .print-btn:hover { transform: translateY(-2px); }
+    .print-btn { min-width: auto; padding: 9px 13px; }
+    .print-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+    .footer-bar {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(247,249,252,0.88) 100%);
+      border-top: 1px solid var(--line); padding: 14px 20px;
+      text-align: center; font-size: 0.92rem; font-weight: 500; color: var(--muted);
+    }
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .body { padding: 16px 14px 22px; gap: 16px; }
+      .hero { padding: 16px 14px; }
+      .header { padding: 14px 16px; }
+      .home-link { right: 14px; top: 14px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .mini-link, .print-btn { min-width: 100%; }
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { max-width: none; border: 0; border-radius: 0; box-shadow: none; background: #fff; }
+      .topbar, .home-link, .links-row, .footer-bar { display: none !important; }
+      .hero, .panel, .field-box { background: #fff !important; box-shadow: none !important; border-color: #ccc !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">פרימיום Marvell | מבעיה לאתגר</div>
+
+    <div class="header">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <div class="brand">
+        <img class="brand-logo" src="../../images/logo.png" alt="לוגו" />
+        <span class="brand-name">פרימיום Marvell</span>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <section class="hero">
+        <h1>מבעיה לאתגר</h1>
+        <p>
+          קחו את הבעיה שניסחתם והפכו אותה לאתגר פתוח. אתגר טוב לא אומר מיד "נבנה אפליקציה",
+          אלא שואל <strong>איך אפשר</strong> לזהות, להתריע, לסדר מידע, לחבר בין מוצר למשתמש
+          או לעזור בקבלת החלטה טובה יותר.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">דוגמאות: בעיה לעומת אתגר</div>
+
+        <div class="example-row">
+          <div class="example-box bad">
+            <div class="example-label"><span class="badge-bad">לא טוב</span></div>
+            איך נבנה אפליקציה לתיק?
+          </div>
+          <div class="example-box good">
+            <div class="example-label"><span class="badge-good">טוב</span></div>
+            איך אפשר לעזור לתלמידים לדעת מראש איזה ציוד חסר להם?
+          </div>
+        </div>
+
+        <div class="example-row">
+          <div class="example-box bad">
+            <div class="example-label"><span class="badge-bad">לא טוב</span></div>
+            איך נבנה צמיד חירום?
+          </div>
+          <div class="example-box good">
+            <div class="example-label"><span class="badge-good">טוב</span></div>
+            איך אפשר להעביר מידע חשוב בזמן חירום בצורה פשוטה ובטוחה?
+          </div>
+        </div>
+
+        <div class="example-row">
+          <div class="example-box bad">
+            <div class="example-label"><span class="badge-bad">לא טוב</span></div>
+            נעשה אפליקציה להתראות.
+          </div>
+          <div class="example-box good">
+            <div class="example-label"><span class="badge-good">טוב</span></div>
+            איך אפשר לעזור למשתמש לסנן ולדרג מידע לפי חשיבות?
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">דף העבודה</div>
+
+        <div class="field-box">
+          <label for="groupName">שם הקבוצה</label>
+          <input id="groupName" type="text" placeholder="כתבו את שם הקבוצה" />
+        </div>
+
+        <div class="field-box">
+          <label for="cardChoice">כרטיס המקרה שבחרתם</label>
+          <select id="cardChoice">
+            <option value="">בחרו כרטיס</option>
+            <option>התיק ששוכח בשבילך</option>
+            <option>יותר מדי התראות</option>
+            <option>מי צריך עזרה בכיתה?</option>
+            <option>הטלפון מתחמם ונחלש</option>
+          </select>
+        </div>
+
+        <div class="field-box">
+          <label for="problemStatement">הבעיה המנוסחת שלכם (ממשימה הקודמת)</label>
+          <textarea id="problemStatement" placeholder="העתיקו את ניסוח הבעיה מדף העבודה הקודם"></textarea>
+        </div>
+
+        <div class="field-box">
+          <label for="challengeV1">ניסוח ראשון של האתגר</label>
+          <textarea id="challengeV1" placeholder='התחילו מ"איך אפשר..." — אל תציעו עדיין פתרון'></textarea>
+          <div class="field-note">נסו לנסח שאלה פתוחה שמגדירה את הכיוון מבלי לנעול פתרון.</div>
+        </div>
+
+        <div class="field-box">
+          <label for="whyGood">למה זה אתגר טוב?</label>
+          <textarea id="whyGood" placeholder="הסבירו למה הניסוח פתוח מספיק ומכוון לבעיה המרכזית"></textarea>
+        </div>
+
+        <div class="field-box">
+          <label for="challengeFinal">ניסוח סופי של האתגר</label>
+          <textarea id="challengeFinal" placeholder="כתבו את הגרסה הסופית, ברורה וממוקדת"></textarea>
+        </div>
+
+        <div class="field-box">
+          <label for="marvellConnection">הקשר ל-Marvell</label>
+          <textarea id="marvellConnection" placeholder="מידע, חיישנים, קישוריות, אבטחה, עומס, התראות, זיהוי בזמן, קבלת החלטות..."></textarea>
+        </div>
+
+        <div class="links-row">
+          <button class="print-btn" type="button" onclick="window.print()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 3h10v4H7V3Zm10 6c1.7 0 3 1.3 3 3v4h-3v5H7v-5H4v-4c0-1.7 1.3-3 3-3h10Zm-2 10v-5H9v5h6Zm2-7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
+            </svg>
+            הדפסה
+          </button>
+          <a class="mini-link" href="newswork4-1.html">זיהוי בעיה</a>
+          <a class="mini-link" href="shortnews.html">לתקצירי הכרטיסים</a>
+        </div>
+      </section>
+
+    </div>
+    <div class="footer-bar">מנסחים בעיה בדיוק – ואז הופכים אותה לאתגר פתוח וממוקד | © פרימיום Marvell</div>
+  </div>
+
+  <script>
+    window.addEventListener('beforeprint', () => {
+      document.querySelectorAll('input, textarea, select').forEach(field => {
+        if (field.tagName === 'TEXTAREA') field.textContent = field.value;
+        else if (field.tagName === 'SELECT') {
+          Array.from(field.options).forEach(o => o.removeAttribute('selected'));
+          if (field.selectedIndex >= 0) field.options[field.selectedIndex].setAttribute('selected', 'selected');
+        } else field.setAttribute('value', field.value);
+      });
+    });
+  </script>
+</body>
+</html>

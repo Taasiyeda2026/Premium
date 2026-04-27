@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="theme-color" content="#0d2045" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Premium" />
-  <meta name="application-name" content="Premium" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png" />
-  <link rel="stylesheet" href="styles/pwa.css" />
-  <title>פרימיום תעשיידע</title>
+  <meta name="apple-mobile-web-app-title" content="Marvell" />
+  <meta name="application-name" content="Marvell" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192x192.png" />
+  <link rel="apple-touch-icon" href="../icons/icon-192x192.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <title>פרימיום Marvell</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@700;800&display=swap" rel="stylesheet">
@@ -25,14 +23,12 @@
       --glow-strong: #8a7dff;
       --text: #ffffff;
       --shadow: rgba(0, 0, 0, 0.35);
-      --btn-bg: rgba(22, 36, 62, 0.74);
+      --btn-bg: rgba(13, 32, 69, 0.74);
       --btn-border: rgba(255, 255, 255, 0.2);
       --btn-highlight: rgba(255, 255, 255, 0.16);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -43,12 +39,11 @@
 
     body {
       min-height: 100vh;
-      background-image:
-        linear-gradient(to bottom, rgba(4, 10, 24, 0.35), rgba(4, 10, 24, 0.55)),
-        url('images/background.png');
+      background:
+        linear-gradient(to bottom, rgba(4, 10, 30, 0.55), rgba(4, 10, 30, 0.72)),
+        linear-gradient(135deg, #0d2045 0%, #162c5c 50%, #0d2045 100%);
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
       color: var(--text);
       display: flex;
       flex-direction: column;
@@ -58,9 +53,24 @@
       padding: 36px 20px 60px;
     }
 
+    .hero-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .brand-logo {
+      width: min(112px, 22vw);
+      height: auto;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 12px rgba(125, 232, 255, 0.22));
+    }
+
     .page-title {
       font-family: 'Assistant', 'Heebo', sans-serif;
-      margin: 10px 0 22px;
+      margin: 10px 0 6px;
       text-align: center;
       font-size: clamp(2rem, 4.2vw, 3.9rem);
       font-weight: 800;
@@ -71,6 +81,29 @@
         0 0 10px rgba(125, 232, 255, 0.7),
         0 0 22px rgba(138, 125, 255, 0.45);
       filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+    }
+
+    .page-subtitle {
+      text-align: center;
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.78);
+      margin: 0 0 12px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      max-width: 480px;
+    }
+
+    .course-intro {
+      max-width: 520px;
+      text-align: center;
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.70);
+      margin: 0 auto 28px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
     }
 
     .center-wrap {
@@ -98,7 +131,7 @@
       border-radius: 14px;
       background:
         linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04)),
-        linear-gradient(135deg, rgba(36, 58, 92, 0.22), rgba(14, 22, 38, 0.08)),
+        linear-gradient(135deg, rgba(36, 58, 120, 0.22), rgba(14, 22, 50, 0.08)),
         var(--btn-bg);
       color: #fff;
       font-family: inherit;
@@ -110,7 +143,7 @@
         inset 0 -8px 14px rgba(0, 0, 0, 0.18),
         0 10px 18px rgba(0, 0, 0, 0.28),
         0 0 16px rgba(125, 232, 255, 0.12),
-        0 14px 30px rgba(16, 28, 48, 0.12);
+        0 14px 30px rgba(13, 28, 60, 0.12);
       transition:
         transform 0.16s ease,
         box-shadow 0.18s ease,
@@ -119,13 +152,17 @@
       overflow: hidden;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .magic-btn::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), transparent 42%, transparent 58%, rgba(98, 150, 220, 0.10));
+      background: linear-gradient(135deg, rgba(255,255,255,0.22), transparent 42%, transparent 58%, rgba(100, 160, 255, 0.10));
       pointer-events: none;
     }
 
@@ -146,7 +183,7 @@
         inset 0 -10px 16px rgba(0, 0, 0, 0.16),
         0 18px 26px rgba(0, 0, 0, 0.34),
         0 0 22px rgba(125, 232, 255, 0.24),
-        0 14px 30px rgba(20, 36, 64, 0.16);
+        0 14px 30px rgba(13, 28, 60, 0.16);
     }
 
     .magic-btn:active {
@@ -167,7 +204,6 @@
       .button-grid {
         grid-template-columns: repeat(2, 98px);
       }
-
       .magic-btn {
         width: 98px;
         height: 98px;
@@ -175,69 +211,46 @@
     }
 
     @media (max-width: 560px) {
-      body {
-        padding: 20px 16px 40px;
-      }
-
-      .page-title {
-        font-size: clamp(1.6rem, 7vw, 2.4rem);
-        margin-bottom: 20px;
-      }
-
+      body { padding: 20px 16px 40px; }
+      .page-title { font-size: clamp(1.6rem, 7vw, 2.4rem); margin-bottom: 20px; }
       .button-grid {
         grid-template-columns: repeat(2, 1fr);
         width: 100%;
         gap: 12px;
         padding: 8px 0;
       }
-
       .magic-btn {
         width: 100%;
         height: auto;
         aspect-ratio: 1;
         font-size: 0.95rem;
       }
-    }
-  
-    .hero-brand {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 4px;
-    }
-
-    .brand-logo {
-      width: min(112px, 22vw);
-      height: auto;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 12px rgba(125, 232, 255, 0.22));
-    }
-
-    @media (max-width: 560px) {
-      .brand-logo {
-        width: min(80px, 22vw);
-        margin-bottom: 6px;
-      }
+      .brand-logo { width: min(80px, 22vw); margin-bottom: 6px; }
     }
   </style>
 </head>
 <body>
   <div class="hero-brand">
-    <img class="brand-logo" src="images/logo.png" alt="" />
-    <h1 class="page-title">תעשיידע | פרימיום</h1>
+    <img class="brand-logo" src="../images/logo.png" alt="" />
+    <h1 class="page-title">פרימיום Marvell</h1>
+    <p class="page-subtitle">יזמות, מוצרים חכמים ודאטה מהעולם שלנו</p>
+  </div>
+
+  <div class="course-intro">
+    בקורס נפתח רעיונות למוצרים פיזיים, אפליקציות ופתרונות דיגיטליים מתוך בעיות מוכרות מהחיים.<br>
+    החיבור ל-Marvell יהיה דרך מידע, חיישנים, קישוריות, אבטחה, עומס, התראות וקבלת החלטות.
   </div>
 
   <div class="center-wrap">
     <div class="button-grid">
-      <button class="magic-btn" onclick="window.location.href='marvell_web/news/allnews.html'"><span style="color: #ffcf00;">בעיה</span></button>
-      <button class="magic-btn" onclick="window.location.href='marvell_web/newsletter4.html'"><span style="color: #ffcf00;">אתגר</span></button>
-      <button class="magic-btn" onclick="window.location.href='marvell_web/newsletter5.html'"><span style="color: #ffcf00;">רעיונות</span></button>
-      <button class="magic-btn" onclick="window.location.href='building.html'"><span>בקרוב</span></button>
-      <button class="magic-btn" onclick="window.location.href='building.html'"><span>בקרוב</span></button>
-      <button class="magic-btn" onclick="window.location.href='building.html'"><span>בקרוב</span></button>
+      <a class="magic-btn" href="news/allnews.html"><span style="color: #ffcf00;">בעיה</span></a>
+      <a class="magic-btn" href="newsletter4.html"><span style="color: #ffcf00;">אתגר</span></a>
+      <a class="magic-btn" href="newsletter5.html"><span style="color: #ffcf00;">רעיונות</span></a>
+      <a class="magic-btn" href="../building.html"><span>בקרוב</span></a>
+      <a class="magic-btn" href="../building.html"><span>בקרוב</span></a>
+      <a class="magic-btn" href="../building.html"><span>בקרוב</span></a>
     </div>
   </div>
-  <script src="pwa-register.js" defer></script>
+  <script src="../pwa-register.js" defer></script>
 </body>
 </html>

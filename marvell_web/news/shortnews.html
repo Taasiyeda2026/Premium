@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d2045" />
+  <link rel="manifest" href="../../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../../images/logo.png" />
+  <link rel="apple-touch-icon" href="../../images/logo.png" />
+  <link rel="stylesheet" href="../../styles/pwa.css" />
+  <title>תקצירי כרטיסי המקרה | פרימיום Marvell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(13,32,69,0.10), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(26,58,122,0.07), transparent 22%),
+        linear-gradient(180deg, #edf1f7 0%, #e2e9f2 100%);
+      color: #14315f;
+      padding: 30px 18px 44px;
+      letter-spacing: 0.1px;
+    }
+
+    .newsletter {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #f4f7f9 0%, #eaf0f4 100%);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 28px 60px rgba(13,32,69,0.14), 0 10px 22px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 34%);
+      pointer-events: none;
+    }
+
+    .top-brand {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(247,249,251,0.84) 100%);
+      border-radius: 22px;
+      min-height: 88px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; padding: 16px 24px; overflow: hidden;
+      border: 1px solid rgba(207,220,234,0.92);
+      box-shadow: 0 12px 28px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .home-link {
+      position: absolute; right: 18px; top: 16px;
+      width: 42px; height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
+      border: 1px solid #cfdae4;
+      box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 16px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.16s ease;
+      z-index: 2;
+    }
+    .home-link:hover { transform: translateY(-2px); }
+    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+
+    .brand-mark {
+      position: absolute; left: 26px; top: 14px;
+      width: 60px; height: 60px; object-fit: contain; display: block;
+    }
+
+    .brand-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700; color: #0d2045;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .hero-banner {
+      margin-top: 20px;
+      background: linear-gradient(135deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.95) 100%);
+      border-radius: 22px; padding: 22px 20px;
+      border: 1px solid rgba(207,220,234,0.96);
+      box-shadow: 0 18px 34px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .hero-banner h1 {
+      font-size: clamp(1.4rem, 3vw, 1.95rem);
+      font-weight: 900; color: #0d2045; margin-bottom: 10px;
+    }
+
+    .hero-banner p {
+      font-size: 0.98rem; color: #3a5070; line-height: 1.9; max-width: 800px;
+    }
+
+    .section-title {
+      font-size: 1.18rem; font-weight: 900; margin: 22px 0 12px;
+      color: #111; border-right: 6px solid #1a3a7a; padding-right: 10px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 640px) { .cards-grid { grid-template-columns: 1fr; } }
+
+    .summary-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,251,253,0.94) 100%);
+      border: 1px solid rgba(207,220,234,0.98);
+      border-radius: 18px; padding: 18px 16px;
+      box-shadow: 0 14px 28px rgba(13,32,69,0.07), inset 0 1px 0 rgba(255,255,255,0.85);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative; overflow: hidden;
+    }
+
+    .summary-card::before {
+      content: "";
+      position: absolute; top: 0; right: 0; left: 0; height: 4px;
+      background: linear-gradient(90deg, #0d2045 0%, #4488cc 100%);
+    }
+
+    .summary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 36px rgba(13,32,69,0.10), inset 0 1px 0 rgba(255,255,255,0.88);
+    }
+
+    .card-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
+      color: white; font-size: 0.82rem; font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .card-name {
+      font-size: 1.06rem; font-weight: 800; color: #0d2045; margin-bottom: 10px;
+    }
+
+    .card-row {
+      margin-bottom: 8px;
+    }
+
+    .card-row .label {
+      font-size: 0.82rem; font-weight: 800; color: #1a3a7a; margin-bottom: 3px;
+    }
+
+    .card-row .value {
+      font-size: 0.92rem; color: #3a5070; line-height: 1.75;
+    }
+
+    .card-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 12px; padding: 8px 14px; border-radius: 9px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 800;
+      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
+      color: white; box-shadow: 0 6px 14px rgba(13,32,69,0.22);
+      transition: transform 0.15s ease;
+    }
+
+    .card-link:hover { transform: translateY(-1px); }
+
+    .footer-strip {
+      margin-top: 22px;
+      background: linear-gradient(90deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.96) 100%);
+      border: 1px solid #c8d8e8; border-radius: 16px; padding: 16px 20px;
+      text-align: center; font-size: 1.02rem; font-weight: 700; color: #0d2045;
+      box-shadow: 0 12px 24px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .page-footer {
+      margin-top: 14px; text-align: center; color: #5a6e87;
+      font-size: 0.9rem; font-weight: 500;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .newsletter { padding: 12px; border-radius: 20px; }
+      .top-brand { min-height: 78px; }
+      .brand-mark { left: 14px; top: 12px; width: 50px; height: 50px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="newsletter">
+    <section class="top-brand">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="brand-mark" src="../../images/logo.png" alt="לוגו פרימיום Marvell" />
+      <div class="brand-title">תקצירי כרטיסי המקרה</div>
+    </section>
+
+    <section class="hero-banner">
+      <h1>תקצירי כרטיסי המקרה</h1>
+      <p>
+        בחרו כרטיס מקרה אחד שמעניין אתכם. המטרה היא להבין את הבעיה, לא לבחור עדיין פתרון.
+      </p>
+    </section>
+
+    <h2 class="section-title">הכרטיסים</h2>
+    <div class="cards-grid">
+
+      <div class="summary-card">
+        <div class="card-num">1</div>
+        <div class="card-name">התיק ששוכח בשבילך</div>
+        <div class="card-row">
+          <div class="label">בעיה מרכזית</div>
+          <div class="value">אין דרך פשוטה לבדוק מראש אם כל הציוד הדרוש נמצא בתיק.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">קהל יעד</div>
+          <div class="value">תלמידים, מורים, הורים.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">כיוון אפשרי</div>
+          <div class="value">תיק חכם, אפליקציית ציוד יומית, תזכורת לפי מערכת שעות.</div>
+        </div>
+        <a class="card-link" href="news1.html">לקריאת הכרטיס</a>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-num">2</div>
+        <div class="card-name">יותר מדי התראות</div>
+        <div class="card-row">
+          <div class="label">בעיה מרכזית</div>
+          <div class="value">עודף מידע גורם לפספוס דברים חשובים ולחוסר ריכוז.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">קהל יעד</div>
+          <div class="value">תלמידים וכל מי שמשתמש בטלפון חכם.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">כיוון אפשרי</div>
+          <div class="value">אפליקציית סינון התראות, דירוג דחיפות, רמזור התראות.</div>
+        </div>
+        <a class="card-link" href="news2.html">לקריאת הכרטיס</a>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-num">3</div>
+        <div class="card-name">מי צריך עזרה בכיתה?</div>
+        <div class="card-row">
+          <div class="label">בעיה מרכזית</div>
+          <div class="value">קשה לזהות בזמן איזו קבוצה צריכה עזרה בשיעור.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">קהל יעד</div>
+          <div class="value">תלמידים בקבוצות עבודה ומורים.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">כיוון אפשרי</div>
+          <div class="value">דשבורד מורה, לחצן עזרה קבוצתי, לוח מצב כיתתי.</div>
+        </div>
+        <a class="card-link" href="news3.html">לקריאת הכרטיס</a>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-num">4</div>
+        <div class="card-name">הטלפון מתחמם ונחלש</div>
+        <div class="card-row">
+          <div class="label">בעיה מרכזית</div>
+          <div class="value">המשתמש לא תמיד יודע מתי המכשיר בעומס או מתחמם יותר מדי.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">קהל יעד</div>
+          <div class="value">כל מי שמשתמש בטלפון לזמן ממושך.</div>
+        </div>
+        <div class="card-row">
+          <div class="label">כיוון אפשרי</div>
+          <div class="value">אפליקציית עומס שימוש, מגן טלפון עם חיווי, התראה לפי רמת שימוש.</div>
+        </div>
+        <a class="card-link" href="news4.html">לקריאת הכרטיס</a>
+      </div>
+
+    </div>
+
+    <div class="footer-strip">בוחרים כרטיס, מבינים את הבעיה, ומתקדמים לניסוח אתגר</div>
+    <div class="page-footer">© פרימיום Marvell</div>
+  </div>
+  <script src="../../pwa-register.js" defer></script>
+</body>
+</html>
