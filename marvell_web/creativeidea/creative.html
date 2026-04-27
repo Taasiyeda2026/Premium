@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d2045" />
+  <link rel="manifest" href="../../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../../images/logo.png" />
+  <link rel="apple-touch-icon" href="../../images/logo.png" />
+  <link rel="stylesheet" href="../../styles/pwa.css" />
+  <title>פותחים כיווני פתרון | פרימיום Marvell</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f0f4f8 0%, #e4eaf1 100%);
+      color: #111;
+      line-height: 1.75;
+    }
+    .top-bar {
+      background: linear-gradient(90deg, #0d2045 0%, #1a3a7a 45%, #0d2045 100%);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      box-shadow: 0 4px 14px rgba(13, 32, 69, 0.28);
+    }
+    header {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 4px solid #1a3a7a;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 16px 12px;
+      text-align: center;
+      position: relative;
+    }
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
+      border: 1px solid #cfd8e3;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12), 0 10px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.16s ease;
+    }
+    .home-link:hover { transform: translateY(-2px); }
+    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+    h1 {
+      font-size: clamp(1.25rem, 2.6vw, 1.72rem);
+      font-weight: 900;
+      color: #0d2045;
+      margin-bottom: 8px;
+      padding: 0 48px;
+    }
+    .subtitle {
+      font-size: 0.88rem;
+      color: #555;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    main { max-width: 900px; margin: 24px auto; padding: 0 16px 40px; }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      border-top: 5px solid #1a3a7a;
+      padding: 24px 20px;
+    }
+    .tool {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid #dde6ef;
+      border-radius: 14px;
+      border-right: 5px solid #1a3a7a;
+    }
+    .tool h2 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1a3a7a;
+      margin-bottom: 8px;
+    }
+    .tool p { font-size: 0.93rem; color: #444; margin-bottom: 8px; }
+    .tool .examples {
+      font-size: 0.88rem;
+      color: #555;
+      margin-top: 8px;
+    }
+    .tool .examples strong { color: #0d2045; }
+    .section { margin-bottom: 20px; }
+    .section h2 {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1a3a7a;
+      border-right: 5px solid #1a3a7a;
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+    label.field-label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #334;
+      margin-bottom: 6px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.94rem;
+      padding: 10px 12px;
+      border: 1px solid #c8d5e4;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background: #fafbfd;
+    }
+    textarea { min-height: 70px; resize: vertical; }
+    .tool-pick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .tool-pick label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      background: #f0f4f8;
+      border-radius: 10px;
+      border: 1px solid #dde6ef;
+    }
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 0.15s ease;
+    }
+    .nav-btn:hover { transform: translateY(-2px); }
+    .nav-btn.secondary {
+      background: linear-gradient(180deg, #fff 0%, #f0f4f8 100%);
+      color: #0d2045;
+      border: 1px solid #c0cdd9;
+      box-shadow: 0 6px 14px rgba(13, 32, 69, 0.12);
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 20px 16px 28px;
+      font-size: 0.86rem;
+    }
+    @media (min-width: 1200px) { body { zoom: 70%; } }
+  </style>
+</head>
+<body>
+  <div class="top-bar">פרימיום Marvell | כלי חשיבה יצירתית</div>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../index.html" aria-label="בית" title="בית">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+      </a>
+      <h1>פותחים כיווני פתרון</h1>
+      <p class="subtitle">בשלב הזה מפתחים כמה רעיונות שונים: מוצר פיזי, אפליקציה, אתר, מערכת חכמה או שילוב ביניהם.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <p style="font-size:0.95rem;color:#444;margin-bottom:20px;">בחרו כלי חשיבה, כתבו כמה כיווני פתרון, ואז בחרו כיוון ראשוני להמשך.</p>
+
+      <article class="tool">
+        <h2>1. חיבור</h2>
+        <p>מחברים בין מוצר פיזי לאפליקציה, בין חיישן להתראה, בין מידע לפעולה.</p>
+        <div class="examples"><strong>דוגמאות:</strong> תיק + אפליקציה · בקבוק + תזכורת · צמיד + QR · מד רעש + רמזור צבעים</div>
+      </article>
+
+      <article class="tool">
+        <h2>2. החסרה</h2>
+        <p>מורידים שלבים מיותרים, ניירת, חיפוש ידני, התראות מיותרות או פעולה מסורבלת.</p>
+        <div class="examples"><strong>דוגמאות:</strong> בלי חיפוש ידני · בלי הרבה התראות · בלי טופס נייר · בלי פעולה מסובכת</div>
+      </article>
+
+      <article class="tool">
+        <h2>3. הכפלה</h2>
+        <p>מוסיפים כמה רמות התראה, כמה משתמשים, כמה נקודות מדידה או כמה מצבי שימוש.</p>
+        <div class="examples"><strong>דוגמאות:</strong> כמה רמות דחיפות · כמה משתמשים במערכת · כמה חיישנים · כמה מצבי שימוש</div>
+      </article>
+
+      <article class="tool">
+        <h2>4. הוצאה מהקשר</h2>
+        <p>לוקחים רעיון מעולם אחד ומעבירים אותו לעולם אחר.</p>
+        <div class="examples"><strong>דוגמאות:</strong> רמזור בכביש → רמזור רעש בכיתה · מעקב משלוחים → מעקב ציוד בתיק · מד חום רפואי → התראה על התחממות טלפון · תור בקופה → תור דיגיטלי לעזרה מהמורה</div>
+      </article>
+
+      <article class="tool">
+        <h2>5. שינוי גודל או צורה</h2>
+        <p>הופכים מוצר רגיל לגרסה קטנה, לבישה, ניידת, מתקפלת או מותאמת לתיק/כיתה/בית.</p>
+        <div class="examples"><strong>דוגמאות:</strong> בקבוק רגיל → בקבוק חכם · מדבקה רגילה → מדבקת זיהוי · לוח רגיל → לוח מצב כיתתי · צמיד רגיל → צמיד מידע חכם</div>
+      </article>
+
+      <div class="section">
+        <h2>בחירת כלים (2–3)</h2>
+        <div class="tool-pick">
+          <label><input type="checkbox" name="t1" /> חיבור</label>
+          <label><input type="checkbox" name="t2" /> החסרה</label>
+          <label><input type="checkbox" name="t3" /> הכפלה</label>
+          <label><input type="checkbox" name="t4" /> הוצאה מהקשר</label>
+          <label><input type="checkbox" name="t5" /> שינוי גודל או צורה</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>כיוון פתרון 1</h2>
+        <textarea name="dir1"></textarea>
+      </div>
+      <div class="section">
+        <h2>כיוון פתרון 2</h2>
+        <textarea name="dir2"></textarea>
+      </div>
+      <div class="section">
+        <h2>כיוון פתרון 3</h2>
+        <textarea name="dir3"></textarea>
+      </div>
+
+      <div class="section">
+        <h2>מה דומה ומה שונה בין הכיוונים</h2>
+        <textarea name="compare" rows="4"></textarea>
+      </div>
+
+      <div class="section">
+        <label class="field-label">איזה כיוון הכי מחובר לצורך</label>
+        <textarea name="need_fit" rows="2"></textarea>
+      </div>
+      <div class="section">
+        <label class="field-label">איזה כיוון הכי ברור להסבר</label>
+        <textarea name="explain" rows="2"></textarea>
+      </div>
+      <div class="section">
+        <label class="field-label">איזה כיוון הכי פשוט לבדיקה</label>
+        <textarea name="test" rows="2"></textarea>
+      </div>
+      <div class="section">
+        <label class="field-label">הכיוון הראשוני שנבחר</label>
+        <input type="text" name="chosen" />
+      </div>
+      <div class="section">
+        <label class="field-label">למה בחרנו בו</label>
+        <textarea name="why_chosen" rows="3"></textarea>
+      </div>
+
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="need.html">דף קודם</a>
+        <a class="nav-btn secondary" href="../index.html">בית</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>© פרימיום | תעשיידע</footer>
+  <script src="../../pwa-register.js" defer></script>
+</body>
+</html>
