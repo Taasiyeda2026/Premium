@@ -256,7 +256,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="header-logo" href="../index_osem.html" aria-label="לוגו העמוד">
-        <img src="../icons/icon.png" alt="לוגו פרימיום">
+        <img src="../images/logo.png" alt="לוגו פרימיום">
         <span>פרימיום</span>
       </a>
       <div class="header-actions">
@@ -272,7 +272,7 @@
       <section class="student-box">
         <h2>פרטי הקבוצה</h2>
         <div class="question">
-          <input type="text" id="studentNames" placeholder="כתבו את שמות חברי וחברות הקבוצה">
+          <input type="text" id="studentNames" placeholder="כתבו את שמות חברי הקבוצה">
         </div>
       </section>
 
@@ -290,7 +290,7 @@
       </section>
 
       <section class="section">
-        <h2>חוזרים לנקודת המוצא</h2>
+        <h2>חזרה לנקודת המוצא</h2>
         <div class="question">
           <div class="q-title">מה הבעיה המדויקת של הקבוצה?</div>
           <textarea id="exactProblem" placeholder="כתבו את הבעיה המדויקת"></textarea>
@@ -437,7 +437,7 @@
         <h2>בחירת כיוון ראשוני להמשך</h2>
         <div class="question">
           <div class="q-title">איזה כיוון נראה כרגע הכי חזק?</div>
-          <textarea id="bestDirection" placeholder="כתבו איזה כיוון נראה לכם הכי חזק"></textarea>
+          <textarea id="bestDirection" placeholder="כתבו איזה כיוון נראה הכי חזק"></textarea>
         </div>
         <div class="question">
           <div class="q-title">מה היתרון המרכזי שלו?</div>
@@ -555,7 +555,7 @@
     }
 
     function printAnsweredOnly() {
-      const logoUrl = new URL('../icons/icon.png', window.location.href).href;
+      const logoUrl = new URL('../images/logo.png', window.location.href).href;
       const studentNames = document.getElementById('studentNames').value.trim();
       const exactProblem = document.getElementById('exactProblem').value.trim();
       const identifiedNeed = document.getElementById('identifiedNeed').value.trim();
