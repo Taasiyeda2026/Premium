@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <title>זיהוי בעיה</title>
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-main: #f6f3ed;
+      --bg-card: #ffffff;
+      --text-main: #1d1d1d;
+      --text-soft: #58534d;
+      --line: #dfd5c7;
+      --accent: #8f0000;
+      --accent-2: #c40000;
+      --secondary: #405a78;
+      --secondary-2: #6f87a1;
+      --shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+      --shadow-hover: 0 18px 34px rgba(0, 0, 0, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(196, 0, 0, 0.08), transparent 22%),
+        radial-gradient(circle at top left, rgba(0, 0, 0, 0.04), transparent 18%),
+        linear-gradient(180deg, #f8f8f8 0%, #eeeeee 100%);
+      color: var(--text-main);
+      line-height: 1.75;
+    }
+
+    .top-bar {
+      background: linear-gradient(90deg, #8f0000 0%, #c40000 45%, #8f0000 100%);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(139, 0, 0, 0.28);
+    }
+
+    header {
+      background: rgba(255,255,255,0.95);
+      border-bottom: 4px solid var(--accent-2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 16px 14px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-logo {
+      display: block;
+      max-width: 145px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 8px;
+    }
+
+    .logo {
+      font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+      font-weight: 900;
+      color: #111;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .subtitle {
+      font-size: 0.88rem;
+      color: #666;
+    }
+
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 18px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+      border: 1px solid #e3d7d7;
+      box-shadow:
+        0 4px 0 rgba(0,0,0,0.12),
+        0 10px 16px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 3;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #d5c1c1;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.10),
+        0 14px 20px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #8f0000;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 16px 34px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,250,250,0.96) 100%);
+      border-radius: 18px;
+      padding: 26px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+      border-top: 5px solid var(--accent-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(196,0,0,0.07), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lesson-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7f7 0%, #f8e8e8 100%);
+      border: 1px solid #ebd0d0;
+      color: #8a1a1a;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .hero-copy h1 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(1.7rem, 3.1vw, 2.45rem);
+      margin-bottom: 12px;
+      color: #111;
+      line-height: 1.2;
+    }
+
+    .hero-copy p {
+      font-size: 1rem;
+      color: #444;
+      max-width: 920px;
+      line-height: 1.95;
+    }
+
+    .section-title {
+      font-size: 1.22rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #111;
+      border-right: 6px solid var(--accent-2);
+      padding-right: 10px;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #ffffff 0%, #faf7f2 100%);
+      border-radius: 15px;
+      padding: 16px;
+      min-height: 210px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.09);
+      border: 1px solid #ece3d9;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 82px;
+      height: 82px;
+      background: radial-gradient(circle, rgba(196,0,0,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: #dfc7c7;
+    }
+
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(180deg, #fdeaea 0%, #f8d6d6 100%);
+      color: #a40000;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(164, 0, 0, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-card h2 {
+      font-size: 1.06rem;
+      margin-bottom: 10px;
+      line-height: 1.45;
+      color: #111;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 14px;
+      flex-grow: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-actions {
+      display: flex;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .article-btn,
+    .article-link {
+      flex: 0 0 auto;
+      width: 88px;
+      min-width: 88px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      border: none;
+      cursor: pointer;
+    }
+
+    .article-btn {
+      color: white;
+      background: linear-gradient(180deg, #d10000 0%, #a40000 100%);
+    }
+
+    .article-btn:hover {
+      background: linear-gradient(180deg, #b70000 0%, #8f0000 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(164, 0, 0, 0.24);
+    }
+
+    .article-link {
+      color: white;
+      background: linear-gradient(180deg, var(--secondary-2) 0%, var(--secondary) 100%);
+    }
+
+    .article-link:hover {
+      background: linear-gradient(180deg, #5f7894 0%, #374e69 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(64, 90, 120, 0.22);
+    }
+
+    .summary-panel {
+      background: linear-gradient(180deg, #fdfaf5 0%, #f7f1e7 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .summary-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #fff 0%, #f7eee9 100%);
+    }
+
+    .summary-header h2 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.55rem;
+      color: #1f1f1f;
+      margin-bottom: 4px;
+    }
+
+    .summary-header p {
+      font-size: 0.95rem;
+      color: #5b5650;
+    }
+
+    .summary-empty {
+      padding: 34px 20px 38px;
+      text-align: center;
+      color: #5f5a54;
+    }
+
+    .summary-empty h3 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      color: #1f1f1f;
+    }
+
+    .summary-view {
+      display: none;
+      padding: 22px 18px 18px;
+    }
+
+    .summary-view.active {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .summary-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f2dede;
+      color: #8f0000;
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+    }
+
+    .summary-title {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(1.8rem, 3vw, 2.45rem);
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #171717;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .summary-title::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 84px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-2) 0%, rgba(196,0,0,0.12) 100%);
+    }
+
+    .summary-text {
+      background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(252,246,239,0.95) 100%);
+      border: 1px solid #e4dacc;
+      border-right: 6px solid #c40000;
+      border-radius: 18px;
+      padding: 24px 22px 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 24px rgba(0,0,0,0.04);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .summary-text::before {
+      content: "“";
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: rgba(196, 0, 0, 0.12);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .summary-text::after {
+      content: "”";
+      position: absolute;
+      left: 16px;
+      bottom: -42px;
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: rgba(196, 0, 0, 0.10);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .summary-intro {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7f7 0%, #f7e6e6 100%);
+      border: 1px solid #ebd2d2;
+      color: #8f0000;
+      font-size: 0.82rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 10px rgba(143,0,0,0.06);
+    }
+
+    .summary-text p {
+      margin-bottom: 11px;
+      font-size: 1rem;
+      color: #2c2925;
+      position: relative;
+      z-index: 1;
+    }
+
+    .summary-text p:last-child {
+      margin-bottom: 0;
+    }
+
+
+
+    .bottom-nav {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .next-work-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 148px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(180deg, var(--secondary-2) 0%, var(--secondary) 100%);
+      box-shadow: 0 8px 16px rgba(64, 90, 120, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .next-work-btn:hover {
+      background: linear-gradient(180deg, #5f7894 0%, #374e69 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(64, 90, 120, 0.22);
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 24px 16px 30px;
+      font-size: 0.88rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 1200px) {
+      body { zoom: 0.72; }
+    }
+
+    @media (max-width: 1200px) {
+      .articles-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 980px) {
+      .articles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      body { zoom: 1; }
+      .header-inner { padding: 18px 14px 16px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .site-logo { max-width: 130px; }
+      main { margin: 20px auto; padding: 0 12px 28px; }
+      .hero { padding: 18px 14px; }
+      .hero-copy h1 { font-size: 1.8rem; }
+      .hero-copy p,
+      .summary-header p,
+      .summary-text p,
+      .article-card p { font-size: 0.94rem; }
+      .articles-grid { grid-template-columns: 1fr; gap: 14px; }
+      .article-card { min-height: auto; }
+      .article-actions { flex-direction: row; }
+      .summary-view { padding: 18px 14px 16px; }
+      .summary-text { padding: 20px 16px 16px; }
+      .summary-text::before,
+      .summary-text::after { font-size: 5.2rem; }
+      .next-work-btn { min-width: 132px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">שיעור 4 | זיהוי בעיה</div>
+
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
+      <div class="logo">חדשות היום</div>
+      <div class="subtitle">בוחרים כתבה, פותחים תקציר, ומתקדמים לעמוד הכתבה המלאה</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="lesson-chip">שיעור 4 | מדייקים בעיה מתוך כתבה</div>
+        <h1>בחרו כתבה והתחילו מדף העבודה הקצר</h1>
+        <p>
+          בכל כרטיס אפשר לפתוח קודם <strong>תקציר</strong> קצר כדי להבין את המקרה, ולצידו לעבור ישירות אל <strong>הכתבה</strong> המלאה. כך אפשר להתחיל מהבנה ממוקדת של הבעיה, ואז להעמיק לפי הצורך.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">לבחירה</h2>
+      <div class="articles-grid" id="articlesGrid"></div>
+    </section>
+
+    <section class="summary-panel">
+      <div class="summary-header">
+        <h2>תקציר הכתבה</h2>
+        <p>לחצו על כפתור „תקציר” באחת הכתבות כדי לפתוח כאן את התקציר הקצר.</p>
+      </div>
+
+      <div class="summary-empty" id="summaryEmpty">
+        <h3>ממתין לבחירה</h3>
+        <p>בחרו אחת מהכתבות למעלה, או עברו ישירות לעמוד הכתבה המלאה.</p>
+      </div>
+
+      <div class="summary-view" id="summaryView">
+        <div class="summary-badge" id="summaryBadge"></div>
+        <h3 class="summary-title" id="summaryTitle"></h3>
+        <div class="summary-text" id="summaryText"></div>
+      </div>
+    </section>
+
+    <div class="bottom-nav">
+<a class="next-work-btn" href="newswork4-1.html">לעמוד העבודה</a>    </div>
+  </main>
+
+  <footer>
+    &copy; פרימיום | תעשיידע
+  </footer>
+
+  <script>
+    const articles = [
+      {
+        number: 'כתבה 1',
+        title: 'הסוד שעל האריזה',
+        teaser: 'לפעמים המידע שלא מופיע על האריזה הוא מה שיוצר את הסיכון.',
+        link: 'news1.html',
+        paragraphs: [
+          'מוצר ניקוי הוסר מהשוק לאחר שהתברר כי על האריזה לא הופיע סימון בטיחותי מלא וברור בעברית.',
+          'חסרו אזהרות והנחיות שימוש חשובות לצרכנים.',
+          'החשש הוא שלא בגלל תקלה במוצר עצמו נוצר הסיכון, אלא בגלל המידע שלא הופיע עליו.',
+          'כאשר צרכן לא מבין בדיוק איך להשתמש במוצר, הסיכון לשימוש שגוי עולה.',
+          'המקרה מעלה שאלות על אחריות יצרן, סימון נכון והעברת מידע לציבור.',
+          'לעיתים האריזה עצמה היא חלק מהבטיחות של המוצר.'
+        ]
+      },
+      {
+        number: 'כתבה 2',
+        title: 'כשההגנה לא עבדה',
+        teaser: 'כשל במערכות הגנה עלול להופיע בכמה שכבות בו־זמנית.',
+        link: 'news2.html',
+        paragraphs: [
+          'במהלך עבודות תחזוקה במפעל מזון התרחשה דליפת אמוניה ממערכת הקירור.',
+          'שלושה עובדים פונו לקבלת טיפול, וחלק מהמפעל הושבת.',
+          'לפי הבדיקה הראשונית, מערכת האוורור האוטומטית לא הופעלה בזמן.',
+          'עלו גם שאלות לגבי ציוד המיגון, נתיבי המילוט, סימון האזור ורמת התיאום בין הצוותים.',
+          'נבדק האם היו התרעות קודמות על תקלות שלא טופלו במועד.',
+          'המקרה מצביע על אפשרות לכשל בכמה שכבות הגנה בו־זמנית.'
+        ]
+      },
+      {
+        number: 'כתבה 3',
+        title: 'הכל בגלל שוקולד',
+        teaser: 'חומר גלם אחד עלול להשפיע על כמה מוצרים שונים בבת אחת.',
+        link: 'news3.html',
+        paragraphs: [
+          'חברת מזון ביצעה ריקול רחב לאחר חשד לסלמונלה בחומר גלם של שוקולד נוזלי.',
+          'החומר שימש בכמה מוצרים שונים ולכן הבעיה לא הוגבלה למוצר אחד בלבד.',
+          'הייצור הופסק, ונפתחה בדיקה של קווי הייצור, המכלים ותהליכי הניקוי.',
+          'נדרש מעקב אחר אצוות שכבר שווקו לשוק.',
+          'גם חברה נוספת עלולה להיות מושפעת אם קיבלה את אותו חומר גלם.',
+          'האירוע מדגיש את הרגישות של שרשרת האספקה ואת החשיבות של בקרת איכות במזון.'
+        ]
+      },
+      {
+        number: 'כתבה 4',
+        title: 'איפה הגלידה שלי?',
+        teaser: 'כאשר לא ברור באיזה שלב נוצר הכשל, קשה לזהות את מקור הבעיה.',
+        link: 'news4.html',
+        paragraphs: [
+          'צרכנים דיווחו על גלידות עם ריח חריג, טעם לא רגיל ומרקם חשוד.',
+          'עלה חשד לכשל בייצור, באחסון או בהפצה.',
+          'אחת האפשרויות שנבדקות היא הפשרה חלקית והקפאה מחדש בדרך.',
+          'בחלק מהמקרים היה קושי לקרוא את תאריך הייצור או מספר האצווה.',
+          'לא ברור עדיין אם מקור הבעיה במפעל, בהובלה או בנקודת המכירה.',
+          'המקרה מדגיש עד כמה שרשרת קירור תקינה חשובה למוצרי מזון רגישים.'
+        ]
+      },
+      {
+        number: 'כתבה 5',
+        title: 'טעם של טעות',
+        teaser: 'לפעמים חריגה מתגלה דרך טעם או ריח, ולא דרך סימן שנראה לעין.',
+        link: 'news5.html',
+        paragraphs: [
+          'שני מוצרי יוגורט חדשים הוסרו לאחר שהתגלה בהם טעם לא אופייני.',
+          'הבעיה התגלתה זמן קצר לאחר ההשקה, בשלב רגיש במיוחד של חדירת מוצר חדש לשוק.',
+          'נבדק אם מקור הבעיה הוא בהרכב, בתהליך הייצור, בקירור או באריזה.',
+          'מדובר בבעיה שלא תמיד רואים בעין, אלא מרגישים בטעם או בריח.',
+          'עולה שאלה אם אפשר היה לזהות את החריגה מוקדם יותר.',
+          'המקרה מראה שגם מוצר חדש ומסקרן חייב לעבור בקרה קפדנית.'
+        ]
+      },
+      {
+        number: 'כתבה 6',
+        title: 'המקום שלא סומן',
+        teaser: 'כמה ליקויים קטנים יכולים להצטבר יחד לסכנה ממשית.',
+        link: 'news6.html',
+        paragraphs: [
+          'מבקר באתר ייצור נפצע לאחר שנפל לאזור עבודות שלא סומן ולא גודר היטב.',
+          'לפי הדיווחים, מעקה בטיחות זמני הוסר ולא הוחזר.',
+          'השילוט במקום לא היה ברור דיו, ובחלק מהשטח הייתה תאורה חלקית.',
+          'נבדק האם לכל המבקרים ניתן ליווי מספק לאורך הסיור.',
+          'האירוע מעלה שאלות על אחריות הנהלת האתר ועל תיאום עם קבלן המשנה.',
+          'לפעמים לא כשל אחד גדול יוצר את הסכנה, אלא כמה ליקויים קטנים שמצטברים.'
+        ]
+      },
+      {
+        number: 'כתבה 7',
+        title: 'הכתובת שלא הייתה',
+        teaser: 'מידע חסר על אריזה עלול להפוך למצב מסוכן עבור חלק מהצרכנים.',
+        link: 'news7.html',
+        paragraphs: [
+          'סדרת רטבים ירדה מהמדפים לאחר שהתברר כי אלרגן מסוג בוטנים לא סומן על האריזה.',
+          'עבור חלק מהצרכנים זה לא רק מידע חסר, אלא סכנה בריאותית ממשית.',
+          'נבדק אם מקור הטעות הוא אצל ספק חומרי גלם או בתהליך אישור התווית.',
+          'עולה גם השאלה האם אותה בעיה קיימת במוצרים נוספים.',
+          'המקרה מדגיש עד כמה מידע מדויק על האריזה הוא חלק מהבטיחות עצמה.',
+          'טעות בסימון יכולה להפוך מוצר רגיל למוצר מסוכן לאוכלוסייה מסוימת.'
+        ]
+      },
+      {
+        number: 'כתבה 8',
+        title: 'האריזה שלא שמרה',
+        teaser: 'גם פגם קטן מאוד באטימה עלול להשפיע על בטיחות המוצר.',
+        link: 'news8.html',
+        paragraphs: [
+          'מוצרי עוף ארוזים הוסרו מהמדפים בשל חשש לפגם קטן באטימת האריזה.',
+          'החשש הוא שחדירת אוויר פגעה בטריות המוצר וקיצרה את חיי המדף שלו.',
+          'לא כל פגם נראה מיד לעין, ולכן הזיהוי עלול להתעכב.',
+          'נבדק אם מקור הכשל הוא במכונת האריזה או בבדיקות האיכות.',
+          'עולה גם השאלה אם התקלה פגעה במוצרים נוספים מאותו קו ייצור.',
+          'המקרה מדגיש את החשיבות של אריזה תקינה כחלק מבטיחות המזון.'
+        ]
+      },
+      {
+        number: 'כתבה 9',
+        title: 'כששתי מעלות חסרו',
+        teaser: 'מערכת בקרה שמסתמכת על נתון שגוי עלולה לא לזהות את הבעיה בזמן.',
+        link: 'news9.html',
+        paragraphs: [
+          'במפעל למוצרי חלב עלה חשד שחיישן טמפרטורה הציג נתונים לא נכונים בתהליך הפסטור.',
+          'אם הנתונים שגויים, ייתכן שהתהליך לא בוצע בתנאים הנדרשים.',
+          'מערכת אוטומטית עלולה להסתמך על נתון שגוי בלי לזהות את הבעיה בזמן.',
+          'כעת בודקים את מצב החיישנים, הבקרים ותהליכי הכיול.',
+          'נבדק גם אם מוצרים נוספים מאותו קו ייצור הושפעו.',
+          'המקרה מראה עד כמה מערכת בקרה מדויקת חיונית לאיכות ולבטיחות.'
+        ]
+      },
+      {
+        number: 'כתבה 10',
+        title: 'מאוחר מדי על המדף',
+        teaser: 'כאשר הזיהוי מאוחר, המוצרים כבר מגיעים לציבור לפני שעוצרים את התקלה.',
+        link: 'news10.html',
+        paragraphs: [
+          'שבבי מתכת נמצאו בחטיפים, ורק תלונות צרכנים הובילו לבדיקה רחבה.',
+          'לפי החשד, חלקי מתכת נשרו ממכונה במהלך הייצור.',
+          'גלאי המתכות היה מכויל לרגישות נמוכה מדי ולכן לא זיהה חלקיקים קטנים.',
+          'גם סימני שחיקה מוקדמים במכונה לא הובילו לעצירה בזמן.',
+          'זהו מקרה שבו הזיהוי התרחש מאוחר מדי — רק אחרי שהמוצרים כבר הגיעו לציבור.',
+          'המקרה מדגיש את החשיבות של תחזוקה מונעת ובקרת איכות אמינה.'
+        ]
+      }
+    ];
+
+    const articlesGrid = document.getElementById('articlesGrid');
+    const summaryEmpty = document.getElementById('summaryEmpty');
+    const summaryView = document.getElementById('summaryView');
+    const summaryBadge = document.getElementById('summaryBadge');
+    const summaryTitle = document.getElementById('summaryTitle');
+    const summaryText = document.getElementById('summaryText');
+
+    function createCards() {
+      articles.forEach((article, index) => {
+        const card = document.createElement('article');
+        card.className = 'article-card';
+        card.innerHTML = `
+          <span class="tag">${article.number}</span>
+          <h2>${article.title}</h2>
+          <p>${article.teaser}</p>
+          <div class="article-actions">
+            <button class="article-btn" type="button" data-index="${index}">תקציר</button>
+            <a class="article-link" href="${article.link}">לכתבה</a>
+          </div>
+        `;
+        articlesGrid.appendChild(card);
+      });
+    }
+
+    function renderSummary(index) {
+      const article = articles[index];
+      if (!article) return;
+
+      summaryEmpty.style.display = 'none';
+      summaryView.classList.add('active');
+      summaryBadge.textContent = article.number;
+      summaryTitle.textContent = article.title;
+      summaryText.innerHTML = `<div class="summary-intro">תקציר הכתבה</div>` + article.paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+      summaryView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    articlesGrid.addEventListener('click', (event) => {
+      const button = event.target.closest('.article-btn');
+      if (!button) return;
+      renderSummary(Number(button.dataset.index));
+    });
+
+    createCards();
+  </script>
+  <script src="../pwa-register.js" defer></script>
+</body>
+</html>

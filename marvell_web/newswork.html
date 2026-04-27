@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Premium" />
+  <meta name="application-name" content="Premium" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <title>שיעור 3 – זיהוי בעיה</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --card: rgba(255,255,255,0.92);
+      --card-strong: #ffffff;
+      --line: #d7e6f7;
+      --text: #16304d;
+      --muted: #5b6f86;
+      --primary: #1677ff;
+      --primary-dark: #0f5fcc;
+      --secondary: #00b7d6;
+      --shadow: 0 16px 40px rgba(16, 54, 110, 0.12);
+      --radius-xl: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Heebo", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(22,119,255,0.12), transparent 24%),
+        radial-gradient(circle at top left, rgba(0,183,214,0.10), transparent 22%),
+        linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+      min-height: 100vh;
+    }
+
+    .page-shell {
+      width: min(1080px, calc(100% - 28px));
+      margin: 24px auto 90px;
+    }
+
+    .sheet {
+      background: var(--card);
+      border: 1px solid #dce8f5;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 28px 28px 24px;
+      background:
+        linear-gradient(135deg, rgba(22,119,255,0.08), rgba(0,183,214,0.08)),
+        linear-gradient(180deg, #ffffff, #f8fbff);
+      border-bottom: 1px solid #e7f0fb;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .toolbar {
+      padding: 18px 28px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #4aa3ff);
+      box-shadow: 0 12px 24px rgba(22,119,255,0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+
+    .btn-compact {
+      padding: 8px 14px;
+      font-size: 0.92rem;
+      min-width: 72px;
+      box-shadow: 0 8px 18px rgba(22,119,255,0.18);
+    }
+
+    .content {
+      padding: 22px 28px 34px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .meta-grid .field {
+      gap: 0;
+    }
+
+    .meta-grid label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    label {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #223653;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      color: var(--text);
+      padding: 7px 15px;
+      min-height: 26px;
+      font: inherit;
+      line-height: 1.25;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #89b7ff;
+      box-shadow: 0 0 0 4px rgba(22,119,255,0.10);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .participants-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .participants-separator {
+      font-weight: 800;
+      color: var(--muted);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .check-group {
+      display: grid;
+      gap: 5px;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 7px 16px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .check-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    .section {
+      margin-top: 24px;
+      border: 1px solid #e5ecf6;
+      border-radius: var(--radius-xl);
+      background: var(--card-strong);
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(28, 45, 84, 0.04);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e9eff8;
+      background: linear-gradient(180deg, #f9fbff, #f2f7ff);
+    }
+
+    .section-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      background: #eaf3ff;
+    }
+
+    .section-head h3 {
+      margin: 0;
+      font-size: 1.22rem;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-body {
+      padding: 18px 20px;
+    }
+
+    .q {
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px dashed #dce6f2;
+    }
+
+    .q:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .q-title {
+      font-size: 1.03rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #1d3350;
+    }
+
+    .q-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .multi-answer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .multi-answer-grid textarea {
+      min-height: 45px;
+    }
+
+    .bottom-note {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 0.92rem;
+    }
+
+    .mini-fab {
+      position: fixed;
+      left: 16px;
+      z-index: 999;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 14px 28px rgba(18, 29, 53, 0.20);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .mini-fab:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .fab-top {
+      bottom: 76px;
+      background: linear-gradient(135deg, #1c3553, #102038);
+    }
+
+    .fab-print {
+      bottom: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    @media (max-width: 900px) {
+      .meta-grid,
+      .multi-answer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .participants-row {
+        grid-template-columns: 1fr;
+      }
+
+      .participants-separator {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero-brand {
+        align-items: flex-start;
+      }
+
+      .hero-logo {
+        width: 56px;
+        height: 56px;
+      }
+      .btn-compact {
+        width: auto;
+      }
+
+      .page-shell {
+        width: min(100%, calc(100% - 14px));
+        margin: 10px auto 82px;
+      }
+
+      .hero,
+      .toolbar,
+      .content {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .section-head,
+      .section-body {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      .sheet {
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .toolbar,
+      .mini-fab,
+      .bottom-note {
+        display: none !important;
+      }
+
+      .section {
+        break-inside: auto;
+        box-shadow: none;
+      }
+
+      .section-head,
+      .section-body,
+      .q {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      @page {
+        size: A4;
+        margin: 12mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="mini-fab fab-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="חזרה למעלה">↑</button>
+  <button class="mini-fab fab-print" onclick="window.print()" title="הדפסה / PDF">🖨</button>
+
+  <div class="page-shell">
+    <div class="sheet">
+      <header class="hero">
+        <div class="hero-brand">
+          <img src="../images/logo.png" alt="לוגו" class="hero-logo" />
+          <div>
+            <h1>שיעור 3 – זיהוי בעיה</h1>
+            <h2>זיהוי בעיה מתוך כתבת עיתון בתחום איכות ובטיחות</h2>
+          </div>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <button class="btn btn-primary btn-compact" type="button" onclick="window.print()">PDF</button>
+      </div>
+
+      <main class="content">
+        <section class="section" style="margin-top:0;">
+          <div class="section-head">
+            <div class="section-icon">📝</div>
+            <div>
+              <h3>חלק 1 – פרטים כלליים  </h3>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="meta-grid">
+              <div class="field">
+                <label>שמות המשתתפים</label>
+                <div class="participants-row">
+                  <input id="participant1" type="text" data-save placeholder="שם משתתף 1" />
+                  <span class="participants-separator">,</span>
+                  <input id="participant2" type="text" data-save placeholder="שם משתתף 2" />
+                  <span class="participants-separator">,</span>
+                  <input id="participant3" type="text" data-save placeholder="שם משתתף 3" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="articleSelect">בחרו כתבה</label>
+                <select id="articleSelect" data-save>
+                  <option value="">בחרו כתבה מן הרשימה</option>
+                  <option>1. הסוד שעל האריזה</option>
+                  <option>2. כשההגנה לא עבדה</option>
+                  <option>3. הכל בגלל שוקולד</option>
+                  <option>4. איפה הגלידה שלי?</option>
+                  <option>5. טעם של טעות</option>
+                  <option>6. המקום שלא סומן</option>
+                  <option>7. הכתובת שלא הייתה</option>
+                  <option>8. האריזה שלא שמרה</option>
+                  <option>9. כששתי מעלות חסרו</option>
+                  <option>10. מאוחר מדי על המדף</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon">📘</div>
+            <div>
+              <h3>חלק 2 – זיהוי הבעיה</h3>
+              <p>קראו את הכתבה וענו על השאלות.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">מהי הבעיה המרכזית שעולה מן הכתבה?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">אילו בעיות נוספות עולות מן הכתבה?</div>
+              <div class="multi-answer-grid">
+                <textarea data-save placeholder="בעיה נוספת 1"></textarea>
+                <textarea data-save placeholder="בעיה נוספת 2"></textarea>
+                <textarea data-save placeholder="בעיה נוספת 3"></textarea>
+                <textarea data-save placeholder="בעיה נוספת 4"></textarea>
+              </div>
+            </div>
+
+            <div class="q">
+              <div class="q-title">מי נפגע מן הבעיה, מושפע ממנה או עלול להיות בסיכון?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">למה חשוב לשים לב לבעיה הזאת?</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon">🎯</div>
+            <div>
+              <h3>חלק 3 – דיוק הבעיה</h3>
+                      </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">האם זו בעיקר בעיית איכות, בעיית בטיחות, או שילוב של שתיהן?</div>
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" data-save-check> איכות</label>
+                <label class="check-item"><input type="checkbox" data-save-check> בטיחות</label>
+                <label class="check-item"><input type="checkbox" data-save-check> גם איכות וגם בטיחות</label>
+              </div>
+            </div>
+
+            <div class="q">
+              <div class="q-title">באיזה שלב בתהליך הבעיה מתרחשת?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">מהי ההשפעה של הבעיה?</div>
+              <textarea data-save></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-icon">🧠</div>
+            <div>
+              <h3>חלק 4 – תרגול מסכם</h3>
+              <p>בחרו את הבעיה שנראית לכם המשמעותית ביותר וענו.</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <div class="q">
+              <div class="q-title">איזו בעיה מתוך הכתבה נראית לכם הכי משמעותית?</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">הסבירו למה בחרתם דווקא בבעיה הזאת.</div>
+              <textarea data-save></textarea>
+            </div>
+
+            <div class="q">
+              <div class="q-title">משפט סיכום:</div>
+              <textarea data-save style="min-height:45px;" placeholder="הבעיה המרכזית שזיהינו בכתבה היא:"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <div class="bottom-note">© פרימיום | תעשיידע</div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'lesson3_problem_identification_v5';
+
+    function getTextFields() {
+      return Array.from(document.querySelectorAll('[data-save]'));
+    }
+
+    function getCheckFields() {
+      return Array.from(document.querySelectorAll('[data-save-check]'));
+    }
+
+    function saveFormData() {
+      const textValues = getTextFields().map((el) => el.value);
+      const checkValues = getCheckFields().map((el) => el.checked);
+      const payload = { textValues, checkValues };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    }
+
+    function loadFormData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+
+      try {
+        const payload = JSON.parse(raw);
+
+        getTextFields().forEach((el, i) => {
+          el.value = (payload.textValues && payload.textValues[i]) || '';
+        });
+
+        getCheckFields().forEach((el, i) => {
+          el.checked = Boolean(payload.checkValues && payload.checkValues[i]);
+        });
+      } catch (err) {
+        console.error('טעינה נכשלה', err);
+      }
+    }
+
+    function runSelfTests() {
+      const expectedTextFields = 13;
+      const expectedCheckFields = 3;
+      const expectedLabels = 18;
+      const calculatedExportValues = 1 + expectedTextFields;
+
+      console.assert(getTextFields().length === expectedTextFields, `Expected ${expectedTextFields} text fields, got ${getTextFields().length}`);
+      console.assert(getCheckFields().length === expectedCheckFields, `Expected ${expectedCheckFields} check fields, got ${getCheckFields().length}`);
+      console.assert(expectedLabels === calculatedExportValues, 'Labels count should match exported values count');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFormData();
+      runSelfTests();
+
+      getTextFields().forEach((el) => {
+        el.addEventListener('input', saveFormData);
+        el.addEventListener('change', saveFormData);
+      });
+
+      getCheckFields().forEach((el) => {
+        el.addEventListener('change', saveFormData);
+      });
+    });
+  </script>
+  <script src="../pwa-register.js" defer></script>
+</body>
+</html>

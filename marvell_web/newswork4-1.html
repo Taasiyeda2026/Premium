@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תעשיידע | פרימיום – זיהוי בעיה | דף עבודה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --ink: #14315f;
+      --ink-soft: #4d5d73;
+      --line: #dbe4ea;
+      --accent: #8f0000;
+      --accent-2: #c40000;
+      --panel: rgba(255,255,255,0.97);
+      --shadow: 0 18px 34px rgba(24, 42, 77, 0.08);
+      --shadow-soft: 0 10px 22px rgba(24, 42, 77, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(20, 48, 109, 0.10), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(191, 87, 73, 0.08), transparent 22%),
+        linear-gradient(180deg, #e9eef1 0%, #dde5e9 100%);
+      color: var(--ink);
+      padding: 30px 18px 44px;
+      letter-spacing: 0.1px;
+    }
+
+    .newsletter {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(59,141,182,0.08), transparent 24%),
+        linear-gradient(180deg, #f4f7f8 0%, #eaf0f3 100%);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 28px 60px rgba(24, 42, 77, 0.14), 0 10px 22px rgba(24, 42, 77, 0.06), inset 0 1px 0 rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 34%);
+      pointer-events: none;
+    }
+
+    .newsletter::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.28);
+      pointer-events: none;
+    }
+
+    .top-brand {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(247,249,251,0.84) 100%);
+      border-radius: 22px;
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border: 1px solid rgba(219, 228, 234, 0.92);
+      box-shadow: 0 12px 28px rgba(24, 42, 77, 0.06), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .home-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
+      border: 1px solid #cfdae4;
+      box-shadow: 0 4px 0 rgba(24, 42, 77, 0.14), 0 10px 16px rgba(24, 42, 77, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 2;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #b6c7d4;
+      box-shadow: 0 6px 0 rgba(24, 42, 77, 0.12), 0 14px 20px rgba(24, 42, 77, 0.10), inset 0 1px 0 rgba(255,255,255,0.92);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #16356d;
+    }
+
+    .brand-mark {
+      position: absolute;
+      left: 26px;
+      top: 14px;
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-title {
+      font-size: clamp(1.9rem, 4.2vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #14306d;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .hero-banner {
+      margin-top: 22px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(232, 243, 248, 0.97) 0%, rgba(245, 249, 251, 0.95) 54%, rgba(236, 244, 238, 0.93) 100%);
+      border-radius: 26px;
+      padding: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(219, 228, 234, 0.96);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7f7 0%, #f8e8e8 100%);
+      border: 1px solid #ebd0d0;
+      color: #8a1a1a;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .hero-copy h1 {
+      font-family: "Frank Ruhl Libre", serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.65rem);
+      line-height: 1.2;
+      color: #16243b;
+      margin-bottom: 14px;
+    }
+
+    .hero-copy p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--ink-soft);
+      max-width: 95%;
+    }
+
+    .hero-graphic-wrap {
+      position: relative;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      border: 1px dashed rgba(20, 48, 109, 0.16);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(212,136,116,0.12), transparent 20%),
+        radial-gradient(circle at 78% 26%, rgba(59,141,182,0.16), transparent 24%),
+        radial-gradient(circle at 68% 76%, rgba(19,48,109,0.10), transparent 22%),
+        linear-gradient(135deg, rgba(250,252,253,0.94) 0%, rgba(241,247,250,0.92) 52%, rgba(247,250,244,0.88) 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 10px 24px rgba(24,42,77,0.04);
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero-graphic-wrap::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.35) 48%, transparent 72%);
+      filter: blur(6px);
+      z-index: 0;
+    }
+
+    .hero-graphic {
+      width: 100%;
+      max-width: 360px;
+      max-height: 250px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 12px 20px rgba(19, 37, 70, 0.14));
+    }
+
+    .section-title {
+      font-size: 1.18rem;
+      font-weight: 900;
+      margin: 24px 0 10px;
+      color: #111;
+      border-right: 6px solid var(--accent-2);
+      padding-right: 10px;
+    }
+
+    .instructions-panel,
+    .worksheet-panel,
+    .footer-strip {
+      background: linear-gradient(180deg, #fffdf9 0%, #f8f3eb 100%);
+      border: 1px solid #e5d8c9;
+      border-radius: 22px;
+      padding: 22px 20px;
+      box-shadow: 0 14px 28px rgba(24, 42, 77, 0.06), inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .instructions-panel p,
+    .worksheet-panel p {
+      font-size: 0.98rem;
+      color: #504b45;
+      line-height: 1.95;
+      margin-bottom: 14px;
+      max-width: 900px;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .bullet-item {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid #eadfd3;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: #544f49;
+      line-height: 1.8;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+    }
+
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .field-box {
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbfc 100%);
+      border: 1px solid #d9e3ea;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .field-box.full {
+      grid-column: 1 / -1;
+    }
+
+    .field-box label {
+      display: block;
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: #17366c;
+      margin-bottom: 8px;
+    }
+
+    .field-box textarea,
+    .field-box input,
+    .field-box select {
+      width: 100%;
+      border: 1px solid #d9cbbd;
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px 13px;
+      font-family: "Heebo", Arial, sans-serif;
+      font-size: 0.96rem;
+      color: #222;
+      resize: vertical;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .field-box textarea {
+      min-height: 105px;
+      line-height: 1.8;
+    }
+
+    .field-box textarea.short {
+      min-height: 82px;
+    }
+
+    .field-box textarea:focus,
+    .field-box input:focus,
+    .field-box select:focus {
+      outline: none;
+      border-color: #b94b4b;
+      box-shadow: 0 0 0 4px rgba(196, 0, 0, 0.08);
+    }
+
+    .field-note {
+      margin-top: 8px;
+      font-size: 0.84rem;
+      color: #6e675f;
+      line-height: 1.7;
+    }
+
+    .panel-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid #e4d7c8;
+      align-items: center;
+    }
+
+    .mini-link,
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 144px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #16356d;
+      background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
+      border: 1px solid #cfdbe5;
+      box-shadow: 0 4px 0 rgba(24, 42, 77, 0.16), 0 10px 18px rgba(24, 42, 77, 0.10), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+      white-space: nowrap;
+      font-family: "Heebo", Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .mini-link:hover,
+    .print-btn:hover {
+      transform: translateY(-2px);
+      border-color: #adc0cf;
+      box-shadow: 0 6px 0 rgba(24, 42, 77, 0.14), 0 14px 22px rgba(24, 42, 77, 0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .print-btn {
+      min-width: auto;
+      padding: 10px 14px;
+    }
+
+    .print-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .footer-strip {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: #16356d;
+    }
+
+    .page-footer {
+      margin-top: 16px;
+      text-align: center;
+      color: #5a6e87;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .worksheet-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 14px 10px 30px;
+      }
+
+      .newsletter {
+        padding: 12px;
+        border-radius: 20px;
+      }
+
+      .top-brand {
+        min-height: 82px;
+      }
+
+      .brand-mark {
+        left: 14px;
+        top: 12px;
+        width: 54px;
+        height: 54px;
+      }
+
+      .home-link {
+        right: 12px;
+        top: 12px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .home-link svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hero-banner,
+      .instructions-panel,
+      .worksheet-panel,
+      .footer-strip {
+        padding: 16px 14px;
+      }
+
+      .hero-copy h1 {
+        font-size: 1.85rem;
+      }
+
+      .hero-graphic-wrap {
+        min-height: 190px;
+      }
+
+      .hero-graphic {
+        max-height: 180px;
+      }
+
+      .mini-link,
+      .print-btn {
+        min-width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .newsletter {
+        max-width: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .newsletter::before,
+      .newsletter::after,
+      .home-link,
+      .panel-links,
+      .hero-graphic-wrap,
+      .field-note,
+      .page-footer {
+        display: none !important;
+      }
+
+      .top-brand,
+      .hero-banner,
+      .instructions-panel,
+      .worksheet-panel,
+      .footer-strip,
+      .field-box {
+        background: #ffffff !important;
+        box-shadow: none !important;
+      }
+
+      .top-brand,
+      .hero-banner,
+      .instructions-panel,
+      .worksheet-panel,
+      .footer-strip {
+        border: 1px solid #d9d9d9;
+      }
+
+      .field-box textarea,
+      .field-box input,
+      .field-box select {
+        border: 1px solid #cccccc;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        color: #111111;
+      }
+
+      .brand-mark {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="newsletter">
+    <section class="top-brand">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="brand-mark" src="../images/logo.png" alt="לוגו תעשיידע" />
+      <div class="brand-title">תעשיידע | פרימיום</div>
+    </section>
+
+    <section class="hero-banner">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="chip">דף עבודה | זיהוי בעיה מתוך כתבות תקציר</div>
+          <h1>דף עבודה: מזהים את הבעיה מתוך התקציר</h1>
+          <p>
+            לפני שחושבים על פתרון, עוצרים ומבינים מה באמת לא עובד. קראו תקציר של כתבה, התמקדו בעיקר, וענו על השאלות כדי לזהות את הבעיה בצורה ברורה ומדויקת.
+          </p>
+        </div>
+
+        <div class="hero-graphic-wrap">
+          <img class="hero-graphic" src="../images/p1.png" alt="דף עבודה בהקשר לתקצירי הכתבות" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">הנחיות קצרות לעבודה</h2>
+      <div class="instructions-panel">
+        <p>
+          בחרו כתבה מתוך תקצירי הכתבות, קראו את התקציר שלה וענו בקצרה ובדיוק. המטרה היא לא לחזור על כל הסיפור, אלא לזהות את הבעיה המרכזית שעולה ממנו.
+        </p>
+
+        <div class="bullet-list">
+          <div class="bullet-item">לא כותבים פתרון ולא מציעים רעיון למוצר.</div>
+          <div class="bullet-item">מתמקדים במה שלא עובד, למי זה מפריע ומה ההשפעה.</div>
+          <div class="bullet-item">בסיום מנסחים במשפט אחד בלבד את הבעיה המרכזית.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">דף העבודה</h2>
+      <div class="worksheet-panel">
+        <div class="worksheet-grid">
+          <div class="field-box">
+            <label for="groupName">שם הקבוצה</label>
+            <input id="groupName" type="text" placeholder="כתבו את שם הקבוצה" />
+          </div>
+
+          <div class="field-box">
+            <label for="articleName">שם הכתבה</label>
+            <select id="articleName">
+              <option value="">בחרו כתבה</option>
+              <option>הסוד שעל האריזה</option>
+              <option>כשההגנה לא עבדה</option>
+              <option>הכל בגלל שוקולד</option>
+              <option>איפה הגלידה שלי?</option>
+              <option>טעם של טעות</option>
+              <option>המקום שלא סומן</option>
+              <option>הכתובת שלא הייתה</option>
+              <option>האריזה שלא שמרה</option>
+              <option>כששתי מעלות חסרו</option>
+              <option>מאוחר מדי על המדף</option>
+            </select>
+          </div>
+
+          <div class="field-box">
+            <label for="mainProblem">מה הבעיה המרכזית?</label>
+            <textarea id="mainProblem" placeholder="כתבו בקצרה מה באמת לא עובד במקרה הזה"></textarea>
+          </div>
+
+          <div class="field-box">
+            <label for="affected">מי מושפע ממנה?</label>
+            <textarea id="affected" placeholder="מיהם הגורמים או האנשים שמושפעים מן הבעיה"></textarea>
+          </div>
+
+          <div class="field-box full">
+            <label for="extraIssues">אילו בעיות נוספות עולות?</label>
+            <textarea id="extraIssues" class="short" placeholder="כתבו קשיים, סיכונים או שאלות נוספות שעולות מן התקציר"></textarea>
+          </div>
+
+          <div class="field-box">
+            <label for="domain">באיזה תחום מדובר?</label>
+            <input id="domain" type="text" placeholder="למשל: בטיחות, איכות, אריזה, תחזוקה, בקרה" />
+            <div class="field-note">כתבו את התחום המרכזי שבו מתבטאת הבעיה.</div>
+          </div>
+
+          <div class="field-box">
+            <label for="impact">מה ההשפעה של הבעיה?</label>
+            <textarea id="impact" class="short" placeholder="מה הבעיה יוצרת, מה נפגע בגללה ולמה זה חשוב"></textarea>
+          </div>
+
+          <div class="field-box full">
+            <label for="oneSentence">בסיום: נסחו במשפט אחד בלבד את הבעיה המרכזית</label>
+            <textarea id="oneSentence" class="short" placeholder="לא פתרון, לא רעיון למוצר, אלא רק ניסוח מדויק של הבעיה"></textarea>
+            <div class="field-note">המטרה היא להגיע לניסוח ברור וקצר, שיהפוך בהמשך לבסיס טוב לניסוח אתגר.</div>
+          </div>
+        </div>
+
+        <div class="panel-links">
+          <button class="print-btn" id="printWorksheetBtn" type="button" aria-label="הדפסת הנתונים שהוקלדו" title="הדפסת הנתונים שהוקלדו">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 3h10v4H7V3Zm10 6c1.7 0 3 1.3 3 3v4h-3v5H7v-5H4v-4c0-1.7 1.3-3 3-3h10Zm-2 10v-5H9v5h6Zm2-7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
+            </svg>
+            הדפסה
+          </button>
+          <a class="mini-link" href="shortnews.html">לתקצירי הכתבות</a>
+          <a class="mini-link" href="newswork4-2.html">מבעיה לאתגר</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-strip">קוראים תקציר, מזהים בעיה, ומנסחים אותה בצורה מדויקת וברורה</div>
+    <div class="page-footer">© פרימיום | תעשיידע</div>
+  </div>
+
+  <script>
+    function syncFormValuesForPrint() {
+      const fields = document.querySelectorAll('input, textarea, select');
+
+      fields.forEach((field) => {
+        if (field.tagName === 'TEXTAREA') {
+          field.textContent = field.value;
+        } else if (field.tagName === 'SELECT') {
+          Array.from(field.options).forEach((option) => {
+            option.removeAttribute('selected');
+          });
+          if (field.selectedIndex >= 0) {
+            field.options[field.selectedIndex].setAttribute('selected', 'selected');
+          }
+        } else {
+          field.setAttribute('value', field.value);
+        }
+      });
+    }
+
+    document.getElementById('printWorksheetBtn').addEventListener('click', function () {
+      syncFormValuesForPrint();
+      window.print();
+    });
+
+    window.addEventListener('beforeprint', syncFormValuesForPrint);
+  </script>
+</body>
+</html>
