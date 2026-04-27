@@ -292,45 +292,99 @@
       <section class="section">
         <h2>חוזרים לנקודת המוצא</h2>
         <div class="question">
-          <div class="q-title">מה הבעיה המדויקת שלכם</div>
+          <div class="q-title">מה הבעיה המדויקת של הקבוצה?</div>
           <textarea id="exactProblem" placeholder="כתבו את הבעיה המדויקת"></textarea>
         </div>
         <div class="question">
-          <div class="q-title">מה הצורך שזיהיתם</div>
-          <textarea id="identifiedNeed" placeholder="כתבו את הצורך שזיהיתם"></textarea>
+          <div class="q-title">מה הצורך שזוהה?</div>
+          <textarea id="identifiedNeed" placeholder="כתבו את הצורך שזוהה"></textarea>
         </div>
         <div class="question">
-          <div class="q-title">מה המטרה שלכם</div>
-          <textarea id="mainGoal" placeholder="כתבו את המטרה שלכם"></textarea>
+          <div class="q-title">מה המטרה של הקבוצה?</div>
+          <textarea id="mainGoal" placeholder="כתבו את המטרה"></textarea>
         </div>
       </section>
 
       <section class="section">
-        <h2>בוחרים כלים לחשיבה יצירתית</h2>
-        <div class="note">סמנו 2–3 כלים שדרכם תפתחו כיווני פתרון.</div>
+        <h2>בחירת כלים לחשיבה יצירתית</h2>
+        <div class="q-title">באילו כלים לחשיבה יצירתית תשתמשו כדי לפתח כיווני פתרון?</div>
+        <div class="note">סמנו 2–3 כלים. כל סימון פותח 2 תיבות למילוי התשובות.</div>
         <div class="options" id="toolsOptions">
-          <label><input type="checkbox" value="חיבור"> חיבור</label>
-          <label><input type="checkbox" value="החסרה"> החסרה</label>
-          <label><input type="checkbox" value="הכפלה"> הכפלה</label>
-          <label><input type="checkbox" value="הוצאה מהקשר"> הוצאה מהקשר</label>
-          <label><input type="checkbox" value="שינוי גודל או צורה"> שינוי גודל או צורה</label>
+          <label><input type="checkbox" value="חיבור" id="toolConnect"> חיבור</label>
+          <label><input type="checkbox" value="החסרה" id="toolSubtract"> החסרה</label>
+          <label><input type="checkbox" value="הכפלה" id="toolMultiply"> הכפלה</label>
+          <label><input type="checkbox" value="הוצאה מהקשר" id="toolRecontext"> הוצאה מהקשר</label>
+          <label><input type="checkbox" value="שינוי גודל או צורה" id="toolResize"> שינוי גודל או צורה</label>
+        </div>
+        <div id="toolsLimitNote" class="note" style="display:none; margin-top:10px;">אפשר לבחור עד 3 כלים.</div>
+        <div class="tool-grid" style="margin-top: 12px;">
+          <div class="tool-box" id="toolConnectBox" style="display:none;">
+            <div class="question">
+              <div class="q-title">מה אפשר לחבר בין שני דברים קיימים?</div>
+              <textarea id="toolConnectQ1" placeholder="כתבו את הרעיון לחיבור"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך החיבור הזה יכול להפוך לכיוון פתרון?</div>
+              <textarea id="toolConnectQ2" placeholder="כתבו איך החיבור יכול לעזור"></textarea>
+            </div>
+          </div>
+          <div class="tool-box" id="toolSubtractBox" style="display:none;">
+            <div class="question">
+              <div class="q-title">מה אפשר להסיר, לצמצם או לוותר עליו?</div>
+              <textarea id="toolSubtractQ1" placeholder="כתבו מה אפשר להחסיר"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך ההחסרה הזו יכולה לשפר את הפתרון?</div>
+              <textarea id="toolSubtractQ2" placeholder="כתבו איך ההחסרה יכולה לעזור"></textarea>
+            </div>
+          </div>
+          <div class="tool-box" id="toolMultiplyBox" style="display:none;">
+            <div class="question">
+              <div class="q-title">מה אפשר להכפיל, לחזור עליו או להוסיף יותר ממנו?</div>
+              <textarea id="toolMultiplyQ1" placeholder="כתבו מה אפשר להכפיל"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך ההכפלה הזו יכולה ליצור פתרון חדש?</div>
+              <textarea id="toolMultiplyQ2" placeholder="כתבו איך ההכפלה יכולה לעזור"></textarea>
+            </div>
+          </div>
+          <div class="tool-box" id="toolRecontextBox" style="display:none;">
+            <div class="question">
+              <div class="q-title">איזה רעיון, מוצר או פתרון מעולם אחר אפשר להעביר לכאן?</div>
+              <textarea id="toolRecontextQ1" placeholder="כתבו מה אפשר להעביר מעולם אחר"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך הוא יכול להתאים לבעיה שלנו?</div>
+              <textarea id="toolRecontextQ2" placeholder="כתבו איך הרעיון יכול להתאים"></textarea>
+            </div>
+          </div>
+          <div class="tool-box" id="toolResizeBox" style="display:none;">
+            <div class="question">
+              <div class="q-title">מה אפשר להגדיל, להקטין או לשנות בצורה שלו?</div>
+              <textarea id="toolResizeQ1" placeholder="כתבו מה אפשר לשנות"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך השינוי הזה יכול להפוך לכיוון פתרון?</div>
+              <textarea id="toolResizeQ2" placeholder="כתבו איך השינוי יכול לעזור"></textarea>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>מפתחים שלושה כיווני פתרון</h2>
+        <h2>פיתוח שלושה כיווני פתרון</h2>
         <div class="direction-grid">
           <div class="direction-box">
             <div class="question">
-              <div class="q-title">כיוון 1 – באיזה כלי השתמשתם</div>
+              <div class="q-title">כיוון 1: באיזה כלי השתמשתם?</div>
               <input type="text" id="dir1Tool" placeholder="כתבו את שם הכלי">
             </div>
             <div class="question">
-              <div class="q-title">איך הכיוון הזה נראה</div>
+              <div class="q-title">איך הכיוון הזה נראה?</div>
               <textarea id="dir1Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
             </div>
             <div class="question">
-              <div class="q-title">לאיזה סוג מוצר הוא מוביל</div>
+              <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
               <div class="options" id="dir1Type">
                 <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
                 <label><input type="checkbox" value="אפליקציה"> אפליקציה</label>
@@ -341,15 +395,15 @@
 
           <div class="direction-box">
             <div class="question">
-              <div class="q-title">כיוון 2 – באיזה כלי השתמשתם</div>
+              <div class="q-title">כיוון 2: באיזה כלי השתמשתם?</div>
               <input type="text" id="dir2Tool" placeholder="כתבו את שם הכלי">
             </div>
             <div class="question">
-              <div class="q-title">איך הכיוון הזה נראה</div>
+              <div class="q-title">איך הכיוון הזה נראה?</div>
               <textarea id="dir2Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
             </div>
             <div class="question">
-              <div class="q-title">לאיזה סוג מוצר הוא מוביל</div>
+              <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
               <div class="options" id="dir2Type">
                 <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
                 <label><input type="checkbox" value="אפליקציה"> אפליקציה</label>
@@ -360,15 +414,15 @@
 
           <div class="direction-box">
             <div class="question">
-              <div class="q-title">כיוון 3 – באיזה כלי השתמשתם</div>
+              <div class="q-title">כיוון 3: באיזה כלי השתמשתם?</div>
               <input type="text" id="dir3Tool" placeholder="כתבו את שם הכלי">
             </div>
             <div class="question">
-              <div class="q-title">איך הכיוון הזה נראה</div>
+              <div class="q-title">איך הכיוון הזה נראה?</div>
               <textarea id="dir3Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
             </div>
             <div class="question">
-              <div class="q-title">לאיזה סוג מוצר הוא מוביל</div>
+              <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
               <div class="options" id="dir3Type">
                 <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
                 <label><input type="checkbox" value="אפליקציה"> אפליקציה</label>
@@ -380,36 +434,48 @@
       </section>
 
       <section class="section">
-        <h2>בוחרים כיוון ראשוני להמשך</h2>
+        <h2>בחירת כיוון ראשוני להמשך</h2>
         <div class="question">
-          <div class="q-title">איזה כיוון נראה לכם כרגע הכי חזק</div>
+          <div class="q-title">איזה כיוון נראה כרגע הכי חזק?</div>
           <textarea id="bestDirection" placeholder="כתבו איזה כיוון נראה לכם הכי חזק"></textarea>
         </div>
         <div class="question">
-          <div class="q-title">מה היתרון המרכזי שלו</div>
+          <div class="q-title">מה היתרון המרכזי שלו?</div>
           <textarea id="mainBenefit" placeholder="כתבו מה היתרון המרכזי שלו"></textarea>
         </div>
         <div class="question">
-          <div class="q-title">מה עדיין צריך לדייק</div>
+          <div class="q-title">מה עדיין צריך לדייק?</div>
           <textarea id="needsRefine" placeholder="כתבו מה עדיין צריך לדייק"></textarea>
         </div>
         <div class="question">
-          <div class="q-title">לאיזה סוג מוצר הכיוון שנבחר מוביל</div>
+          <div class="q-title">לאיזה סוג מוצר הכיוון שנבחר מוביל?</div>
           <div class="options" id="chosenType">
             <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
             <label><input type="checkbox" value="אפליקציה"> אפליקציה</label>
             <label><input type="checkbox" value="אתר"> אתר</label>
           </div>
         </div>
+      </section>
+
+      <section class="section">
+        <h2>כיוון הפתרון הראשוני שבחרנו</h2>
         <div class="builder-box">
-          <div class="q-title">כיוון הפתרון הראשוני שבחרנו</div>
-          <div class="builder-row">
-            <span>בחרנו בכיוון</span>
-            <input class="builder-input" type="text" id="summary1" placeholder="איזה כיוון">
-            <span>כי הוא עוזר</span>
-            <input class="builder-input" type="text" id="summary2" placeholder="מה הוא מאפשר">
+          <div class="question">
+            <div class="q-title">באיזה כיוון בחרתם?</div>
+            <input type="text" id="summaryChoice" placeholder="בחרנו בכיוון: __________">
           </div>
-          <div class="builder-preview" id="summaryPreview">כאן יופיע ניסוח הסיכום…</div>
+          <div class="question">
+            <div class="q-title">למי או למה הכיוון הזה עוזר?</div>
+            <input type="text" id="summaryHelp" placeholder="כי הוא עוזר ל: __________">
+          </div>
+          <div class="question">
+            <div class="q-title">מה הכיוון הזה מאפשר?</div>
+            <input type="text" id="summaryEnable" placeholder="הוא מאפשר: __________">
+          </div>
+          <div class="builder-row">
+            <span>משפט מסכם:</span>
+          </div>
+          <div class="builder-preview" id="summaryPreview">בחרנו בכיוון __________ כי הוא עוזר __________ ומאפשר __________.</div>
         </div>
       </section>
 
@@ -435,15 +501,43 @@
     }
 
     function updateSummaryPreview() {
-      const s1 = document.getElementById('summary1').value.trim() || '____';
-      const s2 = document.getElementById('summary2').value.trim() || '____';
-      document.getElementById('summaryPreview').textContent = `בחרנו בכיוון ${s1} כי הוא עוזר ${s2}.`;
+      const choice = document.getElementById('summaryChoice').value.trim() || '__________';
+      const help = document.getElementById('summaryHelp').value.trim() || '__________';
+      const enable = document.getElementById('summaryEnable').value.trim() || '__________';
+      document.getElementById('summaryPreview').textContent = `בחרנו בכיוון ${choice} כי הוא עוזר ${help} ומאפשר ${enable}.`;
     }
 
-    ['summary1', 'summary2'].forEach(id => {
+    ['summaryChoice', 'summaryHelp', 'summaryEnable'].forEach(id => {
       document.getElementById(id).addEventListener('input', updateSummaryPreview);
     });
     updateSummaryPreview();
+
+    function syncToolDetails() {
+      const toolMap = [
+        { checkId: 'toolConnect', boxId: 'toolConnectBox' },
+        { checkId: 'toolSubtract', boxId: 'toolSubtractBox' },
+        { checkId: 'toolMultiply', boxId: 'toolMultiplyBox' },
+        { checkId: 'toolRecontext', boxId: 'toolRecontextBox' },
+        { checkId: 'toolResize', boxId: 'toolResizeBox' }
+      ];
+      const checked = toolMap.filter(item => document.getElementById(item.checkId).checked);
+      const limitNote = document.getElementById('toolsLimitNote');
+      limitNote.style.display = checked.length > 3 ? 'block' : 'none';
+
+      if (checked.length > 3) {
+        const lastChecked = checked[checked.length - 1];
+        document.getElementById(lastChecked.checkId).checked = false;
+      }
+
+      toolMap.forEach(item => {
+        const isChecked = document.getElementById(item.checkId).checked;
+        document.getElementById(item.boxId).style.display = isChecked ? 'block' : 'none';
+      });
+    }
+    ['toolConnect', 'toolSubtract', 'toolMultiply', 'toolRecontext', 'toolResize'].forEach(id => {
+      document.getElementById(id).addEventListener('change', syncToolDetails);
+    });
+    syncToolDetails();
 
     function addBlock(blocks, title, content) {
       if (!content) return;
@@ -467,6 +561,16 @@
       const identifiedNeed = document.getElementById('identifiedNeed').value.trim();
       const mainGoal = document.getElementById('mainGoal').value.trim();
       const tools = getCheckedValues('toolsOptions');
+      const toolConnectQ1 = document.getElementById('toolConnectQ1').value.trim();
+      const toolConnectQ2 = document.getElementById('toolConnectQ2').value.trim();
+      const toolSubtractQ1 = document.getElementById('toolSubtractQ1').value.trim();
+      const toolSubtractQ2 = document.getElementById('toolSubtractQ2').value.trim();
+      const toolMultiplyQ1 = document.getElementById('toolMultiplyQ1').value.trim();
+      const toolMultiplyQ2 = document.getElementById('toolMultiplyQ2').value.trim();
+      const toolRecontextQ1 = document.getElementById('toolRecontextQ1').value.trim();
+      const toolRecontextQ2 = document.getElementById('toolRecontextQ2').value.trim();
+      const toolResizeQ1 = document.getElementById('toolResizeQ1').value.trim();
+      const toolResizeQ2 = document.getElementById('toolResizeQ2').value.trim();
       const dir1Tool = document.getElementById('dir1Tool').value.trim();
       const dir1Idea = document.getElementById('dir1Idea').value.trim();
       const dir1Type = getCheckedValues('dir1Type');
@@ -480,16 +584,49 @@
       const mainBenefit = document.getElementById('mainBenefit').value.trim();
       const needsRefine = document.getElementById('needsRefine').value.trim();
       const chosenType = getCheckedValues('chosenType');
-      const summary1 = document.getElementById('summary1').value.trim();
-      const summary2 = document.getElementById('summary2').value.trim();
-      const summaryText = (summary1 || summary2) ? `בחרנו בכיוון ${escapeHtml(summary1 || '____')} כי הוא עוזר ${escapeHtml(summary2 || '____')}.` : '';
+      const summaryChoice = document.getElementById('summaryChoice').value.trim();
+      const summaryHelp = document.getElementById('summaryHelp').value.trim();
+      const summaryEnable = document.getElementById('summaryEnable').value.trim();
+      const summaryText = (summaryChoice || summaryHelp || summaryEnable)
+        ? `בחרנו בכיוון ${escapeHtml(summaryChoice || '__________')} כי הוא עוזר ${escapeHtml(summaryHelp || '__________')} ומאפשר ${escapeHtml(summaryEnable || '__________')}.`
+        : '';
 
       const blocks = [];
-      addBlock(blocks, 'שמות חברי וחברות הקבוצה', escapeHtml(studentNames));
-      addBlock(blocks, 'מה הבעיה המדויקת שלכם', escapeHtml(exactProblem));
-      addBlock(blocks, 'מה הצורך שזיהיתם', escapeHtml(identifiedNeed));
-      addBlock(blocks, 'מה המטרה שלכם', escapeHtml(mainGoal));
+      addBlock(blocks, 'פרטי הקבוצה', escapeHtml(studentNames));
+      addBlock(blocks, 'מה הבעיה המדויקת של הקבוצה?', escapeHtml(exactProblem));
+      addBlock(blocks, 'מה הצורך שזוהה?', escapeHtml(identifiedNeed));
+      addBlock(blocks, 'מה המטרה של הקבוצה?', escapeHtml(mainGoal));
       addBlock(blocks, 'הכלים שבחרתם', renderList(tools));
+      if (tools.includes('חיבור')) {
+        addBlock(blocks, 'חיבור', `
+          ${toolConnectQ1 ? `<div><strong>מה אפשר לחבר בין שני דברים קיימים?</strong> ${escapeHtml(toolConnectQ1)}</div>` : ''}
+          ${toolConnectQ2 ? `<div style="margin-top:6px;"><strong>איך החיבור הזה יכול להפוך לכיוון פתרון?</strong> ${escapeHtml(toolConnectQ2)}</div>` : ''}
+        `);
+      }
+      if (tools.includes('החסרה')) {
+        addBlock(blocks, 'החסרה', `
+          ${toolSubtractQ1 ? `<div><strong>מה אפשר להסיר, לצמצם או לוותר עליו?</strong> ${escapeHtml(toolSubtractQ1)}</div>` : ''}
+          ${toolSubtractQ2 ? `<div style="margin-top:6px;"><strong>איך ההחסרה הזו יכולה לשפר את הפתרון?</strong> ${escapeHtml(toolSubtractQ2)}</div>` : ''}
+        `);
+      }
+      if (tools.includes('הכפלה')) {
+        addBlock(blocks, 'הכפלה', `
+          ${toolMultiplyQ1 ? `<div><strong>מה אפשר להכפיל, לחזור עליו או להוסיף יותר ממנו?</strong> ${escapeHtml(toolMultiplyQ1)}</div>` : ''}
+          ${toolMultiplyQ2 ? `<div style="margin-top:6px;"><strong>איך ההכפלה הזו יכולה ליצור פתרון חדש?</strong> ${escapeHtml(toolMultiplyQ2)}</div>` : ''}
+        `);
+      }
+      if (tools.includes('הוצאה מהקשר')) {
+        addBlock(blocks, 'הוצאה מהקשר', `
+          ${toolRecontextQ1 ? `<div><strong>איזה רעיון, מוצר או פתרון מעולם אחר אפשר להעביר לכאן?</strong> ${escapeHtml(toolRecontextQ1)}</div>` : ''}
+          ${toolRecontextQ2 ? `<div style="margin-top:6px;"><strong>איך הוא יכול להתאים לבעיה שלנו?</strong> ${escapeHtml(toolRecontextQ2)}</div>` : ''}
+        `);
+      }
+      if (tools.includes('שינוי גודל או צורה')) {
+        addBlock(blocks, 'שינוי גודל או צורה', `
+          ${toolResizeQ1 ? `<div><strong>מה אפשר להגדיל, להקטין או לשנות בצורה שלו?</strong> ${escapeHtml(toolResizeQ1)}</div>` : ''}
+          ${toolResizeQ2 ? `<div style="margin-top:6px;"><strong>איך השינוי הזה יכול להפוך לכיוון פתרון?</strong> ${escapeHtml(toolResizeQ2)}</div>` : ''}
+        `);
+      }
 
       if (dir1Tool || dir1Idea || dir1Type.length) {
         addBlock(blocks, 'כיוון 1', `
@@ -513,10 +650,10 @@
         `);
       }
 
-      addBlock(blocks, 'איזה כיוון נראה לכם כרגע הכי חזק', escapeHtml(bestDirection));
-      addBlock(blocks, 'מה היתרון המרכזי שלו', escapeHtml(mainBenefit));
-      addBlock(blocks, 'מה עדיין צריך לדייק', escapeHtml(needsRefine));
-      addBlock(blocks, 'לאיזה סוג מוצר הכיוון שנבחר מוביל', renderList(chosenType));
+      addBlock(blocks, 'איזה כיוון נראה כרגע הכי חזק?', escapeHtml(bestDirection));
+      addBlock(blocks, 'מה היתרון המרכזי שלו?', escapeHtml(mainBenefit));
+      addBlock(blocks, 'מה עדיין צריך לדייק?', escapeHtml(needsRefine));
+      addBlock(blocks, 'לאיזה סוג מוצר הכיוון שנבחר מוביל?', renderList(chosenType));
       addBlock(blocks, 'כיוון הפתרון הראשוני שבחרנו', summaryText);
 
       if (!blocks.length) {
