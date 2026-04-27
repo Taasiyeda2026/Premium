@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d2045" />
+  <link rel="manifest" href="../../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../../images/logo.png" />
+  <link rel="apple-touch-icon" href="../../images/logo.png" />
+  <link rel="stylesheet" href="../../styles/pwa.css" />
+  <title>פרימיום Marvell | שלב הרעיונות</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f0f4f8 0%, #e4eaf1 100%);
+      color: #111;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-bar {
+      background: linear-gradient(90deg, #0d2045 0%, #1a3a7a 45%, #0d2045 100%);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      box-shadow: 0 4px 14px rgba(13, 32, 69, 0.28);
+    }
+    header {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 4px solid #1a3a7a;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 18px 16px 14px;
+      text-align: center;
+      position: relative;
+    }
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
+      border: 1px solid #cfd8e3;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12), 0 10px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.16s ease;
+    }
+    .home-link:hover { transform: translateY(-2px); }
+    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+    h1 {
+      font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+      font-weight: 900;
+      color: #0d2045;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 0.92rem;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    main {
+      flex: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 24px 16px 32px;
+      width: 100%;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      border-top: 5px solid #1a3a7a;
+      padding: 22px 20px;
+    }
+    .intro {
+      font-size: 0.97rem;
+      color: #444;
+      margin-bottom: 18px;
+    }
+    .directions-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1a3a7a;
+      margin-bottom: 10px;
+      border-right: 5px solid #1a3a7a;
+      padding-right: 10px;
+    }
+    .directions {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .directions li {
+      background: #f8fafc;
+      border: 1px solid #dde6ef;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.94rem;
+      color: #334;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(13, 32, 69, 0.22);
+    }
+    .btn-secondary {
+      background: linear-gradient(180deg, #fff 0%, #f0f4f8 100%);
+      color: #0d2045;
+      border: 1px solid #c0cdd9;
+      box-shadow: 0 6px 14px rgba(13, 32, 69, 0.12);
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 16px;
+      font-size: 0.86rem;
+    }
+    @media (min-width: 1200px) { body { zoom: 80%; } }
+  </style>
+</head>
+<body>
+  <div class="top-bar">פרימיום Marvell | שלב הרעיונות</div>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+      </a>
+      <h1>פרימיום Marvell</h1>
+      <p class="subtitle">מחדדים בעיה ומפתחים כיווני פתרון</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <p class="intro">בדפים הבאים תחדדו את הבעיה, הצורך והמטרה, ואז תפתחו כמה כיווני פתרון אפשריים.</p>
+      <h2 class="directions-title">הכיוון</h2>
+      <ul class="directions">
+        <li>מוצר פיזי</li>
+        <li>אפליקציה</li>
+        <li>אתר</li>
+        <li>מערכת חכמה</li>
+        <li>פתרון משולב</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary" href="need.html">התחלה</a>
+        <a class="btn btn-secondary" href="../index.html">חזרה לעמוד הבית</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>© פרימיום | תעשיידע</footer>
+  <script src="../../pwa-register.js" defer></script>
+</body>
+</html>
