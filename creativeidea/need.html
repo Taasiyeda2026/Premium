@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>שלב 2 – מדייקות את הבעיה, הצורך והמטרה</title>
+  <title>שלב 2 (דף 1) – מחדדים את הבעיה, הצורך והמטרה | פרימיום</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, "Heebo", sans-serif;
-      background: linear-gradient(180deg, #fcf9fd 0%, #f7f1fa 100%);
-      color: #2b2b2b;
+      background: #f7f9fc;
+      color: #1f2937;
       line-height: 1.7;
     }
     .site-header {
@@ -19,8 +19,8 @@
       z-index: 100;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(180,152,196,0.22);
-      box-shadow: 0 8px 24px rgba(107,45,132,0.08);
+      border-bottom: 1px solid #d9e2ec;
+      box-shadow: 0 8px 24px rgba(15,76,129,0.08);
     }
     .header-inner {
       max-width: 1100px;
@@ -36,7 +36,7 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      color: #6b2d84;
+      color: #0f4c81;
       font-weight: 700;
     }
     .header-logo img {
@@ -44,30 +44,30 @@
       height: auto;
       object-fit: contain;
       border-radius: 12px;
-      box-shadow: 0 6px 14px rgba(107,45,132,0.16);
-      border: 1px solid rgba(227,214,234,0.8);
+      box-shadow: 0 6px 14px rgba(15,76,129,0.14);
+      border: 1px solid #d9e2ec;
       background: #fff;
     }
-    .home-link, .print-btn {
+    .home-link, .print-btn, .back-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 44px;
-      height: 44px;
-      padding: 0 14px;
+      min-width: 40px;
+      height: 40px;
+      padding: 0 12px;
       text-decoration: none;
       font-size: 1rem;
-      background: linear-gradient(180deg, #ffffff 0%, #f4ebf8 100%);
-      color: #6b2d84;
-      border: 1px solid rgba(227,214,234,0.95);
-      border-radius: 14px;
-      box-shadow: 0 8px 18px rgba(107,45,132,0.14);
+      background: #ffffff;
+      color: #1d5fa7;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(15,76,129,0.1);
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
-    .home-link:hover, .print-btn:hover {
+    .home-link:hover, .print-btn:hover, .back-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(107,45,132,0.18);
+      box-shadow: 0 12px 24px rgba(15,76,129,0.16);
     }
     .header-actions { display: flex; align-items: center; gap: 10px; }
     .container {
@@ -76,16 +76,16 @@
       padding: 28px 20px 40px;
     }
     .page-card {
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(227,214,234,0.95);
+      background: #ffffff;
+      border: 1px solid #d9e2ec;
       border-radius: 24px;
-      box-shadow: 0 16px 36px rgba(107,45,132,0.08);
+      box-shadow: 0 16px 36px rgba(15,76,129,0.08);
       padding: 28px 22px;
     }
     h1 {
       margin: 0 0 8px;
       text-align: center;
-      color: #6b2d84;
+      color: #0f4c81;
       font-size: 1.95rem;
       line-height: 1.25;
     }
@@ -96,18 +96,18 @@
       padding: 18px 16px;
       border-radius: 18px;
       background: #fff;
-      border: 1px solid #eadff0;
+      border: 1px solid #d9e2ec;
     }
-    .student-box { margin-top: 0; background: #faf5fd; }
-    .intro-box { background: linear-gradient(180deg, #fffdfd 0%, #faf5ff 100%); }
+    .student-box { margin-top: 0; background: #f1f5f9; }
+    .intro-box { background: #f1f5f9; }
     .student-box h2,
     .intro-box h2,
     .section h2 {
       margin: 0 0 14px;
-      color: #6b2d84;
+      color: #1d5fa7;
       font-size: 1.2rem;
     }
-    .intro-box p { margin: 0 0 8px; color: #4d3e59; }
+    .intro-box p { margin: 0 0 8px; color: #475569; }
     .mini-steps {
       margin: 10px 0 0;
       padding: 0;
@@ -117,10 +117,10 @@
     }
     .mini-steps li {
       background: #fff;
-      border: 1px solid #efe5f4;
+      border: 1px solid #d9e2ec;
       border-radius: 12px;
       padding: 10px 12px;
-      color: #4d3e59;
+      color: #475569;
       font-weight: 600;
     }
     .question { margin-bottom: 18px; }
@@ -128,24 +128,24 @@
     .q-title {
       font-weight: 700;
       margin-bottom: 8px;
-      color: #3f304b;
+      color: #1d5fa7;
     }
     .note {
       margin: 0 0 14px;
       padding: 12px 14px;
       border-radius: 14px;
-      background: #faf5fd;
-      border: 1px solid #eadcf3;
-      color: #5b476b;
+      background: #f1f5f9;
+      border: 1px solid #d9e2ec;
+      color: #475569;
     }
     input[type="text"], textarea {
       width: 100%;
-      border: 1px solid #d8c7e3;
+      border: 1px solid #d9e2ec;
       border-radius: 14px;
       padding: 12px 14px;
       font: inherit;
       background: #fff;
-      color: #2b2b2b;
+      color: #1f2937;
       outline: none;
     }
     textarea {
@@ -163,8 +163,8 @@
       gap: 10px;
       padding: 8px 10px;
       border-radius: 12px;
-      background: #fcfaff;
-      border: 1px solid #efe5f4;
+      background: #f8fafc;
+      border: 1px solid #d9e2ec;
     }
     .inline-other {
       display: flex;
@@ -182,22 +182,22 @@
       gap: 12px;
     }
     .why-row {
-      border: 1px solid #efe5f4;
+      border: 1px solid #d9e2ec;
       border-radius: 14px;
       padding: 12px;
-      background: #fcfaff;
+      background: #f8fafc;
     }
     .why-label {
       display: block;
       margin-bottom: 8px;
-      color: #6b2d84;
+      color: #1d5fa7;
       font-weight: 700;
     }
     .builder-box {
       padding: 14px;
       border-radius: 16px;
-      border: 1px solid #eadcf3;
-      background: #faf5fd;
+      border: 1px solid #d9e2ec;
+      background: #f1f5f9;
     }
     .builder-row {
       display: flex;
@@ -205,7 +205,7 @@
       align-items: center;
       gap: 8px;
       line-height: 2;
-      color: #4d3e59;
+      color: #475569;
     }
     .builder-input {
       width: auto !important;
@@ -219,8 +219,8 @@
       padding: 12px 14px;
       border-radius: 14px;
       background: #fff;
-      border: 1px dashed #d8c7e3;
-      color: #5b476b;
+      border: 1px dashed #d9e2ec;
+      color: #475569;
     }
     .footer-nav {
       display: flex;
@@ -236,11 +236,32 @@
       color: #fff;
       font-weight: 700;
       border-radius: 999px;
-      background: linear-gradient(135deg, #7b3696 0%, #c04aa6 100%);
-      box-shadow: 0 14px 28px rgba(127,56,151,0.28);
+      background: #2563eb;
+      box-shadow: 0 12px 24px rgba(37,99,235,0.28);
+    }
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
+      text-decoration: none;
+      color: #1d5fa7;
+      font-weight: 700;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #2563eb;
+    }
+    .footer {
+      margin-top: 32px;
+      padding: 14px 20px;
+      text-align: center;
+      background: #0f4c81;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
     }
     @media print {
-      .site-header, .footer-nav { display: none !important; }
+      .site-header, .footer-nav, .footer { display: none !important; }
       body { background: #fff; }
       .container { max-width: 100%; padding: 0; }
       .page-card { box-shadow: none; border: none; border-radius: 0; padding: 0; }
@@ -253,10 +274,11 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="header-logo" href="enter.html" aria-label="לוגו העמוד">
-        <img src="../icon/logo.png" alt="לוגו פורצות דרך">
-        <span>פורצות דרך</span>
+        <img src="../icons/icon.png" alt="לוגו פרימיום">
+        <span>פרימיום</span>
       </a>
       <div class="header-actions">
+        <a class="back-btn" href="enter.html" aria-label="חזרה" title="חזרה">חזרה</a>
         <button class="print-btn" type="button" onclick="printAnsweredOnly()">PDF / הדפסה</button>
         <a class="home-link" href="enter.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
       </div>
@@ -268,28 +290,28 @@
       <section class="student-box">
         <h2>פרטי הקבוצה</h2>
         <div class="question">
-          <div class="q-title">שמות התלמידות בקבוצה</div>
-          <input type="text" id="studentNames" placeholder="כתבו את שמות התלמידות">
+          <div class="q-title">שמות חברי וחברות הקבוצה</div>
+          <input type="text" id="studentNames" placeholder="כתבו את שמות חברי וחברות הקבוצה">
         </div>
       </section>
 
-      <h1>שלב 2 – מדייקות את הבעיה, הצורך והמטרה</h1>
+      <h1>שלב 2 (דף 1) – מחדדים את הבעיה, הצורך והמטרה</h1>
 
       <section class="intro-box">
         <h2>פתיחה</h2>
-        <p>עכשיו אנחנו לוקחות את ההזדמנות שבחרנו ומבינות אותה יותר לעומק.</p>
-        <p>בשלב הזה אנחנו מדייקות שלושה דברים: מה הבעיה, מה חסר ומה אנחנו רוצות שיקרה.</p>
+        <p>עכשיו אנחנו לוקחים את ההזדמנות שבחרנו ומבינים אותה יותר לעומק.</p>
+        <p>בשלב הזה אנחנו מחדדים שלושה דברים: מה הבעיה, מה חסר ומה אנחנו רוצים שיקרה.</p>
         <ul class="mini-steps">
-          <li>מבינות למה זה קורה</li>
-          <li>מנסחות בעיה מדויקת</li>
-          <li>מנסחות צורך ומטרה</li>
+          <li>מבינים למה זה קורה</li>
+          <li>מנסחים בעיה מדויקת</li>
+          <li>מנסחים צורך ומטרה</li>
         </ul>
       </section>
 
       <section class="section">
         <h2>ההזדמנות או הפער שבחרנו להתמקד בו</h2>
         <div class="question">
-          <textarea id="chosenGap" placeholder="כתבו את ההזדמנות או הפער שבחרתן"></textarea>
+          <textarea id="chosenGap" placeholder="כתבו את ההזדמנות או הפער שבחרתם"></textarea>
         </div>
       </section>
 
@@ -325,7 +347,7 @@
       </section>
 
       <section class="section">
-        <h2>מדייקות את הבעיה</h2>
+        <h2>מחדדים את הבעיה</h2>
         <div class="question">
           <div class="q-title">מי קהל היעד שנפגע מהבעיה</div>
           <input type="text" id="problemWho" placeholder="כתבו את קהל היעד">
@@ -359,7 +381,7 @@
           <div class="q-title">הבעיה המדויקת במשפט אחד</div>
           <div class="builder-row">
             <input class="builder-input" type="text" id="problemSentence1" placeholder="מי">
-            <span>מתקשות ל</span>
+            <span>מתקשים ל</span>
             <input class="builder-input" type="text" id="problemSentence2" placeholder="מה">
             <span>כאשר</span>
             <input class="builder-input" type="text" id="problemSentence3" placeholder="באיזה מצב">
@@ -371,7 +393,7 @@
       </section>
 
       <section class="section">
-        <h2>מדייקות את הצורך</h2>
+        <h2>מחדדים את הצורך</h2>
         <div class="question">
           <div class="q-title">מה היה יכול לעזור להתמודד טוב יותר</div>
           <textarea id="needHelp" placeholder="כתבו מה היה יכול לעזור להתמודד טוב יותר"></textarea>
@@ -391,7 +413,7 @@
       </section>
 
       <section class="section">
-        <h2>מדייקות את המטרה</h2>
+        <h2>מחדדים את המטרה</h2>
         <div class="question">
           <div class="q-title">מה הכי חשוב להשיג</div>
           <div class="options" id="goalOptions">
@@ -422,10 +444,11 @@
       </section>
 
       <div class="footer-nav">
-        <a class="next-btn" href="creative.html">המשך לשלב 3</a>
+        <a class="next-btn" href="creative.html">המשך לדף 2</a>
       </div>
     </div>
   </main>
+  <footer class="footer">© פרימיום | תעשיידע</footer>
 
   <script>
     function escapeHtml(text) {
@@ -451,7 +474,7 @@
       const p2 = document.getElementById('problemSentence2').value.trim() || '____';
       const p3 = document.getElementById('problemSentence3').value.trim() || '____';
       const p4 = document.getElementById('problemSentence4').value.trim() || '____';
-      document.getElementById('problemPreview').textContent = `${p1} מתקשות ל${p2} כאשר ${p3}, ולכן ${p4}.`;
+      document.getElementById('problemPreview').textContent = `${p1} מתקשים ל${p2} כאשר ${p3}, ולכן ${p4}.`;
     }
 
     function updateNeedPreview() {
@@ -498,7 +521,7 @@
     }
 
     function printAnsweredOnly() {
-      const logoUrl = new URL('../icon/logo.png', window.location.href).href;
+      const logoUrl = new URL('../icons/icon.png', window.location.href).href;
       const studentNames = document.getElementById('studentNames').value.trim();
       const chosenGap = document.getElementById('chosenGap').value.trim();
       const whyItems = ['why1','why2','why3','why4','why5']
@@ -511,7 +534,7 @@
       const problemImpact = getCheckedValues('problemImpact', 'problemImpactOtherCheck', 'problemImpactOtherText');
       const problemSentenceValues = ['problemSentence1','problemSentence2','problemSentence3','problemSentence4'].map(id => document.getElementById(id).value.trim());
       const hasProblemSentence = problemSentenceValues.some(Boolean);
-      const problemSentenceText = `${problemSentenceValues[0] || '____'} מתקשות ל${problemSentenceValues[1] || '____'} כאשר ${problemSentenceValues[2] || '____'}, ולכן ${problemSentenceValues[3] || '____'}.`;
+      const problemSentenceText = `${problemSentenceValues[0] || '____'} מתקשים ל${problemSentenceValues[1] || '____'} כאשר ${problemSentenceValues[2] || '____'}, ולכן ${problemSentenceValues[3] || '____'}.`;
       const needHelp = document.getElementById('needHelp').value.trim();
       const needSentence1 = document.getElementById('needSentence1').value.trim();
       const needSentence2 = document.getElementById('needSentence2').value.trim();
@@ -530,7 +553,7 @@
         : '';
 
       const blocks = [];
-      addBlock(blocks, 'שמות התלמידות בקבוצה', escapeHtml(studentNames));
+      addBlock(blocks, 'שמות חברי וחברות הקבוצה', escapeHtml(studentNames));
       addBlock(blocks, 'ההזדמנות או הפער שבחרנו להתמקד בו', escapeHtml(chosenGap).replace(/\n/g, '<br>'));
       whyItems.forEach(item => addBlock(blocks, item.label, escapeHtml(item.value).replace(/\n/g, '<br>')));
       addBlock(blocks, 'במשפט קצר, מה הבנו עכשיו טוב יותר', escapeHtml(afterWhySummary).replace(/\n/g, '<br>'));
@@ -560,13 +583,13 @@
         <html lang="he" dir="rtl">
         <head>
           <meta charset="UTF-8">
-          <title>שלב 2 – הדפסה</title>
+          <title>שלב 2 (דף 1) – הדפסה</title>
           <style>
             body {
               margin: 0;
               font-family: Arial, "Heebo", sans-serif;
               background: #ffffff;
-              color: #2b2b2b;
+              color: #1f2937;
               direction: rtl;
               padding: 28px;
             }
@@ -575,8 +598,8 @@
               margin: 0 auto;
             }
             .print-header {
-              background: linear-gradient(180deg, #fffdfd 0%, #faf5ff 100%);
-              border: 1px solid #eadff0;
+              background: #f1f5f9;
+              border: 1px solid #d9e2ec;
               border-radius: 18px;
               padding: 18px 20px;
               margin-bottom: 20px;
@@ -591,17 +614,17 @@
               object-fit: contain;
               background: #fff;
               border-radius: 12px;
-              border: 1px solid #eadff0;
+              border: 1px solid #d9e2ec;
               padding: 4px;
             }
             .print-header h1 {
               margin: 0;
               font-size: 1.8rem;
-              color: #6b2d84;
+              color: #0f4c81;
             }
             .print-header p {
               margin: 4px 0 0;
-              color: #5b476b;
+              color: #475569;
               font-size: 0.98rem;
             }
             .print-block {
@@ -609,20 +632,20 @@
               break-inside: avoid;
             }
             .print-q {
-              background: #faf5fd;
-              border: 1px solid #eadcf3;
+              background: #f1f5f9;
+              border: 1px solid #d9e2ec;
               border-radius: 14px 14px 0 0;
               padding: 10px 12px;
-              color: #6b2d84;
+              color: #1d5fa7;
               font-weight: 700;
             }
             .print-a {
-              border: 1px solid #eadcf3;
+              border: 1px solid #d9e2ec;
               border-top: none;
               border-radius: 0 0 14px 14px;
               padding: 12px 14px;
               background: #fff;
-              color: #2b2b2b;
+              color: #1f2937;
             }
             @media print {
               body { padding: 12mm; }
@@ -634,10 +657,10 @@
           <div class="sheet">
             <div class="print-header">
               <div>
-                <h1>שלב 2 – מדייקות את הבעיה, הצורך והמטרה</h1>
-                <p>פורצות דרך</p>
+                <h1>שלב 2 (דף 1) – מחדדים את הבעיה, הצורך והמטרה</h1>
+                <p>פרימיום</p>
               </div>
-              <img src="${logoUrl}" alt="לוגו">
+              <img src="${logoUrl}" alt="לוגו פרימיום">
             </div>
             ${blocks.join('')}
           </div>
