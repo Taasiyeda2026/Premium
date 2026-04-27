@@ -273,14 +273,14 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="header-logo" href="enter.html" aria-label="לוגו העמוד">
-        <img src="../icons/icon.png" alt="לוגו פרימיום">
+      <a class="header-logo" href="../index_osem.html" aria-label="לוגו העמוד">
+        <img src="../images/logo.png" alt="לוגו פרימיום">
         <span>פרימיום</span>
       </a>
       <div class="header-actions">
         <a class="back-btn" href="enter.html" aria-label="חזרה" title="חזרה">חזרה</a>
         <button class="print-btn" type="button" onclick="printAnsweredOnly()">PDF / הדפסה</button>
-        <a class="home-link" href="enter.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
+        <a class="home-link" href="../index_osem.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
       </div>
     </div>
   </header>
@@ -290,12 +290,11 @@
       <section class="student-box">
         <h2>פרטי הקבוצה</h2>
         <div class="question">
-          <div class="q-title">שמות חברי וחברות הקבוצה</div>
           <input type="text" id="studentNames" placeholder="כתבו את שמות חברי וחברות הקבוצה">
         </div>
       </section>
 
-      <h1>שלב 2 (דף 1) – מחדדים את הבעיה, הצורך והמטרה</h1>
+      <h1>מחדדים את הבעיה, הצורך והמטרה</h1>
 
       <section class="intro-box">
         <h2>פתיחה</h2>
@@ -320,24 +319,34 @@
         <div class="note">שאלו בכל פעם למה זה קורה, ועל כל תשובה שאלו שוב למה. המטרה היא להבין מה באמת עומד מאחורי הבעיה.</div>
         <div class="why-grid">
           <div class="why-row">
-            <label class="why-label" for="why1">למה 1</label>
-            <textarea id="why1" placeholder="כתבו את התשובה"></textarea>
+            <label class="why-label" for="whyq1">למה 1:</label>
+            <textarea id="whyq1" placeholder="שדה פתוח למילוי"></textarea>
+            <label class="why-label" for="whya1" style="margin-top: 8px;">כתבו את התשובה:</label>
+            <textarea id="whya1" placeholder="שדה פתוח למילוי"></textarea>
           </div>
           <div class="why-row">
-            <label class="why-label" for="why2">למה 2</label>
-            <textarea id="why2" placeholder="כתבו את התשובה"></textarea>
+            <label class="why-label" for="whyq2">למה 2:</label>
+            <textarea id="whyq2" placeholder="שדה פתוח למילוי"></textarea>
+            <label class="why-label" for="whya2" style="margin-top: 8px;">כתבו את התשובה:</label>
+            <textarea id="whya2" placeholder="שדה פתוח למילוי"></textarea>
           </div>
           <div class="why-row">
-            <label class="why-label" for="why3">למה 3</label>
-            <textarea id="why3" placeholder="כתבו את התשובה"></textarea>
+            <label class="why-label" for="whyq3">למה 3:</label>
+            <textarea id="whyq3" placeholder="שדה פתוח למילוי"></textarea>
+            <label class="why-label" for="whya3" style="margin-top: 8px;">כתבו את התשובה:</label>
+            <textarea id="whya3" placeholder="שדה פתוח למילוי"></textarea>
           </div>
           <div class="why-row">
-            <label class="why-label" for="why4">למה 4</label>
-            <textarea id="why4" placeholder="כתבו את התשובה"></textarea>
+            <label class="why-label" for="whyq4">למה 4:</label>
+            <textarea id="whyq4" placeholder="שדה פתוח למילוי"></textarea>
+            <label class="why-label" for="whya4" style="margin-top: 8px;">כתבו את התשובה:</label>
+            <textarea id="whya4" placeholder="שדה פתוח למילוי"></textarea>
           </div>
           <div class="why-row">
-            <label class="why-label" for="why5">למה 5</label>
-            <textarea id="why5" placeholder="כתבו את התשובה"></textarea>
+            <label class="why-label" for="whyq5">למה 5:</label>
+            <textarea id="whyq5" placeholder="שדה פתוח למילוי"></textarea>
+            <label class="why-label" for="whya5" style="margin-top: 8px;">כתבו את התשובה:</label>
+            <textarea id="whya5" placeholder="שדה פתוח למילוי"></textarea>
           </div>
         </div>
         <div class="question" style="margin-top: 16px;">
@@ -521,12 +530,16 @@
     }
 
     function printAnsweredOnly() {
-      const logoUrl = new URL('../icons/icon.png', window.location.href).href;
+      const logoUrl = new URL('../images/logo.png', window.location.href).href;
       const studentNames = document.getElementById('studentNames').value.trim();
       const chosenGap = document.getElementById('chosenGap').value.trim();
-      const whyItems = ['why1','why2','why3','why4','why5']
-        .map((id, index) => ({ label: `למה ${index + 1}`, value: document.getElementById(id).value.trim() }))
-        .filter(item => item.value);
+      const whyItems = [1, 2, 3, 4, 5]
+        .map((index) => ({
+          question: document.getElementById(`whyq${index}`).value.trim(),
+          answer: document.getElementById(`whya${index}`).value.trim(),
+          index
+        }))
+        .filter(item => item.question || item.answer);
       const afterWhySummary = document.getElementById('afterWhySummary').value.trim();
       const problemWho = document.getElementById('problemWho').value.trim();
       const problemWhen = document.getElementById('problemWhen').value.trim();
@@ -553,9 +566,12 @@
         : '';
 
       const blocks = [];
-      addBlock(blocks, 'שמות חברי וחברות הקבוצה', escapeHtml(studentNames));
+      addBlock(blocks, 'פרטי הקבוצה', escapeHtml(studentNames));
       addBlock(blocks, 'ההזדמנות או הפער שבחרנו להתמקד בו', escapeHtml(chosenGap).replace(/\n/g, '<br>'));
-      whyItems.forEach(item => addBlock(blocks, item.label, escapeHtml(item.value).replace(/\n/g, '<br>')));
+      whyItems.forEach(item => {
+        addBlock(blocks, `למה ${item.index}`, escapeHtml(item.question).replace(/\n/g, '<br>'));
+        addBlock(blocks, 'כתבו את התשובה', escapeHtml(item.answer).replace(/\n/g, '<br>'));
+      });
       addBlock(blocks, 'במשפט קצר, מה הבנו עכשיו טוב יותר', escapeHtml(afterWhySummary).replace(/\n/g, '<br>'));
       addBlock(blocks, 'מי קהל היעד שנפגע מהבעיה', escapeHtml(problemWho));
       addBlock(blocks, 'באיזה מצב הבעיה מופיעה', escapeHtml(problemWhen));
@@ -583,7 +599,7 @@
         <html lang="he" dir="rtl">
         <head>
           <meta charset="UTF-8">
-          <title>שלב 2 (דף 1) – הדפסה</title>
+          <title>מחדדים את הבעיה, הצורך והמטרה – הדפסה</title>
           <style>
             body {
               margin: 0;
@@ -657,7 +673,7 @@
           <div class="sheet">
             <div class="print-header">
               <div>
-                <h1>שלב 2 (דף 1) – מחדדים את הבעיה, הצורך והמטרה</h1>
+                <h1>מחדדים את הבעיה, הצורך והמטרה</h1>
                 <p>פרימיום</p>
               </div>
               <img src="${logoUrl}" alt="לוגו פרימיום">
