@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>פותחים כיווני פתרון | פרימיום</title>
+  <title>פותחים כיווני פתרון | פרימיום אסם</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -89,6 +89,13 @@
       font-size: 1.95rem;
       line-height: 1.25;
     }
+    .subtitle {
+      margin: 0 auto 18px;
+      text-align: center;
+      color: #475569;
+      max-width: 760px;
+      font-weight: 600;
+    }
     .student-box,
     .intro-box,
     .section {
@@ -155,14 +162,6 @@
       background: #f8fafc;
       border: 1px solid #d9e2ec;
     }
-    .inline-other {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-    .inline-other input[type="text"] { flex: 1 1 220px; width: auto; }
     .tool-grid, .direction-grid {
       display: grid;
       gap: 16px;
@@ -186,13 +185,6 @@
       gap: 8px;
       line-height: 2;
       color: #475569;
-    }
-    .builder-input {
-      width: auto !important;
-      min-width: 130px;
-      flex: 1 1 170px;
-      display: inline-block;
-      background: #fff;
     }
     .builder-preview {
       margin-top: 12px;
@@ -255,14 +247,14 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="header-logo" href="../index_osem.html" aria-label="לוגו העמוד">
-        <img src="../images/logo.png" alt="לוגו פרימיום">
-        <span>פרימיום</span>
+      <a class="header-logo" href="../index_osem.html" aria-label="חזרה לעמוד הבית">
+        <img src="../images/logo.png" alt="לוגו פרימיום אסם">
+        <span>פרימיום אסם</span>
       </a>
       <div class="header-actions">
         <a class="back-btn" href="need.html" aria-label="חזרה" title="חזרה">חזרה</a>
         <button class="print-btn" type="button" onclick="printAnsweredOnly()">PDF / הדפסה</button>
-        <a class="home-link" href="enter.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
+        <a class="home-link" href="../index_osem.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
       </div>
     </div>
   </header>
@@ -277,11 +269,12 @@
       </section>
 
       <h1>פותחים כיווני פתרון</h1>
+      <p class="subtitle">בשלב הזה פותחים כמה רעיונות לפתרון טכנולוגי שיכול לשפר איכות, בטיחות או תהליך עבודה.</p>
 
       <section class="intro-box">
         <h2>פתיחה</h2>
-        <p>עכשיו אנחנו לוקחים את הבעיה, הצורך והמטרה ומתחילים לפתוח כמה כיווני פתרון.</p>
-        <p>בשלב הזה אנחנו לא מחפשים תשובה אחת נכונה, אלא בודקים כמה אפשרויות שונות.</p>
+        <p>עכשיו לוקחים את הבעיה, הצורך והמטרה ומתחילים לפתוח כמה כיווני פתרון.</p>
+        <p>בשלב הזה לא מחפשים תשובה אחת מושלמת, אלא בודקים כמה אפשרויות שיכולות לשפר איכות, בטיחות, סדר או בקרה.</p>
         <ul class="mini-steps">
           <li>בוחרים כלים לחשיבה יצירתית</li>
           <li>מפתחים שלושה כיווני פתרון</li>
@@ -293,21 +286,21 @@
         <h2>חזרה לנקודת המוצא</h2>
         <div class="question">
           <div class="q-title">מה הבעיה המדויקת של הקבוצה?</div>
-          <textarea id="exactProblem" placeholder="כתבו את הבעיה המדויקת"></textarea>
+          <textarea id="exactProblem" placeholder="כתבו את הבעיה המדויקת שבחרתם מתוך עולם האיכות והבטיחות"></textarea>
         </div>
         <div class="question">
           <div class="q-title">מה הצורך שזוהה?</div>
-          <textarea id="identifiedNeed" placeholder="כתבו את הצורך שזוהה"></textarea>
+          <textarea id="identifiedNeed" placeholder="כתבו איזה צורך עולה מהבעיה: יותר סדר, יותר בטיחות, פחות טעויות, תהליך ברור יותר או בקרה טובה יותר"></textarea>
         </div>
         <div class="question">
           <div class="q-title">מה המטרה של הקבוצה?</div>
-          <textarea id="mainGoal" placeholder="כתבו את המטרה"></textarea>
+          <textarea id="mainGoal" placeholder="כתבו מה אתם רוצים לשפר בעזרת הפתרון"></textarea>
         </div>
       </section>
 
       <section class="section">
         <h2>בחירת כלים לחשיבה יצירתית</h2>
-        <div class="q-title">באילו כלים לחשיבה יצירתית תשתמשו כדי לפתח כיווני פתרון?</div>
+        <div class="q-title">באילו כלים לחשיבה יצירתית תשתמשו כדי לפתח כיווני פתרון לאתגר האיכות והבטיחות שבחרתם?</div>
         <div class="note">סמנו 2–3 כלים. כל סימון פותח 2 תיבות למילוי התשובות.</div>
         <div class="options" id="toolsOptions">
           <label><input type="checkbox" value="חיבור" id="toolConnect"> חיבור</label>
@@ -320,7 +313,7 @@
         <div class="tool-grid" style="margin-top: 12px;">
           <div class="tool-box" id="toolConnectBox" style="display:none;">
             <div class="question">
-              <div class="q-title">מה אפשר לחבר בין שני דברים קיימים?</div>
+              <div class="q-title">מה אפשר לחבר בין שני דברים קיימים כדי לשפר איכות, בטיחות או סדר?</div>
               <textarea id="toolConnectQ1" placeholder="כתבו את הרעיון לחיבור"></textarea>
             </div>
             <div class="question">
@@ -330,17 +323,17 @@
           </div>
           <div class="tool-box" id="toolSubtractBox" style="display:none;">
             <div class="question">
-              <div class="q-title">מה אפשר להסיר, לצמצם או לוותר עליו?</div>
+              <div class="q-title">מה אפשר להסיר, לצמצם או לוותר עליו כדי להפחית בלבול, עומס או טעויות?</div>
               <textarea id="toolSubtractQ1" placeholder="כתבו מה אפשר להחסיר"></textarea>
             </div>
             <div class="question">
-              <div class="q-title">איך ההחסרה הזו יכולה לשפר את הפתרון?</div>
+              <div class="q-title">איך ההחסרה הזו יכולה לשפר את האיכות או הבטיחות?</div>
               <textarea id="toolSubtractQ2" placeholder="כתבו איך ההחסרה יכולה לעזור"></textarea>
             </div>
           </div>
           <div class="tool-box" id="toolMultiplyBox" style="display:none;">
             <div class="question">
-              <div class="q-title">מה אפשר להכפיל, לחזור עליו או להוסיף יותר ממנו?</div>
+              <div class="q-title">מה אפשר להכפיל, לחזור עליו או להוסיף ממנו כדי לחזק בקרה, סדר או בטיחות?</div>
               <textarea id="toolMultiplyQ1" placeholder="כתבו מה אפשר להכפיל"></textarea>
             </div>
             <div class="question">
@@ -350,7 +343,7 @@
           </div>
           <div class="tool-box" id="toolRecontextBox" style="display:none;">
             <div class="question">
-              <div class="q-title">איזה רעיון, מוצר או פתרון מעולם אחר אפשר להעביר לכאן?</div>
+              <div class="q-title">איזה רעיון, מוצר או פתרון מעולם אחר יכול לעזור גם כאן בתחום איכות ובטיחות?</div>
               <textarea id="toolRecontextQ1" placeholder="כתבו מה אפשר להעביר מעולם אחר"></textarea>
             </div>
             <div class="question">
@@ -360,7 +353,7 @@
           </div>
           <div class="tool-box" id="toolResizeBox" style="display:none;">
             <div class="question">
-              <div class="q-title">מה אפשר להגדיל, להקטין או לשנות בצורה שלו?</div>
+              <div class="q-title">מה אפשר להגדיל, להקטין או לשנות בצורה שלו כדי להפוך את התהליך לברור, בטוח או נוח יותר?</div>
               <textarea id="toolResizeQ1" placeholder="כתבו מה אפשר לשנות"></textarea>
             </div>
             <div class="question">
@@ -384,6 +377,10 @@
               <textarea id="dir1Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
             </div>
             <div class="question">
+              <div class="q-title">איך הכיוון הזה יכול לשפר איכות, בטיחות או תהליך עבודה?</div>
+              <textarea id="dir1Value" placeholder="כתבו מה הערך של הכיוון"></textarea>
+            </div>
+            <div class="question">
               <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
               <div class="options" id="dir1Type">
                 <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
@@ -401,6 +398,10 @@
             <div class="question">
               <div class="q-title">איך הכיוון הזה נראה?</div>
               <textarea id="dir2Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
+            </div>
+            <div class="question">
+              <div class="q-title">איך הכיוון הזה יכול לשפר איכות, בטיחות או תהליך עבודה?</div>
+              <textarea id="dir2Value" placeholder="כתבו מה הערך של הכיוון"></textarea>
             </div>
             <div class="question">
               <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
@@ -422,6 +423,10 @@
               <textarea id="dir3Idea" placeholder="כתבו את כיוון הפתרון"></textarea>
             </div>
             <div class="question">
+              <div class="q-title">איך הכיוון הזה יכול לשפר איכות, בטיחות או תהליך עבודה?</div>
+              <textarea id="dir3Value" placeholder="כתבו מה הערך של הכיוון"></textarea>
+            </div>
+            <div class="question">
               <div class="q-title">לאיזה סוג מוצר הוא מוביל?</div>
               <div class="options" id="dir3Type">
                 <label><input type="checkbox" value="מוצר טכנולוגי פיזי"> מוצר טכנולוגי פיזי</label>
@@ -436,8 +441,8 @@
       <section class="section">
         <h2>בחירת כיוון ראשוני להמשך</h2>
         <div class="question">
-          <div class="q-title">איזה כיוון נראה כרגע הכי חזק?</div>
-          <textarea id="bestDirection" placeholder="כתבו איזה כיוון נראה הכי חזק"></textarea>
+          <div class="q-title">איזה כיוון נראה כרגע הכי מתאים לאתגר האיכות והבטיחות שבחרתם?</div>
+          <textarea id="bestDirection" placeholder="כתבו איזה כיוון נראה הכי מתאים להמשך"></textarea>
         </div>
         <div class="question">
           <div class="q-title">מה היתרון המרכזי שלו?</div>
@@ -445,7 +450,7 @@
         </div>
         <div class="question">
           <div class="q-title">מה עדיין צריך לדייק?</div>
-          <textarea id="needsRefine" placeholder="כתבו מה עדיין צריך לדייק"></textarea>
+          <textarea id="needsRefine" placeholder="כתבו מה עדיין צריך לבדוק, לשפר או להבין טוב יותר"></textarea>
         </div>
         <div class="question">
           <div class="q-title">לאיזה סוג מוצר הכיוון שנבחר מוביל?</div>
@@ -469,19 +474,19 @@
             <input type="text" id="summaryHelp" placeholder="כי הוא עוזר ל: __________">
           </div>
           <div class="question">
-            <div class="q-title">מה הכיוון הזה מאפשר?</div>
-            <input type="text" id="summaryEnable" placeholder="הוא מאפשר: __________">
+            <div class="q-title">מה הכיוון הזה מאפשר לשפר?</div>
+            <input type="text" id="summaryEnable" placeholder="הוא מאפשר לשפר: __________">
           </div>
           <div class="builder-row">
             <span>משפט מסכם:</span>
           </div>
-          <div class="builder-preview" id="summaryPreview">בחרנו בכיוון __________ כי הוא עוזר __________ ומאפשר __________.</div>
+          <div class="builder-preview" id="summaryPreview">בחרנו בכיוון __________ כי הוא עוזר __________ ומאפשר לשפר __________.</div>
         </div>
       </section>
 
       <div class="footer-nav">
         <a class="secondary-btn" href="need.html">חזרה לדף 1</a>
-        <a class="next-btn" href="enter.html">סיום / חזרה לדף הבית</a>
+        <a class="next-btn" href="../index_osem.html">סיום / חזרה לדף הבית</a>
       </div>
     </div>
   </main>
@@ -504,7 +509,7 @@
       const choice = document.getElementById('summaryChoice').value.trim() || '__________';
       const help = document.getElementById('summaryHelp').value.trim() || '__________';
       const enable = document.getElementById('summaryEnable').value.trim() || '__________';
-      document.getElementById('summaryPreview').textContent = `בחרנו בכיוון ${choice} כי הוא עוזר ${help} ומאפשר ${enable}.`;
+      document.getElementById('summaryPreview').textContent = `בחרנו בכיוון ${choice} כי הוא עוזר ${help} ומאפשר לשפר ${enable}.`;
     }
 
     ['summaryChoice', 'summaryHelp', 'summaryEnable'].forEach(id => {
@@ -573,12 +578,15 @@
       const toolResizeQ2 = document.getElementById('toolResizeQ2').value.trim();
       const dir1Tool = document.getElementById('dir1Tool').value.trim();
       const dir1Idea = document.getElementById('dir1Idea').value.trim();
+      const dir1Value = document.getElementById('dir1Value').value.trim();
       const dir1Type = getCheckedValues('dir1Type');
       const dir2Tool = document.getElementById('dir2Tool').value.trim();
       const dir2Idea = document.getElementById('dir2Idea').value.trim();
+      const dir2Value = document.getElementById('dir2Value').value.trim();
       const dir2Type = getCheckedValues('dir2Type');
       const dir3Tool = document.getElementById('dir3Tool').value.trim();
       const dir3Idea = document.getElementById('dir3Idea').value.trim();
+      const dir3Value = document.getElementById('dir3Value').value.trim();
       const dir3Type = getCheckedValues('dir3Type');
       const bestDirection = document.getElementById('bestDirection').value.trim();
       const mainBenefit = document.getElementById('mainBenefit').value.trim();
@@ -588,7 +596,7 @@
       const summaryHelp = document.getElementById('summaryHelp').value.trim();
       const summaryEnable = document.getElementById('summaryEnable').value.trim();
       const summaryText = (summaryChoice || summaryHelp || summaryEnable)
-        ? `בחרנו בכיוון ${escapeHtml(summaryChoice || '__________')} כי הוא עוזר ${escapeHtml(summaryHelp || '__________')} ומאפשר ${escapeHtml(summaryEnable || '__________')}.`
+        ? `בחרנו בכיוון ${escapeHtml(summaryChoice || '__________')} כי הוא עוזר ${escapeHtml(summaryHelp || '__________')} ומאפשר לשפר ${escapeHtml(summaryEnable || '__________')}.`
         : '';
 
       const blocks = [];
@@ -599,58 +607,61 @@
       addBlock(blocks, 'הכלים שבחרתם', renderList(tools));
       if (tools.includes('חיבור')) {
         addBlock(blocks, 'חיבור', `
-          ${toolConnectQ1 ? `<div><strong>מה אפשר לחבר בין שני דברים קיימים?</strong> ${escapeHtml(toolConnectQ1)}</div>` : ''}
+          ${toolConnectQ1 ? `<div><strong>מה אפשר לחבר בין שני דברים קיימים כדי לשפר איכות, בטיחות או סדר?</strong> ${escapeHtml(toolConnectQ1)}</div>` : ''}
           ${toolConnectQ2 ? `<div style="margin-top:6px;"><strong>איך החיבור הזה יכול להפוך לכיוון פתרון?</strong> ${escapeHtml(toolConnectQ2)}</div>` : ''}
         `);
       }
       if (tools.includes('החסרה')) {
         addBlock(blocks, 'החסרה', `
-          ${toolSubtractQ1 ? `<div><strong>מה אפשר להסיר, לצמצם או לוותר עליו?</strong> ${escapeHtml(toolSubtractQ1)}</div>` : ''}
-          ${toolSubtractQ2 ? `<div style="margin-top:6px;"><strong>איך ההחסרה הזו יכולה לשפר את הפתרון?</strong> ${escapeHtml(toolSubtractQ2)}</div>` : ''}
+          ${toolSubtractQ1 ? `<div><strong>מה אפשר להסיר, לצמצם או לוותר עליו כדי להפחית בלבול, עומס או טעויות?</strong> ${escapeHtml(toolSubtractQ1)}</div>` : ''}
+          ${toolSubtractQ2 ? `<div style="margin-top:6px;"><strong>איך ההחסרה הזו יכולה לשפר את האיכות או הבטיחות?</strong> ${escapeHtml(toolSubtractQ2)}</div>` : ''}
         `);
       }
       if (tools.includes('הכפלה')) {
         addBlock(blocks, 'הכפלה', `
-          ${toolMultiplyQ1 ? `<div><strong>מה אפשר להכפיל, לחזור עליו או להוסיף יותר ממנו?</strong> ${escapeHtml(toolMultiplyQ1)}</div>` : ''}
+          ${toolMultiplyQ1 ? `<div><strong>מה אפשר להכפיל, לחזור עליו או להוסיף ממנו כדי לחזק בקרה, סדר או בטיחות?</strong> ${escapeHtml(toolMultiplyQ1)}</div>` : ''}
           ${toolMultiplyQ2 ? `<div style="margin-top:6px;"><strong>איך ההכפלה הזו יכולה ליצור פתרון חדש?</strong> ${escapeHtml(toolMultiplyQ2)}</div>` : ''}
         `);
       }
       if (tools.includes('הוצאה מהקשר')) {
         addBlock(blocks, 'הוצאה מהקשר', `
-          ${toolRecontextQ1 ? `<div><strong>איזה רעיון, מוצר או פתרון מעולם אחר אפשר להעביר לכאן?</strong> ${escapeHtml(toolRecontextQ1)}</div>` : ''}
+          ${toolRecontextQ1 ? `<div><strong>איזה רעיון, מוצר או פתרון מעולם אחר יכול לעזור גם כאן בתחום איכות ובטיחות?</strong> ${escapeHtml(toolRecontextQ1)}</div>` : ''}
           ${toolRecontextQ2 ? `<div style="margin-top:6px;"><strong>איך הוא יכול להתאים לבעיה שלנו?</strong> ${escapeHtml(toolRecontextQ2)}</div>` : ''}
         `);
       }
       if (tools.includes('שינוי גודל או צורה')) {
         addBlock(blocks, 'שינוי גודל או צורה', `
-          ${toolResizeQ1 ? `<div><strong>מה אפשר להגדיל, להקטין או לשנות בצורה שלו?</strong> ${escapeHtml(toolResizeQ1)}</div>` : ''}
+          ${toolResizeQ1 ? `<div><strong>מה אפשר להגדיל, להקטין או לשנות בצורה שלו כדי להפוך את התהליך לברור, בטוח או נוח יותר?</strong> ${escapeHtml(toolResizeQ1)}</div>` : ''}
           ${toolResizeQ2 ? `<div style="margin-top:6px;"><strong>איך השינוי הזה יכול להפוך לכיוון פתרון?</strong> ${escapeHtml(toolResizeQ2)}</div>` : ''}
         `);
       }
 
-      if (dir1Tool || dir1Idea || dir1Type.length) {
+      if (dir1Tool || dir1Idea || dir1Value || dir1Type.length) {
         addBlock(blocks, 'כיוון 1', `
           ${dir1Tool ? `<div><strong>הכלי:</strong> ${escapeHtml(dir1Tool)}</div>` : ''}
           ${dir1Idea ? `<div style="margin-top:6px;"><strong>כיוון הפתרון:</strong> ${escapeHtml(dir1Idea)}</div>` : ''}
+          ${dir1Value ? `<div style="margin-top:6px;"><strong>הערך:</strong> ${escapeHtml(dir1Value)}</div>` : ''}
           ${dir1Type.length ? `<div style="margin-top:6px;"><strong>סוג מוצר:</strong> ${escapeHtml(dir1Type.join(' | '))}</div>` : ''}
         `);
       }
-      if (dir2Tool || dir2Idea || dir2Type.length) {
+      if (dir2Tool || dir2Idea || dir2Value || dir2Type.length) {
         addBlock(blocks, 'כיוון 2', `
           ${dir2Tool ? `<div><strong>הכלי:</strong> ${escapeHtml(dir2Tool)}</div>` : ''}
           ${dir2Idea ? `<div style="margin-top:6px;"><strong>כיוון הפתרון:</strong> ${escapeHtml(dir2Idea)}</div>` : ''}
+          ${dir2Value ? `<div style="margin-top:6px;"><strong>הערך:</strong> ${escapeHtml(dir2Value)}</div>` : ''}
           ${dir2Type.length ? `<div style="margin-top:6px;"><strong>סוג מוצר:</strong> ${escapeHtml(dir2Type.join(' | '))}</div>` : ''}
         `);
       }
-      if (dir3Tool || dir3Idea || dir3Type.length) {
+      if (dir3Tool || dir3Idea || dir3Value || dir3Type.length) {
         addBlock(blocks, 'כיוון 3', `
           ${dir3Tool ? `<div><strong>הכלי:</strong> ${escapeHtml(dir3Tool)}</div>` : ''}
           ${dir3Idea ? `<div style="margin-top:6px;"><strong>כיוון הפתרון:</strong> ${escapeHtml(dir3Idea)}</div>` : ''}
+          ${dir3Value ? `<div style="margin-top:6px;"><strong>הערך:</strong> ${escapeHtml(dir3Value)}</div>` : ''}
           ${dir3Type.length ? `<div style="margin-top:6px;"><strong>סוג מוצר:</strong> ${escapeHtml(dir3Type.join(' | '))}</div>` : ''}
         `);
       }
 
-      addBlock(blocks, 'איזה כיוון נראה כרגע הכי חזק?', escapeHtml(bestDirection));
+      addBlock(blocks, 'איזה כיוון נראה כרגע הכי מתאים לאתגר האיכות והבטיחות שבחרתם?', escapeHtml(bestDirection));
       addBlock(blocks, 'מה היתרון המרכזי שלו?', escapeHtml(mainBenefit));
       addBlock(blocks, 'מה עדיין צריך לדייק?', escapeHtml(needsRefine));
       addBlock(blocks, 'לאיזה סוג מוצר הכיוון שנבחר מוביל?', renderList(chosenType));
@@ -704,17 +715,7 @@
               font-weight: 700;
             }
             .print-logo { width: 54px; height: 54px; object-fit: contain; }
-            .print-sub {
-              margin-top: 12px;
-              padding-top: 12px;
-              border-top: 1px solid #d9e2ec;
-              color: #475569;
-              font-size: 14px;
-            }
-            .print-block {
-              margin-bottom: 12px;
-              page-break-inside: avoid;
-            }
+            .print-block { margin-bottom: 12px; page-break-inside: avoid; }
             .print-q {
               background: #f1f5f9;
               border: 1px solid #d9e2ec;
@@ -731,10 +732,7 @@
               background: #fff;
               line-height: 1.8;
             }
-            .print-list {
-              margin: 0;
-              padding-right: 18px;
-            }
+            .print-list { margin: 0; padding-right: 18px; }
             .print-list li { margin-bottom: 4px; }
             @page { size: A4; margin: 14mm; }
           </style>
@@ -744,10 +742,10 @@
             <div class="print-header">
               <div class="print-header-top">
                 <div>
-                  <p class="print-brand">פרימיום</p>
+                  <p class="print-brand">פרימיום אסם | איכות ובטיחות</p>
                   <p class="print-title">פותחים כיווני פתרון</p>
                 </div>
-                <img src="${logoUrl}" alt="לוגו פרימיום" class="print-logo">
+                <img src="${logoUrl}" alt="לוגו פרימיום אסם" class="print-logo">
               </div>
             </div>
             ${blocks.join('')}
