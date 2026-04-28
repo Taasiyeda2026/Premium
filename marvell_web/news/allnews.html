@@ -135,7 +135,14 @@
       fill: #a5f3fc;
     }
 
-    $1
+    .site-logo {
+      display: block;
+      max-width: 145px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 8px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22));
+    }
 
     .logo-link {
       display: inline-block;
@@ -221,7 +228,7 @@
 
     .articles-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
     }
 
@@ -329,16 +336,18 @@
     }
 
     .article-btn {
-      display: inline-block;
-      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
       text-align: center;
       text-decoration: none;
       background: linear-gradient(180deg, #2563eb 0%, #1e3a8a 100%);
       color: white;
-      padding: 7px 11px;
-      border-radius: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
       font-weight: 800;
-      font-size: 0.86rem;
+      font-size: 0.78rem;
       transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
       box-shadow: 0 10px 20px rgba(37,99,235,0.24);
       border: 1px solid rgba(165,243,252,0.28);
@@ -360,7 +369,7 @@
 
     @media (min-width: 1200px) {
       body {
-        zoom: 68%;
+        zoom: 78%;
       }
     }
 
@@ -461,10 +470,10 @@
       }
 
       .article-btn {
-        width: 100%;
-        align-self: stretch;
-        padding: 10px 12px;
-        font-size: 0.86rem;
+        width: auto;
+        align-self: center;
+        padding: 8px 16px;
+        font-size: 0.8rem;
       }
 
       footer {
@@ -528,7 +537,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>בית ספר ושגרה יומית</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שכחת ציוד, התארגנות יומית ומוכנות לשיעור</div>
           </div>
-          <a class="article-btn" href="news1.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news1.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -539,7 +548,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>טלפון, הודעות וריכוז</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>עומס הודעות, סינון מידע חשוב וריכוז</div>
           </div>
-          <a class="article-btn" href="news2.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news2.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -550,7 +559,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>סדר וארגון אישי</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>איתור חפצים קטנים, סדר בתיק ושליטה בציוד אישי</div>
           </div>
-          <a class="article-btn" href="news3.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news3.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -561,7 +570,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>בריאות והרגלים</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שתיית מים, הרגלים יומיומיים ותשומת לב לגוף</div>
           </div>
-          <a class="article-btn" href="news4.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news4.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -572,7 +581,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>בטיחות אישית</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>בקשת עזרה, ביטחון אישי ותגובה במצבי לחץ</div>
           </div>
-          <a class="article-btn" href="news5.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news5.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -583,7 +592,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>פרטיות ומידע אישי</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שיתוף מידע, פרטיות דיגיטלית וקבלת החלטות לפני שליחה</div>
           </div>
-          <a class="article-btn" href="news6.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news6.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -594,7 +603,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>תחבורה והתניידות</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>תכנון נסיעה, אי־ודאות בתחבורה וניהול זמן</div>
           </div>
-          <a class="article-btn" href="news7.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news7.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -605,7 +614,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>סביבה כיתתית וריכוז</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>רעש בכיתה, ויסות סביבתי ושמירה על ריכוז</div>
           </div>
-          <a class="article-btn" href="news8.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news8.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -616,7 +625,7 @@
             <div class="meta-line"><span class="meta-label">תחום</span>בית וחיי יום־יום</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>ניהול מזון בבית, סדר, בזבוז ותיאום בין בני הבית</div>
           </div>
-          <a class="article-btn" href="news9.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news9.html">לכתבה</a>
         </article>
 
         <article class="article-card">
@@ -627,7 +636,29 @@
             <div class="meta-line"><span class="meta-label">תחום</span>חיות מחמד ואחריות</div>
             <div class="meta-line"><span class="meta-label">נושא מרכזי</span>אחריות משותפת, תיאום משימות וטיפול בחיית מחמד</div>
           </div>
-          <a class="article-btn" href="news10.html">לקריאת הכתבה</a>
+          <a class="article-btn" href="news10.html">לכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 11</span>
+          <img class="article-image" src="../images/11.png" alt="אוזניות, ריכוז ובטיחות" />
+          <h2>לא שמעתי שקראו לי</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>אוזניות, ריכוז ובטיחות</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>אוזניות, ריכוז, פספוס מידע ובטיחות בסביבה משתנה</div>
+          </div>
+          <a class="article-btn" href="news11.html">לכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 12</span>
+          <img class="article-image" src="../images/12.png" alt="חפצים אישיים ושגרה יומית" />
+          <h2>הדבר הקטן שנעלם בדיוק כשצריך אותו</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>חפצים אישיים ושגרה יומית</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>חפצים אישיים, שליטה, חיפוש יומיומי ופספוס בזמן</div>
+          </div>
+          <a class="article-btn" href="news12.html">לכתבה</a>
         </article>
       </div>
     </section>
