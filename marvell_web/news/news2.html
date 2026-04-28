@@ -3,34 +3,662 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Premium" />
+  <meta name="application-name" content="Premium" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
   <title>ההודעה החשובה שנעלמה בין כל השאר</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
-    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
-    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
-    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
-    p { margin: 0 0 10px; }
-    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
+    :root {
+      --bg-1: #06111f;
+      --bg-2: #0f172a;
+      --bg-3: #111827;
+      --surface: rgba(255,255,255,0.08);
+      --surface-strong: rgba(255,255,255,0.12);
+      --paper: rgba(248,251,255,0.96);
+      --paper-soft: #eef6ff;
+      --text: #e5edf7;
+      --text-soft: #b6c4d8;
+      --text-dark: #102033;
+      --muted-dark: #475569;
+      --blue: #2563eb;
+      --blue-deep: #1e3a8a;
+      --cyan: #22d3ee;
+      --cyan-soft: #a5f3fc;
+      --teal: #14b8a6;
+      --indigo: #312e81;
+      --line: rgba(148,163,184,0.24);
+      --shadow: rgba(2,8,23,0.34);
+    }
+
+    html {
+      font-size: 17px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(34,211,238,0.18), transparent 28%),
+        radial-gradient(circle at 12% 24%, rgba(37,99,235,0.20), transparent 30%),
+        radial-gradient(circle at 74% 84%, rgba(20,184,166,0.13), transparent 32%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 58%, var(--bg-3) 100%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+      zoom: 0.82;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .top-strip {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 48%, #312e81 100%);
+      color: #e0faff;
+      padding: 10px 16px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: .2px;
+      border-bottom: 1px solid rgba(34,211,238,0.34);
+      box-shadow: 0 10px 24px rgba(2,8,23,0.34);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .top-strip .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(34,211,238,0.16), 0 0 18px rgba(34,211,238,0.55);
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 16px 38px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(165,243,252,0.26);
+      text-decoration: none;
+      box-shadow: 0 12px 24px rgba(2,8,23,0.22);
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .logo-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34,211,238,0.68);
+      box-shadow: 0 16px 30px rgba(2,8,23,0.28), 0 0 24px rgba(34,211,238,0.14);
+    }
+
+    .site-logo {
+      max-width: 150px;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      text-decoration: none;
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 14px;
+      box-shadow: 0 10px 20px rgba(2,8,23,0.22);
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.48);
+      background: rgba(255,255,255,0.13);
+      box-shadow: 0 14px 24px rgba(2,8,23,0.28), 0 0 20px rgba(34,211,238,0.14);
+    }
+
+    .home-link svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .article-shell {
+      background: linear-gradient(180deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.76) 100%);
+      border: 1px solid rgba(165,243,252,0.22);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(2,8,23,0.44);
+    }
+
+    .masthead {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(30,58,138,0.76) 0%, rgba(15,23,42,0.94) 54%, rgba(49,46,129,0.84) 100%);
+      border-bottom: 1px solid rgba(34,211,238,0.26);
+      padding: 28px 28px 24px;
+    }
+
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(34,211,238,0.18), transparent 28%),
+        radial-gradient(circle at 85% 90%, rgba(20,184,166,0.14), transparent 30%);
+      pointer-events: none;
+    }
+
+    .masthead-row,
+    .paper-title-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: .84rem;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .paper-title-wrap {
+      text-align: center;
+      padding: 18px 12px;
+      border-block: 1px solid rgba(165,243,252,0.28);
+    }
+
+    .paper-title {
+      margin: 0;
+      font-size: clamp(2.3rem, 5.6vw, 4.4rem);
+      font-weight: 900;
+      color: #f8fbff;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-shadow: 0 12px 26px rgba(0,0,0,0.34);
+    }
+
+    .paper-subtitle {
+      margin-top: 10px;
+      font-size: .92rem;
+      color: var(--cyan-soft);
+      letter-spacing: .06em;
+      font-weight: 700;
+    }
+
+    .article-wrap {
+      background: var(--paper);
+      color: var(--text-dark);
+      padding: 30px 28px 26px;
+    }
+
+    .kicker-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: .83rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+
+    .kicker-main {
+      color: #0e7490;
+      background: #cffafe;
+      border: 1px solid rgba(14,116,144,0.18);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+
+    .kicker-sep {
+      color: #94a3b8;
+    }
+
+    .kicker-sub {
+      color: #1e3a8a;
+    }
+
+    .headline {
+      margin: 0;
+      font-size: clamp(2rem, 4.1vw, 3.25rem);
+      font-weight: 900;
+      line-height: 1.18;
+      color: var(--text-dark);
+      max-width: 920px;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .subheadline {
+      margin: 14px 0 18px;
+      font-size: clamp(1.12rem, 1.65vw, 1.34rem);
+      line-height: 1.8;
+      color: #334155;
+      font-weight: 500;
+      max-width: 880px;
+    }
+
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(15,23,42,0.14);
+      font-size: .94rem;
+      color: #334155;
+    }
+
+    .byline-separator {
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      display: inline-block;
+    }
+
+    .hero-image-wrap {
+      max-width: 760px;
+      margin: 22px auto 24px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #dbeafe;
+      border: 1px solid rgba(15,23,42,0.12);
+      box-shadow: 0 14px 28px rgba(15,23,42,0.14);
+    }
+
+    .hero-image {
+      width: 100%;
+      height: min(28vw, 260px);
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.04) contrast(1.04);
+    }
+
+    .article-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .article-body {
+      font-size: 1.08rem;
+      color: #1f2937;
+      text-align: justify;
+    }
+
+    .article-body p {
+      margin: 0 0 16px;
+    }
+
+    .lead-paragraph {
+      font-size: 1.14rem;
+      font-weight: 500;
+      color: #102033;
+      padding-right: 14px;
+      border-right: 4px solid #22d3ee;
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 90px;
+      display: grid;
+      gap: 12px;
+      margin-top: 245px;
+    }
+
+    .info-card {
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(180deg, #eff6ff 0%, #ecfeff 100%);
+      border: 1px solid rgba(37,99,235,0.16);
+      box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      color: #1e3a8a;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: #334155;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .conclusion-box {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: #f1f5f9;
+      border-right: 5px solid #22d3ee;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    .article-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(15,23,42,0.12);
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      min-width: 128px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 0.82rem;
+      line-height: 1;
+      transition: transform .14s ease, box-shadow .14s ease, background-color .14s ease, border-color .14s ease;
+      border: 1px solid transparent;
+      box-shadow: 0 8px 16px rgba(15,23,42,0.12);
+    }
+
+    .action-link.back {
+      color: #1e3a8a;
+      background: #eff6ff;
+      border-color: rgba(37,99,235,0.18);
+    }
+
+    .action-link.prev {
+      color: #0f172a;
+      background: #e2e8f0;
+      border-color: rgba(15,23,42,0.12);
+    }
+
+    .action-link.questions {
+      color: #0f172a;
+      background: #cffafe;
+      border-color: rgba(14,116,144,0.20);
+    }
+
+    .action-link.next {
+      color: #fff;
+      background: linear-gradient(180deg, #2563eb 0%, #1e3a8a 100%);
+      border-color: rgba(34,211,238,0.26);
+    }
+
+    .action-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(15,23,42,0.16);
+    }
+
+    .site-footer {
+      text-align: center;
+      background: #0f172a;
+      color: var(--text-soft);
+      padding: 18px 14px;
+      font-size: .9rem;
+      border-top: 1px solid rgba(34,211,238,0.24);
+    }
+
+    @media (max-width: 980px) {
+      body {
+        zoom: 1;
+      }
+
+      .article-content {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-shell {
+        padding: 14px 10px 24px;
+      }
+
+      .site-header {
+        flex-direction: column;
+      }
+
+      .article-shell {
+        border-radius: 20px;
+      }
+
+      .masthead {
+        padding: 22px 16px 18px;
+      }
+
+      .masthead-row {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .article-wrap {
+        padding: 20px 14px 20px;
+      }
+
+      .headline {
+        font-size: 1.75rem;
+        line-height: 1.28;
+      }
+
+      .subheadline {
+        font-size: 1.1rem;
+        line-height: 1.75;
+      }
+
+      .byline {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-image {
+        height: 160px;
+      }
+
+      .article-body {
+        font-size: 1rem;
+        text-align: right;
+      }
+
+      .side-panel {
+        grid-template-columns: 1fr;
+        margin-top: 10px;
+      }
+
+      .action-link {
+        min-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <article class="story">
-      <h1>ההודעה החשובה שנעלמה בין כל השאר</h1>
-      <div class="domain">כרטיס מצב | טלפון, הודעות וריכוז</div>
-      <p>במהלך יום רגיל תלמידים מקבלים עשרות הודעות: קבוצת כיתה, חברים, משפחה, תזכורות, עדכונים מאפליקציות, הודעות מהמורה, קישורים, סרטונים ותמונות. רוב ההודעות לא באמת דחופות, אבל כולן מופיעות כמעט באותה צורה וקופצות על המסך באותו רגע.</p>
-      <p>לפעמים דווקא הודעה חשובה נבלעת בין כל השאר. שינוי במערכת, תזכורת למבחן, בקשה להביא ציוד או הודעה מחבר לקבוצה יכולים להיעלם בתוך רצף ארוך של הודעות אחרות. כשהתלמיד מגלה את זה מאוחר יותר, כבר קשה להגיב בזמן.</p>
-      <p>הבעיה היא לא שאין מידע. להפך — יש יותר מדי מידע. קשה לדעת מה חשוב עכשיו, מה אפשר לקרוא אחר כך ומה בכלל לא רלוונטי. מרוב התראות, גם דברים חשובים מתחילים להרגיש כמו רעש.</p>
-      <p>במצב כזה, חלק מהתלמידים משתיקים הכול כדי להתרכז, ואז עלולים לפספס משהו חשוב. אחרים בודקים את הטלפון כל כמה דקות, ואז מתקשים להישאר מרוכזים בשיעור, בעבודה קבוצתית או בבית.</p>
-      <p>הצורך שעולה מהמצב הוא להבין איך אפשר להבחין בין הודעה חשובה לבין עוד רעש דיגיטלי, בלי לפספס דברים חשובים ובלי להרגיש שכל הזמן צריך לבדוק את הטלפון.</p>
-      <div class="actions">
-        <a class="btn" href="allnews.html">לכל הכתבות</a>
-        <a class="btn" href="activity.html?article=news2">לדף הפעילות</a>
-        <a class="btn" href="activity.html?article=news2&export=pdf">PDF</a>
-      </div>
+  <div class="top-strip">
+    <span class="dot"></span>
+    <span>כרטיס מצב | טלפון, הודעות וריכוז | פרימיום</span>
+  </div>
+
+  <main class="site-shell">
+    <div class="site-header">
+      <a class="home-link" href="../index-marvell.html" aria-label="עמוד הבית" title="עמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 10.5L12 3l9 7.5"></path>
+          <path d="M5.5 9.5V21h13V9.5"></path>
+          <path d="M9.5 21v-6h5v6"></path>
+        </svg>
+      </a>
+      <a class="logo-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <img class="site-logo" src="../images/logo.png" alt="פרימיום תעשיידע" />
+      </a>
+    </div>
+
+    <article class="article-shell">
+      <header class="masthead">
+        <div class="masthead-row">
+          <span>מהדורת מרוול | פרימיום</span>
+          <span>טלפון, הודעות וריכוז</span>
+        </div>
+
+        <div class="paper-title-wrap">
+          <h1 class="paper-title">חדשות היום</h1>
+          <div class="paper-subtitle">בעיות אמיתיות מחיי היומיום שמובילות לחשיבה יזמית</div>
+        </div>
+      </header>
+
+      <section class="article-wrap">
+        <div class="kicker-row">
+          <span class="kicker-main">כתבה 2</span>
+          <span class="kicker-sep">|</span>
+          <span class="kicker-sub">טלפון, הודעות וריכוז</span>
+        </div>
+
+        <h2 class="headline">ההודעה החשובה שנעלמה בין כל השאר</h2>
+
+        <p class="subheadline">
+          זה קורה כמעט בלי שמרגישים: הודעה אחת באמת חשובה מופיעה על המסך, אבל נבלעת בתוך עוד ועוד התראות, שיחות ועדכונים שנראים כמעט אותו דבר.
+        </p>
+
+        <div class="byline">
+          <span><strong>כרטיס מצב:</strong> טלפון, הודעות וריכוז</span>
+          <span class="byline-separator"></span>
+          <span>נושא מרכזי: עומס הודעות, סינון מידע חשוב וריכוז</span>
+          <span class="byline-separator"></span>
+          <span>זמן קריאה: 3 דקות</span>
+        </div>
+
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="../images/2.png" alt="טלפון עם עומס הודעות" />
+        </div>
+
+        <div class="article-content">
+          <div class="article-body">
+            <p class="lead-paragraph">זה קורה כמעט בלי שמרגישים.</p>
+
+            <p>הטלפון מונח בתיק, בכיס או על השולחן, וכל כמה דקות קופצת עוד הודעה. הודעה מקבוצת הכיתה, הודעה מחבר, תזכורת מהמשפחה, סרטון שנשלח, תמונה, קישור, עדכון מאפליקציה, שאלה בקבוצה, עוד תגובה ועוד אחת. הכול מופיע על המסך כמעט באותה צורה, כאילו לכל הודעה יש אותה חשיבות.</p>
+
+            <p>בהתחלה עוד מנסים לעקוב. פותחים, מציצים, מחליקים, מסמנים לעצמנו שנחזור לזה אחר כך. אבל די מהר הכול נהיה רצף אחד ארוך. הודעה באמת חשובה יכולה להופיע בין בדיחה, תמונה, אימוג׳י, שיחה לא קשורה ועוד עשר התראות שלא באמת דורשות פעולה.</p>
+
+            <p>לפעמים זו הודעה על שינוי במערכת. לפעמים תזכורת למבחן, בקשה להביא ציוד, קישור לדף עבודה, שעה חדשה למפגש או הודעה מחבר לקבוצה שמחכה לתשובה. ברגע שהיא נשלחת, היא נראית כמו עוד הודעה רגילה. רק מאוחר יותר מתברר שהיא הייתה בדיוק ההודעה שהיה צריך לראות בזמן.</p>
+
+            <p>וזה בדיוק מה שמעצבן. המידע היה שם. הוא לא נעלם באמת, אבל הוא נבלע. התלמיד לא בהכרח התעלם, לא בהכרח זלזל ולא בהכרח שכח בכוונה. הוא פשוט קיבל יותר מדי דברים בבת אחת, בלי דרך ברורה לדעת מה חשוב עכשיו, מה אפשר להשאיר לאחר כך ומה בכלל לא קשור אליו.</p>
+
+            <p>כשההודעה מתגלה מאוחר מדי, כבר קשה לתקן. אולי כבר נגמר השיעור, אולי הקבוצה חיכתה לתשובה, אולי הציוד נשאר בבית, אולי ההכנה למבחן נדחתה לרגע האחרון. לפעמים המחיר קטן, אבל הוא מורגש: לחץ, תחושת פספוס, צורך להסביר או התחלה של יום בתחושה שמשהו ברח מתחת לרדאר.</p>
+
+            <p>גם הריכוז נפגע. חלק מהתלמידים משתיקים הכול כדי לא להיות מוצפים, ואז עלולים לפספס משהו חשוב. אחרים בודקים את הטלפון שוב ושוב, רק כדי לוודא שלא פספסו כלום, ואז קשה להם להישאר באמת בתוך השיעור, העבודה הקבוצתית או הזמן בבית.</p>
+
+            <p>הקושי האמיתי הוא שלא חסר מידע. להפך — יש יותר מדי ממנו. הבעיה מתחילה כשהודעות חשובות ולא חשובות מתערבבות יחד, וכשאין סימן ברור שעוזר להבין מה דורש תשומת לב עכשיו ומה יכול לחכות.</p>
+
+            <div class="conclusion-box">
+              בסוף, ההודעה החשובה לא נעלמת. היא פשוט נראית כמו כל השאר.<br>
+              ובין כל ההתראות, השיחות והעדכונים, חסר רגע אחד ברור שבו אפשר לדעת: לזה צריך לשים לב עכשיו.
+            </div>
+          </div>
+
+          <aside class="side-panel" aria-label="תקציר הכתבה">
+            <div class="info-card">
+              <h3>המצב היומיומי</h3>
+              <p>הרבה הודעות מגיעות ברצף, והודעה שבאמת חשובה נבלעת בתוך כל השאר.</p>
+            </div>
+
+            <div class="info-card">
+              <h3>הקושי שחוזר</h3>
+              <p>קשה להבחין בזמן בין מה שדחוף ומשמעותי לבין מה שאפשר לדחות או להתעלם ממנו.</p>
+            </div>
+
+            <div class="info-card">
+              <h3>מי מושפע?</h3>
+              <p>התלמיד, חברי הקבוצה, המורה ולעיתים גם בני המשפחה שמצפים לתגובה או לפעולה.</p>
+            </div>
+
+            <div class="info-card">
+              <h3>הצורך האנושי</h3>
+              <p>בהירות, סדר, ריכוז ודרך פשוטה להבין מה חשוב עכשיו ומה יכול לחכות.</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="article-actions">
+          <a class="action-link back" href="allnews.html">עמוד הכתבות</a>
+          <a class="action-link prev" href="news1.html">לכתבה הקודמת</a>
+          <a class="action-link questions" href="newswork.html">לדף השאלות</a>
+          <a class="action-link next" href="news3.html">לכתבה הבאה</a>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        © פרימיום | תעשיידע
+      </footer>
     </article>
   </main>
+  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
