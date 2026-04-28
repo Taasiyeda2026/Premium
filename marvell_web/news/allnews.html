@@ -135,13 +135,18 @@
       fill: #a5f3fc;
     }
 
-    .site-logo {
-      display: block;
-      max-width: 145px;
-      width: 100%;
-      height: auto;
-      margin: 0 auto 8px;
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22));
+    $1
+
+    .logo-link {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: transform 0.16s ease, filter 0.16s ease;
+    }
+
+    .logo-link:hover {
+      transform: translateY(-2px);
+      filter: drop-shadow(0 0 18px rgba(34,211,238,0.22));
     }
 
     .logo {
@@ -492,12 +497,14 @@
 
   <header>
     <div class="header-inner">
-      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+      <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
         </svg>
       </a>
-      <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
+      <a class="logo-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
+      </a>
       <div class="logo">חדשות היום</div>
     </div>
   </header>
