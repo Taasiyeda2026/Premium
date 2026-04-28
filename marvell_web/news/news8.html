@@ -3,177 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d2045" />
-  <link rel="manifest" href="../../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../../images/logo.png" />
-  <link rel="apple-touch-icon" href="../../images/logo.png" />
-  <link rel="stylesheet" href="../../styles/pwa.css" />
-  <title>כרטיס 8: החניה הקרובה ביותר | פרימיום Marvell</title>
+  <title>הרעש שמתגבר בלי ששמים לב</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f0f4f8 0%, #e4eaf1 100%);
-      color: #111; line-height: 1.7;
-    }
-    .top-bar {
-      background: linear-gradient(90deg, #0d2045 0%, #1a3a7a 45%, #0d2045 100%);
-      color: white; text-align: center; padding: 10px 16px;
-      font-size: 0.88rem; font-weight: bold;
-      box-shadow: 0 4px 14px rgba(13,32,69,0.28);
-    }
-    header {
-      background: rgba(255,255,255,0.94);
-      border-bottom: 4px solid #1a3a7a;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    .header-inner {
-      max-width: 1100px; margin: 0 auto;
-      padding: 16px 16px 12px; text-align: center; position: relative;
-    }
-    .home-link {
-      position: absolute; right: 16px; top: 14px;
-      width: 42px; height: 42px;
-      display: inline-flex; align-items: center; justify-content: center;
-      text-decoration: none; border-radius: 12px;
-      background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
-      border: 1px solid #cfd8e3;
-      box-shadow: 0 4px 0 rgba(0,0,0,0.12), 0 10px 16px rgba(0,0,0,0.08);
-      transition: transform 0.16s ease;
-    }
-    .home-link:hover { transform: translateY(-2px); }
-    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
-    .logo { font-size: 1.7rem; font-weight: 900; color: #111; margin-bottom: 4px; }
-    .subtitle { font-size: 0.84rem; color: #666; }
-    main { max-width: 860px; margin: 28px auto; padding: 0 16px 40px; }
-    .card {
-      background: #fff; border-radius: 18px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-      border-top: 5px solid #1a3a7a;
-      padding: 28px 24px; margin-bottom: 20px;
-    }
-    .card-badge {
-      display: inline-block;
-      background: linear-gradient(180deg, #e8eef7 0%, #d6e0ef 100%);
-      color: #0d2045; font-size: 0.76rem; font-weight: 700;
-      padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
-    }
-    h1 { font-size: 1.75rem; font-weight: 900; color: #0d2045; margin-bottom: 12px; }
-    .summary-box {
-      background: linear-gradient(180deg, #f0f4f8 0%, #e8eef5 100%);
-      border: 1px solid #c8d5e4; border-radius: 14px;
-      padding: 16px 18px; margin-bottom: 20px;
-      font-size: 1rem; color: #2a3a52; line-height: 1.85;
-    }
-    .section { margin-bottom: 22px; }
-    .section h2 {
-      font-size: 1.05rem; font-weight: 800; color: #1a3a7a;
-      border-right: 5px solid #1a3a7a; padding-right: 10px;
-      margin-bottom: 10px;
-    }
-    .section p { font-size: 0.97rem; color: #444; line-height: 1.85; }
-    .list-items { list-style: none; padding: 0; display: grid; gap: 8px; margin-top: 8px; }
-    .list-items li {
-      background: #f8fafc; border: 1px solid #dde6ef;
-      border-radius: 10px; padding: 9px 13px;
-      font-size: 0.94rem; color: #334;
-    }
-    .marvell-box {
-      background: linear-gradient(135deg, #e8eef7 0%, #dce6f2 100%);
-      border: 1px solid #b8c9dc; border-radius: 14px;
-      padding: 16px 18px; margin-top: 4px;
-      font-size: 0.97rem; color: #0d2045; line-height: 1.85;
-    }
-    .nav-row {
-      display: flex; gap: 12px; flex-wrap: wrap;
-      margin-top: 28px; justify-content: space-between;
-    }
-    .nav-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 10px 20px; border-radius: 10px;
-      text-decoration: none; font-size: 0.92rem; font-weight: 700;
-      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
-      color: white; box-shadow: 0 8px 18px rgba(13,32,69,0.22);
-      transition: transform 0.15s ease;
-    }
-    .nav-btn:hover { transform: translateY(-2px); }
-    .nav-btn.secondary {
-      background: linear-gradient(180deg, #ffffff 0%, #f0f4f8 100%);
-      color: #0d2045; border: 1px solid #c0cdd9;
-      box-shadow: 0 6px 14px rgba(13,32,69,0.12);
-    }
-    footer {
-      text-align: center; color: #666;
-      padding: 24px 16px 30px; font-size: 0.88rem;
-    }
-    @media (min-width: 1200px) { body { zoom: 75%; } }
+    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
+    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
+    p { margin: 0 0 10px; }
+    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
   </style>
 </head>
 <body>
-  <div class="top-bar">פרימיום Marvell | כרטיס 8</div>
-
-  <header>
-    <div class="header-inner">
-      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
-      </a>
-      <div class="logo">כרטיס 8</div>
-      <div class="subtitle">פרימיום Marvell | כרטיסי מקרה</div>
-    </div>
-  </header>
-
-  <main>
-    <div class="card">
-      <div class="card-badge">כרטיס 8 מתוך 10</div>
-      <h1>החניה הקרובה ביותר</h1>
-
-      <div class="summary-box">נהגים מבזבזים זמן בחיפוש חניה פנויה, במיוחד בחניונים גדולים או באזורים עמוסים.</div>
-
-      <div class="section">
-        <h2>מה הבעיה המרכזית?</h2>
-        <p>אין מידע ברור וזמין על המקום הפנוי הקרוב ביותר.</p>
+  <main class="wrap">
+    <article class="story">
+      <h1>הרעש שמתגבר בלי ששמים לב</h1>
+      <div class="domain">כרטיס מצב | סביבה כיתתית וריכוז</div>
+      <p>בכיתה יש רגעים שבהם הרעש לא מתחיל בבת אחת, אלא עולה לאט. בהתחלה זו שיחה קטנה בין שני תלמידים, אחר כך עוד קבוצה מצטרפת, כיסא זז, מישהו צוחק, מישהו שואל בקול, ובתוך כמה דקות כבר קשה לשמוע את המורה או להתרכז במשימה. זה מצב יומיומי מאוד, ולכן קל לפספס אותו.</p>
+      <p>הקושי חוזר על עצמו כי כל תלמיד מרגיש שהוא מדבר בקול רגיל. אף אחד לא מתכוון להפריע, אבל יחד נוצרת המולה שמקשה על הלמידה. לפעמים רק כשהמורה עוצרת את השיעור מבינים שהכיתה כבר עברה את הגבול. הבעיה משפיעה על תלמידים שזקוקים לשקט, על קבוצות שמנסות לעבוד ברצינות, על תלמידים שמתעייפים מרעש, וגם על המורה שנדרשת להחזיר את הכיתה למסלול שוב ושוב.</p>
+      <p>הרגע שבו הבעיה מתגלה מאוחר מדי מגיע כשהמשימה כבר נתקעה, כשמישהו הפסיק להבין, או כשהשיעור נעצר כדי להרגיע את הכיתה. המחיר קטן אבל ברור: פחות ריכוז, פחות זמן עבודה, יותר תסכול כשהכיתה מאבדת שליטה.</p>
+      <p>הצורך האנושי כאן הוא שקט, ויסות ובהירות משותפת. יזמות לא מתחילה מרעיון נוצץ, אלא מהבחנה פשוטה שמשהו בסביבה לא עובד מספיק טוב. כדי לזהות את הבעיה והצורך, כדאי לבדוק באילו רגעים הרעש עולה, מי נפגע ממנו ראשון, מה חסר לכיתה כדי לשים לב בזמן, ומה היה עוזר להפוך מצב מבולגן לסימן ברור לפני שהריכוז נעלם.</p>
+      <div class="actions">
+        <a class="btn" href="allnews.html">לכל הכתבות</a>
+        <a class="btn" href="activity.html?article=news8">לדף הפעילות</a>
+        <a class="btn" href="activity.html?article=news8&export=pdf">PDF</a>
       </div>
-
-      <div class="section">
-        <h2>איזה צורך עולה?</h2>
-        <p>מערכת שמזהה מקום פנוי ומעבירה מידע לנהג.</p>
-      </div>
-
-      <div class="section">
-        <h2>שאלות לקבוצה</h2>
-        <ul class="list-items">
-          <li>איך יודעים שמקום חניה פנוי?</li>
-          <li>איזה מידע הנהג צריך לקבל?</li>
-          <li>איך אפשר להציג את המידע בצורה פשוטה?</li>
-          <li>מה יחסוך זמן ותסכול?</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>כיווני פתרון אפשריים</h2>
-        <ul class="list-items">
-          <li>חיישן חניה</li>
-          <li>אפליקציית חניה</li>
-          <li>שילוט חכם</li>
-          <li>מערכת ניווט בחניון</li>
-          <li>התראה על מקום פנוי</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>הקשר ל-Marvell</h2>
-        <div class="marvell-box">מידע בזמן אמת, חיישנים, קישוריות ותקשורת בין מערכת למשתמש.</div>
-      </div>
-
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="news7.html">&larr; כרטיס 7</a>
-        <a class="nav-btn secondary" href="allnews.html">לכל הכרטיסים</a>
-        <a class="nav-btn" href="news9.html">כרטיס 9 &rarr;</a>
-      </div>
-    </div>
+    </article>
   </main>
-
-  <footer>&copy; פרימיום Marvell</footer>
-  <script src="../../pwa-register.js" defer></script>
 </body>
 </html>

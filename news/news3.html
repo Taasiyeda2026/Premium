@@ -3,144 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1e3a5f" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Premium" />
-  <meta name="application-name" content="Premium" />
-  <link rel="manifest" href="../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
-  <link rel="apple-touch-icon" href="../images/logo.png" />
-  <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>הכל בגלל שוקולד</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-
+  <title>התיק שמסתיר דברים קטנים</title>
   <style>
-    :root {
-      --page-bg: #f4efe7;
-      --paper: #fbf8f2;
-      --paper-2: #f6f1e8;
-      --text: #1f1f1f;
-      --muted: #5e5a54;
-      --line: #d9d1c4;
-      --line-dark: #1f1f1f;
-      --accent: #c96a12;
-      --accent-soft: #f3e3d2;
-      --footer-bg: #1a1a1a;
-      --footer-text: #c8c8c8;
-      --secondary-accent: #c96a12;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: "Heebo", Arial, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(139, 0, 0, 0.07), transparent 24%),
-        radial-gradient(circle at top left, rgba(0, 0, 0, 0.04), transparent 20%),
-        var(--page-bg);
-      color: var(--text);
-      line-height: 1.95;
-      zoom: 0.75;
-    }
-    .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;letter-spacing:.2px;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
-    .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
-    .site-shell {max-width:1160px;margin:0 auto;padding:18px 16px 36px;}
-    .site-logo-wrap {display:flex;justify-content:center;margin-bottom:14px;}
-    .site-logo {max-width:160px;width:100%;height:auto;display:block;}
-    .article-shell {background: var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(38,31,22,.14);}
-    .masthead {background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);border-top:3px solid var(--line-dark);border-bottom:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.05);padding:22px 20px 16px;}
-    .masthead-row {display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
-    .paper-title-wrap {text-align:center;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:14px 10px;}
-    .paper-title {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:900;color:var(--line-dark);line-height:1;letter-spacing:-.03em;}
-    .paper-subtitle {margin-top:8px;font-size:.88rem;color:var(--muted);letter-spacing:.12em;}
-    .article-wrap {padding:26px 22px 24px;}
-    .kicker-row {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
-    .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
-    .intro-grid{display:block;}
-    .intro-top{display:block;}
-    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;text-wrap:balance;color:var(--line-dark);max-width:980px;}
-    .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;font-weight:400;max-width:860px;}
-    .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
-    .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
-    .hero-image-wrap {margin:22px 0 24px;border:1px solid var(--line);background:#ece7de;padding:8px;}
-    .hero-image {width:100%;height:min(30vw,250px);object-fit:cover;display:block;filter:saturate(.92) contrast(1.03);}
-    .article-content {column-count:2;column-gap:40px;column-rule:1px solid #d8d1c7;font-size:1.08rem;color:#26231f;text-align:justify;}
-    .article-content > * {break-inside: avoid;-webkit-column-break-inside: avoid;page-break-inside: avoid;}
-    .article-content p {margin:0 0 16px;}
-    .article-content .lead-paragraph::first-letter {float:right;font-family:"Frank Ruhl Libre",serif;font-size:5.2rem;line-height:3.8rem;padding-left:.65rem;padding-top:.25rem;font-weight:900;color:var(--accent);}
-    .section-title {margin:24px 0 12px;font-family:"Frank Ruhl Libre",serif;font-size:1.65rem;font-weight:700;color:var(--line-dark);line-height:1.3;padding-bottom:8px;border-bottom:2px solid var(--accent);}
-    .quote-box {margin:20px 0;padding:16px 18px;background:transparent;border-right:4px solid var(--accent);position:relative;font-family:"Frank Ruhl Libre",serif;font-size:1.22rem;line-height:1.7;color:#2d2824;border:1px solid #c96a12;}
-    .quote-box::before {content:'"';position:absolute;right:-2px;top:-14px;font-size:4.2rem;color:rgba(139,0,0,.18);line-height:1;font-family:"Frank Ruhl Libre",serif;}
-    .info-box {margin:20px 0;padding:16px 18px;border:1px solid #bf834f;background:#fbf2e8;}
-    .info-box h3 {margin:0 0 10px;font-family:"Frank Ruhl Libre",serif;font-size:1.15rem;color:#b45d0c;}
-    .info-box ul {margin:0;padding:0 18px 0 0;} .info-box li {margin-bottom:8px;}
-    .highlight-box {margin:22px 0;padding:18px;background:#432413;color:#f9efe5;font-size:1.02rem;font-weight:500;border:none;}
-    .conclusion-box {margin-top:22px;padding-top:18px;border-top:2px solid var(--line-dark);font-weight:500;}
-    .article-actions {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);}
-    .action-link {display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:112px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.78rem;line-height:1;transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;border:1px solid transparent;position:relative;top:0;box-shadow:0 3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.08);}
-    .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border-color:#d7b293;}
-    .action-link.back:hover {background:linear-gradient(180deg,#fffefe 0%,#efe7e1 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(40,40,40,.2),0 8px 14px rgba(40,40,40,.14);}
-    .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border-color:#bfd0e3;}
-    .action-link.next {color:#1f4b7a;background:linear-gradient(180deg,#eef5ff 0%,#d7e6fb 100%);border-color:#9cb9de;}
-    .action-link.questions:hover {background:linear-gradient(180deg,#f8fbff 0%,#dbe7f6 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,55,93,.18),0 8px 14px rgba(31,55,93,.14);}
-    .action-link.next:hover {background:linear-gradient(180deg,#f5f9ff 0%,#cfe1fa 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,75,122,.18),0 8px 14px rgba(31,75,122,.14);}
-    .action-link:active {transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18),0 3px 6px rgba(0,0,0,.08);}
-    .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
-
-    .intro-top{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start;} .intro-image{margin:0;} .intro-text .byline{margin-top:8px;} 
-
-    @media (max-width: 900px) { body{zoom:1;} .site-shell{max-width:100%;padding:14px 12px 24px;} .article-content{column-count:1;column-gap:0;column-rule:none;font-size:1rem;} .byline{justify-content:center;} .intro-top{display:block !important;} .hero-image{height:210px;} .intro-image{margin-top:14px;} }
-    @media (max-width:640px) { body{zoom:1;} .site-shell{padding:10px 10px 22px;} .masthead{padding:18px 14px 14px;} .article-wrap{padding:18px 14px 18px;} .headline{font-size:1.72rem;line-height:1.3;} .subheadline{font-size:.98rem;line-height:1.75;} .action-link{min-width:104px;padding:6px 10px;font-size:.75rem;} }
+    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
+    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
+    p { margin: 0 0 10px; }
+    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
   </style>
 </head>
 <body>
-  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
-  <main class="site-shell">
-    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="פרימיום תעשיידע" /></div>
-    <article class="article-shell">
-      <header class="masthead">
-        <div class="masthead-row"><span>יום רביעי, 11 במרץ 2026</span><span>גיליון 003</span></div>
-        <div class="paper-title-wrap"><h1 class="paper-title">חדשות היום</h1><div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div></div>
-      </header>
-      <section class="article-wrap">
-        <div class="kicker-row"><span class="kicker-main">כתבה 3</span><span class="kicker-sep">|</span><span class="kicker-sub">חדשות צרכנות ובטיחות</span></div>
-        <div class="intro-top">
-          <div class="intro-text"><h2 class="headline">הכל בגלל שוקולד</h2>
-        <p class="subheadline">בדיקות שגרתיות במפעל מזון הובילו לגילוי ממצאים חריגים בשוקולד נוזלי, ובעקבותיהם הוחלט לעצור את הייצור ולבצע איסוף נרחב של מוצרים שכבר שווקו.</p>
-        <div class="byline"><span><strong>מאת:</strong> דסק פרימיום</span><span class="byline-separator"></span><span>11 במרץ 2026</span><span class="byline-separator"></span><span>זמן קריאה: 4 דקות</span></div></div>
-          <div class="hero-image-wrap intro-image">
-          <img class="hero-image" src="../images/news3.png" alt="" />
-        </div>
-        </div>
-        <div class="article-content">
-
-          <p class="lead-paragraph">חברת מזון גדולה הודיעה על ריקול רחב של מוצרי שוקולד, לאחר שבדיקות שגרתיות שבוצעו במפעל העלו ממצאים של סלמונלה בשוקולד נוזלי שיוצר במקום. בעקבות הגילוי עצרה החברה את הייצור במפעל, חסמה משלוחים שטרם יצאו ממנו והחלה בבדיקות נוספות הן בתוך המפעל והן במוצרים שכבר הגיעו לנקודות המכירה.</p>
-          <p>לפי הודעת החברה, המפעל שבו זוהה הממצא מייצר שוקולד נוזלי המשמש כחומר בסיס לשורה רחבה של מוצרים, בהם חטיפים, טבלאות שוקולד, מאפים ומוצרים נוספים. בשל כך, עם התרחבות הבדיקה והחשש כי חומר הגלם הגיע לקווי ייצור נוספים, הוחלט לבצע איסוף נרחב של מוצרים ממדפי החנויות, ממרכזי ההפצה וממחסנים לוגיסטיים.</p>
-          <p>בענף המזון מציינים כי כאשר חומר גלם מרכזי במפעל מזוהה כחשוד, ההשפעה אינה נשארת בהכרח בקו ייצור אחד. חומר כזה עשוי לעבור בין מכלים, צינורות, עמדות מילוי, מכונות אריזה ואף להגיע לחברות נוספות המקבלות אותו לצורך ייצור מוצרים אחרים. גורמים מקצועיים הסבירו כי במקרים כאלה, היכולת לזהות במהירות לאילו מוצרים הגיע החומר, מאילו אצוות ייצור הוא הגיע ובאילו מועדים נעשה בו שימוש הופכת לקריטית במיוחד.</p>
-          <p>בהמשך הודיעה גם חברה נוספת על איסוף חלק ממוצריה, לאחר שהתברר כי חומר גלם שסופק לה מן המפעל עשוי להיות קשור לאירוע. בחברה ציינו כי גם אם הבדיקות הפנימיות שבוצעו אצלם לא הצביעו בשלב זה על חריגה, הוחלט לפעול בזהירות ולהסיר את המוצרים מן השוק עד לקבלת תמונה מלאה יותר.</p>
-          <p>במשרד הבריאות ובענף המזון הדגישו כי סלמונלה היא חיידק שעלול לגרום למחלה, במיוחד בקרב אוכלוסיות רגישות כגון ילדים, קשישים, נשים בהיריון ואנשים בעלי מערכת חיסון מוחלשת. על כן, כאשר קיים חשד לזיהום במפעל מזון, המשמעות אינה מסתכמת בפגיעה בטעם או באיכות הנתפסת של המוצר, אלא עלולה להפוך לסיכון בריאותי ממשי.</p>
-          <p>לדברי גורמים מקצועיים, עצירת הייצור במקרה כזה היא רק הצעד הראשון. לאחר זיהוי ממצא חריג יש לבדוק את מקור הזיהום האפשרי, לבחון אילו חומרי גלם היו מעורבים, לאתר אילו מכונות, משטחים, מכלים וצינורות היו במגע עם החומר החשוד, ולהצליב בין נתוני המעבדה לבין נתוני הייצור בפועל. בנוסף, נדרש לבצע ניקוי וחיטוי יסודיים, לבדוק מחדש נהלי עבודה ולוודא כי לא נותרו נקודות שבהן עלולה הייתה להתפתח פגיעה נוספת.</p>
-          <p>בכמה מן האתרים שאליהם הועברו המוצרים התבקשו העובדים לעצור שיווק, למיין מלאי ולבדוק התאמה בין המוצרים שבידיהם לבין רשימות האצוות שהועברו מן החברה. גורמים בענף ציינו כי כאשר היקף ההפצה רחב ומספר המוצרים המעורבים גדול, כל פער קטן בתיעוד עלול להקשות על המעקב ולהאריך את זמן הטיפול.</p>
-          <p>מומחים בתחום המזון מסבירים כי אירועים מסוג זה מדגישים את המורכבות של הייצור התעשייתי. מאחורי מוצר שנראה פשוט לצרכן עומדים חומרי גלם, מערכות ערבוב, מכלי אחסון, צינורות הזרמה, קווי ייצור, מערכות קירור, דגימות מעבדה, אריזה, שינוע והפצה. כאשר מתרחש כשל באחת החוליות, לא תמיד ניתן לדעת מיד עד היכן הגיע.</p>
-          <p>במקרים מסוימים, תוצאה חריגה שמתקבלת בבדיקת מעבדה אחת מובילה להרחבת הבדיקה אל קווי ייצור נוספים, אל משלוחים שכבר יצאו מן המפעל ואף אל מוצרים שיוצרו בימים סמוכים. גורמים מקצועיים הסבירו כי הסיבה לכך היא שבמפעלים גדולים יש לעיתים ציוד משותף למספר מוצרים, או חומרי גלם המשמשים כמה סדרות ייצור ברצף.</p>
-          <p>עוד נבדקים כעת רישומי ניקיון וחיטוי, זמני עצירה ותחזוקה של קווי הייצור, נתוני דיגום, מסמכי קבלת חומרי גלם ותיעוד העברות בין אזורי הייצור. גורמים בענף ציינו כי מטרת הבדיקה אינה רק לזהות את הממצא החריג עצמו, אלא גם להבין באיזה שלב היה ניתן לגלות את הבעיה מוקדם יותר, ואם היו סימנים מקדימים שלא הובילו באותו זמן לעצירה רחבה יותר.</p>
-          <p>מהחברה נמסר כי עם קבלת תוצאות הבדיקה הראשוניות הוחלט לפעול באופן מיידי, לעצור את הייצור, לחסום את המלאי הרלוונטי ולהודיע לציבור וללקוחות העסקיים על המוצרים הכלולים בריקול. עוד נמסר כי החברה פועלת בשיתוף מלא עם הגורמים המפקחים ומבצעת בדיקה מקיפה של כלל התהליכים במפעל.</p>
-          <p>ברשתות השיווק החלו להסיר את המוצרים מן המדפים, ובמוקדי השירות נפתחו ערוצים מיוחדים לפניות צרכנים ולהחזרת מוצרים. חלק מן החנויות התבקשו גם לבדוק מלאי במחסנים אחוריים ולא רק על גבי המדפים, כדי לוודא שלא נותרו מוצרים הכלולים ברשימות האיסוף.</p>
-          <p>בענף המזון ציינו כי מעבר להשלכות הבריאותיות האפשריות, אירועים מסוג זה עלולים לגרום גם לפגיעה רחבה באמון הציבור, לשיבוש בפעילות המפעל, לעלויות לוגיסטיות כבדות ולפגיעה בחברות נוספות הקשורות לאותו חומר גלם או לאותו ספק. עם זאת, גורמים מקצועיים הדגישו כי במקרים של חשש לזיהום, תגובה מהירה וזהירה נחשבת חיונית גם כאשר התמונה עדיין אינה מלאה.</p>
-          <p>נכון לעכשיו, הבדיקות נמשכות, ובשלב זה עדיין לא פורסמו כלל הממצאים בנוגע למקור הזיהום או להיקף המלא של המוצרים שעלולים להיות מושפעים. במשרד הבריאות ציינו כי ממצאים סופיים יימסרו רק לאחר השלמת הבדיקות והצלבת הנתונים מכלל הגורמים המעורבים.</p>
-        </div>
-
-        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a><a class="action-link next" href="news4.html">לכתבה הבאה</a></div>
-      </section>
-      <footer class="site-footer">© פרימיום | תעשיידע</footer>
+  <main class="wrap">
+    <article class="story">
+      <h1>התיק שמסתיר דברים קטנים</h1>
+      <div class="domain">כרטיס מצב | סדר וארגון אישי</div>
+      <p>כמעט לכל תלמיד ותלמידה יש בתיק אוסף של דברים קטנים: מפתחות, אוזניות, כרטיס, כסף קטן, מחק, עט, דף מקופל, מטען או משהו שהוכנס “רק לרגע”. בבוקר הכול נראה מסודר, אבל במהלך היום התיק מתמלא, נפתח ונסגר, וחפצים עוברים ממקום למקום.</p>
+      <p>הקושי חוזר כשהרגע שבו צריך משהו מגיע דווקא בזמן לא נוח: בתחילת שיעור, בהפסקה, באוטובוס או לפני שיוצאים הביתה. יודעים שהחפץ כנראה נמצא שם, אבל לא מצליחים להגיע אליו. מוציאים ספרים, מחטטים בכיסים, מתעצבנים, ולפעמים מגלים שהוא היה בתיק כל הזמן.</p>
+      <p>המצב משפיע על תלמידים שממהרים, על חברים שמחכים, על מורים שמבקשים להתחיל, ולעיתים גם על הורים שקונים שוב דבר שכבר היה קיים. הבעיה מתגלה מאוחר מדי כשאין זמן לחפש בנחת, או כשמוותרים ומסתדרים בלי מה שהיה צריך.</p>
+      <p>המחיר קטן אבל ברור: עיכוב, לחץ, בלגן, תלות באחרים ותחושה שאין שליטה על הדברים האישיים. הצורך האנושי שעולה כאן הוא סדר נגיש, ביטחון ויכולת למצוא מהר את מה שחשוב. יזמות מתחילה בדיוק במקום הזה: לא מפתרון מוכן, אלא מהבנה שמשהו יומיומי לא עובד מספיק טוב.</p>
+      <p>כדי לזהות את הבעיה והצורך, כדאי לבדוק אילו חפצים נעלמים שוב ושוב, באילו רגעים החיפוש מפריע, מי מושפע מהעיכוב, ומה היה עוזר להפוך תיק מלא ומבולגן למרחב ברור יותר.</p>
+      <div class="actions">
+        <a class="btn" href="allnews.html">לכל הכתבות</a>
+        <a class="btn" href="activity.html?article=news3">לדף הפעילות</a>
+        <a class="btn" href="activity.html?article=news3&export=pdf">PDF</a>
+      </div>
     </article>
   </main>
-  <script src="../pwa-register.js" defer></script>
 </body>
 </html>

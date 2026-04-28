@@ -3,124 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1e3a5f" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Premium" />
-  <meta name="application-name" content="Premium" />
-  <link rel="manifest" href="../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
-  <link rel="apple-touch-icon" href="../images/logo.png" />
-  <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>מאוחר מדי על המדף</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <title>מי האכיל את הכלב?</title>
   <style>
-    :root {
-      --page-bg: #f4efe7;
-      --paper: #fbf8f2;
-      --paper-2: #f6f1e8;
-      --text: #1f1f1f;
-      --muted: #5e5a54;
-      --line: #d9d1c4;
-      --line-dark: #1f1f1f;
-      --accent: #6d1f32;
-      --accent-soft: #efd8de;
-      --footer-bg: #1a1a1a;
-      --footer-text: #c8c8c8;
-    }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family:"Heebo",Arial,sans-serif; background: radial-gradient(circle at top right, rgba(139,0,0,.07), transparent 24%), radial-gradient(circle at top left, rgba(0,0,0,.04), transparent 20%), var(--page-bg); color:var(--text); line-height:1.95; zoom: 0.75; }
-    .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
-    .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
-    .site-shell {max-width:1160px;margin:0 auto;padding:18px 16px 36px;}
-    .site-logo-wrap {display:flex;justify-content:center;margin-bottom:14px;}
-    .site-logo {max-width:160px;width:100%;height:auto;display:block;}
-    .article-shell {background: var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(38,31,22,.14);}
-    .masthead {background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);border-top:3px solid var(--line-dark);border-bottom:1px solid var(--line);padding:22px 20px 16px;}
-    .masthead-row {display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
-    .paper-title-wrap {text-align:center;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:14px 10px;}
-    .paper-title {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:900;line-height:1;}
-    .paper-subtitle {margin-top:8px;font-size:.88rem;color:var(--muted);letter-spacing:.12em;}
-    .article-wrap {padding:26px 22px 24px;}
-    .kicker-row {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
-    .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
-    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;text-wrap:balance;max-width:980px;}
-    .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;max-width:860px;}
-    .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
-    .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
-    .hero-image-wrap {margin:22px 0 24px;border:1px solid var(--line);background:#ece7de;padding:6px;}
-    .hero-image {width:100%;height:min(28vw,230px);object-fit:cover;display:block;}
-    .article-content {column-count:2;column-gap:40px;column-rule:1px solid #d8d1c7;font-size:1.08rem;color:#26231f;text-align:justify;}
-    .article-content > * {break-inside: avoid;}
-    .article-content p {margin:0 0 16px;}
-    .article-content .lead-paragraph::first-letter {float:right;font-family:"Frank Ruhl Libre",serif;font-size:5.2rem;line-height:3.8rem;padding-left:.65rem;padding-top:.25rem;font-weight:900;color:var(--accent);}
-    .article-content h2 {margin:24px 0 12px;font-family:"Frank Ruhl Libre",serif;font-size:1.65rem;font-weight:700;line-height:1.3;padding-bottom:8px;border-bottom:2px solid var(--accent);}
-    .article-content .quote-box {margin:20px 0;padding:16px 18px;background:var(--accent-soft);border-right:4px solid var(--accent);font-family:"Frank Ruhl Libre",serif;font-size:1.22rem;line-height:1.7;}
-    .article-content .info-box {margin:20px 0;padding:16px 18px;border:1px solid var(--accent);background:var(--accent-soft);}
-    .article-content .highlight-box {margin:22px 0;padding:18px;background:#23201a;color:#f7f2df;font-size:1.02rem;font-weight:500;border:1px solid var(--accent);}
-    .article-actions {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);}
-    .action-link {display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:112px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.78rem;line-height:1;box-shadow:0 3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.08);}
-    .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border:1px solid #d8c795;}
-    .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border:1px solid #bfd0e3;}
-    .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
-    @media (max-width: 900px) { body{zoom:1;}  .site-shell{max-width:100%;padding:14px 12px 24px;} .article-content{column-count:1;column-gap:0;column-rule:none;font-size:1rem;} .byline{justify-content:center;} .hero-image{height:210px;} }
-    @media (max-width:640px) { body{zoom:1;}  .site-shell{padding:10px 10px 22px;} .masthead{padding:18px 14px 14px;} .article-wrap{padding:18px 14px 18px;} .headline{font-size:1.72rem;line-height:1.3;} .subheadline{font-size:.98rem;line-height:1.75;} .action-link{min-width:104px;padding:6px 10px;font-size:.75rem;} }
+    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
+    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
+    p { margin: 0 0 10px; }
+    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
   </style>
 </head>
 <body>
-  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
-  <main class="site-shell">
-    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="תעשיידע" /></div>
-    <article class="article-shell">
-      <header class="masthead">
-        <div class="masthead-row"><span>יום שלישי, 11 במרץ 2026</span><span>גיליון 010</span></div>
-        <div class="paper-title-wrap"><h1 class="paper-title">חדשות היום</h1><div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div></div>
-      </header>
-      <section class="article-wrap">
-        <div class="kicker-row"><span class="kicker-main">כתבה 10</span><span class="kicker-sep">|</span><span class="kicker-sub">חדשות צרכנות ובטיחות</span></div>
-        <h2 class="headline">מאוחר מדי על המדף</h2>
-        <p class="subheadline">יצרנית מזון ביצעה ריקול למספר סדרות של חטיפי דגנים לאחר שצרכנים דיווחו על גוף זר קשה במוצר, הבדיקה מתמקדת כעת במערכת גילוי המתכות ובמצב הציוד לאורך קו הייצור.</p>
-        <div class="byline"><span><strong>מאת:</strong> דסק פרימיום</span><span class="byline-separator"></span><span>11 במרץ 2026</span><span class="byline-separator"></span><span>זמן קריאה: 4 דקות</span></div>
-
-        <div class="article-content">
-
-        <div class="hero-image-wrap">
-          <img class="hero-image" src="../images/news10.png" alt="תמונת אילוסטרציה לכתבה" loading="lazy" />
-        </div>
-
-          <p class="lead-paragraph">חברת מזון גדולה הודיעה על איסוף מן המדפים של מספר סדרות חטיפי דגנים, לאחר שבימים האחרונים התקבלו כמה פניות מצרכנים שדיווחו על תחושה חריגה בעת האכילה ועל גוף זר קשה שנמצא בתוך המוצר. בעקבות הצטברות הדיווחים פתחה החברה בבדיקה פנימית, שבמסגרתה עלה חשד כי בחלק מן היחידות חדרו שבבי מתכת זעירים במהלך תהליך הייצור.</p>
-    <p>לפי הודעת החברה, מדובר בסדרות ייצור מסוימות של חטיפים שנשלחו לנקודות מכירה ברחבי הארץ במהלך תקופה מוגבלת. עם קבלת התמונה הראשונית הוחלט לעצור את שיווק המוצרים הרלוונטיים, לעדכן את רשתות השיווק ולהתחיל באיסוף מן המדפים ומן המחסנים. בחברה הדגישו כי לא כל מוצרי הסדרה מושפעים, וכי בשלב זה מתמקדת הבדיקה באצוות שיוצרו באותו קו ובאותו חלון זמן.</p>
-    <p>לפי גורמים המעורים בפרטים, הדיווחים הראשונים התקבלו מכמה צרכנים שונים, שכל אחד מהם תיאר תחושה דומה — מגע פתאומי של חלקיק קשה בתוך החטיף. באחד המקרים נמסר כי הצרכן הבחין בשבר מתכתי זעיר לאחר שפתח את המוצר, ובמקרה אחר דווח על תחושת חריקה חריגה בזמן הלעיסה. בחברה מציינים כי רק לאחר שהתקבלו כמה פניות בעלות מאפיינים דומים הוחלט להצליב נתונים בין מספרי האצווה, מועדי הייצור ותיעוד הקו.</p>
-
-    <h2>מהשטח אל המפעל</h2>
-    <p>בענף המזון מציינים כי אירועים מסוג זה נחשבים רגישים במיוחד, משום שהם מעלים שאלה כפולה: לא רק כיצד חדר גוף זר למוצר, אלא גם מדוע לא נעצר בזמן בתוך המפעל. בחלק גדול מקווי הייצור התעשייתיים מותקנות מערכות גילוי שמטרתן לזהות חלקיקים מתכתיים או חריגים אחרים לפני שהמוצר עובר לאריזה ולשיווק. כאשר מתגלה כשל כזה אצל הצרכן ולא במפעל, מרכז הכובד של הבדיקה עובר במהירות גם אל מערכת הבקרה עצמה.</p>
-    <p>לפי מידע ראשוני שנבדק כעת, אחד הכיוונים המרכזיים הוא אפשרות לשחיקה באחד מרכיבי הציוד בתחילת הקו, שגרמה להיווצרות חלקיקים מתכתיים קטנים. במקביל בודקים האם מערכת גילוי המתכות שהותקנה בשלבים המאוחרים יותר של הייצור הייתה מכוילת ברגישות שאינה מספקת לאיתור חלקיקים בגודל שנמצא.</p>
-    <p>גורמים מקצועיים מסבירים כי במוצרים מסוג זה, במיוחד כאשר מדובר בתערובת דחוסה או במרקם אחיד יחסית, חלקיקים קטנים עלולים שלא להיות גלויים לעין בשלב המילוי או האריזה. מסיבה זו, מערכות הבקרה האוטומטיות נחשבות שכבת הגנה מרכזית, ולעיתים גם האחרונה, לפני שהמוצר יוצא מן המפעל.</p>
-
-    <h2>ציוד נשחק, בקרה שלא עצרה בזמן</h2>
-    <p>כחלק מן הבדיקה נבחן כעת מצבה של אחת המכונות בקו הייצור, לאחר שבמסמכי התחזוקה עלו אינדיקציות לסימני שחיקה שנרשמו בתקופה האחרונה. עדיין לא ברור אם מדובר באותו רכיב שעמד במוקד הערות קודמות של צוותי התחזוקה, אך גורמים בענף ציינו כי כאשר מופיעים סימנים מכניים מוקדמים, נדרשת לעיתים גם בחינה מחודשת של רמת הרגישות במערכות הבקרה ולא רק טיפול נקודתי בציוד עצמו.</p>
-    <p>עוד בודקים החוקרים האם בתקופה שקדמה לאירוע בוצעו ניסויי כיול, שינויים בקצב הייצור, החלפת חלקים או התאמות בתצורת הקו, שיכלו להשפיע על תפקוד הגלאי או על דפוסי השחיקה של המכונות. בחברה אוספים כעת יומני תחזוקה, רישומי תקלות, תוצאות בדיקות סוף קו ודוחות בקרה של האצוות הרלוונטיות.</p>
-    <p>בכמה מנקודות המכירה התבקשו העובדים לאתר במהירות את המוצרים הנכללים ברשימות האיסוף, להסירם מן המדפים ולבדוק מלאי נוסף בחדרים האחוריים. ברשתות השיווק ציינו כי מאחר שמדובר בחטיפים בעלי חיי מדף ארוכים יחסית, חלק מן המוצרים כבר נמכרו וחלקם עדיין מפוזרים על פני כמה ערוצי שיווק, דבר שמחייב איתור מדויק לפי מספרי אצווה ותאריכי ייצור.</p>
-
-    <h2>לא תמיד הבעיה מתחילה במקום שבו היא מתגלה</h2>
-    <p>מומחים בתחום האיכות מסבירים כי באירועים מסוג זה, השלב שבו הבעיה נחשפת אינו תמיד השלב שבו היא התחילה. ייתכן שהכשל הראשוני היה מכני, ייתכן שהיה קשור לכיול של גלאי המתכות, וייתכן שמדובר בשילוב של יותר מגורם אחד: רכיב שנשחק בהדרגה ומערכת בקרה שלא עודכנה או לא נבחנה מחדש בהתאם לתנאים שהשתנו על הקו.</p>
-    <p>לדבריהם, דווקא משום שמערכת גילוי המתכות נועדה לעצור מקרים כאלה לפני היציאה לשוק, כל ממצא שמתגלה לראשונה אצל הצרכן מחייב בדיקה רחבה יותר מן האירוע הנקודתי עצמו. השאלה אינה רק כיצד חדר שבב מתכת למוצר אחד, אלא האם היו אצוות נוספות שיוצרו באותם תנאים, האם התגלו סימנים מקדימים, והאם הייתה נקודה מוקדמת יותר שבה ניתן היה לעצור את ההתרחשות.</p>
-    <p>לפי מידע שהגיע לגורמים בענף, בחלק מן הדוחות הפנימיים שנבדקים כעת תועדו בתקופה האחרונה רעשים חריגים או סימני בלאי באחד האזורים המכניים של הקו, אך בשלב זה עדיין לא ברור אם יוחס להם קשר ישיר לסיכון של גוף זר במוצר. בחברה בודקים האם ננקטו אז צעדים מספקים, והאם בוצעו בדיקות משלימות מעבר לטיפול התחזוקתי השגרתי.</p>
-
-    <h2>תגובת החברה והמשך הבדיקה</h2>
-    <p>מהחברה נמסר כי עם קבלת הפניות הראשונות נפתחה בדיקה מיידית, ובהמשך, לאחר שנאספו ממצאים נוספים, התקבלה החלטה לבצע איסוף יזום של המוצרים מן האצוות הרלוונטיות. עוד נמסר כי החברה עיכבה משלוחים נוספים, עצרה זמנית את פעילות הקו שבו נבדק האירוע, ומבצעת כעת סריקה מלאה של הציוד, מערכות הגילוי, נתוני הבקרה והאצוות שיוצרו בתקופה הנבדקת.</p>
-    <p>בחברה הוסיפו כי שירות הלקוחות תוגבר לצורך מענה לצרכנים, וכי לקוחות המחזיקים במוצרים מן הסדרות שנמסרו התבקשו שלא לצרוך אותם ולהחזירם לנקודות המכירה לצורך קבלת החזר. במקביל, הועברה הודעה מסודרת ללקוחות העסקיים ולרשתות השיווק, הכוללת את פרטי הזיהוי של הסדרות הרלוונטיות.</p>
-    <p>בענף המזון ציינו כי מעבר לחשש המיידי לפגיעה בצרכן, אירועים מסוג זה נוגעים גם לאמון הציבור ביכולת של מערכות הבקרה לזהות חריגות בזמן. כאשר מוצר נראה תקין לחלוטין כלפי חוץ, אך מתברר בדיעבד כי חדר אליו גוף זר, מוקד השאלה עובר במהירות מן המוצר עצמו אל תקינות התהליך כולו.</p>
-    <p>נכון לעכשיו, הבדיקות במפעל ובמערכות הבקרה נמשכות, ובשלב זה עדיין לא פורסמו כלל הממצאים בנוגע למקור המדויק של השבבים, למשך הזמן שבו פעל הקו בתנאים הבעייתיים, או להיקף המלא של האצוות שעלולות להיות מושפעות. בחברה מסרו כי מסקנות סופיות יפורסמו לאחר השלמת הצלבת הנתונים מכלל הגורמים המקצועיים המעורבים.</p>
-        </div>
-        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a><a class="action-link next" href="allnews.html">חזרה לעמוד הכתבות</a></div>
-      </section>
-      <footer class="site-footer">© פרימיום | תעשיידע</footer>
+  <main class="wrap">
+    <article class="story">
+      <h1>מי האכיל את הכלב?</h1>
+      <div class="domain">כרטיס מצב | חיות מחמד ואחריות</div>
+      <p>בבית שיש בו חיית מחמד, הטיפול היומיומי מתחלק לא פעם בין כמה אנשים. מישהו ממלא מים, מישהו נותן אוכל, מישהו מוציא לטיול, ומישהו אחר בטוח שמישהו כבר עשה את זה. על פניו זו אחריות פשוטה, אבל דווקא בפעולות הקטנות של היום נוצר לפעמים בלבול.</p>
+      <p>הקושי חוזר על עצמו כי לא תמיד יש תיאום ברור. הכלב עלול לקבל אוכל פעמיים כי שני אנשים חשבו שהוא רעב, או להישאר עם קערה ריקה כי כל אחד הניח שמישהו אחר בדק. לפעמים שוכחים מים, טיול או טיפול קבוע, לא מחוסר אכפתיות, אלא כי המידע על מה שנעשה נשאר אצל אדם אחד ולא גלוי לכולם.</p>
+      <p>המצב משפיע על חיית המחמד, על הילדים שלוקחים חלק באחריות, על ההורים שמנסים לוודא שהכול מטופל, ועל כל בני הבית שחולקים משימה משותפת. הרגע שבו הבעיה מתגלה מאוחר מדי מגיע כשמגלים שהקערה ריקה, שהטיול נדחה יותר מדי, או שהטיפול נעשה פעמיים. המחיר קטן אבל ברור: דאגה, אשמה, חוסר נוחות ופגיעה בתחושת הסדר בבית.</p>
+      <p>הצורך האנושי כאן הוא אחריות משותפת, תיאום ובהירות. יזמות מתחילה מהבנה שמשהו בשגרה לא עובד מספיק טוב, לפני שחושבים על פתרון. כדי לזהות את הבעיה והצורך, כדאי לבדוק אילו משימות נשכחות או מוכפלות, מי צריך לדעת מה כבר נעשה, מתי הבלבול מתחיל, ומה היה עוזר להפוך טיפול מפוזר לאחריות ברורה לכולם.</p>
+      <div class="actions">
+        <a class="btn" href="allnews.html">לכל הכתבות</a>
+        <a class="btn" href="activity.html?article=news10">לדף הפעילות</a>
+        <a class="btn" href="activity.html?article=news10&export=pdf">PDF</a>
+      </div>
     </article>
   </main>
-  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
