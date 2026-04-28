@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#213547" />
+  <meta name="theme-color" content="#1e3a5f" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -13,131 +13,526 @@
   <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
   <link rel="apple-touch-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>מגזין נוער | כל הכתבות</title>
+  <title>עמוד כתבות ראשי</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Assistant", "Rubik", Arial, sans-serif;
-      background: #f5f3ef;
-      color: #1f2329;
-      line-height: 1.5;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(196,0,0,0.10), transparent 22%),
+        radial-gradient(circle at top left, rgba(0,0,0,0.04), transparent 18%),
+        linear-gradient(180deg, #f8f8f8 0%, #eeeeee 100%);
+      color: #111;
+      line-height: 1.6;
     }
-    header {
-      background: #ffffff;
-      border-bottom: 3px solid #c53a2d;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      padding: 20px 16px;
+
+    .top-bar {
+      background: linear-gradient(90deg, #8f0000 0%, #c40000 45%, #8f0000 100%);
+      color: white;
       text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(139, 0, 0, 0.28);
     }
+
+    header {
+      background: rgba(255,255,255,0.94);
+      border-bottom: 4px solid #c40000;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      backdrop-filter: blur(4px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 16px 14px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
     .home-link {
       position: absolute;
       right: 16px;
-      top: 20px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
-      color: #c53a2d;
-      font-weight: 700;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+      border: 1px solid #e3d7d7;
+      box-shadow:
+        0 4px 0 rgba(0,0,0,0.12),
+        0 10px 16px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 3;
     }
-    .shell { max-width: 1200px; margin: 0 auto; position: relative; }
-    .title { font-size: clamp(1.6rem, 2.8vw, 2.3rem); font-weight: 800; }
-    .subtitle { color: #5d6570; margin-top: 6px; }
-    main { max-width: 1200px; margin: 20px auto 32px; padding: 0 16px; }
-    .grid {
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #d5c1c1;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.10),
+        0 14px 20px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .home-link:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 2px 0 rgba(0,0,0,0.10),
+        0 6px 12px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #8f0000;
+    }
+
+    .site-logo {
+      display: block;
+      max-width: 145px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 8px;
+    }
+
+    .logo {
+      font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+      font-weight: 900;
+      color: #111;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .subtitle {
+      font-size: 0.86rem;
+      color: #666;
+    }
+
+    main {
+      max-width: 1440px;
+      margin: 24px auto;
+      padding: 0 16px 30px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,250,250,0.96) 100%);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+      margin-bottom: 20px;
+      border-top: 5px solid #c40000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(196,0,0,0.07), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .hero p {
+      font-size: 0.88rem;
+      color: #444;
+      max-width: 760px;
+    }
+
+    .section-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #111;
+      border-right: 6px solid #c40000;
+      padding-right: 10px;
+    }
+
+    .articles-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
     }
-    .card {
-      background: #fff;
-      border: 1px solid #e4e0d8;
-      border-right: 6px solid #d3ab62;
-      border-radius: 10px;
-      padding: 14px;
+
+    @media (max-width: 1200px) {
+      .articles-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .article-card {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      min-height: 150px;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 160px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.09);
+      border: 1px solid #ececec;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .card h2 { font-size: 1.08rem; font-weight: 700; }
-    .domain { color: #4d5661; font-size: 0.95rem; }
-    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
-    .btn {
-      text-decoration: none;
-      font-size: 0.82rem;
+
+    .article-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 72px;
+      height: 72px;
+      background: radial-gradient(circle, rgba(196,0,0,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.14);
+      border-color: #dfc7c7;
+    }
+
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(180deg, #fdeaea 0%, #f8d6d6 100%);
+      color: #a40000;
+      font-size: 0.76rem;
       font-weight: 700;
-      padding: 6px 9px;
-      border-radius: 7px;
-      border: 1px solid #d4d8de;
-      color: #2b3440;
-      background: #f7f8fa;
+      padding: 5px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 10px rgba(164, 0, 0, 0.08);
     }
-    .btn:hover { background: #edf1f6; }
-    @media (max-width: 840px) { .grid { grid-template-columns: 1fr; } }
+
+    .article-image {
+      width: 100%;
+      height: 128px;
+      object-fit: cover;
+      border-radius: 9px;
+      margin-bottom: 8px;
+      border: 1px solid #e7e7e7;
+      background: #ececec;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+    }
+
+    .article-card h2 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      color: #111;
+    }
+
+    .article-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 8px;
+      flex-grow: 1;
+    }
+
+    .article-btn {
+      display: inline-block;
+      align-self: flex-start;
+      text-align: center;
+      text-decoration: none;
+      background: linear-gradient(180deg, #d10000 0%, #a40000 100%);
+      color: white;
+      padding: 7px 11px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 16px rgba(164, 0, 0, 0.22);
+    }
+
+    .article-btn:hover {
+      background: linear-gradient(180deg, #b70000 0%, #8f0000 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(164, 0, 0, 0.28);
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 24px 16px 30px;
+      font-size: 0.88rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        zoom: 68%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        font-size: 0.86rem;
+        padding: 7px 11px;
+      }
+
+      .header-inner {
+        padding: 18px 14px 16px;
+      }
+
+      .home-link {
+        right: 12px;
+        top: 12px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .home-link svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .site-logo {
+        max-width: 130px;
+        margin-bottom: 8px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      .subtitle {
+        font-size: 0.86rem;
+      }
+
+      main {
+        margin: 20px auto;
+        padding: 0 12px 28px;
+      }
+
+      .hero {
+        padding: 18px 14px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: 1.35rem;
+        line-height: 1.35;
+      }
+
+      .hero p {
+        font-size: 0.96rem;
+        line-height: 1.7;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        padding-right: 10px;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .article-card {
+        padding: 14px;
+        border-radius: 14px;
+        min-height: auto;
+      }
+
+      .article-image {
+        height: 170px;
+        margin-bottom: 8px;
+      }
+
+      .article-card h2 {
+        font-size: 1.02rem;
+        margin-bottom: 6px;
+      }
+
+      .article-card p {
+        font-size: 0.86rem;
+        margin-bottom: 8px;
+      }
+
+      .article-btn {
+        width: 100%;
+        align-self: stretch;
+        padding: 10px 12px;
+        font-size: 0.86rem;
+      }
+
+      footer {
+        padding: 24px 16px 32px;
+        font-size: 0.88rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo {
+        font-size: 1.55rem;
+      }
+
+      .hero h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero p {
+        font-size: 0.86rem;
+      }
+
+      .article-image {
+        height: 128px;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="top-bar">מהדורה מיוחדת | עמוד כתבות ראשי</div>
+
   <header>
-    <div class="shell">
-      <a class="home-link" href="../index.html">לעמוד הבית</a>
-      <h1 class="title">מגזין נוער — כרטיסי מצב</h1>
-      <p class="subtitle">עמוד ראשי של הכתבות</p>
+    <div class="header-inner">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
+      <div class="logo">חדשות היום</div>
     </div>
   </header>
 
   <main>
-    <section class="grid">
-      <article class="card" id="news1">
-        <h2>כשהתיק מגלה את זה מאוחר מדי</h2>
-        <div class="domain">כרטיס מצב | בית ספר ושגרה יומית</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news1">לדף הפעילות</a><a class="btn" href="activity.html?article=news1&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news2">
-        <h2>ההודעה החשובה שנעלמה בין כל השאר</h2>
-        <div class="domain">כרטיס מצב | טלפון, הודעות וריכוז</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news2">לדף הפעילות</a><a class="btn" href="activity.html?article=news2&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news3">
-        <h2>התיק שמסתיר דברים קטנים</h2>
-        <div class="domain">כרטיס מצב | סדר וארגון אישי</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news3">לדף הפעילות</a><a class="btn" href="activity.html?article=news3&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news4">
-        <h2>הבקבוק שנשאר מלא</h2>
-        <div class="domain">כרטיס מצב | בריאות והרגלים</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news4">לדף הפעילות</a><a class="btn" href="activity.html?article=news4&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news5">
-        <h2>כשצריך עזרה ולא יודעים למי לפנות</h2>
-        <div class="domain">כרטיס מצב | בטיחות אישית</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news5">לדף הפעילות</a><a class="btn" href="activity.html?article=news5&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news6">
-        <h2>שלחתי לפני שחשבתי</h2>
-        <div class="domain">כרטיס מצב | פרטיות ומידע אישי</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news6">לדף הפעילות</a><a class="btn" href="activity.html?article=news6&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news7">
-        <h2>האוטובוס שכמעט תמיד מפתיע</h2>
-        <div class="domain">כרטיס מצב | תחבורה והתניידות</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news7">לדף הפעילות</a><a class="btn" href="activity.html?article=news7&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news8">
-        <h2>הרעש שמתגבר בלי ששמים לב</h2>
-        <div class="domain">כרטיס מצב | סביבה כיתתית וריכוז</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news8">לדף הפעילות</a><a class="btn" href="activity.html?article=news8&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news9">
-        <h2>המקרר שאף אחד לא באמת מכיר</h2>
-        <div class="domain">כרטיס מצב | בית וחיי יום‑יום</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news9">לדף הפעילות</a><a class="btn" href="activity.html?article=news9&export=pdf">PDF</a></div>
-      </article>
-      <article class="card" id="news10">
-        <h2>מי האכיל את הכלב?</h2>
-        <div class="domain">כרטיס מצב | חיות מחמד ואחריות</div>
-        <div class="actions"><a class="btn" href="allnews.html">לכל הכתבות</a><a class="btn" href="activity.html?article=news10">לדף הפעילות</a><a class="btn" href="activity.html?article=news10&export=pdf">PDF</a></div>
-      </article>
+    <section class="hero">
+      <h1>ברוכים הבאים לעמוד הכתבות</h1>
+      <p>
+        לפניכם כתבות שונות בנושא איכות ובטיחות. לחצו על אחת מהכתבות כדי לעבור לעמוד המתאים, לקרוא את הכתבה שנבחרה ולהמשיך במשימה.
+      </p>
+    
+
+        
+
+      </section>
+
+    <section>
+      <h2 class="section-title">לבחירה</h2>
+      <div class="articles-grid">
+        <article class="article-card">
+          <span class="tag">כתבה 1</span>
+          <img class="article-image" src="../images/news1.png" alt="ריקול למוצר ניקוי בעקבות ליקוי" />
+          <h2>הסוד שעל האריזה</h2>
+          <p>לפעמים מה שלא כתוב על הבקבוק מסוכן יותר ממה שיש בתוכו.</p>
+          <a class="article-btn" href="news1.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 2</span>
+          <img class="article-image" src="../images/news2.png" alt="דליפת אמוניה במפעל מזון ופציעת עובדים" />
+          <h2>כשההגנה לא עבדה</h2>
+          <p>שלושה עובדים נפגעו באירוע דליפת אמוניה במפעל מזון.</p>
+          <a class="article-btn" href="news2.html">לקריאת הכתבה</a>
+        </article>
+    
+
+        <article class="article-card">
+          <span class="tag">כתבה 3</span>
+          <img class="article-image" src="../images/news3.png" alt="ריקול רחב בעקבות חשד לסלמונלה" />
+          <h2>הכל בגלל שוקולד</h2>
+          <p>חומר גלם אחד שזוהם בסלמונלה גרם להשבתת מפעל ולעצירת ייצור המונית.</p>
+          <a class="article-btn" href="news3.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 4</span>
+          <img class="article-image" src="../images/news4.png" alt="" />
+          <h2>איפה הגלידה שלי?</h2>
+          <p>דיווחים על תחלואה חשפו תקלה בשרשרת הקירור שהגיעה עד למקפיא שלכם.</p>
+          <a class="article-btn" href="news4.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 5</span>
+          <img class="article-image" src="../images/news5.png" alt="" />
+          <h2>טעם של טעות</h2>
+          <p>טעם מוזר בגביעים בודדים גרם ליוגורטים החדשים להיעלם רגע אחרי ההשקה.</p>
+          <a class="article-btn" href="news5.html">לקריאת הכתבה</a>
+        </article>
+
+     <article class="article-card">
+          <span class="tag">כתבה 6</span>
+          <img class="article-image" src="../images/news6.png" alt="מבקר נפצע בנפילה לבור לא מסומן באתר ייצור" />
+          <h2>המקום שלא סומן</h2>
+          <p>מבקר באתר ייצור נפצע לאחר שנפל באזור עבודות שלא גודר וסומן כראוי.</p>
+          <a class="article-btn" href="news6.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 7</span>
+          <img class="article-image" src="../images/news7.png" alt="ריקול רטבים בעקבות אי-סימון אלרגן" />
+          <h2>הכתובת שלא הייתה</h2>
+          <p>רטבים נאספו מהמדפים לאחר שהתגלה כי אלרגן מסוכן לא סומן על גבי האריזה.</p>
+          <a class="article-btn" href="news7.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 8</span>
+          <img class="article-image" src="../images/news8.png" alt="ריקול למוצרי עוף ארוזים בשל פגם באטימה" />
+          <h2>האריזה שלא שמרה</h2>
+          <p>מוצרי עוף ארוזים נאספו מהמדפים לאחר שהתברר כי פגם זעיר באטימה פגע בטריותם.</p>
+          <a class="article-btn" href="news8.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 9</span>
+          <img class="article-image" src="../images/news9.png" alt="חשש לליסטריה בעקבות סטייה בתהליך הפסטור" />
+          <h2>כששתי מעלות חסרו</h2>
+          <p>מחלבה עצרה את הייצור לאחר שהתברר כי הייתה סטייה קטנה בחיישן הטמפרטורה.</p>
+          <a class="article-btn" href="news9.html">לקריאת הכתבה</a>
+        </article>
+       
+
+        <article class="article-card">
+          <span class="tag">כתבה 10</span>
+          <img class="article-image" src="../images/news10.png" alt="ריקול חטיפי דגנים בעקבות שבבי מתכת" />
+          <h2>מאוחר מדי על המדף</h2>
+          <p>תלונות של צרכנים הובילו לגילוי שבבי מתכת בסדרת חטיפי הדגנים.</p>
+          <a class="article-btn" href="news10.html">לקריאת הכתבה</a>
+        </article>
+      </div>
     </section>
   </main>
 
+  <footer>
+    &copy; פרימיום | תעשיידע
+  </footer>
   <script src="../pwa-register.js" defer></script>
 </body>
 </html>
