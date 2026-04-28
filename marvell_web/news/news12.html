@@ -13,7 +13,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
   <link rel="apple-touch-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>מי האכיל את הכלב?</title>
+  <title>הדבר הקטן שנעלם בדיוק כשצריך אותו</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,12 +26,12 @@
       --bg-3: #111827;
       --paper: rgba(248,251,255,0.96);
       --text: #e5edf7;
-      --text-soft: #fecdd3;
+      --text-soft: #fde68a;
       --text-dark: #102033;
-      --blue: #e11d48;
-      --blue-deep: #9f1239;
-      --cyan: #fb7185;
-      --cyan-soft: #ffe4e6;
+      --blue: #f59e0b;
+      --blue-deep: #b45309;
+      --cyan: #fbbf24;
+      --cyan-soft: #fef3c7;
       --indigo: #1e3a8a;
     }
 
@@ -42,9 +42,9 @@
       margin: 0;
       font-family: "Heebo", Arial, sans-serif;
       background:
-        radial-gradient(circle at 86% 8%, rgba(251,113,133,0.18), transparent 28%),
-        radial-gradient(circle at 12% 24%, rgba(225,29,72,0.18), transparent 30%),
-        radial-gradient(circle at 74% 84%, rgba(37,99,235,0.12), transparent 32%),
+        radial-gradient(circle at 86% 8%, rgba(251,191,36,0.16), transparent 28%),
+        radial-gradient(circle at 12% 24%, rgba(245,158,11,0.18), transparent 30%),
+        radial-gradient(circle at 74% 84%, rgba(59,130,246,0.12), transparent 32%),
         linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 58%, var(--bg-3) 100%);
       color: var(--text);
       line-height: 1.9;
@@ -67,13 +67,13 @@
     .top-strip {
       position: relative;
       z-index: 2;
-      background: linear-gradient(90deg, #0f172a 0%, #9f1239 48%, #1e3a8a 100%);
-      color: #fff1f2;
+      background: linear-gradient(90deg, #0f172a 0%, #b45309 48%, #1e3a8a 100%);
+      color: #fffbeb;
       padding: 10px 16px;
       font-weight: 800;
       font-size: 0.9rem;
       letter-spacing: .2px;
-      border-bottom: 1px solid rgba(251,113,133,0.38);
+      border-bottom: 1px solid rgba(245,158,11,0.38);
       box-shadow: 0 10px 24px rgba(2,8,23,0.34);
       display: flex;
       justify-content: center;
@@ -88,7 +88,7 @@
       height: 8px;
       background: var(--cyan);
       border-radius: 50%;
-      box-shadow: 0 0 0 5px rgba(251,113,133,0.16), 0 0 18px rgba(251,113,133,0.55);
+      box-shadow: 0 0 0 5px rgba(251,191,36,0.16), 0 0 18px rgba(251,191,36,0.45);
     }
 
     .site-shell { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 22px 16px 38px; }
@@ -96,10 +96,10 @@
 
     .logo-link {
       display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; border-radius: 16px;
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,228,230,0.28); text-decoration: none;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(254,243,199,0.28); text-decoration: none;
       box-shadow: 0 12px 24px rgba(2,8,23,0.22); transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     }
-    .logo-link:hover { transform: translateY(-2px); border-color: rgba(251,113,133,0.72); box-shadow: 0 16px 30px rgba(2,8,23,0.28), 0 0 24px rgba(251,113,133,0.16); }
+    .logo-link:hover { transform: translateY(-2px); border-color: rgba(245,158,11,0.72); box-shadow: 0 16px 30px rgba(2,8,23,0.28), 0 0 24px rgba(251,191,36,0.16); }
     .site-logo { max-width: 150px; width: 100%; height: auto; display: block; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25)); }
 
     .home-link {
@@ -107,65 +107,78 @@
       background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.24); border-radius: 14px;
       box-shadow: 0 10px 20px rgba(2,8,23,0.22); transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
     }
-    .home-link:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.48); background: rgba(255,255,255,0.13); box-shadow: 0 14px 24px rgba(2,8,23,0.28), 0 0 20px rgba(251,113,133,0.14); }
+    .home-link:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.48); background: rgba(255,255,255,0.13); box-shadow: 0 14px 24px rgba(2,8,23,0.28), 0 0 20px rgba(245,158,11,0.14); }
     .home-link svg { width: 23px; height: 23px; fill: none; stroke: #ffffff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     .article-shell {
       background: linear-gradient(180deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.76) 100%);
-      border: 1px solid rgba(255,228,230,0.24); border-radius: 28px; overflow: hidden; box-shadow: 0 28px 70px rgba(2,8,23,0.44);
+      border: 1px solid rgba(254,243,199,0.24); border-radius: 28px; overflow: hidden; box-shadow: 0 28px 70px rgba(2,8,23,0.44);
     }
 
     .masthead {
       position: relative; overflow: hidden;
-      background: linear-gradient(135deg, rgba(159,18,57,0.72) 0%, rgba(15,23,42,0.94) 54%, rgba(30,58,138,0.80) 100%);
-      border-bottom: 1px solid rgba(251,113,133,0.28); padding: 28px 28px 24px;
+      background: linear-gradient(135deg, rgba(180,83,9,0.74) 0%, rgba(15,23,42,0.94) 54%, rgba(30,58,138,0.82) 100%);
+      border-bottom: 1px solid rgba(245,158,11,0.28); padding: 28px 28px 24px;
     }
     .masthead::before {
       content: ""; position: absolute; inset: 0;
-      background: radial-gradient(circle at 15% 10%, rgba(251,113,133,0.18), transparent 28%), radial-gradient(circle at 85% 90%, rgba(59,130,246,0.12), transparent 30%);
+      background: radial-gradient(circle at 15% 10%, rgba(251,191,36,0.16), transparent 28%), radial-gradient(circle at 85% 90%, rgba(59,130,246,0.12), transparent 30%);
       pointer-events: none;
     }
 
     .masthead-row, .paper-title-wrap { position: relative; z-index: 1; }
     .masthead-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: .84rem; color: var(--text-soft); margin-bottom: 18px; flex-wrap: wrap; }
-    .paper-title-wrap { text-align: center; padding: 18px 12px; border-block: 1px solid rgba(255,228,230,0.30); }
+    .paper-title-wrap { text-align: center; padding: 18px 12px; border-block: 1px solid rgba(254,243,199,0.30); }
     .paper-title { margin: 0; font-size: clamp(2.3rem, 5.6vw, 4.4rem); font-weight: 900; color: #f8fbff; line-height: 1; letter-spacing: -0.04em; text-shadow: 0 12px 26px rgba(0,0,0,0.34); }
     .paper-subtitle { margin-top: 10px; font-size: .92rem; color: var(--cyan-soft); letter-spacing: .06em; font-weight: 700; }
 
     .article-wrap { background: var(--paper); color: var(--text-dark); padding: 30px 28px 26px; }
     .kicker-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; font-size: .83rem; font-weight: 900; letter-spacing: .04em; }
-    .kicker-main { color: #be123c; background: #ffe4e6; border: 1px solid rgba(225,29,72,0.18); border-radius: 999px; padding: 5px 10px; }
+    .kicker-main { color: #b45309; background: #fef3c7; border: 1px solid rgba(245,158,11,0.18); border-radius: 999px; padding: 5px 10px; }
     .kicker-sep { color: #94a3b8; }
-    .kicker-sub { color: #e11d48; }
+    .kicker-sub { color: #d97706; }
 
     .headline { margin: 0; font-size: clamp(2rem, 4.1vw, 3.25rem); font-weight: 900; line-height: 1.18; color: var(--text-dark); max-width: 920px; letter-spacing: -0.03em; text-wrap: balance; }
     .subheadline { margin: 14px 0 18px; font-size: clamp(1.12rem, 1.65vw, 1.34rem); line-height: 1.8; color: #334155; font-weight: 500; max-width: 880px; }
     .byline { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(15,23,42,0.14); font-size: .94rem; color: #334155; }
     .byline-separator { width: 28px; height: 1px; background: linear-gradient(90deg, var(--blue), var(--cyan)); display: inline-block; }
 
-    .hero-image-wrap { max-width: 760px; margin: 22px auto 24px; border-radius: 18px; overflow: hidden; background: #ffe4e6; border: 1px solid rgba(225,29,72,0.12); box-shadow: 0 14px 28px rgba(15,23,42,0.14); }
+    .hero-image-wrap {
+      max-width: 760px; margin: 22px auto 24px; border-radius: 18px; overflow: hidden;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 40%, #dbeafe 100%);
+      border: 1px solid rgba(245,158,11,0.12); box-shadow: 0 14px 28px rgba(15,23,42,0.14);
+      min-height: 220px; position: relative;
+    }
     .hero-image { width: 100%; height: min(28vw, 260px); object-fit: cover; display: block; filter: saturate(1.04) contrast(1.04); }
+    .hero-fallback {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(245,158,11,0.14), transparent 18%),
+        radial-gradient(circle at 76% 68%, rgba(59,130,246,0.16), transparent 18%),
+        linear-gradient(135deg, rgba(255,255,255,0.58), rgba(255,255,255,0.2));
+      color: #7c2d12; font-weight: 900; font-size: 1.15rem; letter-spacing: .02em;
+    }
 
     .article-content { display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 32px; align-items: start; }
     .article-body { font-size: 1.08rem; color: #1f2937; text-align: justify; }
     .article-body p { margin: 0 0 16px; }
-    .lead-paragraph { font-size: 1.14rem; font-weight: 500; color: #102033; padding-right: 14px; border-right: 4px solid #fb7185; }
+    .lead-paragraph { font-size: 1.14rem; font-weight: 500; color: #102033; padding-right: 14px; border-right: 4px solid #f59e0b; }
 
     .side-panel { position: sticky; top: 90px; display: grid; gap: 12px; margin-top: 245px; }
-    .info-card { border-radius: 18px; padding: 16px; background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%); border: 1px solid rgba(225,29,72,0.16); box-shadow: 0 12px 28px rgba(15,23,42,0.08); }
-    .info-card h3 { margin: 0 0 8px; color: #e11d48; font-size: 1rem; line-height: 1.35; }
+    .info-card { border-radius: 18px; padding: 16px; background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); border: 1px solid rgba(245,158,11,0.16); box-shadow: 0 12px 28px rgba(15,23,42,0.08); }
+    .info-card h3 { margin: 0 0 8px; color: #b45309; font-size: 1rem; line-height: 1.35; }
     .info-card p { margin: 0; color: #334155; font-size: 0.94rem; line-height: 1.7; }
-    .conclusion-box { margin-top: 20px; padding: 18px 20px; border-radius: 18px; background: #fff1f2; border-right: 5px solid #fb7185; color: #1e293b; font-weight: 700; }
+    .conclusion-box { margin-top: 20px; padding: 18px 20px; border-radius: 18px; background: #fffbeb; border-right: 5px solid #f59e0b; color: #1e293b; font-weight: 700; }
 
     .article-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(15,23,42,0.12); }
     .action-link { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; min-width: 128px; padding: 9px 14px; border-radius: 999px; font-weight: 900; font-size: 0.82rem; line-height: 1; transition: transform .14s ease, box-shadow .14s ease, background-color .14s ease, border-color .14s ease; border: 1px solid transparent; box-shadow: 0 8px 16px rgba(15,23,42,0.12); }
-    .action-link.back { color: #e11d48; background: #fff1f2; border-color: rgba(225,29,72,0.18); }
+    .action-link.back { color: #b45309; background: #fffbeb; border-color: rgba(245,158,11,0.18); }
     .action-link.prev { color: #0f172a; background: #e2e8f0; border-color: rgba(15,23,42,0.12); }
-    .action-link.questions { color: #0f172a; background: #ffe4e6; border-color: rgba(225,29,72,0.20); }
-    .action-link.next { color: #fff; background: linear-gradient(180deg, #fb7185 0%, #be123c 100%); border-color: rgba(251,113,133,0.26); }
+    .action-link.questions { color: #0f172a; background: #fef3c7; border-color: rgba(245,158,11,0.20); }
+    .action-link.next { color: #fff; background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%); border-color: rgba(245,158,11,0.26); }
     .action-link:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(15,23,42,0.16); }
 
-    .site-footer { text-align: center; background: #0f172a; color: var(--text-soft); padding: 18px 14px; font-size: .9rem; border-top: 1px solid rgba(251,113,133,0.24); }
+    .site-footer { text-align: center; background: #0f172a; color: var(--text-soft); padding: 18px 14px; font-size: .9rem; border-top: 1px solid rgba(245,158,11,0.24); }
 
     @media (max-width: 980px) {
       body { zoom: 1; }
@@ -182,7 +195,7 @@
       .headline { font-size: 1.75rem; line-height: 1.28; }
       .subheadline { font-size: 1.1rem; line-height: 1.75; }
       .byline { justify-content: center; text-align: center; }
-      .hero-image { height: 160px; }
+      .hero-image, .hero-image-wrap { height: auto; min-height: 160px; }
       .article-body { font-size: 1rem; text-align: right; }
       .side-panel { grid-template-columns: 1fr; margin-top: 10px; }
       .action-link { min-width: 100%; }
@@ -192,7 +205,7 @@
 <body>
   <div class="top-strip">
     <span class="dot"></span>
-    <span>כרטיס מצב | חיות מחמד ואחריות | פרימיום</span>
+    <span>כרטיס מצב | חפצים אישיים ושגרה יומית | פרימיום</span>
   </div>
 
   <main class="site-shell">
@@ -213,7 +226,7 @@
       <header class="masthead">
         <div class="masthead-row">
           <span>מהדורת מרוול | פרימיום</span>
-          <span>חיות מחמד ואחריות</span>
+          <span>חפצים אישיים ושגרה יומית</span>
         </div>
         <div class="paper-title-wrap">
           <h1 class="paper-title">חדשות היום</h1>
@@ -223,85 +236,75 @@
 
       <section class="article-wrap">
         <div class="kicker-row">
-          <span class="kicker-main">כתבה 10</span>
+          <span class="kicker-main">כתבה 12</span>
           <span class="kicker-sep">|</span>
-          <span class="kicker-sub">חיות מחמד ואחריות</span>
+          <span class="kicker-sub">חפצים אישיים ושגרה יומית</span>
         </div>
 
-        <h2 class="headline">מי האכיל את הכלב?</h2>
-
+        <h2 class="headline">הדבר הקטן שנעלם בדיוק כשצריך אותו</h2>
         <p class="subheadline">
-          זו נשמעת כמו שאלה קטנה, אבל בבית עם חיית מחמד היא יכולה לחזור כמעט כל יום. כולם רוצים לטפל, אבל כשאין תיאום ברור — גם אחריות טובה יכולה להתבלבל.
+          זה כמעט תמיד קורה ברגע הכי מעצבן: דווקא כשצריך לצאת, להתחיל שיעור, לעלות לאוטובוס או לסיים את היום — משהו קטן וחשוב פשוט לא נמצא.
         </p>
-
         <div class="byline">
-          <span><strong>כרטיס מצב:</strong> חיות מחמד ואחריות</span>
+          <span><strong>כרטיס מצב:</strong> חפצים אישיים ושגרה יומית</span>
           <span class="byline-separator"></span>
-          <span>נושא מרכזי: אחריות משותפת, תיאום משימות וטיפול בחיית מחמד</span>
+          <span>נושא מרכזי: חפצים קטנים, שכחה, סדר אישי ותחושת שליטה</span>
           <span class="byline-separator"></span>
-          <span>זמן קריאה: 4 דקות</span>
+          <span>זמן קריאה: 3 דקות</span>
         </div>
 
         <div class="hero-image-wrap">
-          <img class="hero-image" src="../images/10.png" alt="כלב ביתי עם קערת אוכל ומים" />
+          <img class="hero-image" src="../images/12.png" alt="תלמיד מחפש חפץ קטן בתוך תיק פתוח" />
         </div>
 
         <div class="article-content">
           <div class="article-body">
-            <p class="lead-paragraph">זה נשמע כמו שאלה קטנה, אבל בבית עם חיית מחמד היא יכולה לחזור כמעט כל יום.</p>
+            <p class="lead-paragraph">זה כמעט תמיד קורה ברגע הכי לא מתאים.</p>
 
-            <p>“מישהו האכיל את הכלב?”<br>
-            “מי מילא מים?”<br>
-            “הוציאו אותו כבר?”<br>
-            “רגע, הוא קיבל אוכל או לא?”</p>
+            <p>רגע לפני שיוצאים מהבית, כשכבר מאחרים. בתחילת שיעור, כשהמורה מבקשת להתחיל. באוטובוס, כשצריך לשלוף כרטיס. או בסוף היום, כשכולם כבר יוצאים מהכיתה ופתאום מגלים שמשהו חשוב לא נמצא.</p>
 
-            <p>בבית שיש בו כלב, חתול או חיית מחמד אחרת, הטיפול היומיומי מתחלק לא פעם בין כמה אנשים. מישהו נותן אוכל בבוקר, מישהו ממלא מים, מישהו מוציא לטיול, מישהו מנקה, ומישהו אחר רק מניח שמישהו כבר עשה את זה. כולם רוצים לעזור, כולם אוהבים את החיה, אבל דווקא בגלל שהמשימות קטנות וחוזרות על עצמן — הן נופלות בין הכיסאות.</p>
+            <p>האוזניות, המפתח, המטען, הרב־קו, הארנק הקטן, הבקבוק, הקלמר, המחברת החשובה. אלה לא דברים גדולים, אבל כשהם חסרים — כל היום נתקע סביבם. מתחילים לחפש בתיק, בכיסים, על השולחן, מתחת למחברות, אולי זה בכיתה הקודמת, אולי בבית, אולי אצל חבר, אולי פשוט נפל לאנשהו.</p>
 
-            <p>הקושי הוא שלא תמיד יש תיאום ברור. הכלב יכול לקבל אוכל פעמיים, כי שני אנשים חשבו שהוא עדיין לא אכל. בפעם אחרת הקערה נשארת ריקה, כי כל אחד היה בטוח שמישהו אחר בדק. לפעמים הטיול נדחה יותר מדי, המים לא מולאו בזמן, או טיפול קבוע נשכח בתוך עומס של בית, לימודים, עבודה וסידורים.</p>
+            <p>ובתוך כל החיפוש הזה יש תחושה אחת ממש מעצבנת: הייתי בטוח שזה איתי.</p>
 
-            <p>וזה החלק הצורם: לא מדובר בחוסר אכפתיות. להפך. בדרך כלל כולם מתכוונים לטפל. אבל המידע על מה שכבר נעשה נשאר מפוזר בראש של כל אחד. מי שנתן אוכל יודע, אבל האחרים לא. מי הוציא לטיול זוכר, אבל לא תמיד אמר. ומי שרואה את הכלב מסתובב ליד הקערה לא יודע אם הוא באמת רעב, או פשוט מבקש עוד.</p>
+            <p>פותחים את התא הגדול. אחר כך את התא הקטן. מוציאים ספר, מחזירים מחברת, בודקים שוב באותו כיס שכבר בדקנו לפני רגע, כי אולי בכל זאת פספסנו. לפעמים החפץ באמת נמצא אחרי כמה דקות — בתחתית התיק, בתוך דף מקופל, או במקום הכי ברור בעולם. ואז יש הקלה, אבל גם עצבים קטנים, כי כל הלחץ הזה היה יכול להיחסך.</p>
 
-            <p>הבעיה האמיתית היא לא רק “מי עשה מה”. היא שאין תמונה משותפת של האחריות. כל אחד רואה חלק קטן: מי היה בבית בבוקר, מי חזר מוקדם, מי שמע שהכלב נבח, מי זוכר שנגמר האוכל, מי חושב שהקערה התמלאה. אבל אף אחד לא בטוח שהתמונה של כולם זהה. לכן גם בית מלא אנשים שאכפת להם יכול להרגיש לא מסודר סביב טיפול בסיסי.</p>
+            <p>החלק המתסכל הוא שלרוב לא מדובר בחוסר אחריות גדול. אף אחד לא תכנן לשכוח. החפץ היה ביד לפני רגע, הונח “רק לשנייה”, עבר מתא לתא, נשאר על שולחן, נכנס לכיס אחר או נשכח במקום שבו השתמשו בו בפעם האחרונה. החיים זזים מהר, והדברים הקטנים זזים איתם — עד שהם פשוט נעלמים מהעין.</p>
 
-            <p>המצב משפיע על כולם. חיית המחמד עלולה לקבל טיפול כפול או לפספס טיפול בסיסי. הילדים שמנסים לקחת אחריות מרגישים לפעמים אשמה או בלבול. ההורים צריכים לשאול שוב ושוב, להזכיר, לבדוק ולוודא. ובני הבית מוצאים את עצמם מנהלים שיחות קטנות שחוזרות על עצמן סביב משימות שאמורות להיות פשוטות.</p>
+            <p>המצב משפיע לא רק על מי שאיבד. חברים מחכים, הורים מקבלים הודעה לחוצה, מורים שומעים שוב “אין לי”, ולפעמים צריך לקנות מחדש משהו שכבר קיים איפשהו. דבר קטן אחד מצליח להפוך לרגע של לחץ, עיכוב, תלות באחרים ותחושה שאין שליטה על הדברים האישיים.</p>
 
-            <p>יש גם רגעים שבהם הבלבול מתגלה מאוחר מדי. מגלים שהקערה ריקה, שהכלב כבר קיבל אוכל פעמיים, שהטיול נדחה, שהמים לא הוחלפו, או שמישהו שכח טיפול קטן אבל חשוב. ואז מגיעה התחושה הלא נעימה הזאת: זה היה אמור להיות פשוט. איך שוב לא היינו בטוחים?</p>
-
-            <p>המחיר קטן אבל ברור: דאגה, אשמה, חוסר נוחות, כפילות, פספוס טיפול ותחושה שהאחריות קיימת — אבל לא באמת מחולקת בצורה מסודרת. במקום שכל אחד ידע מה עליו לעשות ומה כבר נעשה, כולם מסתמכים על זיכרון, ניחושים ושאלות חוזרות.</p>
-
-            <p>כאן מתחיל הצורך האמיתי: לא רק להזכיר למישהו “תאכיל את הכלב”, אלא ליצור ודאות משותפת. לדעת מה כבר נעשה, מה עוד צריך לקרות, מי אחראי עכשיו, ומתי צריך לשים לב שוב. צורך בדרך פשוטה, שקטה וברורה שהופכת טיפול יומיומי לאחריות משותפת שאפשר באמת לסמוך עליה.</p>
+            <p>המחיר אולי קטן, אבל הוא מורגש: בזבוז זמן, עצבים, מבוכה, דאגה, ותחושה שהדברים החשובים נמצאים איפשהו — אבל לא באמת נגישים כשצריך אותם.</p>
 
             <div class="conclusion-box">
-              בסוף, הבעיה היא לא שאין מי שיטפל בחיית המחמד.<br>
-              הבעיה היא שהאחריות מפוזרת בין כמה אנשים, אבל המידע לא תמיד עובר ביניהם בזמן. בין אוכל, מים, טיולים, תורים וטיפולים קטנים, חסר משהו פשוט: דרך ברורה לדעת מה כבר נעשה, מה עדיין צריך לקרות, ומי אחראי על זה עכשיו.
+              בסוף, הבעיה היא לא שהחפצים באמת נעלמים.<br>
+              היא מתחילה ברגע שבו אין לנו דרך פשוטה לדעת מה איתנו, מה נשאר מאחור, ומה חסר לפני שכבר מאוחר מדי. בין תיק, כיסים, שולחנות, כיתות ונסיעות, חסר רגע אחד ברור שמחזיר תחושת שליטה על הדברים הקטנים שהיום שלנו תלוי בהם.
             </div>
           </div>
-
           <aside class="side-panel" aria-label="תקציר הכתבה">
             <div class="info-card">
               <h3>המצב היומיומי</h3>
-              <p>כמה בני בית מטפלים באותה חיית מחמד, אבל לא תמיד ברור מה כבר נעשה ומה עדיין נשאר.</p>
+              <p>תלמידים משתמשים במהלך היום בהרבה חפצים קטנים וחשובים, אבל לא תמיד יודעים איפה הם נמצאים בדיוק ברגע שבו צריך אותם.</p>
             </div>
             <div class="info-card">
               <h3>הקושי שחוזר</h3>
-              <p>המשימות קטנות וחוזרות על עצמן, ולכן הן נשענות על זיכרון, ניחוש ושאלות חוזרות.</p>
+              <p>החפצים לא תמיד אובדים באמת, אלא זזים ממקום למקום, נשכחים, נבלעים בתיק או נשארים מאחור בלי שמישהו שם לב בזמן.</p>
             </div>
             <div class="info-card">
               <h3>מי מושפע?</h3>
-              <p>חיית המחמד, הילדים, ההורים וכל בני הבית שמנסים לחלוק אחריות בצורה טובה.</p>
+              <p>התלמידים, חברים שמחכים, הורים שנדרשים לעזור, מורים שמנסים להתחיל פעילות, ולעיתים גם כל מי שתלוי בחפץ שנשכח.</p>
             </div>
             <div class="info-card">
               <h3>הצורך האנושי</h3>
-              <p>ודאות משותפת: לדעת מה כבר נעשה, מה עדיין צריך לקרות, ומי אחראי עכשיו.</p>
+              <p>סדר, נגישות ותחושת שליטה בדברים האישיים — לדעת בזמן מה נמצא איתי, מה חסר ומה עלול להישכח לפני שהיום נתקע סביב דבר קטן.</p>
             </div>
           </aside>
         </div>
 
         <div class="article-actions">
           <a class="action-link back" href="allnews.html">עמוד הכתבות</a>
-          <a class="action-link prev" href="news9.html">לכתבה הקודמת</a>
+          <a class="action-link prev" href="news11.html">לכתבה הקודמת</a>
           <a class="action-link questions" href="newswork.html">לדף השאלות</a>
-          <a class="action-link next" href="news11.html">לכתבה הבאה</a>
+          <a class="action-link next" href="allnews.html">חזרה לעמוד הכתבות</a>
         </div>
       </section>
 
