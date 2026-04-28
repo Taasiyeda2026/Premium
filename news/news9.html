@@ -3,123 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1e3a5f" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Premium" />
-  <meta name="application-name" content="Premium" />
-  <link rel="manifest" href="../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
-  <link rel="apple-touch-icon" href="../images/logo.png" />
-  <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>כששתי מעלות חסרו</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <title>המקרר שאף אחד לא באמת מכיר</title>
   <style>
-    :root {
-      --page-bg: #f4efe7;
-      --paper: #fbf8f2;
-      --paper-2: #f6f1e8;
-      --text: #1f1f1f;
-      --muted: #5e5a54;
-      --line: #d9d1c4;
-      --line-dark: #1f1f1f;
-      --accent: #5a3d8e;
-      --accent-soft: #e7def6;
-      --footer-bg: #1a1a1a;
-      --footer-text: #c8c8c8;
-    }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family:"Heebo",Arial,sans-serif; background: radial-gradient(circle at top right, rgba(139,0,0,.07), transparent 24%), radial-gradient(circle at top left, rgba(0,0,0,.04), transparent 20%), var(--page-bg); color:var(--text); line-height:1.95; zoom: 0.75; }
-    .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
-    .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
-    .site-shell {max-width:1160px;margin:0 auto;padding:18px 16px 36px;}
-    .site-logo-wrap {display:flex;justify-content:center;margin-bottom:14px;}
-    .site-logo {max-width:160px;width:100%;height:auto;display:block;}
-    .article-shell {background: var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(38,31,22,.14);}
-    .masthead {background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);border-top:3px solid var(--line-dark);border-bottom:1px solid var(--line);padding:22px 20px 16px;}
-    .masthead-row {display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
-    .paper-title-wrap {text-align:center;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:14px 10px;}
-    .paper-title {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:900;line-height:1;}
-    .paper-subtitle {margin-top:8px;font-size:.88rem;color:var(--muted);letter-spacing:.12em;}
-    .article-wrap {padding:26px 22px 24px;}
-    .kicker-row {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
-    .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
-    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;text-wrap:balance;max-width:980px;}
-    .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;max-width:860px;}
-    .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
-    .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
-    .hero-image-wrap {margin:22px 0 24px;border:1px solid var(--line);background:#ece7de;padding:6px;}
-    .hero-image {width:100%;height:min(28vw,230px);object-fit:cover;display:block;}
-    .article-content {column-count:2;column-gap:40px;column-rule:1px solid #d8d1c7;font-size:1.08rem;color:#26231f;text-align:justify;}
-    .article-content > * {break-inside: avoid;}
-    .article-content p {margin:0 0 16px;}
-    .article-content .lead-paragraph::first-letter {float:right;font-family:"Frank Ruhl Libre",serif;font-size:5.2rem;line-height:3.8rem;padding-left:.65rem;padding-top:.25rem;font-weight:900;color:var(--accent);}
-    .article-content h2 {margin:24px 0 12px;font-family:"Frank Ruhl Libre",serif;font-size:1.65rem;font-weight:700;line-height:1.3;padding-bottom:8px;border-bottom:2px solid var(--accent);}
-    .article-content .quote-box {margin:20px 0;padding:16px 18px;background:var(--accent-soft);border-right:4px solid var(--accent);font-family:"Frank Ruhl Libre",serif;font-size:1.22rem;line-height:1.7;}
-    .article-content .info-box {margin:20px 0;padding:16px 18px;border:1px solid var(--accent);background:var(--accent-soft);}
-    .article-content .highlight-box {margin:22px 0;padding:18px;background:#23201a;color:#f7f2df;font-size:1.02rem;font-weight:500;border:1px solid var(--accent);}
-    .article-actions {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);}
-    .action-link {display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:112px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.78rem;line-height:1;box-shadow:0 3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.08);}
-    .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border:1px solid #d8c795;}
-    .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border:1px solid #bfd0e3;}
-    .action-link.next {color:#1f4b7a;background:linear-gradient(180deg,#eef5ff 0%,#d7e6fb 100%);border:1px solid #9cb9de;}
-    .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
-    @media (max-width: 900px) { body{zoom:1;}  .site-shell{max-width:100%;padding:14px 12px 24px;} .article-content{column-count:1;column-gap:0;column-rule:none;font-size:1rem;} .byline{justify-content:center;} .hero-image{height:210px;} }
-    @media (max-width:640px) { body{zoom:1;}  .site-shell{padding:10px 10px 22px;} .masthead{padding:18px 14px 14px;} .article-wrap{padding:18px 14px 18px;} .headline{font-size:1.72rem;line-height:1.3;} .subheadline{font-size:.98rem;line-height:1.75;} .action-link{min-width:104px;padding:6px 10px;font-size:.75rem;} }
+    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
+    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
+    p { margin: 0 0 10px; }
+    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
   </style>
 </head>
 <body>
-  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
-  <main class="site-shell">
-    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="תעשיידע" /></div>
-    <article class="article-shell">
-      <header class="masthead">
-        <div class="masthead-row"><span>יום שלישי, 11 במרץ 2026</span><span>גיליון 09</span></div>
-        <div class="paper-title-wrap"><h1 class="paper-title">חדשות היום</h1><div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div></div>
-      </header>
-      <section class="article-wrap">
-        <div class="kicker-row"><span class="kicker-main">כתבה 9</span><span class="kicker-sep">|</span><span class="kicker-sub">חדשות צרכנות ובטיחות</span></div>
-        <h2 class="headline">כששתי מעלות חסרו</h2>
-        <p class="subheadline">מחלבה גדולה עצרה את הייצור ובודקת סדרות של מוצרי חלב, לאחר שהתברר כי חיישן טמפרטורה במערכת הפסטור הציג נתונים שגויים.</p>
-        <div class="byline"><span><strong>מאת:</strong> דסק פרימיום</span><span class="byline-separator"></span><span>11 במרץ 2026</span><span class="byline-separator"></span><span>זמן קריאה: 4 דקות</span></div>
-
-        <div class="hero-image-wrap">
-          <img class="hero-image" src="../images/news9.png" alt="תמונת אילוסטרציה לכתבה" loading="lazy" />
-        </div>
-
-        <div class="article-content">
-
-          <p class="lead-paragraph">מחלבה גדולה הודיעה על עצירת ייצור זמנית ובדיקת סדרות של מוצרי חלב, לאחר שבמהלך בדיקה פנימית התברר כי חיישן טמפרטורה באחת ממערכות הפסטור הציג נתונים שגויים לאורך פרק זמן מוגבל. לפי הודעת החברה, מדובר בקו ייצור המשמש לעיבוד חלב למגוון מוצרים, ובהם יוגורטים, גבינות ומוצרים מצוננים נוספים.</p>
-    <p>בחברה מסרו כי בבדיקה שבוצעה לאחרונה עלה חשד לכך שהטמפרטורה שנרשמה במערכת הבקרה הייתה גבוהה מן הטמפרטורה שהושגה בפועל בתהליך. בעקבות הממצא הוחלט לעצור את פעילות הקו הרלוונטי, לחסום מלאי שיוצר באותו חלון זמן ולהרחיב את הבדיקות למוצרים ולנתוני הייצור של התקופה האחרונה.</p>
-    <p>בענף המזון מציינים כי בתהליכי פסטור, גם פער קטן לכאורה בפרמטר מרכזי כמו טמפרטורה עשוי להיות משמעותי. מערכת הפסטור נועדה להבטיח שהתהליך יתבצע בתנאים מדויקים שנקבעו מראש, ולכן כל סטייה, במיוחד כאשר היא אינה נראית לעין ואינה מורגשת במוצר עצמו, מחייבת בדיקה מעמיקה של כלל השלבים המעורבים.</p>
-
-    <h2>סטייה טכנית, השלכה רחבה</h2>
-    <p>לפי גורמים המעורים בפרטים, אחד הכיוונים הנבדקים הוא פער של כשתי מעלות בין נתוני החיישן לבין הטמפרטורה בפועל בקו. בחברה בודקים כעת האם מדובר בתקלה שהתפתחה בהדרגה, בכשל נקודתי ברכיב המדידה, או בפער שנוצר לאחר פעולת תחזוקה או כיול שבוצעה במערכת.</p>
-    <p>מומחים בתחום מסבירים כי כאשר מערכת אוטומטית נשענת על נתון שגוי, כל שרשרת ההחלטות שמתבססת עליו עלולה להמשיך לפעול כאילו התנאים נשמרו, גם אם בפועל התהליך לא הושלם באופן מלא. במוצרים חלביים, שבהם תהליך הפסטור הוא שלב קריטי, המשמעות של מצב כזה עשויה להיות רחבה יותר ממוצר בודד או ממשלוח אחד.</p>
-    <p>בחלק מן המוצרים שנבדקים כעת לא דווח על שינוי במראה, בריח או במרקם, וגורמים מקצועיים ציינו כי זהו אחד המאפיינים המורכבים של אירועים מסוג זה: לעיתים המוצר עשוי להיראות תקין לחלוטין, בעוד שהשאלה המרכזית נמצאת דווקא בנתוני התהליך שקדמו למילוי, לקירור ולאריזה.</p>
-
-    <h2>בדיקה של קו הייצור כולו</h2>
-    <p>לפי החברה, הבדיקה אינה מתמקדת רק בחיישן עצמו, אלא בכלל המערכת שסביבו. בין היתר נבדקים נתוני הבקרה האוטומטיים, רישומי כיול ותחזוקה, זמני הפעלה ועצירה של הקו, תוצאות דיגום ממספר נקודות בתהליך, וכן הקשר בין מועדי הייצור לבין האצוות שהועברו לשיווק.</p>
-    <p>בענף המזון מציינים כי כאשר מתגלה פער במדידה של פרמטר מרכזי, יש לבחון לא רק את השאלה אם המוצר הסופי עומד בדרישות, אלא גם באיזה שלב ניתן היה לזהות את הסטייה מוקדם יותר. גורמים מקצועיים הסבירו כי במערכות ייצור רציפות, כל עיכוב בזיהוי עלול להרחיב את היקף המוצרים שדורשים בדיקה או חסימה.</p>
-    <p>עוד נבדק כעת האם הפער השפיע רק על קו ייצור אחד או אם היו לו השלכות גם על מערכות סמוכות, וכן האם בתקופה הרלוונטית נעשו שינויים בפרמטרים נוספים כגון קצב הזרימה, זמן השהייה או תנאי הקירור שלאחר הפסטור. לדברי גורמים מקצועיים, לעיתים דווקא הצירוף בין כמה נתונים קטנים מייצר תמונה מדויקת יותר של מקור הבעיה.</p>
-
-    <h2>מוצר סופי תקין לכאורה, חשש תהליכי בפועל</h2>
-    <p>במשרד הבריאות ובענף החלב ציינו כי כאשר עולה חשש לכך שתהליך הפסטור לא הושלם בתנאים הנדרשים, השאלה אינה מוגבלת לאיכות הנתפסת של המוצר אלא נוגעת גם לבטיחותו. בחברה בודקים כעת האם יש קשר בין נתוני הייצור לבין מוצרים מסוימים שכבר יצאו מן המפעל, והאם יש צורך להרחיב את צעדי החסימה או האיסוף מעבר למה שנעשה בשלב הראשון.</p>
-    <p>בכמה מנקודות המכירה התבקשו העובדים לעכב שיווק של סדרות מסוימות עד לקבלת הנחיות נוספות, ולבדוק התאמה בין מספרי האצווה שעל גבי האריזות לבין הרשימות שהועברו מן המחלבה. גורמים בענף ציינו כי כאשר מדובר במוצרי חלב מצוננים, חלון הזמן לביצוע הבדיקה ולהחלטה על המשך הטיפול הוא מוגבל יחסית.</p>
-
-    <h2>עצירת ייצור וכיול מחדש</h2>
-    <p>מהחברה נמסר כי עם זיהוי הממצא הוחלט לעצור את הייצור בקו הרלוונטי ולבצע כיול מחדש של המערכות האוטומטיות, לצד סדרת בדיקות משלימות במפעל ובמעבדה. עוד נמסר כי המחלבה פועלת בתיאום עם הגורמים המפקחים ומבצעת בדיקה מקיפה של כלל התהליכים הרלוונטיים לפני חזרה לפעילות מלאה.</p>
-    <p>בענף ציינו כי עצירת ייצור של יומיים בקו מרכזי במחלבה עלולה להשפיע גם על לוחות האספקה, על מלאי בנקודות המכירה ועל פעילותם של קווי ייצור נוספים הנשענים על אותו רצף תפעולי. עם זאת, גורמים מקצועיים הדגישו כי כאשר עולה חשש לסטייה בפרמטר קריטי, תגובה מהירה וזהירה עדיפה על המשך פעילות תחת אי-ודאות.</p>
-    <p>נכון לעכשיו, הבדיקות במפעל ובמוצרים הרלוונטיים נמשכות, ובשלב זה עדיין לא פורסמו כלל הממצאים בנוגע למשך התקלה, להיקף המלא של האצוות שנבדקות, או להשפעתה המדויקת על המוצרים שיוצרו באותה תקופה.</p>
-        </div>
-        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a><a class="action-link next" href="news10.html">לכתבה הבאה</a></div>
-      </section>
-      <footer class="site-footer">© פרימיום | תעשיידע</footer>
+  <main class="wrap">
+    <article class="story">
+      <h1>המקרר שאף אחד לא באמת מכיר</h1>
+      <div class="domain">כרטיס מצב | בית וחיי יום‑יום</div>
+      <p>בבתים רבים המקרר נראה מלא, אבל לא תמיד ברור מה באמת יש בו. פותחים את הדלת, מזיזים קופסה, מחפשים גבינה, ירק או שאריות מארוחה, ולפעמים מגלים שמשהו נגמר בדיוק כשצריך אותו. בפעם אחרת קונים מוצר שכבר היה בבית, רק כי הוא הוסתר מאחור או שאף אחד לא זכר שהוא שם.</p>
+      <p>הקושי חוזר על עצמו בעיקר כשכמה אנשים משתמשים באותו מקרר. אחד מוציא, אחד מחזיר, אחד זורק, אחד קונה, ולא תמיד כולם יודעים מה השתנה. מי שמתכנן ארוחה לא תמיד יודע מה עדיין טרי, ומי שיוצא לקניות לא תמיד יודע מה חסר באמת. כך נוצרת תחושה שהמקרר מלא, אבל המידע עליו מבולגן.</p>
+      <p>הבעיה משפיעה על בני הבית, על מי שמבשל, על מי שעורך קניות, ועל מי שמנסה למצוא משהו לאכול במהירות. הרגע שבו הבעיה מתגלה מאוחר מדי מגיע כשמוצר מתקלקל, כשחסר מרכיב לארוחה, או כשחוזרים מקניות ומגלים שקנו כפול. המחיר קטן אבל ברור: בזבוז אוכל, בזבוז כסף, חיפוש מיותר ותסכול.</p>
+      <p>הצורך האנושי כאן הוא סדר, נגישות ושליטה במה שכבר קיים. יזמות מתחילה בהתבוננות במצב יומיומי כזה, עוד לפני שחושבים על כלים או פתרונות. כדי לזהות את הבעיה והצורך, כדאי לבדוק אילו מוצרים נעלמים מהעין, מי צריך לדעת מה השתנה, מתי המידע חסר, ומה היה עוזר להפוך מקרר מלא ולא ברור למקום שקל להבין במבט אחד.</p>
+      <div class="actions">
+        <a class="btn" href="allnews.html">לכל הכתבות</a>
+        <a class="btn" href="activity.html?article=news9">לדף הפעילות</a>
+        <a class="btn" href="activity.html?article=news9&export=pdf">PDF</a>
+      </div>
     </article>
   </main>
-  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
