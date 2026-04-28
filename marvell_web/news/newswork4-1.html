@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>זיהוי בעיה מתוך כרטיס מקרה | פרימיום Marvell</title>
+  <meta name="theme-color" content="#0d2045" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <title>דף זיהוי בעיות | פרימיום Marvell</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --ink: #0d2045;
       --ink-soft: #3a5070;
       --line: #d0dce8;
       --accent: #1a3a7a;
+      --accent-2: #2563eb;
+      --cyan: #22d3ee;
       --panel: rgba(255,255,255,0.97);
       --shadow: 0 18px 34px rgba(13,32,69,0.08);
     }
+
     body {
-      margin: 0;
       font-family: "Heebo", Arial, sans-serif;
       background:
         radial-gradient(circle at top right, rgba(13,32,69,0.10), transparent 24%),
@@ -26,137 +36,384 @@
         linear-gradient(180deg, #edf1f7 0%, #e2e9f2 100%);
       color: var(--ink);
       padding: 30px 18px 44px;
+      letter-spacing: 0.1px;
+      line-height: 1.75;
     }
+
     .newsletter {
-      width: 100%; max-width: 980px; margin: 0 auto;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
       background: linear-gradient(180deg, #f4f7f9 0%, #eaf0f4 100%);
-      border-radius: 30px; padding: 22px;
-      box-shadow: 0 28px 60px rgba(13,32,69,0.14), 0 10px 22px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.72);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow:
+        0 28px 60px rgba(13,32,69,0.14),
+        0 10px 22px rgba(13,32,69,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.72);
       border: 1px solid rgba(255,255,255,0.9);
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     .newsletter::before {
-      content: ""; position: absolute; inset: 0;
+      content: "";
+      position: absolute;
+      inset: 0;
       background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 34%);
       pointer-events: none;
     }
+
+    .top-brand,
+    .hero-banner,
+    .instructions-panel,
+    .worksheet-panel,
+    .footer-strip {
+      position: relative;
+      z-index: 1;
+    }
+
     .top-brand {
       background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(247,249,251,0.84) 100%);
-      border-radius: 22px; min-height: 88px;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; padding: 16px 24px; overflow: hidden;
+      border-radius: 22px;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 16px 24px;
+      overflow: hidden;
       border: 1px solid rgba(207,220,234,0.92);
       box-shadow: 0 12px 28px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.78);
     }
+
     .home-link {
-      position: absolute; right: 18px; top: 16px;
-      width: 42px; height: 42px;
-      display: inline-flex; align-items: center; justify-content: center;
-      text-decoration: none; border-radius: 12px;
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
       background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
       border: 1px solid #cfdae4;
       box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 16px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
-      transition: transform 0.16s ease; z-index: 2;
+      transition: transform 0.16s ease;
+      z-index: 2;
     }
+
     .home-link:hover { transform: translateY(-2px); }
     .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+
     .brand-mark {
-      position: absolute; left: 26px; top: 14px;
-      width: 60px; height: 60px; object-fit: contain; display: block;
+      position: absolute;
+      left: 26px;
+      top: 14px;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
     }
+
     .brand-title {
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: #0d2045;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      color: #0d2045;
     }
+
     .hero-banner {
       margin-top: 20px;
-      background: linear-gradient(135deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.95) 100%);
-      border-radius: 22px; padding: 22px 20px;
+      background:
+        radial-gradient(circle at left top, rgba(34,211,238,0.14), transparent 30%),
+        linear-gradient(135deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.95) 100%);
+      border-radius: 22px;
+      padding: 24px 22px;
       border: 1px solid rgba(207,220,234,0.96);
       box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.78);
     }
+
     .chip {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-bottom: 12px; padding: 6px 13px; border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 6px 13px;
+      border-radius: 999px;
       background: linear-gradient(180deg, #e8eef7 0%, #d6e0ef 100%);
-      border: 1px solid #b8c9dc; color: #0d2045;
-      font-size: 0.82rem; font-weight: 800;
+      border: 1px solid #b8c9dc;
+      color: #0d2045;
+      font-size: 0.82rem;
+      font-weight: 800;
     }
+
     .hero-banner h1 {
       font-family: "Frank Ruhl Libre", serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.2;
-      color: #0d2045; margin-bottom: 12px;
+      font-size: clamp(1.65rem, 3.4vw, 2.45rem);
+      line-height: 1.18;
+      color: #0d2045;
+      margin-bottom: 10px;
     }
-    .hero-banner p { font-size: 0.98rem; line-height: 1.9; color: var(--ink-soft); max-width: 92%; }
+
+    .hero-banner p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink-soft);
+      max-width: 92%;
+    }
+
     .section-title {
-      font-size: 1.18rem; font-weight: 900; margin: 22px 0 10px;
-      color: #111; border-right: 6px solid #1a3a7a; padding-right: 10px;
+      font-size: 1.18rem;
+      font-weight: 900;
+      margin: 22px 0 10px;
+      color: #111;
+      border-right: 6px solid #1a3a7a;
+      padding-right: 10px;
     }
-    .instructions-panel, .worksheet-panel, .footer-strip {
+
+    .instructions-panel,
+    .worksheet-panel,
+    .footer-strip {
       background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%);
-      border: 1px solid #d0dce8; border-radius: 20px; padding: 20px 18px;
+      border: 1px solid #d0dce8;
+      border-radius: 20px;
+      padding: 20px 18px;
       box-shadow: 0 12px 26px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.82);
     }
-    .instructions-panel p, .worksheet-panel p {
-      font-size: 0.97rem; color: #3a5070; line-height: 1.9;
-      margin-bottom: 12px; max-width: 900px;
+
+    .instructions-panel p,
+    .worksheet-panel p {
+      font-size: 0.97rem;
+      color: #3a5070;
+      line-height: 1.9;
+      margin-bottom: 12px;
+      max-width: 900px;
     }
-    .bullet-list { display: grid; gap: 8px; margin-top: 6px; }
-    .bullet-item {
-      background: rgba(255,255,255,0.84); border: 1px solid #d0dce8;
-      border-radius: 12px; padding: 10px 13px;
-      font-size: 0.94rem; color: #3a5070; line-height: 1.75;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+
+    .top-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
     }
+
     .worksheet-grid {
-      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px; margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 8px;
     }
-    @media (max-width: 680px) { .worksheet-grid { grid-template-columns: 1fr; } }
+
     .field-box {
       background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%);
-      border: 1px solid #d0dce8; border-radius: 16px; padding: 14px;
+      border: 1px solid #d0dce8;
+      border-radius: 16px;
+      padding: 14px;
       box-shadow: 0 8px 18px rgba(13,32,69,0.05);
     }
-    .field-box.full { grid-column: 1 / -1; }
-    .field-box label {
-      display: block; font-size: 0.92rem; font-weight: 800;
-      color: #1a3a7a; margin-bottom: 7px;
+
+    .field-box.full {
+      grid-column: 1 / -1;
     }
-    .field-box textarea, .field-box input, .field-box select {
-      width: 100%; border: 1px solid #c0cdd8; border-radius: 11px;
-      background: #fff; padding: 10px 12px;
+
+    .field-box label,
+    .question-title {
+      display: block;
+      font-size: 0.94rem;
+      font-weight: 900;
+      color: #1a3a7a;
+      margin-bottom: 8px;
+      line-height: 1.55;
+    }
+
+    .question-help {
+      font-size: 0.86rem;
+      color: #5f7188;
+      line-height: 1.65;
+      margin: -2px 0 9px;
+    }
+
+    .field-box textarea,
+    .field-box input,
+    .field-box select {
+      width: 100%;
+      border: 1px solid #c0cdd8;
+      border-radius: 11px;
+      background: #fff;
+      padding: 10px 12px;
       font-family: "Heebo", Arial, sans-serif;
-      font-size: 0.95rem; color: #222; resize: vertical;
+      font-size: 0.95rem;
+      color: #222;
+      resize: vertical;
       transition: border-color 0.18s ease;
     }
-    .field-box textarea { min-height: 90px; line-height: 1.8; }
-    .field-box textarea.short { min-height: 72px; }
-    .field-box textarea:focus, .field-box input:focus, .field-box select:focus {
-      outline: none; border-color: #1a3a7a;
+
+    .field-box textarea {
+      min-height: 92px;
+      line-height: 1.8;
+    }
+
+    .field-box textarea.short {
+      min-height: 72px;
+    }
+
+    .field-box textarea.tall {
+      min-height: 128px;
+    }
+
+    .field-box textarea:focus,
+    .field-box input:focus,
+    .field-box select:focus {
+      outline: none;
+      border-color: #1a3a7a;
       box-shadow: 0 0 0 3px rgba(26,58,122,0.09);
     }
-    .field-note { margin-top: 6px; font-size: 0.82rem; color: #6e7e90; line-height: 1.6; }
-    .panel-links {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 18px; padding-top: 16px;
-      border-top: 1px solid #d0dce8; align-items: center;
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
+      margin: 8px 0 12px;
     }
-    .mini-link, .print-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 7px; min-width: 140px; padding: 10px 14px; border-radius: 11px;
-      text-decoration: none; font-size: 0.88rem; font-weight: 800;
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 10px;
+      border: 1px solid #d0dce8;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.72);
+      color: #31465f;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .check-item input {
+      width: 17px;
+      height: 17px;
+      accent-color: #1a3a7a;
+      flex: 0 0 auto;
+    }
+
+    .inline-input {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid #b8c9dc;
+      background: transparent;
+      padding: 6px 2px;
+      font-family: "Heebo", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .need-complete {
+      display: grid;
+      gap: 10px;
+      margin: 8px 0 10px;
+    }
+
+    .sentence-line {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 8px;
+      color: #31465f;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .summary-box {
+      margin-top: 18px;
+      background: linear-gradient(135deg, #edf6ff 0%, #f7fbff 100%);
+      border: 1px solid #bfd4ea;
+      border-right: 6px solid #1a3a7a;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 12px 24px rgba(13,32,69,0.06);
+    }
+
+    .summary-box h3 {
+      color: #0d2045;
+      font-size: 1.12rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .field-note {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: #6e7e90;
+      line-height: 1.6;
+    }
+
+    .panel-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #d0dce8;
+      align-items: center;
+    }
+
+    .mini-link,
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 140px;
+      padding: 10px 14px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 800;
       color: #0d2045;
       background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
       border: 1px solid #c8d5e2;
       box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 18px rgba(13,32,69,0.09), inset 0 1px 0 rgba(255,255,255,0.9);
       transition: transform 0.16s ease;
-      white-space: nowrap; font-family: "Heebo", Arial, sans-serif; cursor: pointer;
+      white-space: nowrap;
+      font-family: "Heebo", Arial, sans-serif;
+      cursor: pointer;
     }
-    .mini-link:hover, .print-btn:hover { transform: translateY(-2px); }
-    .print-btn { min-width: auto; padding: 9px 13px; }
-    .print-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
-    .footer-strip { margin-top: 22px; text-align: center; font-size: 1.02rem; font-weight: 700; color: #0d2045; }
-    .page-footer { margin-top: 14px; text-align: center; color: #5a6e87; font-size: 0.88rem; font-weight: 500; }
+
+    .mini-link:hover,
+    .print-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .print-btn {
+      min-width: auto;
+      padding: 9px 13px;
+    }
+
+    .print-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .footer-strip {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #0d2045;
+    }
+
+    .page-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #5a6e87;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
     @media (max-width: 760px) {
       body { padding: 14px 10px 30px; }
       .newsletter { padding: 12px; border-radius: 20px; }
@@ -164,110 +421,239 @@
       .brand-mark { left: 14px; top: 12px; width: 50px; height: 50px; }
       .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
       .home-link svg { width: 18px; height: 18px; }
-      .mini-link, .print-btn { min-width: 100%; }
+      .hero-banner p { max-width: 100%; }
+      .top-fields,
+      .worksheet-grid,
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+      .sentence-line {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      .mini-link,
+      .print-btn {
+        min-width: 100%;
+      }
     }
+
     @media print {
       body { background: #fff; padding: 0; }
       .newsletter { max-width: none; border: 0; border-radius: 0; box-shadow: none; background: #fff; padding: 0; }
-      .newsletter::before, .home-link, .panel-links, .page-footer { display: none !important; }
-      .top-brand, .hero-banner, .instructions-panel, .worksheet-panel, .footer-strip, .field-box { background: #fff !important; box-shadow: none !important; border-color: #ccc !important; }
-      .field-box textarea, .field-box input, .field-box select { border: 1px solid #aaa; }
+      .newsletter::before,
+      .home-link,
+      .panel-links,
+      .page-footer {
+        display: none !important;
+      }
+      .top-brand,
+      .hero-banner,
+      .instructions-panel,
+      .worksheet-panel,
+      .footer-strip,
+      .field-box,
+      .summary-box {
+        background: #fff !important;
+        box-shadow: none !important;
+        border-color: #bbb !important;
+      }
+      .field-box textarea,
+      .field-box input,
+      .field-box select {
+        border: 1px solid #999;
+      }
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
   <div class="newsletter">
     <section class="top-brand">
-      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+      <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
         </svg>
       </a>
-      <img class="brand-mark" src="../../images/logo.png" alt="לוגו פרימיום Marvell" />
+      <img class="brand-mark" src="../images/logo.png" alt="לוגו פרימיום Marvell" />
       <div class="brand-title">פרימיום Marvell</div>
     </section>
 
     <section class="hero-banner">
-      <div class="chip">דף עבודה | זיהוי בעיה מתוך כרטיס מקרה</div>
-      <h1>זיהוי בעיה מתוך כרטיס מקרה</h1>
+      <div class="chip">דף עבודה | זיהוי בעיות</div>
+      <h1>מזהים מצב, בעיה וצורך מתוך סיפור מהחיים</h1>
       <p>
-        בחרו כרטיס מקרה, קראו אותו וענו על השאלות כדי לזהות את הבעיה בצורה ברורה ומדויקת.
-        המטרה היא לא לחזור על כל הסיפור, אלא לפצח מה באמת לא עובד.
+        קראו את הכתבה בעיון ונסו להבין מה קורה מתחת לפני השטח: מי מושפע מהמצב, מה מקשה עליו,
+        מתי הקושי מתגלה ומה חסר כדי שהמצב יתנהל טוב יותר.
       </p>
-    </section>
 
-    <section>
-      <h2 class="section-title">הנחיות לעבודה</h2>
-      <div class="instructions-panel">
-        <p>בחרו כרטיס מקרה. קראו את המקרה. ענו:</p>
-        <div class="bullet-list">
-          <div class="bullet-item">מה קרה?</div>
-          <div class="bullet-item">מה הבעיה המרכזית?</div>
-          <div class="bullet-item">מי מושפע?</div>
-          <div class="bullet-item">מה הצורך שעולה?</div>
-          <div class="bullet-item">איזה מידע חסר?</div>
-          <div class="bullet-item">מה חשוב לזהות בזמן?</div>
+      <div class="top-fields">
+        <div class="field-box">
+          <label for="articleName">שם הכתבה</label>
+          <select id="articleName">
+            <option value="">בחרו כתבה מתוך הרשימה</option>
+              <option>1. כשהתיק מגלה את זה מאוחר מדי</option>
+              <option>2. ההודעה החשובה שנעלמה</option>
+              <option>3. התיק שמסתיר דברים קטנים</option>
+              <option>4. הבקבוק שנשאר מלא</option>
+              <option>5. כשצריך עזרה ולא יודעים למי לפנות</option>
+              <option>6. שלחתי לפני שחשבתי</option>
+              <option>7. האוטובוס שכמעט תמיד מפתיע</option>
+              <option>8. הרעש שמתגבר בלי ששמים לב</option>
+              <option>9. המקרר שאף אחד לא באמת מכיר</option>
+              <option>10. מי האכיל את הכלב?</option>
+              <option>11. לא שמעתי שקראו לי</option>
+              <option>12. הדבר הקטן שנעלם בדיוק כשצריך אותו</option>
+          </select>
+        </div>
+
+        <div class="field-box">
+          <label for="groupMembers">שמות חברי הקבוצה</label>
+          <input id="groupMembers" type="text" placeholder="כתבו את שמות חברי הקבוצה" />
         </div>
       </div>
     </section>
 
     <section>
-      <h2 class="section-title">דף העבודה</h2>
+      <h2 class="section-title">הנחיית עבודה קצרה</h2>
+      <div class="instructions-panel">
+        <p>
+          קראו את הכרטיס ונסו להבין מה קורה מתחת לפני השטח: מי מושפע, מתי הקושי מתגלה,
+          מה חסר במצב הקיים ומה הצורך שעולה מתוך הסיפור.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">דף פעילות קצר — מזהים בעיה וצורך מתוך כרטיס מצב</h2>
       <div class="worksheet-panel">
         <div class="worksheet-grid">
 
           <div class="field-box">
-            <label for="groupName">שם הקבוצה</label>
-            <input id="groupName" type="text" placeholder="כתבו את שם הקבוצה" />
-          </div>
-
-          <div class="field-box">
             <label for="cardName">שם הכרטיס</label>
-            <select id="cardName">
-              <option value="">בחרו כרטיס מקרה</option>
-              <option>התיק ששוכח בשבילך</option>
-              <option>יותר מדי התראות</option>
-              <option>מי צריך עזרה בכיתה?</option>
-              <option>הטלפון מתחמם ונחלש</option>
-            </select>
+            <input id="cardName" type="text" placeholder="כתבו את שם הכרטיס / הכתבה" />
           </div>
 
           <div class="field-box">
-            <label for="whatHappened">מה קרה?</label>
-            <textarea id="whatHappened" placeholder="תארו את המצב שמוצג בכרטיס"></textarea>
-          </div>
-
-          <div class="field-box">
-            <label for="mainProblem">מה הבעיה המרכזית?</label>
-            <textarea id="mainProblem" placeholder="כתבו בקצרה מה באמת לא עובד"></textarea>
-          </div>
-
-          <div class="field-box">
-            <label for="affected">מי מושפע?</label>
-            <textarea id="affected" placeholder="מיהם האנשים שנפגעים מהבעיה"></textarea>
-          </div>
-
-          <div class="field-box">
-            <label for="theNeed">מה הצורך שעולה?</label>
-            <textarea id="theNeed" placeholder="מה חסר שיכול לפתור או לשפר את המצב"></textarea>
-          </div>
-
-          <div class="field-box">
-            <label for="missingInfo">איזה מידע חסר?</label>
-            <textarea id="missingInfo" class="short" placeholder="מה לא ידוע, לא מוצג, לא מועבר בזמן"></textarea>
-          </div>
-
-          <div class="field-box">
-            <label for="detectInTime">מה חשוב לזהות בזמן?</label>
-            <textarea id="detectInTime" class="short" placeholder="מה צריך לקרות כדי שהבעיה תיזהר לפני שהיא מחמירה"></textarea>
+            <label for="groupNames">שמות חברי הקבוצה</label>
+            <input id="groupNames" type="text" placeholder="כתבו את שמות חברי הקבוצה" />
           </div>
 
           <div class="field-box full">
-            <label for="oneSentence">ניסוח הבעיה במשפט אחד</label>
-            <textarea id="oneSentence" class="short" placeholder="לא פתרון ולא רעיון למוצר, אלא ניסוח מדויק של הבעיה"></textarea>
-            <div class="field-note">ניסוח ברור וקצר יהפוך בהמשך לבסיס לאתגר.</div>
+            <div class="question-title">1. מה בדיוק קורה במצב הזה?</div>
+            <div class="question-help">כתבו במשפט אחד או שניים את המצב שמתואר בכרטיס.</div>
+            <textarea id="q1" class="short" placeholder="כתבו כאן את תיאור המצב..."></textarea>
           </div>
 
+          <div class="field-box full">
+            <div class="question-title">2. מי מושפע מהמצב?</div>
+            <div class="question-help">סמנו או כתבו מי מושפע, ואז הסבירו איך הם מושפעים.</div>
+            <div class="checkbox-grid">
+              <label class="check-item"><input type="checkbox"> תלמידים</label>
+              <label class="check-item"><input type="checkbox"> מורים</label>
+              <label class="check-item"><input type="checkbox"> הורים</label>
+              <label class="check-item"><input type="checkbox"> חברים</label>
+              <label class="check-item"><input type="checkbox"> בני משפחה</label>
+              <label class="check-item"><input type="checkbox"> משתמשים בטלפון</label>
+              <label class="check-item"><input type="checkbox"> אנשים בדרך / בתחבורה</label>
+              <label class="check-item"><input type="checkbox"> אחר: <input class="inline-input" type="text" aria-label="אחר" /></label>
+            </div>
+            <label for="q2">איך הם מושפעים?</label>
+            <textarea id="q2" class="short" placeholder="כתבו כאן איך הם מושפעים..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">3. מתי מגלים שיש בעיה?</div>
+            <div class="question-help">סמנו את האפשרויות המתאימות והסבירו לפי הכרטיס.</div>
+            <div class="checkbox-grid">
+              <label class="check-item"><input type="checkbox"> לפני שהמצב מתחיל</label>
+              <label class="check-item"><input type="checkbox"> בזמן שהוא קורה</label>
+              <label class="check-item"><input type="checkbox"> רק אחרי שכבר מאוחר מדי</label>
+              <label class="check-item"><input type="checkbox"> כשמשהו נשכח או מתפספס</label>
+              <label class="check-item"><input type="checkbox"> כשיש עומס, בלבול או לחץ</label>
+              <label class="check-item"><input type="checkbox"> אחר: <input class="inline-input" type="text" aria-label="אחר" /></label>
+            </div>
+            <label for="q3">הסבירו לפי הכרטיס:</label>
+            <textarea id="q3" class="short" placeholder="כתבו כאן את ההסבר..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">4. איפה לדעתכם הבעיה באמת מתחילה?</div>
+            <div class="question-help">נסו לחשוב אם הבעיה מתחילה לפני הרגע שבו שמים לב אליה.</div>
+            <textarea id="q4" placeholder="כתבו כאן איפה הבעיה מתחילה..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">5. מה לא עובד טוב במצב הקיים?</div>
+            <div class="question-help">נסחו את הקושי המרכזי בלי להציע עדיין דרך פעולה.</div>
+            <textarea id="q5" placeholder="כתבו כאן מה לא עובד טוב..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">6. איזה מידע חסר בזמן הנכון?</div>
+            <div class="question-help">לדוגמה: מה חשוב לדעת, לזכור, לזהות, להבין או לבדוק בזמן?</div>
+            <textarea id="q6" placeholder="כתבו כאן איזה מידע חסר בזמן הנכון..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">7. מה המחיר של הבעיה?</div>
+            <div class="question-help">סמנו מה קורה בגלל המצב, ואז כתבו דוגמה קצרה מהכרטיס.</div>
+            <div class="checkbox-grid">
+              <label class="check-item"><input type="checkbox"> בזבוז זמן</label>
+              <label class="check-item"><input type="checkbox"> בלבול</label>
+              <label class="check-item"><input type="checkbox"> לחץ</label>
+              <label class="check-item"><input type="checkbox"> חוסר סדר</label>
+              <label class="check-item"><input type="checkbox"> פספוס מידע חשוב</label>
+              <label class="check-item"><input type="checkbox"> קושי להתרכז</label>
+              <label class="check-item"><input type="checkbox"> תלות באחרים</label>
+              <label class="check-item"><input type="checkbox"> חוסר ביטחון</label>
+              <label class="check-item"><input type="checkbox"> פגיעה בפרטיות</label>
+              <label class="check-item"><input type="checkbox"> אחר: <input class="inline-input" type="text" aria-label="אחר" /></label>
+            </div>
+            <label for="q7">כתבו דוגמה קצרה מהכרטיס:</label>
+            <textarea id="q7" class="short" placeholder="כתבו כאן דוגמה קצרה..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">8. מה הצורך שעולה מתוך הסיפור?</div>
+            <div class="question-help">השלימו אחד מהמשפטים, או כתבו ניסוח משלכם.</div>
+            <div class="need-complete">
+              <div class="sentence-line">
+                <span>יש צורך ב-</span>
+                <input type="text" placeholder="השלימו כאן..." />
+              </div>
+              <div class="sentence-line">
+                <span>או: צריך דרך פשוטה יותר ל-</span>
+                <input type="text" placeholder="השלימו כאן..." />
+              </div>
+            </div>
+            <textarea id="q8" class="short" placeholder="אפשר להרחיב כאן את הצורך במילים שלכם..."></textarea>
+          </div>
+
+          <div class="field-box full">
+            <div class="question-title">9. מה היה צריך להשתפר כדי שהמצב הזה יקרה פחות?</div>
+            <textarea id="q9" placeholder="כתבו כאן מה צריך להשתפר..."></textarea>
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <h3>ניסוח מסכם</h3>
+          <div class="worksheet-grid">
+            <div class="field-box full">
+              <label for="summaryProblem">הבעיה היא ש-</label>
+              <textarea id="summaryProblem" class="short" placeholder="נסחו את הבעיה במשפט ברור..."></textarea>
+            </div>
+            <div class="field-box full">
+              <label for="summaryNeed">הצורך הוא ב-</label>
+              <textarea id="summaryNeed" class="short" placeholder="נסחו את הצורך שעולה מהבעיה..."></textarea>
+            </div>
+            <div class="field-box full">
+              <label for="summaryImprove">במשפט אחד: המצב הזה דורש שיפור ב-</label>
+              <textarea id="summaryImprove" class="short" placeholder="כתבו כאן את משפט הסיכום..."></textarea>
+              <div class="field-note">שימו לב: בשלב הזה עדיין לא מציעים פתרון. רק מנסחים את הבעיה והצורך.</div>
+            </div>
+          </div>
         </div>
 
         <div class="panel-links">
@@ -278,12 +664,13 @@
             הדפסה
           </button>
           <a class="mini-link" href="shortnews.html">לתקצירי הכרטיסים</a>
+          <a class="mini-link" href="allnews.html">לעמוד הכתבות</a>
           <a class="mini-link" href="newswork4-2.html">מבעיה לאתגר</a>
         </div>
       </div>
     </section>
 
-    <div class="footer-strip">קוראים כרטיס, מזהים בעיה, ומנסחים אותה בצורה מדויקת וברורה</div>
+    <div class="footer-strip">קוראים כרטיס, מזהים מצב, מנסחים בעיה ומגלים את הצורך האנושי שמאחוריה</div>
     <div class="page-footer">© פרימיום Marvell</div>
   </div>
 
@@ -295,6 +682,9 @@
         } else if (field.tagName === 'SELECT') {
           Array.from(field.options).forEach(o => o.removeAttribute('selected'));
           if (field.selectedIndex >= 0) field.options[field.selectedIndex].setAttribute('selected', 'selected');
+        } else if (field.type === 'checkbox') {
+          if (field.checked) field.setAttribute('checked', 'checked');
+          else field.removeAttribute('checked');
         } else {
           field.setAttribute('value', field.value);
         }
@@ -302,5 +692,6 @@
     }
     window.addEventListener('beforeprint', syncFormValuesForPrint);
   </script>
+  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
