@@ -3,33 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>כשצריך עזרה ולא יודעים למי לפנות</title>
+  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Premium" />
+  <meta name="application-name" content="Premium" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <title>טעם של טעות</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: "Assistant", "Rubik", Arial, sans-serif; margin: 0; background: #f5f3ef; color: #1f2329; line-height: 1.9; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 14px 34px; }
-    .story { background: #fff; border: 1px solid #e4e0d8; border-right: 6px solid #d3ab62; border-radius: 10px; padding: 16px; }
-    h1 { margin: 0 0 6px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
-    .domain { color: #4d5661; margin-bottom: 14px; font-weight: 600; }
-    p { margin: 0 0 10px; }
-    .actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 6px 9px; border-radius: 7px; border: 1px solid #d4d8de; color: #2b3440; background: #f7f8fa; }
+    :root {
+      --page-bg: #f4efe7;
+      --paper: #fbf8f2;
+      --paper-2: #f6f1e8;
+      --text: #1f1f1f;
+      --muted: #5e5a54;
+      --line: #d9d1c4;
+      --line-dark: #1f1f1f;
+      --accent: #b85a2b;
+      --accent-soft: #f1ddd4;
+      --footer-bg: #1a1a1a;
+      --footer-text: #c8c8c8;
+      --secondary-accent: #b85a2b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(139, 0, 0, 0.07), transparent 24%),
+        radial-gradient(circle at top left, rgba(0, 0, 0, 0.04), transparent 20%),
+        var(--page-bg);
+      color: var(--text);
+      line-height: 1.95;
+      zoom: 0.75;
+    }
+    .top-strip {background: linear-gradient(90deg, #8f0c15, #b8121d 45%, #8f0c15);color:#fff;padding:8px 14px;font-weight:700;font-size:.9rem;letter-spacing:.2px;border-bottom:3px solid #6e0910;box-shadow:0 8px 18px rgba(97,12,18,.22);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;}
+    .top-strip .dot {width:8px;height:8px;background:#ffd84d;border-radius:50%;box-shadow:0 0 0 4px rgba(255,216,77,.2);}
+    .site-shell {max-width:1160px;margin:0 auto;padding:18px 16px 36px;}
+    .site-logo-wrap {display:flex;justify-content:center;margin-bottom:14px;}
+    .site-logo {max-width:160px;width:100%;height:auto;display:block;}
+    .article-shell {background: var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(38,31,22,.14);}
+    .masthead {background: linear-gradient(180deg, #faf7f1 0%, #f3ede2 100%);border-top:3px solid var(--line-dark);border-bottom:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.05);padding:22px 20px 16px;}
+    .masthead-row {display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
+    .paper-title-wrap {text-align:center;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:14px 10px;}
+    .paper-title {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:900;color:var(--line-dark);line-height:1;letter-spacing:-.03em;}
+    .paper-subtitle {margin-top:8px;font-size:.88rem;color:var(--muted);letter-spacing:.12em;}
+    .article-wrap {padding:26px 22px 24px;}
+    .kicker-row {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+    .kicker-main {color:var(--accent);} .kicker-sep{color:var(--muted);} .kicker-sub{color:var(--line-dark);}
+    .intro-grid{display:block;}
+    .intro-top{display:block;}
+    .headline {margin:0;font-family:"Frank Ruhl Libre",serif;font-size:clamp(1.95rem,4.2vw,3.2rem);font-weight:900;line-height:1.24;text-wrap:balance;color:var(--line-dark);max-width:980px;}
+    .subheadline {margin:12px 0 18px;font-size:clamp(1rem,1.6vw,1.32rem);line-height:1.85;color:#47423d;font-weight:400;max-width:860px;}
+    .byline {display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-bottom:18px;border-bottom:2px solid var(--line-dark);font-size:.95rem;color:#2f2b28;}
+    .byline-separator {width:28px;height:1px;background:var(--accent);display:inline-block;}
+    .hero-image-wrap {margin:22px 0 24px;border:1px solid var(--line);background:#ece7de;padding:8px;}
+    .hero-image {width:100%;height:min(33vw,280px);object-fit:cover;display:block;filter:saturate(.92) contrast(1.03);}
+    .article-content {column-count:2;column-gap:40px;column-rule:1px solid #d8d1c7;font-size:1.08rem;color:#26231f;text-align:justify;}
+    .article-content > * {break-inside: avoid;-webkit-column-break-inside: avoid;page-break-inside: avoid;}
+    .article-content p {margin:0 0 16px;}
+    .article-content .lead-paragraph::first-letter {float:right;font-family:"Frank Ruhl Libre",serif;font-size:5.2rem;line-height:3.8rem;padding-left:.65rem;padding-top:.25rem;font-weight:900;color:var(--accent);}
+    .section-title {margin:24px 0 12px;font-family:"Frank Ruhl Libre",serif;font-size:1.65rem;font-weight:700;color:var(--line-dark);line-height:1.3;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+    .quote-box {margin:20px 0;padding:16px 18px;background:#f2e2d7;border-right:4px solid var(--accent);position:relative;font-family:"Frank Ruhl Libre",serif;font-size:1.22rem;line-height:1.7;color:#2d2824;box-shadow:0 10px 18px rgba(184,90,43,.14);}
+    .quote-box::before {content:'"';position:absolute;right:-2px;top:-14px;font-size:4.2rem;color:rgba(139,0,0,.18);line-height:1;font-family:"Frank Ruhl Libre",serif;}
+    .info-box {margin:20px 0;padding:16px 18px;border:1px solid #aa6b4f;background:#faf2ed;}
+    .info-box h3 {margin:0 0 10px;font-family:"Frank Ruhl Libre",serif;font-size:1.15rem;color:#9a461e;}
+    .info-box ul {margin:0;padding:0 18px 0 0;} .info-box li {margin-bottom:8px;}
+    .highlight-box {margin:22px 0;padding:18px;background:#2d2621;color:#f6ece6;font-size:1.02rem;font-weight:500;border:1px solid #b85a2b;}
+    .conclusion-box {margin-top:22px;padding-top:18px;border-top:2px solid var(--line-dark);font-weight:500;}
+    .article-actions {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);}
+    .action-link {display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:112px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.78rem;line-height:1;transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;border:1px solid transparent;position:relative;top:0;box-shadow:0 3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.08);}
+    .action-link.back {color:var(--accent);background:linear-gradient(180deg,#ffffff 0%,#f7f2ee 100%);border-color:#d4b19b;}
+    .action-link.back:hover {background:linear-gradient(180deg,#fffefe 0%,#efe7e1 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(40,40,40,.2),0 8px 14px rgba(40,40,40,.14);}
+    .action-link.questions {color:#233752;background:linear-gradient(180deg,#f6f9fe 0%,#e4edf8 100%);border-color:#bfd0e3;}
+    .action-link.next {color:#1f4b7a;background:linear-gradient(180deg,#eef5ff 0%,#d7e6fb 100%);border-color:#9cb9de;}
+    .action-link.questions:hover {background:linear-gradient(180deg,#f8fbff 0%,#dbe7f6 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,55,93,.18),0 8px 14px rgba(31,55,93,.14);}
+    .action-link.next:hover {background:linear-gradient(180deg,#f5f9ff 0%,#cfe1fa 100%);transform:translateY(-1px);box-shadow:0 4px 0 rgba(31,75,122,.18),0 8px 14px rgba(31,75,122,.14);}
+    .action-link:active {transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18),0 3px 6px rgba(0,0,0,.08);}
+    .site-footer {text-align:center;margin-top:18px;background:var(--footer-bg);color:var(--footer-text);border-radius:0 0 22px 22px;padding:18px 14px;font-size:.9rem;}
+
+    
+
+    @media (max-width: 900px) { body{zoom:1;} .site-shell{max-width:100%;padding:14px 12px 24px;} .article-content{column-count:1;column-gap:0;column-rule:none;font-size:1rem;} .byline{justify-content:center;} .intro-top{display:block !important;} .hero-image{height:210px;}  }
+    @media (max-width:640px) { body{zoom:1;} .site-shell{padding:10px 10px 22px;} .masthead{padding:18px 14px 14px;} .article-wrap{padding:18px 14px 18px;} .headline{font-size:1.72rem;line-height:1.3;} .subheadline{font-size:.98rem;line-height:1.75;} .action-link{min-width:104px;padding:6px 10px;font-size:.75rem;} }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <article class="story">
-      <h1>כשצריך עזרה ולא יודעים למי לפנות</h1>
-      <div class="domain">כרטיס מצב | בטיחות אישית</div>
-      <p>לפעמים תלמיד או תלמידה נמצאים במצב לא נעים, מבלבל או מלחיץ, ודווקא אז לא ברור למי לפנות. זה יכול לקרות בדרך הביתה, בטיול, בהפסקה, במקום עמוס, או בבית הספר כשאין מבוגר קרוב. ברגע כזה לא מתחילים מטכנולוגיה, אלא מתחושה פשוטה: משהו כאן לא עובד מספיק טוב.</p>
-      <p>הקושי חוזר על עצמו מפני שבשעת לחץ קשה להסביר מה קורה. לפעמים מתביישים, לפעמים חוששים שכל הסביבה תשמע, ולפעמים לא מצליחים למצוא את האדם הנכון בזמן. גם כשיש אפשרות ליצור קשר, לא תמיד ברור מה לומר, מי צריך לדעת, ומה נחשב דחוף באמת.</p>
-      <p>המצב משפיע על התלמידים עצמם, על חברים שנמצאים לידם, על ההורים ועל הצוות החינוכי. הבעיה מתגלה מאוחר מדי כשמבוגר מבין שהיה אירוע רק אחרי בלבול, עיכוב או ניסיון לא מוצלח לבקש עזרה. המחיר קטן אבל ברור: יותר לחץ, פחות ביטחון, ולעיתים פספוס של רגע שבו אפשר היה להרגיע או לפעול מוקדם יותר.</p>
-      <p>הצורך האנושי שעולה כאן הוא ביטחון, דיסקרטיות ובהירות. יזמות מתחילה בדיוק מהתבוננות כזו בחיים עצמם, לפני שחושבים על פתרונות. כדי לזהות את הבעיה והצורך, כדאי לבדוק באילו רגעים תלמידים נתקעים, איזה מידע חשוב הולך לאיבוד, מי האדם הנכון לקבל אותו, ומה היה עוזר להפוך רגע מבולבל לקריאה ברורה לעזרה.</p>
-      <div class="actions">
-        <a class="btn" href="allnews.html">לכל הכתבות</a>
-        <a class="btn" href="activity.html?article=news5">לדף הפעילות</a>
-        <a class="btn" href="activity.html?article=news5&export=pdf">PDF</a>
-      </div>
+  <div class="top-strip"><span class="dot"></span><span>מבזק מתעדכן | מהדורת חדשות לימודית | פרימיום</span></div>
+  <main class="site-shell">
+    <div class="site-logo-wrap"><img class="site-logo" src="../images/logo.png" alt="פרימיום תעשיידע" /></div>
+    <article class="article-shell">
+      <header class="masthead">
+        <div class="masthead-row"><span>יום רביעי, 11 במרץ 2026</span><span>גיליון 005</span></div>
+        <div class="paper-title-wrap"><h1 class="paper-title">חדשות היום</h1><div class="paper-subtitle">עיתון יומי לענייני חברה, צרכנות ובטיחות</div></div>
+      </header>
+      <section class="article-wrap">
+        <div class="kicker-row"><span class="kicker-main">כתבה 5</span><span class="kicker-sep">|</span><span class="kicker-sub">חדשות צרכנות ובטיחות</span></div>
+        <h2 class="headline">טעם של טעות</h2>
+        <p class="subheadline">שני מוצרים חדשים מסדרת יוגורט שהושקה לאחרונה נאספו מן המדפים, לאחר שבתהליכי בקרה נמצאו גביעים בודדים בעלי טעם לא אופייני.</p>
+        <div class="byline"><span><strong>מאת:</strong> דסק פרימיום</span><span class="byline-separator"></span><span>11 במרץ 2026</span><span class="byline-separator"></span><span>זמן קריאה: 4 דקות</span></div>
+        <div class="article-content">
+
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="../images/news5.png" alt="תמונת אילוסטרציה לכתבה" loading="lazy" />
+        </div>
+
+
+          <p class="lead-paragraph">חברת מזון גדולה הודיעה על איסוף יזום של שני מוצרים חדשים מסדרת יוגורט, זמן קצר בלבד לאחר שהחלה לשווק אותם לראשונה. לפי הודעת החברה, מדובר בשני טעמים חדשים של יוגורט מועשר – וניל ואננס – שהושקו באותו שבוע ונשלחו לנקודות מכירה ברחבי הארץ.</p>
+          <p>בהודעה לציבור נמסר כי במהלך תהליכי בקרה שגרתיים שנערכו לאחר תחילת השיווק נמצאו במספר גביעים בודדים סימנים לטעם לא אופייני למוצר. בעקבות הממצא החליטה החברה לעצור את שיווק שני הטעמים החדשים ולאסוף גם את המוצרים שכבר הועברו לרשתות השיווק ולחנויות.</p>
+          <p>בחברה הדגישו כי ההחזרה היזומה נוגעת רק לשני הטעמים החדשים, וכי יתר המוצרים בסדרה נבדקו ונמצאו תקינים. עוד נמסר כי החברה פועלת בתיאום עם משרד הבריאות וכי צרכנים המחזיקים במוצרים התבקשו שלא לצרוך אותם ולפנות לשירות הלקוחות לצורך קבלת מידע ושובר זיכוי.</p>
+          <h3 class="section-title">בענף המזון מציינים כי כאשר מדובר במוצר חדש, שלב ההשקה נחשב לרגיש במיוחד.</h3>
+          <p>בשלב זה נבחנים לא רק תגובת הצרכנים והביקוש למוצר, אלא גם היכולת של תהליך הייצור וההפצה לשמור על אחידות, יציבות והתאמה מלאה למפרט שנקבע מראש. חריגה שמופיעה דווקא בתחילת הדרך עשויה להצביע על פער בין התנאים המתוכננים לבין מה שהתקבל בפועל.</p>
+          <h3 class="section-title">לא תמיד מדובר בפגם שנראה לעין</h3>
+          <p>לדברי גורמים מקצועיים, טעם לא אופייני אינו מעיד בהכרח על בעיה אחת ברורה, אך הוא כן נחשב סימן שדורש בירור יסודי. במקרים מסוימים מקור החריגה עשוי להיות בשינוי קל בהרכב, ביחס בין רכיבים, במשך התהליך, בתנאי קירור, באופן הסגירה של האריזה או בדרך שבה נשמר המוצר לאחר המילוי.</p>
+          <p>במוצרים חלביים, ובעיקר במוצרים חדשים שעדיין נמצאים בשלבי כניסה לשוק, כל סטייה קטנה בתהליך עלולה להשפיע על התוצאה הסופית. לעיתים מדובר בפער דק שכמעט אינו נראה לעין, אך מורגש בטעם, בריח, במרקם או בתחושת הטריות של המוצר.</p>
+          <p>בכמה מנקודות המכירה התבקשו העובדים לעצור את השיווק, לבדוק מלאי קיים ולהפריד בין המוצרים הכלולים באיסוף לבין יתר המוצרים שבמקררים. גורמים בענף ציינו כי כאשר מדובר במוצר שזה עתה הושק, חלק מן היחידות עדיין נמצאות בהפצה, חלקן כבר על המדף, וחלקן במחסנים אחוריים או בדרכן בין מרכזים לוגיסטיים שונים. מצב כזה מחייב מעקב מדויק אחר מועדי הייצור, האצוות ויעדי המשלוח.</p>
+          <h3 class="section-title">בדיקה של כמה שלבים במקביל</h3>
+          <p>לפי גורמים המעורים בפרטים, בחברה החלו לבדוק כעת מספר כיוונים במקביל, ובהם חומרי הגלם ששימשו לייצור שני הטעמים, תנאי הייצור בקו הרלוונטי, נתוני הקירור לאחר המילוי, משך השהייה של המוצרים עד לשילוח, ותנאי האחסון וההפצה בנקודות שונות לאורך הדרך.</p>
+          <p>עוד נבדק האם החריגה הופיעה באותן אצוות בלבד, האם היא קשורה לשני הטעמים החדשים בלבד, והאם קיים מאפיין משותף למוצרים שבהם זוהה הטעם החריג. גורמים מקצועיים הסבירו כי כאשר הבעיה אינה נראית לעין אלא מתבטאת בעיקר בחוויית הצריכה, נדרש לעיתים איסוף רחב של מידע ממעבדה, מן הייצור, מן ההפצה ומן השטח כדי להבין היכן בדיוק נוצר הפער.</p>
+          <p>בענף המזון מסבירים כי איכות במוצרי מזון אינה נמדדת רק בכך שהמוצר בטוח לצריכה, אלא גם בכך שהוא עקבי, יציב ותואם את המאפיינים שהוגדרו לו. כאשר צרכן פותח גביע יוגורט, הוא מצפה לקבל מוצר בעל טעם, ריח, מרקם ומראה צפויים. כל סטייה מהמאפיינים הללו, גם אם אינה מלווה מיד בסיכון בריאותי מובהק, עשויה להעיד על כשל בתהליך שיש לבדוק לעומק.</p>
+          <h3 class="section-title">תגובת החברה והמשך הבדיקה</h3>
+          <p>מהחברה נמסר כי עם זיהוי הממצא הוחלט לפעול באופן מיידי, לעצור את שיווק המוצרים ולבצע איסוף יזום מן השוק עד להשלמת כלל הבדיקות. עוד נמסר כי החברה בוחנת את התהליך המלא – משלב חומרי הגלם, דרך הייצור והמילוי, ועד הקירור, ההפצה והאחסון.</p>
+          <p>ברשתות השיווק דווח כי המוצרים הוסרו מן המדפים ובמוקדי השירות נפתח נוהל ייעודי לפניות צרכנים. בחלק מן החנויות התבקשו העובדים לבדוק לא רק את המוצרים שעל המדף אלא גם מלאי נוסף שנמצא בחדרי קירור ובשטחי אחסון אחוריים.</p>
+          <p>נכון לעכשיו, לא נמסר מהו מקור החריגה המדויק, והבדיקה עדיין נמשכת. בחברה ציינו כי בשלב זה מדובר בצעד מניעתי וזהיר שנועד לאפשר בדיקה מלאה של הממצאים לפני חידוש השיווק של המוצרים.</p>
+        </div>
+
+        <div class="article-actions"><a class="action-link back" href="allnews.html">← חזרה לעמוד הכתבות</a><a class="action-link questions" href="newswork.html">לדף השאלות</a><a class="action-link next" href="news6.html">לכתבה הבאה</a></div>
+      </section>
+      <footer class="site-footer">© פרימיום | תעשיידע</footer>
     </article>
   </main>
+  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
