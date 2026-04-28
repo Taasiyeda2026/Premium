@@ -3,67 +3,632 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a1f3f" />
-  <link rel="manifest" href="../../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../../images/logo.png" />
-  <link rel="stylesheet" href="../../styles/pwa.css" />
-  <link rel="stylesheet" href="../marvell-theme.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <title>כרטיסי בעיה | פרימיום Marvell</title>
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Premium" />
+  <meta name="application-name" content="Premium" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
+  <link rel="apple-touch-icon" href="../images/logo.png" />
+  <link rel="stylesheet" href="../styles/pwa.css" />
+  <title>עמוד כתבות ראשי</title>
   <style>
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .card {
-      background: linear-gradient(165deg, rgba(244,251,255,.98), rgba(229,243,255,.95));
-      border: 1px solid #abd2f1;
-      border-right: 5px solid #23c6e8;
-      border-radius: 14px;
-      color:#12375f;
-      padding: 14px;
-      display:flex; flex-direction:column; gap:8px;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    .card h2 { margin: 0; font-size: 1.08rem; }
-    .card img { width: 100%; border-radius: 10px; border: 1px solid #abd2f1; object-fit: cover; }
-    .domain { color:#3a628b; font-size:.92rem; }
-    .tag { display:inline-flex; width:max-content; font-size:.78rem; background:#103d69; color:#dff5ff; padding:4px 9px; border-radius:999px; }
-    .actions { margin-top:auto; display:flex; gap:8px; flex-wrap:wrap; }
-    .small { padding: 6px 10px; font-size:.82rem; }
-    @media (max-width: 860px){ .grid { grid-template-columns:1fr; } }
+
+    :root {
+      --bg-dark: #07111f;
+      --bg-deep: #0f172a;
+      --blue-deep: #102a43;
+      --blue-main: #1e3a8a;
+      --cyan: #22d3ee;
+      --cyan-soft: #a5f3fc;
+      --teal: #14b8a6;
+      --purple: #7c3aed;
+      --indigo: #312e81;
+      --card-border: rgba(148, 163, 184, 0.22);
+      --text-main: #e5edf7;
+      --text-soft: #b6c4d8;
+      --text-dark: #0f172a;
+      --white-glass: rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(34,211,238,0.18), transparent 28%),
+        radial-gradient(circle at 12% 18%, rgba(124,58,237,0.18), transparent 26%),
+        radial-gradient(circle at 80% 75%, rgba(20,184,166,0.12), transparent 30%),
+        linear-gradient(180deg, #07111f 0%, #0f172a 58%, #111827 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .top-bar {
+      background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 45%, #312e81 100%);
+      color: #e0faff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 22px rgba(2, 8, 23, 0.35);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.24);
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(30,58,138,0.78) 48%, rgba(49,46,129,0.84) 100%);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+      box-shadow: 0 14px 34px rgba(2,8,23,0.35);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 16px 14px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-link {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(165,243,252,0.36);
+      box-shadow:
+        0 8px 18px rgba(2,8,23,0.26),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+      z-index: 3;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34,211,238,0.72);
+      background: rgba(34,211,238,0.12);
+      box-shadow:
+        0 14px 24px rgba(2,8,23,0.32),
+        0 0 24px rgba(34,211,238,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+
+    .home-link:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 6px 14px rgba(2,8,23,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #a5f3fc;
+    }
+
+    .site-logo {
+      display: block;
+      max-width: 145px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 8px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22));
+    }
+
+    .logo {
+      font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+      font-weight: 900;
+      color: #f8fbff;
+      margin-bottom: 6px;
+      text-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    }
+
+    .subtitle {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    main {
+      max-width: 1440px;
+      margin: 24px auto;
+      padding: 0 16px 30px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(30,41,59,0.84) 52%, rgba(30,58,138,0.48) 100%);
+      border-radius: 18px;
+      padding: 22px 20px;
+      box-shadow: 0 18px 42px rgba(2,8,23,0.32);
+      margin-bottom: 20px;
+      border: 1px solid rgba(34,211,238,0.24);
+      border-top: 5px solid #22d3ee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(34,211,238,0.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(124,58,237,0.16), transparent 34%);
+      pointer-events: none;
+    }
+
+    .hero h1,
+    .hero p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+      margin-bottom: 8px;
+      color: #f8fbff;
+    }
+
+    .hero p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 850px;
+    }
+
+    .section-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #f8fbff;
+      border-right: 6px solid #22d3ee;
+      padding-right: 10px;
+      text-shadow: 0 6px 16px rgba(0,0,0,0.24);
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      .articles-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(226,232,240,0.92) 100%);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 300px;
+      box-shadow: 0 16px 34px rgba(2,8,23,0.26);
+      border: 1px solid rgba(165,243,252,0.20);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-card::after {
+      content: "";
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 92px;
+      height: 92px;
+      background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 68%);
+      pointer-events: none;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px rgba(2,8,23,0.34), 0 0 26px rgba(34,211,238,0.12);
+      border-color: rgba(34,211,238,0.46);
+    }
+
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(180deg, #dbeafe 0%, #cffafe 100%);
+      color: #0f3f68;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      box-shadow: 0 6px 14px rgba(14,116,144,0.12);
+      border: 1px solid rgba(14,116,144,0.18);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 128px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 9px;
+      border: 1px solid rgba(15,23,42,0.10);
+      background: #e2e8f0;
+      box-shadow: 0 10px 22px rgba(15,23,42,0.14);
+    }
+
+    .article-card h2 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      line-height: 1.35;
+      color: var(--text-dark);
+    }
+
+    .article-meta {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 10px;
+      flex-grow: 1;
+    }
+
+    .meta-line {
+      background: rgba(15,23,42,0.045);
+      border: 1px solid rgba(15,23,42,0.08);
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin-bottom: 2px;
+    }
+
+    .article-card p {
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 8px;
+      flex-grow: 1;
+    }
+
+    .article-btn {
+      display: inline-block;
+      align-self: flex-start;
+      text-align: center;
+      text-decoration: none;
+      background: linear-gradient(180deg, #2563eb 0%, #1e3a8a 100%);
+      color: white;
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 20px rgba(37,99,235,0.24);
+      border: 1px solid rgba(165,243,252,0.28);
+    }
+
+    .article-btn:hover {
+      background: linear-gradient(180deg, #0891b2 0%, #1e3a8a 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(8,145,178,0.28);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-soft);
+      padding: 24px 16px 30px;
+      font-size: 0.88rem;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        zoom: 68%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        font-size: 0.86rem;
+        padding: 7px 11px;
+      }
+
+      .header-inner {
+        padding: 18px 14px 16px;
+      }
+
+      .home-link {
+        right: 12px;
+        top: 12px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .home-link svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .site-logo {
+        max-width: 130px;
+        margin-bottom: 8px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      .subtitle {
+        font-size: 0.86rem;
+      }
+
+      main {
+        margin: 20px auto;
+        padding: 0 12px 28px;
+      }
+
+      .hero {
+        padding: 18px 14px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: 1.35rem;
+        line-height: 1.35;
+      }
+
+      .hero p {
+        font-size: 0.96rem;
+        line-height: 1.7;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        padding-right: 10px;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .article-card {
+        padding: 14px;
+        border-radius: 14px;
+        min-height: auto;
+      }
+
+      .article-image {
+        height: 170px;
+        margin-bottom: 8px;
+      }
+
+      .article-card h2 {
+        font-size: 1.02rem;
+        margin-bottom: 6px;
+      }
+
+      .article-card p,
+      .meta-line {
+        font-size: 0.86rem;
+        margin-bottom: 8px;
+      }
+
+      .article-btn {
+        width: 100%;
+        align-self: stretch;
+        padding: 10px 12px;
+        font-size: 0.86rem;
+      }
+
+      footer {
+        padding: 24px 16px 32px;
+        font-size: 0.88rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo {
+        font-size: 1.55rem;
+      }
+
+      .hero h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero p {
+        font-size: 0.86rem;
+      }
+
+      .article-image {
+        height: 128px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="mv-container">
-    <header class="mv-header">
-      <img class="mv-logo" src="../../images/logo.png" alt="לוגו תעשיידע" />
-      <div class="mv-title-wrap">
-        <h1 class="mv-title">פרימיום Marvell</h1>
-        <p class="mv-subtitle">כרטיסי בעיה | זיהוי מצב, תחום, וכיוון פתרון</p>
-      </div>
-      <div class="mv-actions">
-        <a class="mv-btn" href="../../index_marvell.html">בית</a>
-      </div>
-    </header>
+  <div class="top-bar">מהדורה מיוחדת | פרימיום</div>
 
-    <main class="mv-main mv-panel">
-      <h2 style="margin-top:0">כרטיסי בעיה | פרימיום Marvell</h2>
-      <p style="color:#9ec0e4">כל כרטיס מציג בעיה אמיתית ומציע סוג פתרון טכנולוגי אפשרי.</p>
-      <section class="grid">
-        <article class="card"><img src="../images/1.png" alt="תמונה לכתבה 1"><h2>כשהתיק מגלה את זה מאוחר מדי</h2><div class="domain">תחום: בית ספר ושגרה יומית</div><span class="tag">מוצר פיזי</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news1">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news1&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/2.png" alt="תמונה לכתבה 2"><h2>ההודעה החשובה שנעלמה בין כל השאר</h2><div class="domain">תחום: טלפון, הודעות וריכוז</div><span class="tag">אפליקציה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news2">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news2&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/3.png" alt="תמונה לכתבה 3"><h2>התיק שמסתיר דברים קטנים</h2><div class="domain">תחום: סדר וארגון אישי</div><span class="tag">מערכת חכמה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news3">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news3&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/4.png" alt="תמונה לכתבה 4"><h2>הבקבוק שנשאר מלא</h2><div class="domain">תחום: בריאות והרגלים</div><span class="tag">מוצר פיזי</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news4">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news4&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/5.png" alt="תמונה לכתבה 5"><h2>כשצריך עזרה ולא יודעים למי לפנות</h2><div class="domain">תחום: בטיחות אישית</div><span class="tag">מערכת חכמה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news5">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news5&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/6.png" alt="תמונה לכתבה 6"><h2>שלחתי לפני שחשבתי</h2><div class="domain">תחום: פרטיות ומידע אישי</div><span class="tag">אפליקציה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news6">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news6&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/7.png" alt="תמונה לכתבה 7"><h2>האוטובוס שכמעט תמיד מפתיע</h2><div class="domain">תחום: תחבורה והתניידות</div><span class="tag">אתר</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news7">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news7&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/8.png" alt="תמונה לכתבה 8"><h2>הרעש שמתגבר בלי ששמים לב</h2><div class="domain">תחום: סביבה כיתתית וריכוז</div><span class="tag">מערכת חכמה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news8">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news8&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/9.png" alt="תמונה לכתבה 9"><h2>המקרר שאף אחד לא באמת מכיר</h2><div class="domain">תחום: בית וחיי יום‑יום</div><span class="tag">אפליקציה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news9">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news9&export=pdf">PDF</a></div></article>
-        <article class="card"><img src="../images/10.png" alt="תמונה לכתבה 10"><h2>מי האכיל את הכלב?</h2><div class="domain">תחום: חיות מחמד ואחריות</div><span class="tag">שילוב חומרה-תוכנה</span><div class="actions"><a class="mv-btn small" href="activity.html?article=news10">דף פעילות</a><a class="mv-btn alt small" href="activity.html?article=news10&export=pdf">PDF</a></div></article>
-      </section>
-    </main>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
+      <div class="logo">חדשות היום</div>
+    </div>
+  </header>
 
-    <footer class="mv-footer">© פרימיום Marvell | תעשיידע</footer>
-  </div>
-  <script src="../../pwa-register.js" defer></script>
+  <main>
+    <section class="hero">
+      <h1>ברוכים הבאים לעמוד הכתבות</h1>
+      <p>
+        לפניכם כתבות קצרות מחיי היומיום של תלמידים, משפחות וסביבה לימודית. בחרו כתבה, קראו את המקרה, וזהו מתוכה בעיה אמיתית שאפשר להפוך לאתגר יזמי.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">לבחירה</h2>
+      <div class="articles-grid">
+        <article class="article-card">
+          <span class="tag">כתבה 1</span>
+          <img class="article-image" src="../images/1.png" alt="תיק בית ספר ושכחת ציוד" />
+          <h2>כשהתיק מגלה את זה מאוחר מדי</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>בית ספר ושגרה יומית</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שכחת ציוד, התארגנות יומית ומוכנות לשיעור</div>
+          </div>
+          <a class="article-btn" href="news1.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 2</span>
+          <img class="article-image" src="../images/2.png" alt="טלפון עם עומס הודעות" />
+          <h2>ההודעה החשובה שנעלמה</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>טלפון, הודעות וריכוז</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>עומס הודעות, סינון מידע חשוב וריכוז</div>
+          </div>
+          <a class="article-btn" href="news2.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 3</span>
+          <img class="article-image" src="../images/3.png" alt="חפצים קטנים בתוך תיק" />
+          <h2>התיק שמסתיר דברים קטנים</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>סדר וארגון אישי</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>איתור חפצים קטנים, סדר בתיק ושליטה בציוד אישי</div>
+          </div>
+          <a class="article-btn" href="news3.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 4</span>
+          <img class="article-image" src="../images/4.png" alt="בקבוק מים שנשאר מלא" />
+          <h2>הבקבוק שנשאר מלא</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>בריאות והרגלים</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שתיית מים, הרגלים יומיומיים ותשומת לב לגוף</div>
+          </div>
+          <a class="article-btn" href="news4.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 5</span>
+          <img class="article-image" src="../images/5.png" alt="בקשת עזרה במצב לחץ" />
+          <h2>כשצריך עזרה ולא יודעים למי לפנות</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>בטיחות אישית</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>בקשת עזרה, ביטחון אישי ותגובה במצבי לחץ</div>
+          </div>
+          <a class="article-btn" href="news5.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 6</span>
+          <img class="article-image" src="../images/6.png" alt="שיתוף מידע לפני מחשבה" />
+          <h2>שלחתי לפני שחשבתי</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>פרטיות ומידע אישי</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>שיתוף מידע, פרטיות דיגיטלית וקבלת החלטות לפני שליחה</div>
+          </div>
+          <a class="article-btn" href="news6.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 7</span>
+          <img class="article-image" src="../images/7.png" alt="תחנת אוטובוס ותכנון נסיעה" />
+          <h2>האוטובוס שכמעט תמיד מפתיע</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>תחבורה והתניידות</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>תכנון נסיעה, אי־ודאות בתחבורה וניהול זמן</div>
+          </div>
+          <a class="article-btn" href="news7.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 8</span>
+          <img class="article-image" src="../images/8.png" alt="רעש בכיתה וריכוז" />
+          <h2>הרעש שמתגבר בלי ששמים לב</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>סביבה כיתתית וריכוז</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>רעש בכיתה, ויסות סביבתי ושמירה על ריכוז</div>
+          </div>
+          <a class="article-btn" href="news8.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 9</span>
+          <img class="article-image" src="../images/9.png" alt="מקרר ביתי וניהול מזון" />
+          <h2>המקרר שאף אחד לא באמת מכיר</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>בית וחיי יום־יום</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>ניהול מזון בבית, סדר, בזבוז ותיאום בין בני הבית</div>
+          </div>
+          <a class="article-btn" href="news9.html">לקריאת הכתבה</a>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">כתבה 10</span>
+          <img class="article-image" src="../images/10.png" alt="האכלת כלב ואחריות משותפת" />
+          <h2>מי האכיל את הכלב?</h2>
+          <div class="article-meta">
+            <div class="meta-line"><span class="meta-label">תחום</span>חיות מחמד ואחריות</div>
+            <div class="meta-line"><span class="meta-label">נושא מרכזי</span>אחריות משותפת, תיאום משימות וטיפול בחיית מחמד</div>
+          </div>
+          <a class="article-btn" href="news10.html">לקריאת הכתבה</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; פרימיום | תעשיידע
+  </footer>
+  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
