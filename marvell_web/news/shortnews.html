@@ -136,92 +136,19 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       margin-top: 4px;
-      counter-reset: articleCounter;
     }
 
     .summary-card {
-      counter-increment: articleCounter;
       background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,251,253,0.94) 100%);
       border: 1px solid rgba(207,220,234,0.98);
       border-radius: 18px;
       padding: 18px 16px;
       box-shadow: 0 14px 28px rgba(13,32,69,0.07), inset 0 1px 0 rgba(255,255,255,0.85);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-    }
-
-    .summary-card.choice-card {
-      counter-increment: none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(238,244,249,0.76) 100%);
-      border: 2px dashed rgba(26,58,122,0.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 10px 22px rgba(13,32,69,0.04);
-    }
-
-    .summary-card.choice-card .card-num {
-      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
-      color: #1a3a7a;
-      border: 1px solid #c8d8e8;
-    }
-
-    .choice-field {
-      width: 100%;
-      border: 1px solid rgba(26,58,122,0.22);
-      background: rgba(255,255,255,0.82);
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      color: #14315f;
-      outline: none;
-      resize: vertical;
-      min-height: 38px;
-      box-shadow: inset 0 1px 2px rgba(13,32,69,0.05);
-    }
-
-    .choice-field:focus {
-      border-color: #1e4494;
-      box-shadow: 0 0 0 3px rgba(30,68,148,0.12), inset 0 1px 2px rgba(13,32,69,0.05);
-      background: #ffffff;
-    }
-
-    textarea.choice-field {
-      min-height: 72px;
-      line-height: 1.55;
-    }
-
-    .choice-actions {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: auto;
-      padding-top: 8px;
-    }
-
-    .choice-clear {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      cursor: pointer;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-family: inherit;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: #1a3a7a;
-      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
-      border: 1px solid #c8d8e8;
-      box-shadow: 0 6px 14px rgba(13,32,69,0.10);
-    }
-
-    .choice-note {
-      margin-top: 6px;
-      font-size: 0.78rem;
-      color: #5a6e87;
-      text-align: center;
     }
 
     .summary-card::before {
@@ -242,6 +169,12 @@
     .summary-card.is-selected {
       border-color: rgba(30,68,148,0.72);
       box-shadow: 0 20px 36px rgba(13,32,69,0.14), 0 0 0 3px rgba(30,68,148,0.10), inset 0 1px 0 rgba(255,255,255,0.88);
+    }
+
+    .summary-card.choice-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(238,244,249,0.76) 100%);
+      border: 2px dashed rgba(26,58,122,0.28);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 10px 22px rgba(13,32,69,0.04);
     }
 
     .selection-row {
@@ -283,18 +216,15 @@
       border-radius: 50%;
       background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
       color: white;
-      font-size: 0;
+      font-size: 0.82rem;
       font-weight: 800;
       margin-bottom: 10px;
     }
 
-    .summary-card:not(.choice-card) .card-num::after {
-      content: counter(articleCounter);
-      font-size: 0.82rem;
-    }
-
-    .summary-card.choice-card .card-num {
-      font-size: 0.82rem;
+    .choice-card .card-num {
+      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
+      color: #1a3a7a;
+      border: 1px solid #c8d8e8;
     }
 
     .card-name {
@@ -307,7 +237,9 @@
 
     .card-row { margin-bottom: 8px; }
 
-    .card-row .label {
+    .card-row .label,
+    .card-row label.label {
+      display: block;
       font-size: 0.82rem;
       font-weight: 800;
       color: #1a3a7a;
@@ -320,24 +252,83 @@
       line-height: 1.75;
     }
 
-    .card-link {
+    .card-link,
+    .choice-clear,
+    .activity-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: inherit;
+      font-weight: 800;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card-link {
       align-self: center;
       margin-top: auto;
       padding: 7px 14px;
-      border-radius: 999px;
-      text-decoration: none;
       font-size: 0.8rem;
-      font-weight: 800;
       background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
       color: white;
       box-shadow: 0 6px 14px rgba(13,32,69,0.22);
-      transition: transform 0.15s ease;
     }
 
-    .card-link:hover { transform: translateY(-1px); }
+    .card-link:hover,
+    .choice-clear:hover,
+    .activity-btn:hover { transform: translateY(-1px); }
+
+    .choice-field {
+      width: 100%;
+      border: 1px solid rgba(26,58,122,0.22);
+      background: rgba(255,255,255,0.82);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #14315f;
+      outline: none;
+      resize: vertical;
+      min-height: 38px;
+      box-shadow: inset 0 1px 2px rgba(13,32,69,0.05);
+    }
+
+    .choice-field:focus {
+      border-color: #1e4494;
+      box-shadow: 0 0 0 3px rgba(30,68,148,0.12), inset 0 1px 2px rgba(13,32,69,0.05);
+      background: #ffffff;
+    }
+
+    textarea.choice-field {
+      min-height: 72px;
+      line-height: 1.55;
+    }
+
+    .choice-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .choice-clear {
+      border: 1px solid #c8d8e8;
+      cursor: pointer;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      color: #1a3a7a;
+      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
+      box-shadow: 0 6px 14px rgba(13,32,69,0.10);
+    }
+
+    .choice-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #5a6e87;
+      text-align: center;
+    }
 
     .footer-strip {
       margin-top: 22px;
@@ -370,37 +361,6 @@
       font-weight: 600;
     }
 
-    .activity-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 190px;
-      padding: 13px 26px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 900;
-      color: #ffffff;
-      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
-      box-shadow: 0 12px 24px rgba(13,32,69,0.22), inset 0 1px 0 rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.18);
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
-    }
-
-    .activity-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 30px rgba(13,32,69,0.28), inset 0 1px 0 rgba(255,255,255,0.22);
-    }
-
-    .activity-btn.is-disabled {
-      pointer-events: none;
-      opacity: 0.45;
-      filter: grayscale(0.35);
-      background: linear-gradient(180deg, #9aa8bd 0%, #65758d 100%);
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-
     .selection-warning {
       display: none;
       max-width: 720px;
@@ -413,6 +373,48 @@
 
     .selection-warning.is-visible {
       display: block;
+    }
+
+    .clear-selection-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #c8d8e8;
+      cursor: pointer;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1a3a7a;
+      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
+      box-shadow: 0 6px 14px rgba(13,32,69,0.08);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .clear-selection-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(13,32,69,0.10);
+    }
+
+    .activity-btn {
+      min-width: 190px;
+      padding: 13px 26px;
+      font-size: 1rem;
+      font-weight: 900;
+      color: #ffffff;
+      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
+      box-shadow: 0 12px 24px rgba(13,32,69,0.22), inset 0 1px 0 rgba(255,255,255,0.20);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .activity-btn.is-disabled {
+      pointer-events: none;
+      opacity: 0.45;
+      filter: grayscale(0.35);
+      background: linear-gradient(180deg, #9aa8bd 0%, #65758d 100%);
+      box-shadow: none;
+      cursor: not-allowed;
     }
 
     .page-footer {
@@ -460,14 +462,14 @@
 
     <h2 class="section-title">הכרטיסים</h2>
     <div class="cards-grid">
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="כשהתיק מגלה את זה מאוחר מדי" data-problem="הציוד הדרוש לשיעור מתגלה כחסר רק בזמן אמת, כשכבר קשה לתקן." data-audience="תלמידים, מורים, חברי קבוצה והורים." data-direction="בדיקת מוכנות יומית, תזכורת ציוד לפי מערכת שעות, או כלי שמרכז בקשות להבאה מראש." data-article="1">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-1">
+            <input class="problem-radio" id="problem-1" type="radio" name="selectedProblem" value="1" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">1</div>
         <div class="card-name">כשהתיק מגלה את זה מאוחר מדי</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">הציוד הדרוש לשיעור מתגלה כחסר רק בזמן אמת, כשכבר קשה לתקן.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, מורים, חברי קבוצה והורים.</div></div>
@@ -475,14 +477,14 @@
         <a class="card-link" href="news1.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="ההודעה החשובה שנעלמה" data-problem="הודעות חשובות נבלעות בתוך עומס של התראות, שיחות ועדכונים." data-audience="תלמידים, קבוצות לימוד, מורים ובני משפחה." data-direction="סינון הודעות לפי דחיפות, סימון הודעות פעולה, או תזכורת למידע שלא טופל." data-article="2">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-2">
+            <input class="problem-radio" id="problem-2" type="radio" name="selectedProblem" value="2" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">2</div>
         <div class="card-name">ההודעה החשובה שנעלמה</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">הודעות חשובות נבלעות בתוך עומס של התראות, שיחות ועדכונים.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, קבוצות לימוד, מורים ובני משפחה.</div></div>
@@ -490,14 +492,14 @@
         <a class="card-link" href="news2.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="התיק שמסתיר דברים קטנים" data-problem="חפצים קטנים נמצאים בתיק, אבל לא נגישים בזמן שצריך אותם." data-audience="תלמידים, חברים שממתינים, מורים והורים." data-direction="ארגון חכם בתיק, סימון חפצים חשובים, או תזכורת מיקום לחפצים קטנים." data-article="3">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-3">
+            <input class="problem-radio" id="problem-3" type="radio" name="selectedProblem" value="3" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">3</div>
         <div class="card-name">התיק שמסתיר דברים קטנים</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חפצים קטנים נמצאים בתיק, אבל לא נגישים בזמן שצריך אותם.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים שממתינים, מורים והורים.</div></div>
@@ -505,14 +507,14 @@
         <a class="card-link" href="news3.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="הבקבוק שנשאר מלא" data-problem="המים נמצאים ליד התלמיד, אבל ההרגל לשתות נדחק בתוך יום עמוס." data-audience="תלמידים, הורים ומורים שרואים ירידה בריכוז או באנרגיה." data-direction="תזכורת שתייה עדינה, בקבוק עם חיווי, או מעקב פשוט אחרי שתייה במהלך היום." data-article="4">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-4">
+            <input class="problem-radio" id="problem-4" type="radio" name="selectedProblem" value="4" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">4</div>
         <div class="card-name">הבקבוק שנשאר מלא</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">המים נמצאים ליד התלמיד, אבל ההרגל לשתות נדחק בתוך יום עמוס.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים ומורים שרואים ירידה בריכוז או באנרגיה.</div></div>
@@ -520,14 +522,14 @@
         <a class="card-link" href="news4.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="כשצריך עזרה ולא יודעים למי לפנות" data-problem="ברגע לחץ קשה לדעת למי לפנות ואיך לבקש עזרה בצורה שקטה וברורה." data-audience="תלמידים, חברים, הורים וצוות חינוכי." data-direction="סימון מצוקה דיסקרטי, בחירת איש קשר מתאים, או כלי עזרה מהירה במצבי לחץ." data-article="5">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-5">
+            <input class="problem-radio" id="problem-5" type="radio" name="selectedProblem" value="5" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">5</div>
         <div class="card-name">כשצריך עזרה ולא יודעים למי לפנות</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">ברגע לחץ קשה לדעת למי לפנות ואיך לבקש עזרה בצורה שקטה וברורה.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים, הורים וצוות חינוכי.</div></div>
@@ -535,14 +537,14 @@
         <a class="card-link" href="news5.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="שלחתי לפני שחשבתי" data-problem="מידע אישי נשלח מהר מדי, לפני שבודקים מה בדיוק נחשף ולמי." data-audience="תלמידים, חברים בקבוצות, הורים וצוות חינוכי." data-direction="עצירת בדיקה לפני שליחה, חיווי פרטיות, או שאלת אישור לפני שיתוף רגיש." data-article="6">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-6">
+            <input class="problem-radio" id="problem-6" type="radio" name="selectedProblem" value="6" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">6</div>
         <div class="card-name">שלחתי לפני שחשבתי</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">מידע אישי נשלח מהר מדי, לפני שבודקים מה בדיוק נחשף ולמי.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים בקבוצות, הורים וצוות חינוכי.</div></div>
@@ -550,14 +552,14 @@
         <a class="card-link" href="news6.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="האוטובוס שכמעט תמיד מפתיע" data-problem="חוסר ודאות בתחבורה יוצר לחץ, המתנה, איחור ושינוי תכניות." data-audience="תלמידים, הורים, מורים, חברים ומדריכים." data-direction="חיווי זמן יציאה, התראה על שינוי, או תכנון נסיעה ברור לפי מצב אמת." data-article="7">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-7">
+            <input class="problem-radio" id="problem-7" type="radio" name="selectedProblem" value="7" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">7</div>
         <div class="card-name">האוטובוס שכמעט תמיד מפתיע</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חוסר ודאות בתחבורה יוצר לחץ, המתנה, איחור ושינוי תכניות.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים, מורים, חברים ומדריכים.</div></div>
@@ -565,14 +567,14 @@
         <a class="card-link" href="news7.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="הרעש שמתגבר בלי ששמים לב" data-problem="רעש קטן מצטבר בהדרגה עד שהוא פוגע בריכוז ובאווירת הלמידה." data-audience="תלמידים, מורים, קבוצות עבודה ותלמידים הרגישים לרעש." data-direction="מד רעש כיתתי, סימן ויסות משותף, או התראה רכה לפני שהרעש משתלט." data-article="8">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-8">
+            <input class="problem-radio" id="problem-8" type="radio" name="selectedProblem" value="8" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">8</div>
         <div class="card-name">הרעש שמתגבר בלי ששמים לב</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">רעש קטן מצטבר בהדרגה עד שהוא פוגע בריכוז ובאווירת הלמידה.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, מורים, קבוצות עבודה ותלמידים הרגישים לרעש.</div></div>
@@ -580,14 +582,14 @@
         <a class="card-link" href="news8.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="המקרר שאף אחד לא באמת מכיר" data-problem="המקרר נראה מלא, אבל בני הבית לא יודעים מה באמת יש, מה חסר ומה עומד להתקלקל." data-audience="בני בית, מי שמבשל, מי שיוצא לקניות ומי שמנסה לחסוך בזבוז." data-direction="רשימת מלאי ביתית, סימון תוקף, או כלי תיאום קניות ושימוש בשאריות." data-article="9">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-9">
+            <input class="problem-radio" id="problem-9" type="radio" name="selectedProblem" value="9" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">9</div>
         <div class="card-name">המקרר שאף אחד לא באמת מכיר</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">המקרר נראה מלא, אבל בני הבית לא יודעים מה באמת יש, מה חסר ומה עומד להתקלקל.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">בני בית, מי שמבשל, מי שיוצא לקניות ומי שמנסה לחסוך בזבוז.</div></div>
@@ -595,14 +597,14 @@
         <a class="card-link" href="news9.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="מי האכיל את הכלב?" data-problem="אחריות לטיפול בחיית מחמד מפוזרת בין כמה אנשים, בלי ודאות מה כבר נעשה." data-audience="בני בית, ילדים, הורים וחיות המחמד שתלויות בטיפול קבוע." data-direction="לוח אחריות משפחתי, סימון משימות שבוצעו, או תזכורת טיפול לפי תורנות." data-article="10">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-10">
+            <input class="problem-radio" id="problem-10" type="radio" name="selectedProblem" value="10" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">10</div>
         <div class="card-name">מי האכיל את הכלב?</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">אחריות לטיפול בחיית מחמד מפוזרת בין כמה אנשים, בלי ודאות מה כבר נעשה.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">בני בית, ילדים, הורים וחיות המחמד שתלויות בטיפול קבוע.</div></div>
@@ -610,14 +612,14 @@
         <a class="card-link" href="news10.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="לא שמעתי שקראו לי" data-problem="האוזניות עוזרות להתרכז או להתנתק, אבל מחלישות קולות חשובים מהסביבה." data-audience="תלמידים עם אוזניות, חברים, מורים, הורים ואנשים בסביבה." data-direction="מצב קשב סביבתי, זיהוי קריאה חשובה, או חיווי בטיחות בזמן שימוש באוזניות." data-article="11">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-11">
+            <input class="problem-radio" id="problem-11" type="radio" name="selectedProblem" value="11" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">11</div>
         <div class="card-name">לא שמעתי שקראו לי</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">האוזניות עוזרות להתרכז או להתנתק, אבל מחלישות קולות חשובים מהסביבה.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים עם אוזניות, חברים, מורים, הורים ואנשים בסביבה.</div></div>
@@ -625,14 +627,14 @@
         <a class="card-link" href="news11.html">לכתבה</a>
       </div>
 
-      <div class="summary-card" data-problem-card>
+      <div class="summary-card" data-problem-card data-title="הדבר הקטן שנעלם בדיוק כשצריך אותו" data-problem="חפצים קטנים וחשובים זזים ממקום למקום, ונעלמים דווקא ברגע שצריך אותם." data-audience="תלמידים, הורים, חברים שמחכים ומורים שמנסים להתחיל פעילות." data-direction="מעקב אחר חפצים, רשימת יציאה, או תזכורת לפני מעבר בין בית, כיתה ותחבורה." data-article="12">
         <div class="selection-row">
-          <label class="selection-label" >
-            <input class="problem-radio" type="radio" name="selectedProblem" value="article" />
+          <label class="selection-label" for="problem-12">
+            <input class="problem-radio" id="problem-12" type="radio" name="selectedProblem" value="12" />
             <span>בחירה</span>
           </label>
         </div>
-        <div class="card-num"></div>
+        <div class="card-num">12</div>
         <div class="card-name">הדבר הקטן שנעלם בדיוק כשצריך אותו</div>
         <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חפצים קטנים וחשובים זזים ממקום למקום, ונעלמים דווקא ברגע שצריך אותם.</div></div>
         <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים, חברים שמחכים ומורים שמנסים להתחיל פעילות.</div></div>
@@ -640,7 +642,7 @@
         <a class="card-link" href="news12.html">לכתבה</a>
       </div>
 
-      <div class="summary-card choice-card" data-problem-card>
+      <div class="summary-card choice-card" data-problem-card data-custom-card>
         <div class="selection-row">
           <label class="selection-label" for="problem-custom">
             <input class="problem-radio" id="problem-custom" type="radio" name="selectedProblem" value="custom" />
@@ -677,16 +679,70 @@
     <div class="activity-action">
       <div class="activity-note">אחרי שבחרתם בעיה והבנתם מה הקושי המרכזי, מי מושפע ממנו ומה הצורך שעולה ממנו — סמנו את הבעיה שבחרתם והמשיכו לדף הפעילות.</div>
       <div class="selection-warning" id="selection-warning">כדי להמשיך, צריך לסמן בעיה אחת מתוך הכרטיסים או את הכרטיס הפתוח.</div>
-      <a class="activity-btn is-disabled" id="activity-next-btn" href="newswork.html" aria-disabled="true">מבעיה לאתגר</a>
+      <button class="clear-selection-btn" id="clear-selection-btn" type="button">ניקוי סימון</button>
+      <a class="activity-btn is-disabled" id="activity-next-btn" href="newswork4-2.html" aria-disabled="true">מבעיה לאתגר</a>
     </div>
 
     <div class="page-footer">© פרימיום Marvell</div>
   </div>
+
   <script>
     const activityNextBtn = document.getElementById('activity-next-btn');
     const selectionWarning = document.getElementById('selection-warning');
-    const problemCards = document.querySelectorAll('[data-problem-card]');
-    const problemRadios = document.querySelectorAll('.problem-radio');
+    const problemCards = Array.from(document.querySelectorAll('[data-problem-card]'));
+    const problemRadios = Array.from(document.querySelectorAll('.problem-radio'));
+    const TARGET_PAGE = 'newswork4-2.html';
+
+    function buildSelectedProblemPayload() {
+      const selectedRadio = document.querySelector('.problem-radio:checked');
+      const selectedCard = selectedRadio?.closest('[data-problem-card]');
+      if (!selectedCard) return null;
+
+      if (selectedCard.hasAttribute('data-custom-card')) {
+        return {
+          type: 'custom',
+          articleNumber: '',
+          title: document.getElementById('choice-title')?.value.trim() || 'בעיה לבחירה שלכם',
+          problem: document.getElementById('choice-problem')?.value.trim() || '',
+          audience: document.getElementById('choice-audience')?.value.trim() || '',
+          direction: document.getElementById('choice-direction')?.value.trim() || '',
+          articleUrl: ''
+        };
+      }
+
+      return {
+        type: 'article',
+        articleNumber: selectedCard.dataset.article || '',
+        title: selectedCard.dataset.title || '',
+        problem: selectedCard.dataset.problem || '',
+        audience: selectedCard.dataset.audience || '',
+        direction: selectedCard.dataset.direction || '',
+        articleUrl: selectedCard.dataset.article ? `news${selectedCard.dataset.article}.html` : ''
+      };
+    }
+
+    function saveSelectedProblem() {
+      const payload = buildSelectedProblemPayload();
+      if (!payload) return null;
+
+      localStorage.setItem('marvell-selected-problem', JSON.stringify(payload));
+      return payload;
+    }
+
+    function updateNextButtonHref() {
+      const payload = buildSelectedProblemPayload();
+      if (!activityNextBtn) return;
+
+      if (!payload) {
+        activityNextBtn.href = TARGET_PAGE;
+        return;
+      }
+
+      const params = new URLSearchParams();
+      params.set('source', payload.type);
+      if (payload.articleNumber) params.set('article', payload.articleNumber);
+      activityNextBtn.href = `${TARGET_PAGE}?${params.toString()}`;
+    }
 
     function updateProblemSelection() {
       const selectedRadio = document.querySelector('.problem-radio:checked');
@@ -700,28 +756,13 @@
       activityNextBtn?.classList.toggle('is-disabled', !hasSelection);
       activityNextBtn?.setAttribute('aria-disabled', hasSelection ? 'false' : 'true');
       selectionWarning?.classList.remove('is-visible');
-    }
 
-    function clearProblemSelection() {
-      problemRadios.forEach((radio) => {
-        radio.checked = false;
-      });
-
-      localStorage.removeItem('marvell-shortnews-selected-problem');
-      updateProblemSelection();
+      if (selectedRadio) saveSelectedProblem();
+      updateNextButtonHref();
     }
 
     problemRadios.forEach((radio) => {
       radio.addEventListener('change', updateProblemSelection);
-    });
-
-    window.addEventListener('pageshow', clearProblemSelection);
-
-    activityNextBtn?.addEventListener('click', (event) => {
-      if (!document.querySelector('.problem-radio:checked')) {
-        event.preventDefault();
-        selectionWarning?.classList.add('is-visible');
-      }
     });
 
     document.querySelectorAll('[data-save]').forEach((field) => {
@@ -731,7 +772,34 @@
 
       field.addEventListener('input', () => {
         localStorage.setItem(key, field.value);
+        if (field.closest('.choice-card')?.classList.contains('is-selected')) {
+          saveSelectedProblem();
+          updateNextButtonHref();
+        }
       });
+    });
+
+    updateProblemSelection();
+
+    document.getElementById('clear-selection-btn')?.addEventListener('click', () => {
+      problemRadios.forEach((radio) => {
+        radio.checked = false;
+      });
+
+      localStorage.removeItem('marvell-selected-problem');
+      localStorage.removeItem('marvell-shortnews-selected-problem');
+      updateProblemSelection();
+    });
+
+    activityNextBtn?.addEventListener('click', (event) => {
+      if (!document.querySelector('.problem-radio:checked')) {
+        event.preventDefault();
+        selectionWarning?.classList.add('is-visible');
+        return;
+      }
+
+      saveSelectedProblem();
+      updateNextButtonHref();
     });
 
     document.getElementById('clear-choice-card')?.addEventListener('click', () => {
@@ -741,7 +809,11 @@
         localStorage.removeItem(key);
       });
 
-      clearProblemSelection();
+      const customRadio = document.getElementById('problem-custom');
+      if (customRadio) customRadio.checked = false;
+      localStorage.removeItem('marvell-shortnews-selected-problem');
+      localStorage.removeItem('marvell-selected-problem');
+      updateProblemSelection();
     });
   </script>
   <script src="../pwa-register.js" defer></script>
