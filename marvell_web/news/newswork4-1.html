@@ -644,7 +644,7 @@
         </div>
 
         <div class="panel-links">
-          <button class="print-btn" type="button" onclick="window.print()" aria-label="PDF">
+          <button class="print-btn" type="button" onclick="printWorksheet()" aria-label="PDF">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M7 3h10v4H7V3Zm10 6c1.7 0 3 1.3 3 3v4h-3v5H7v-5H4v-4c0-1.7 1.3-3 3-3h10Zm-2 10v-5H9v5h6Zm2-7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
             </svg>
@@ -660,71 +660,98 @@
   </div>
 
   <script>
-    function setupOtherOptionInputs() {
-      document.querySelectorAll('.check-item').forEach(item => {
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        const otherInput = item.querySelector('.inline-input');
-        if (!checkbox || !otherInput) return;
+function setupOtherOptionInputs() {
+  document.querySelectorAll('.check-item').forEach(item => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+    const otherInput = item.querySelector('.inline-input');
 
-        const updateState = () => {
-          otherInput.disabled = !checkbox.checked;
-        };
+    if (!checkbox || !otherInput) return;
 
-        checkbox.addEventListener('change', updateState);
-        updateState();
-      });
+    const updateState = () => {
+      otherInput.disabled = !checkbox.checked;
+    };
+
+    checkbox.addEventListener('change', updateState);
+    updateState();
+  });
+}
+
+function cleanPrintClasses() {
+  document.querySelectorAll('.print-hidden, .print-empty').forEach(el => {
+    el.classList.remove('print-hidden', 'print-empty');
+  });
+}
+
+function syncFormValuesForPrint() {
+  cleanPrintClasses();
+
+  document.querySelectorAll('input, textarea, select').forEach(field => {
+    if (field.tagName === 'TEXTAREA') {
+      field.textContent = field.value;
+    } else if (field.tagName === 'SELECT') {
+      Array.from(field.options).forEach(option => option.removeAttribute('selected'));
+      if (field.selectedIndex >= 0) {
+        field.options[field.selectedIndex].setAttribute('selected', 'selected');
+      }
+    } else if (field.type === 'checkbox') {
+      if (field.checked) {
+        field.setAttribute('checked', 'checked');
+      } else {
+        field.removeAttribute('checked');
+      }
+    } else {
+      field.setAttribute('value', field.value);
     }
+  });
 
-    function cleanPrintClasses() {
-      document.querySelectorAll('.print-hidden, .print-empty').forEach(el => {
-        el.classList.remove('print-hidden', 'print-empty');
-      });
+  document.querySelectorAll('.check-item').forEach(item => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+
+    if (checkbox && !checkbox.checked) {
+      item.classList.add('print-hidden');
     }
+  });
 
-    function syncFormValuesForPrint() {
-      cleanPrintClasses();
+  document.querySelectorAll('.field-box, .sentence-line').forEach(wrapper => {
+    const hasCheckedCheckbox = !!wrapper.querySelector('input[type="checkbox"]:checked');
 
-      document.querySelectorAll('input, textarea, select').forEach(field => {
-        if (field.tagName === 'TEXTAREA') {
-          field.textContent = field.value;
-        } else if (field.tagName === 'SELECT') {
-          Array.from(field.options).forEach(o => o.removeAttribute('selected'));
-          if (field.selectedIndex >= 0) field.options[field.selectedIndex].setAttribute('selected', 'selected');
-        } else if (field.type === 'checkbox') {
-          if (field.checked) field.setAttribute('checked', 'checked');
-          else field.removeAttribute('checked');
-        } else {
-          field.setAttribute('value', field.value);
-        }
-      });
+    const hasFilledField = Array.from(
+      wrapper.querySelectorAll('textarea, input[type="text"], select')
+    ).some(field => {
+      if (field.classList.contains('inline-input')) {
+        const parentCheckItem = field.closest('.check-item');
+        const parentCheckbox = parentCheckItem
+          ? parentCheckItem.querySelector('input[type="checkbox"]')
+          : null;
 
-      document.querySelectorAll('.check-item').forEach(item => {
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        if (checkbox && !checkbox.checked) {
-          item.classList.add('print-hidden');
-          return;
-        }
+        return !!(parentCheckbox && parentCheckbox.checked && field.value.trim());
+      }
 
-        const otherInput = item.querySelector('.inline-input');
-        if (checkbox && otherInput && !(otherInput.value || '').trim()) {
-          item.classList.add('print-hidden');
-        }
-      });
+      if (field.tagName === 'SELECT') {
+        return !!field.value.trim();
+      }
 
-      document.querySelectorAll('textarea, input[type="text"], select').forEach(field => {
-        const value = (field.value || '').trim();
-        const isEmptySelect = field.tagName === 'SELECT' && !field.value;
-        if (!value || isEmptySelect) {
-          const wrapper = field.closest('.field-box, .sentence-line');
-          if (wrapper) wrapper.classList.add('print-empty');
-        }
-      });
+      return !!field.value.trim();
+    });
+
+    const hasCheckboxGrid = !!wrapper.querySelector('.checkbox-grid');
+
+    if (!hasCheckedCheckbox && !hasFilledField && !hasCheckboxGrid) {
+      wrapper.classList.add('print-empty');
     }
+  });
+}
 
-    window.addEventListener('beforeprint', syncFormValuesForPrint);
-    window.addEventListener('afterprint', cleanPrintClasses);
-    setupOtherOptionInputs();
-  </script>
+function printWorksheet() {
+  syncFormValuesForPrint();
+  window.print();
+}
+
+window.addEventListener('beforeprint', syncFormValuesForPrint);
+window.addEventListener('afterprint', cleanPrintClasses);
+
+setupOtherOptionInputs();
+</script>
   <script src="../pwa-register.js" defer></script>
 </body>
 </html>
