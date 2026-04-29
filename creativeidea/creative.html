@@ -596,7 +596,7 @@
       const summaryHelp = document.getElementById('summaryHelp').value.trim();
       const summaryEnable = document.getElementById('summaryEnable').value.trim();
       const summaryText = (summaryChoice || summaryHelp || summaryEnable)
-        ? `בחרנו בכיוון ${escapeHtml(summaryChoice || '__________')} כי הוא עוזר ${escapeHtml(summaryHelp || '__________')} ומאפשר לשפר ${escapeHtml(summaryEnable || '__________')}.`
+        ? `בחרנו בכיוון ${escapeHtml(summaryChoice || '')} כי הוא עוזר ${escapeHtml(summaryHelp || '')} ומאפשר לשפר ${escapeHtml(summaryEnable || '')}.`.replace(/\s+/g, ' ').trim()
         : '';
 
       const blocks = [];

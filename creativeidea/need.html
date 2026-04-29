@@ -542,7 +542,9 @@
       const problemWhat = document.getElementById('problemWhat').value.trim();
       const problemImpact = getCheckedValues('problemImpact', 'problemImpactOtherCheck', 'problemImpactOtherText');
       const problemSentenceValues = ['problemSentence1','problemSentence2','problemSentence3','problemSentence4'].map(id => document.getElementById(id).value.trim());
-      const problemSentenceText = `${problemSentenceValues[0] || '____'} מתקשים ל${problemSentenceValues[1] || '____'} כאשר ${problemSentenceValues[2] || '____'}, ולכן ${problemSentenceValues[3] || '____'}.`;
+      const problemSentenceText = problemSentenceValues.some(Boolean)
+        ? `${problemSentenceValues[0] || ''} מתקשים ל${problemSentenceValues[1] || ''} כאשר ${problemSentenceValues[2] || ''}, ולכן ${problemSentenceValues[3] || ''}.`.replace(/\s+/g, ' ').trim()
+        : '';
       const needHelp = document.getElementById('needHelp').value.trim();
       const needSentence1 = document.getElementById('needSentence1').value.trim();
       const needSentence2 = document.getElementById('needSentence2').value.trim();
@@ -557,15 +559,18 @@
       const goalSentence1 = document.getElementById('goalSentence1').value.trim();
       const goalSentence2 = document.getElementById('goalSentence2').value.trim();
       const goalSentenceText = (goalSentence1 || goalSentence2)
-        ? `לעזור ל${goalSentence1 || '____'} כך שיוכלו ${goalSentence2 || '____'}.`
+        ? `לעזור ל${goalSentence1 || ''} כך שיוכלו ${goalSentence2 || ''}.`.replace(/\s+/g, ' ').trim()
         : '';
 
       const blocks = [];
       addBlock(blocks, 'פרטי הקבוצה', escapeHtml(studentNames));
       addBlock(blocks, 'ההזדמנות או הפער שבחרנו להתמקד בו', escapeHtml(chosenGap).replace(/\n/g, '<br>'));
       whyItems.forEach(item => {
-        addBlock(blocks, `למה ${item.index}`, escapeHtml(item.question).replace(/\n/g, '<br>'));
-        addBlock(blocks, 'כתבו את התשובה', escapeHtml(item.answer).replace(/\n/g, '<br>'));
+        addBlock(
+          blocks,
+          `למה ${item.index}: ${item.question || 'השאלה לא מולאה'}`,
+          escapeHtml(item.answer).replace(/\n/g, '<br>')
+        );
       });
       addBlock(blocks, 'במשפט קצר, מה הבנו עכשיו טוב יותר', escapeHtml(afterWhySummary).replace(/\n/g, '<br>'));
       addBlock(blocks, 'מי קהל היעד שנפגע מהבעיה', escapeHtml(problemWho));
