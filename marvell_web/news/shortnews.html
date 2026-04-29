@@ -683,69 +683,67 @@
     <div class="page-footer">© פרימיום Marvell</div>
   </div>
   <script>
-    const activityNextBtn = document.getElementById('activity-next-btn');
-    const selectionWarning = document.getElementById('selection-warning');
-    const problemCards = document.querySelectorAll('[data-problem-card]');
-    const problemRadios = document.querySelectorAll('.problem-radio');
+  const activityNextBtn = document.getElementById('activity-next-btn');
+  const selectionWarning = document.getElementById('selection-warning');
+  const problemCards = document.querySelectorAll('[data-problem-card]');
+  const problemRadios = document.querySelectorAll('.problem-radio');
 
-    function updateProblemSelection() {
-      const selectedRadio = document.querySelector('.problem-radio:checked');
-      const hasSelection = Boolean(selectedRadio);
+  function updateProblemSelection() {
+    const selectedRadio = document.querySelector('.problem-radio:checked');
+    const hasSelection = Boolean(selectedRadio);
 
-      problemCards.forEach((card) => {
-        const radio = card.querySelector('.problem-radio');
-        card.classList.toggle('is-selected', radio?.checked === true);
-      });
+    problemCards.forEach((card) => {
+      const radio = card.querySelector('.problem-radio');
+      card.classList.toggle('is-selected', radio?.checked === true);
+    });
 
-      activityNextBtn?.classList.toggle('is-disabled', !hasSelection);
-      activityNextBtn?.setAttribute('aria-disabled', hasSelection ? 'false' : 'true');
-      selectionWarning?.classList.remove('is-visible');
+    activityNextBtn?.classList.toggle('is-disabled', !hasSelection);
+    activityNextBtn?.setAttribute('aria-disabled', hasSelection ? 'false' : 'true');
+    selectionWarning?.classList.remove('is-visible');
+  }
 
-      if (selectedRadio) {
-        localStorage.setItem('marvell-shortnews-selected-problem', selectedRadio.value);
-      }
-    }
-
+  function clearProblemSelection() {
     problemRadios.forEach((radio) => {
-      radio.addEventListener('change', updateProblemSelection);
+      radio.checked = false;
     });
 
-    const savedProblem = localStorage.getItem('marvell-shortnews-selected-problem');
-    if (savedProblem) {
-      const savedRadio = document.querySelector(`.problem-radio[value="${savedProblem}"]`);
-      if (savedRadio) savedRadio.checked = true;
-    }
+    localStorage.removeItem('marvell-shortnews-selected-problem');
     updateProblemSelection();
+  }
 
-    activityNextBtn?.addEventListener('click', (event) => {
-      if (!document.querySelector('.problem-radio:checked')) {
-        event.preventDefault();
-        selectionWarning?.classList.add('is-visible');
-      }
+  problemRadios.forEach((radio) => {
+    radio.addEventListener('change', updateProblemSelection);
+  });
+
+  window.addEventListener('pageshow', clearProblemSelection);
+
+  activityNextBtn?.addEventListener('click', (event) => {
+    if (!document.querySelector('.problem-radio:checked')) {
+      event.preventDefault();
+      selectionWarning?.classList.add('is-visible');
+    }
+  });
+
+  document.querySelectorAll('[data-save]').forEach((field) => {
+    const key = `marvell-shortnews-${field.dataset.save}`;
+    const savedValue = localStorage.getItem(key);
+    if (savedValue !== null) field.value = savedValue;
+
+    field.addEventListener('input', () => {
+      localStorage.setItem(key, field.value);
     });
+  });
 
+  document.getElementById('clear-choice-card')?.addEventListener('click', () => {
     document.querySelectorAll('[data-save]').forEach((field) => {
       const key = `marvell-shortnews-${field.dataset.save}`;
-      const savedValue = localStorage.getItem(key);
-      if (savedValue !== null) field.value = savedValue;
-
-      field.addEventListener('input', () => {
-        localStorage.setItem(key, field.value);
-      });
+      field.value = '';
+      localStorage.removeItem(key);
     });
 
-    document.getElementById('clear-choice-card')?.addEventListener('click', () => {
-      document.querySelectorAll('[data-save]').forEach((field) => {
-        const key = `marvell-shortnews-${field.dataset.save}`;
-        field.value = '';
-        localStorage.removeItem(key);
-      });
-      const customRadio = document.getElementById('problem-custom');
-      if (customRadio) customRadio.checked = false;
-      localStorage.removeItem('marvell-shortnews-selected-problem');
-      updateProblemSelection();
-    });
-  </script>
+    clearProblemSelection();
+  });
+</script>
   <script src="../pwa-register.js" defer></script>
 </body>
 </html>
