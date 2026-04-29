@@ -3,43 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d2045" />
-  <link rel="manifest" href="../manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
-  <link rel="apple-touch-icon" href="../images/logo.png" />
-  <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>תקצירי כרטיסי המקרה | פרימיום Marvell</title>
+  <title>7 שלבים מבעיה לאתגר</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #eef1f7;
+      --panel: #ffffff;
+      --panel-soft: #f7f8fc;
+      --line: #dbe2ef;
+      --text: #24314c;
+      --muted: #5c6984;
+      --primary: #4e6485;
+      --primary-2: #8ba0bd;
+      --accent: #2f6fed;
+      --accent-2: #8fc2ff;
+      --good: #1b8a5a;
+      --warn: #d68413;
+      --bad: #c44949;
+      --shadow: 0 16px 34px rgba(37, 50, 86, 0.08);
+      --shadow-strong: 0 24px 52px rgba(37, 50, 86, 0.12);
+      --radius: 22px;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: "Heebo", Arial, sans-serif;
       background:
-        radial-gradient(circle at top right, rgba(13,32,69,0.10), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(26,58,122,0.07), transparent 22%),
-        linear-gradient(180deg, #edf1f7 0%, #e2e9f2 100%);
-      color: #14315f;
-      padding: 30px 18px 44px;
-      letter-spacing: 0.1px;
+        radial-gradient(circle at top right, rgba(78, 100, 133, 0.09), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(47,111,237,0.07), transparent 22%),
+        linear-gradient(180deg, #eef1f7 0%, #e6ebf3 100%);
+      color: var(--text);
+      padding: 24px 16px 40px;
     }
 
-    .newsletter {
+    .page {
       width: 100%;
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
-      background: linear-gradient(180deg, #f4f7f9 0%, #eaf0f4 100%);
-      border-radius: 30px;
-      padding: 22px;
-      box-shadow: 0 28px 60px rgba(13,32,69,0.14), 0 10px 22px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.72);
+      background: linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(247,249,253,0.94) 100%);
       border: 1px solid rgba(255,255,255,0.9);
-      position: relative;
+      border-radius: 30px;
+      box-shadow: var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,0.8);
       overflow: hidden;
+      position: relative;
     }
 
-    .newsletter::before {
+    .page::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -47,24 +59,28 @@
       pointer-events: none;
     }
 
-    .top-brand {
-      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(247,249,251,0.84) 100%);
-      border-radius: 22px;
-      min-height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .topbar {
+      background: linear-gradient(90deg, #4e6485 0%, #6f86a6 45%, #4e6485 100%);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      box-shadow: 0 4px 12px rgba(78, 100, 133, 0.22);
+    }
+
+    .header {
+      padding: 18px 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,249,252,0.88) 100%);
+      border-bottom: 1px solid var(--line);
       position: relative;
-      padding: 16px 24px;
-      overflow: hidden;
-      border: 1px solid rgba(207,220,234,0.92);
-      box-shadow: 0 12px 28px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.78);
     }
 
     .home-link {
       position: absolute;
-      right: 18px;
-      top: 16px;
+      right: 20px;
+      top: 18px;
       width: 42px;
       height: 42px;
       display: inline-flex;
@@ -72,722 +88,1280 @@
       justify-content: center;
       text-decoration: none;
       border-radius: 12px;
-      background: linear-gradient(180deg, #ffffff 0%, #eef4f8 100%);
-      border: 1px solid #cfdae4;
-      box-shadow: 0 4px 0 rgba(13,32,69,0.14), 0 10px 16px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
-      transition: transform 0.16s ease;
-      z-index: 2;
+      background: linear-gradient(180deg, #ffffff 0%, #f1f3f9 100%);
+      border: 1px solid #d5ddea;
+      box-shadow: 0 4px 0 rgba(46, 59, 91, 0.14), 0 10px 16px rgba(46, 59, 91, 0.08), inset 0 1px 0 rgba(255,255,255,0.92);
     }
 
-    .home-link:hover { transform: translateY(-2px); }
-    .home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+    .home-link svg { width: 20px; height: 20px; fill: #4e6485; }
 
-    .brand-mark {
-      position: absolute;
-      left: 26px;
-      top: 14px;
-      width: 60px;
-      height: 60px;
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .brand img {
+      width: 72px;
+      height: 72px;
       object-fit: contain;
-      display: block;
     }
 
-    .brand-title {
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-      font-weight: 700;
-      color: #0d2045;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    .brand-copy { text-align: center; }
+
+    .brand-copy h1 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #334560;
+      line-height: 1.1;
+      margin-bottom: 6px;
     }
 
-    .hero-banner {
-      margin-top: 20px;
-      background: linear-gradient(135deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.95) 100%);
-      border-radius: 22px;
-      padding: 22px 20px;
-      border: 1px solid rgba(207,220,234,0.96);
-      box-shadow: 0 18px 34px rgba(13,32,69,0.08), inset 0 1px 0 rgba(255,255,255,0.78);
+    .brand-copy p {
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    .hero-banner h1 {
-      font-size: clamp(1.4rem, 3vw, 1.95rem);
-      font-weight: 900;
-      color: #0d2045;
-      margin-bottom: 10px;
-    }
-
-    .hero-banner p {
-      font-size: 0.98rem;
-      color: #3a5070;
-      line-height: 1.9;
-      max-width: 860px;
-    }
-
-    .section-title {
-      font-size: 1.18rem;
-      font-weight: 900;
-      margin: 22px 0 12px;
-      color: #111;
-      border-right: 6px solid #1a3a7a;
-      padding-right: 10px;
-    }
-
-    .cards-grid {
+    .hero {
+      padding: 20px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 4px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(244, 247, 251, 0.96) 0%, rgba(248, 250, 253, 0.95) 50%, rgba(241, 246, 252, 0.94) 100%);
     }
 
-    .summary-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,251,253,0.94) 100%);
-      border: 1px solid rgba(207,220,234,0.98);
-      border-radius: 18px;
-      padding: 18px 16px;
-      box-shadow: 0 14px 28px rgba(13,32,69,0.07), inset 0 1px 0 rgba(255,255,255,0.85);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    .hero-card,
+    .meta-card,
+    .tool,
+    .print-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(249,250,253,0.94) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
 
-    .summary-card::before {
+    .hero-card { padding: 20px; }
+    .hero-card::before,
+    .meta-card::before,
+    .tool::before,
+    .print-panel::before {
       content: "";
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #0d2045 0%, #4488cc 100%);
+      height: 5px;
+      background: linear-gradient(90deg, #4e6485 0%, #7f97b8 100%);
+      opacity: 0.95;
     }
 
-    .summary-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 36px rgba(13,32,69,0.10), inset 0 1px 0 rgba(255,255,255,0.88);
-    }
-
-    .summary-card.is-selected {
-      border-color: rgba(30,68,148,0.72);
-      box-shadow: 0 20px 36px rgba(13,32,69,0.14), 0 0 0 3px rgba(30,68,148,0.10), inset 0 1px 0 rgba(255,255,255,0.88);
-    }
-
-    .summary-card.choice-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(238,244,249,0.76) 100%);
-      border: 2px dashed rgba(26,58,122,0.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 10px 22px rgba(13,32,69,0.04);
-    }
-
-    .selection-row {
-      display: flex;
-      justify-content: flex-start;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .selection-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 900;
-      color: #1a3a7a;
-      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
-      border: 1px solid #c8d8e8;
-      border-radius: 999px;
-      padding: 6px 10px;
-      box-shadow: 0 6px 12px rgba(13,32,69,0.08);
-    }
-
-    .problem-radio {
-      width: 15px;
-      height: 15px;
-      accent-color: #1e4494;
-      cursor: pointer;
-    }
-
-    .card-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
-      color: white;
-      font-size: 0.82rem;
-      font-weight: 800;
+    .hero-card h2 {
+      font-size: 1.55rem;
+      color: #344764;
       margin-bottom: 10px;
     }
 
-    .choice-card .card-num {
-      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
-      color: #1a3a7a;
-      border: 1px solid #c8d8e8;
+    .hero-card p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
     }
 
-    .card-name {
-      font-size: 1.06rem;
-      font-weight: 800;
-      color: #0d2045;
-      margin-bottom: 10px;
-      line-height: 1.45;
+    .hero-points {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
     }
 
-    .card-row { margin-bottom: 8px; }
-
-    .card-row .label,
-    .card-row label.label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #1a3a7a;
-      margin-bottom: 3px;
-    }
-
-    .card-row .value {
-      font-size: 0.92rem;
-      color: #3a5070;
-      line-height: 1.75;
-    }
-
-    .card-link,
-    .choice-clear,
-    .activity-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      text-decoration: none;
-      font-family: inherit;
-      font-weight: 800;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .card-link {
-      align-self: center;
-      margin-top: auto;
-      padding: 7px 14px;
-      font-size: 0.8rem;
-      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
-      color: white;
-      box-shadow: 0 6px 14px rgba(13,32,69,0.22);
-    }
-
-    .card-link:hover,
-    .choice-clear:hover,
-    .activity-btn:hover { transform: translateY(-1px); }
-
-    .choice-field {
-      width: 100%;
-      border: 1px solid rgba(26,58,122,0.22);
-      background: rgba(255,255,255,0.82);
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      color: #14315f;
-      outline: none;
-      resize: vertical;
-      min-height: 38px;
-      box-shadow: inset 0 1px 2px rgba(13,32,69,0.05);
-    }
-
-    .choice-field:focus {
-      border-color: #1e4494;
-      box-shadow: 0 0 0 3px rgba(30,68,148,0.12), inset 0 1px 2px rgba(13,32,69,0.05);
-      background: #ffffff;
-    }
-
-    textarea.choice-field {
-      min-height: 72px;
-      line-height: 1.55;
-    }
-
-    .choice-actions {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: auto;
-      padding-top: 8px;
-    }
-
-    .choice-clear {
-      border: 1px solid #c8d8e8;
-      cursor: pointer;
-      padding: 7px 14px;
-      font-size: 0.8rem;
-      color: #1a3a7a;
-      background: linear-gradient(180deg, #ffffff 0%, #e8f1fc 100%);
-      box-shadow: 0 6px 14px rgba(13,32,69,0.10);
-    }
-
-    .choice-note {
-      margin-top: 6px;
-      font-size: 0.78rem;
-      color: #5a6e87;
-      text-align: center;
-    }
-
-    .footer-strip {
-      margin-top: 22px;
-      background: linear-gradient(90deg, rgba(232,241,252,0.97) 0%, rgba(245,249,253,0.96) 100%);
-      border: 1px solid #c8d8e8;
+    .point {
+      background: linear-gradient(180deg, #ffffff 0%, #f6f7fc 100%);
+      border: 1px solid #e3e8f3;
       border-radius: 16px;
-      padding: 16px 20px;
-      text-align: center;
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: #0d2045;
-      box-shadow: 0 12px 24px rgba(13,32,69,0.06), inset 0 1px 0 rgba(255,255,255,0.82);
+      padding: 12px 14px;
+      font-size: 0.94rem;
+      color: #495776;
     }
 
-    .activity-action {
+    .meta-card { padding: 18px; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field,
+    .rating-card {
       display: flex;
       flex-direction: column;
+      gap: 7px;
+    }
+
+    .article-select-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .article-go-btn {
+      width: 46px;
+      min-width: 46px;
+      height: 46px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .activity-note {
-      max-width: 720px;
-      text-align: center;
-      color: #3a5070;
-      font-size: 0.94rem;
-      line-height: 1.8;
-      font-weight: 600;
-    }
-
-    .selection-warning {
-      display: none;
-      max-width: 720px;
-      text-align: center;
-      color: #9f1239;
-      font-size: 0.86rem;
-      font-weight: 800;
-      line-height: 1.6;
-    }
-
-    .selection-warning.is-visible {
-      display: block;
-    }
-
-    .activity-btn {
-      min-width: 190px;
-      padding: 13px 26px;
+      border-radius: 12px;
+      border: 1px solid #d6dff0;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f5fb 100%);
+      box-shadow: 0 4px 0 rgba(46, 59, 91, 0.12), 0 10px 16px rgba(46, 59, 91, 0.08), inset 0 1px 0 rgba(255,255,255,0.92);
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, opacity 0.16s ease;
+      color: #4e6485;
       font-size: 1rem;
       font-weight: 900;
-      color: #ffffff;
-      background: linear-gradient(180deg, #1e4494 0%, #0d2045 100%);
-      box-shadow: 0 12px 24px rgba(13,32,69,0.22), inset 0 1px 0 rgba(255,255,255,0.20);
-      border: 1px solid rgba(255,255,255,0.18);
     }
 
-    .activity-btn.is-disabled {
-      pointer-events: none;
-      opacity: 0.45;
-      filter: grayscale(0.35);
-      background: linear-gradient(180deg, #9aa8bd 0%, #65758d 100%);
-      box-shadow: none;
+    .article-go-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: #bfcae0;
+      box-shadow: 0 6px 0 rgba(46, 59, 91, 0.10), 0 14px 18px rgba(46, 59, 91, 0.10), inset 0 1px 0 rgba(255,255,255,0.94);
+    }
+
+    .article-go-btn:disabled {
+      opacity: 0.55;
       cursor: not-allowed;
+      box-shadow: 0 3px 0 rgba(46, 59, 91, 0.08), 0 8px 12px rgba(46, 59, 91, 0.05), inset 0 1px 0 rgba(255,255,255,0.88);
     }
 
-    .page-footer {
-      margin-top: 14px;
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #334760;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #d7dff0;
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px 13px;
+      font-family: "Heebo", Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      resize: vertical;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    textarea { min-height: 96px; line-height: 1.8; }
+    textarea.short { min-height: 74px; }
+    textarea.tall { min-height: 140px; }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #7f97b8;
+      box-shadow: 0 0 0 4px rgba(78, 100, 133, 0.08);
+    }
+
+    .content {
+      padding: 20px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .tool {
+      padding: 18px;
+    }
+
+    .phase-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      border: 1px solid transparent;
+      box-shadow: 0 6px 12px rgba(46, 59, 91, 0.05);
+    }
+
+    .phase-label.phase-a {
+      color: #35567b;
+      background: linear-gradient(180deg, #f4f8fb 0%, #edf4f9 100%);
+      border-color: #dbe6ef;
+    }
+
+    .phase-label.phase-b {
+      color: #7a5a17;
+      background: linear-gradient(180deg, #fffaf0 0%, #fff3de 100%);
+      border-color: #f0ddb5;
+    }
+
+    .phase-label.phase-c {
+      color: #1f6f63;
+      background: linear-gradient(180deg, #f0fbf8 0%, #e2f6f0 100%);
+      border-color: #cbe7dd;
+    }
+
+    #tool1::before,
+    #tool2::before,
+    #tool3::before {
+      background: linear-gradient(90deg, #5d7898 0%, #9ab0c9 100%);
+    }
+
+    #tool4::before {
+      background: linear-gradient(90deg, #3c5f8c 0%, #6e93bf 100%);
+    }
+
+    #tool5::before {
+      background: linear-gradient(90deg, #c08a2c 0%, #e9c57a 100%);
+    }
+
+    #tool6::before,
+    #tool7::before {
+      background: linear-gradient(90deg, #4f7d79 0%, #8bb8b4 100%);
+    }
+
+    #tool1 .tool-num,
+    #tool2 .tool-num,
+    #tool3 .tool-num {
+      background: linear-gradient(180deg, #5d7898 0%, #9ab0c9 100%);
+      box-shadow: 0 10px 16px rgba(93, 120, 152, 0.18);
+    }
+
+    #tool4 .tool-num {
+      background: linear-gradient(180deg, #3c5f8c 0%, #6e93bf 100%);
+      box-shadow: 0 10px 16px rgba(60, 95, 140, 0.18);
+    }
+
+    #tool5 .tool-num {
+      background: linear-gradient(180deg, #c08a2c 0%, #e9c57a 100%);
+      box-shadow: 0 10px 16px rgba(192, 138, 44, 0.18);
+    }
+
+    #tool6 .tool-num,
+    #tool7 .tool-num {
+      background: linear-gradient(180deg, #4f7d79 0%, #8bb8b4 100%);
+      box-shadow: 0 10px 16px rgba(79, 125, 121, 0.18);
+    }
+
+    .tool-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .tool-head h3 {
+      font-size: 1.22rem;
+      color: #2f435e;
+      margin-bottom: 4px;
+    }
+
+    .tool-head p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .tool-num {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(180deg, #6d7f97 0%, #92a8c4 100%);
+      box-shadow: 0 10px 16px rgba(78, 100, 133, 0.16);
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tool-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .span-2 { grid-column: 1 / -1; }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      position: relative;
+    }
+
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
       text-align: center;
-      color: #5a6e87;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid #d8e1f2;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f7fc 100%);
+      box-shadow: 0 8px 16px rgba(46, 59, 91, 0.05);
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #495776;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .choice input:checked + label {
+      border-color: #7f97b8;
+      background: linear-gradient(180deg, rgba(237,242,248,0.98) 0%, rgba(247,249,252,1) 100%);
+      color: #334760;
+      box-shadow: 0 10px 18px rgba(78, 100, 133, 0.10);
+      transform: translateY(-1px);
+    }
+
+    .formula {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(242,246,250,0.98) 0%, rgba(248,250,253,1) 100%);
+      border: 1px solid #dbe4ef;
+      font-size: 1rem;
+      color: #344864;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .preview-box,
+    .analysis-box,
+    .score-box {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fd 100%);
+      border: 1px solid #dfe5f2;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .preview-box strong,
+    .analysis-box strong,
+    .score-box strong { color: #30445f; }
+
+    .score-summary {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .score-total {
+      border-radius: 18px;
+      padding: 18px;
+      color: white;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-2) 100%);
+      box-shadow: 0 14px 24px rgba(78, 100, 133, 0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .score-total .big {
+      font-size: 2.6rem;
+      line-height: 1;
+      font-weight: 900;
+      margin: 6px 0;
+    }
+
+    .rating-card select { min-height: 48px; }
+
+    .analysis-box.good { border-color: rgba(27,138,90,0.32); background: linear-gradient(180deg, rgba(236,252,245,0.95) 0%, rgba(250,255,252,0.98) 100%); }
+    .analysis-box.warn { border-color: rgba(214,132,19,0.32); background: linear-gradient(180deg, rgba(255,248,234,0.95) 0%, rgba(255,252,246,0.98) 100%); }
+    .analysis-box.bad { border-color: rgba(196,73,73,0.32); background: linear-gradient(180deg, rgba(255,240,240,0.95) 0%, rgba(255,249,249,0.98) 100%); }
+
+    .mini-note {
+      font-size: 0.84rem;
+      color: #69768f;
+      line-height: 1.7;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      padding: 11px 16px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-family: "Heebo", Arial, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      box-shadow: 0 5px 0 rgba(46, 59, 91, 0.14), 0 14px 20px rgba(46, 59, 91, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn.primary {
+      color: white;
+      background: linear-gradient(90deg, #4e6485 0%, #7f97b8 100%);
+      border-color: #6a809d;
+    }
+
+    .btn.secondary {
+      color: #344864;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f5fb 100%);
+      border-color: #d8dff0;
+    }
+
+    .btn.accent {
+      color: white;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+      border-color: #5a96f2;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: #69768f;
+      font-weight: 700;
+    }
+
+    .print-panel {
+      padding: 18px;
+      margin: 0 20px 20px;
+    }
+
+    .print-panel h3 {
+      font-size: 1.16rem;
+      color: #2f435e;
+      margin-bottom: 8px;
+    }
+
+    .print-panel p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 18px 16px 28px;
+      color: #66748d;
       font-size: 0.9rem;
       font-weight: 500;
     }
 
-    @media (max-width: 900px) {
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .print-only { display: none; }
+
+
+    .selected-problem-panel {
+      margin: 20px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(47,111,237,0.18);
+      background: linear-gradient(135deg, rgba(239,246,255,0.98) 0%, rgba(255,255,255,0.96) 100%);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
 
-    @media (max-width: 640px) {
-      body { padding: 14px 10px 30px; }
-      .newsletter { padding: 12px; border-radius: 20px; }
-      .top-brand { min-height: 78px; }
-      .brand-title { font-size: 1.35rem; }
-      .brand-mark { left: 14px; top: 12px; width: 50px; height: 50px; }
+    .selected-problem-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #2f6fed 0%, #8fc2ff 100%);
+    }
+
+    .selected-problem-panel[hidden] {
+      display: none;
+    }
+
+    .selected-problem-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffffff 0%, #edf4ff 100%);
+      border: 1px solid #d6e5ff;
+      color: #2f6fed;
+      font-size: 0.78rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .selected-problem-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #24314c;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .selected-problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .selected-problem-item {
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9fd 100%);
+      border: 1px solid #dbe2ef;
+      border-radius: 16px;
+      padding: 12px 14px;
+      min-height: 86px;
+    }
+
+    .selected-problem-label {
+      color: #334760;
+      font-size: 0.82rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .selected-problem-value {
+      color: #495776;
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 900px) {
+      .selected-problem-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .score-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-grid,
+      .tool-grid-3,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 12px 10px 28px; }
+      .page { border-radius: 22px; }
+      .header { padding: 14px; }
       .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
       .home-link svg { width: 18px; height: 18px; }
-      .cards-grid { grid-template-columns: 1fr; }
+      .brand { gap: 10px; }
+      .brand img { width: 58px; height: 58px; }
+      .brand-copy h1 { font-size: 1.65rem; }
+      .hero,
+      .content,
+      .print-panel { padding: 14px; }
+      .tool,
+      .hero-card,
+      .meta-card { padding: 14px; }
+      .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+      }
+
+      .home-link,
+      .buttons,
+      .status,
+      .topbar {
+        display: none !important;
+      }
+
+      .print-panel {
+        margin: 0 20px 20px;
+        box-shadow: none;
+      }
+
+      .tool,
+      .hero-card,
+      .meta-card,
+      .print-panel {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .print-only { display: block; }
     }
   </style>
 </head>
 <body>
-  <div class="newsletter">
-    <section class="top-brand">
+  <div class="page">
+    <div class="topbar">דף עבודה אינטראקטיבי | 7 כלים למעבר מבעיה לאתגר</div>
+
+    <header class="header">
       <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
         </svg>
       </a>
-      <img class="brand-mark" src="../images/logo.png" alt="לוגו פרימיום Marvell" />
-      <div class="brand-title">תקצירי כרטיסי המקרה</div>
+      <div class="brand">
+        <img src="../images/logo.png" alt="לוגו תעשיידע">
+        <div class="brand-copy">
+          <h1>7 שלבים מבעיה לאתגר</h1>
+          <p>ממלאים, שומרים, מנתחים, ובסוף שולחים להדפסה או ל־PDF</p>
+        </div>
+      </div>
+    </header>
+
+
+    <section class="selected-problem-panel" id="selectedProblemPanel" hidden>
+      <div class="selected-problem-kicker">הבעיה שנבחרה</div>
+      <div class="selected-problem-title" id="selectedProblemTitle"></div>
+      <div class="selected-problem-grid">
+        <div class="selected-problem-item">
+          <div class="selected-problem-label">בעיה מרכזית</div>
+          <div class="selected-problem-value" id="selectedProblemText"></div>
+        </div>
+        <div class="selected-problem-item">
+          <div class="selected-problem-label">מי מושפע?</div>
+          <div class="selected-problem-value" id="selectedProblemAudience"></div>
+        </div>
+        <div class="selected-problem-item">
+          <div class="selected-problem-label">כיוון אפשרי</div>
+          <div class="selected-problem-value" id="selectedProblemDirection"></div>
+        </div>
+      </div>
     </section>
 
-    <section class="hero-banner">
-      <h1>תקצירי כרטיסי המקרה</h1>
-      <p>
-        בעמוד הזה בוחרים בעיה אחת מתוך כרטיסי המקרה, או ממלאים בעיה משלכם בכרטיס הפתוח. אחרי שבחרתם בעיה והבנתם מי מושפע ממנה ומה הצורך שעולה ממנה — ממשיכים בלחיצה על הכפתור “מבעיה לאתגר” בתחתית העמוד.
-      </p>
+    <section class="hero">
+      <div class="hero-card">
+        <h2>הסבר כולל על 7 השלבים</h2>
+        <p>
+          שבעת השלבים יוצרים מהלך חשיבה מדורג, שמטרתו להעביר את הלומדים מזיהוי ראשוני של בעיה אל ניסוח מדויק של אתגר. התהליך אינו מכוון למציאת פתרון מיידי, אלא לבנייה של הבנה עמוקה יותר: מהו הקושי, מהו מוקד הבעיה, מי מושפע ממנה, מהי השפעתה, ואיזה כיוון חשיבה נכון לפתח ממנה. בדרך זו נוצר בסיס איכותי, ממוקד ומקצועי להמשך תהליך הפיתוח.
+        </p>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-grid">
+          <div class="field">
+            <label for="groupName">שם הקבוצה</label>
+            <input id="groupName" type="text" placeholder="למשל: קבוצת חדשנות 2">
+          </div>
+          <div class="field span-2">
+            <label for="members">שמות המשתתפים</label>
+            <textarea id="members" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea>
+          </div>
+          <div class="field">
+            <label for="articleName">שם הכתבה</label>
+            <div class="article-select-row">
+              <select id="articleName">
+                <option value="">בחרו כתבה</option>
+                <option value="כשהתיק מגלה את זה מאוחר מדי" data-href="news1.html">כשהתיק מגלה את זה מאוחר מדי</option>
+                <option value="ההודעה החשובה שנעלמה" data-href="news2.html">ההודעה החשובה שנעלמה</option>
+                <option value="התיק שמסתיר דברים קטנים" data-href="news3.html">התיק שמסתיר דברים קטנים</option>
+                <option value="הבקבוק שנשאר מלא" data-href="news4.html">הבקבוק שנשאר מלא</option>
+                <option value="כשצריך עזרה ולא יודעים למי לפנות" data-href="news5.html">כשצריך עזרה ולא יודעים למי לפנות</option>
+                <option value="שלחתי לפני שחשבתי" data-href="news6.html">שלחתי לפני שחשבתי</option>
+                <option value="האוטובוס שכמעט תמיד מפתיע" data-href="news7.html">האוטובוס שכמעט תמיד מפתיע</option>
+                <option value="הרעש שמתגבר בלי ששמים לב" data-href="news8.html">הרעש שמתגבר בלי ששמים לב</option>
+                <option value="המקרר שאף אחד לא באמת מכיר" data-href="news9.html">המקרר שאף אחד לא באמת מכיר</option>
+                <option value="מי האכיל את הכלב?" data-href="news10.html">מי האכיל את הכלב?</option>
+                <option value="לא שמעתי שקראו לי" data-href="news11.html">לא שמעתי שקראו לי</option>
+                <option value="הדבר הקטן שנעלם בדיוק כשצריך אותו" data-href="news12.html">הדבר הקטן שנעלם בדיוק כשצריך אותו</option>
+              </select>
+              <button class="article-go-btn" id="articleGoBtn" type="button" title="מעבר לכתבה" aria-label="מעבר לכתבה שנבחרה" disabled>↗</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <h2 class="section-title">הכרטיסים</h2>
-    <div class="cards-grid">
-      <div class="summary-card" data-problem-card data-title="כשהתיק מגלה את זה מאוחר מדי" data-problem="הציוד הדרוש לשיעור מתגלה כחסר רק בזמן אמת, כשכבר קשה לתקן." data-audience="תלמידים, מורים, חברי קבוצה והורים." data-direction="בדיקת מוכנות יומית, תזכורת ציוד לפי מערכת שעות, או כלי שמרכז בקשות להבאה מראש." data-article="1">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-1">
-            <input class="problem-radio" id="problem-1" type="radio" name="selectedProblem" value="1" />
-            <span>בחירה</span>
-          </label>
+    <main class="content">
+      <section class="tool" id="tool1">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-a">שלב א׳ | הבנת הבעיה</div>
+            <h3>כלי 1 – מגדירים את הבעיה</h3>
+            <p>שלב הפתיחה, שבו מבררים מהו הקושי הקיים ומהו הדבר שאינו פועל כפי שנדרש.</p>
+          </div>
+          <div class="tool-num">1</div>
         </div>
-        <div class="card-num">1</div>
-        <div class="card-name">כשהתיק מגלה את זה מאוחר מדי</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">הציוד הדרוש לשיעור מתגלה כחסר רק בזמן אמת, כשכבר קשה לתקן.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, מורים, חברי קבוצה והורים.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">בדיקת מוכנות יומית, תזכורת ציוד לפי מערכת שעות, או כלי שמרכז בקשות להבאה מראש.</div></div>
-        <a class="card-link" href="news1.html">לכתבה</a>
+        <div class="tool-grid">
+          <div class="field">
+            <label for="problemWhat">מה בדיוק לא עובד?</label>
+            <textarea id="problemWhat" placeholder="תארו בקצרה ובדיוק מה הבעיה"></textarea>
+          </div>
+          <div class="field">
+            <label for="problemWho">למי זה מפריע?</label>
+            <textarea id="problemWho" placeholder="מיהם הנפגעים, המשתמשים או הגורמים המושפעים"></textarea>
+          </div>
+          <div class="field">
+            <label for="problemStage">באיזה שלב זה קורה?</label>
+            <textarea id="problemStage" class="short" placeholder="מתי או איפה בתהליך זה קורה"></textarea>
+          </div>
+          <div class="field">
+            <label for="problemImpact">מה ההשפעה?</label>
+            <textarea id="problemImpact" class="short" placeholder="מה הנזק, הקושי או הסיכון שנוצרים"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool2">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-a">שלב א׳ | הבנת הבעיה</div>
+            <h3>כלי 2 – בוחרים כיוון לחשיבה</h3>
+            <p>שלב של מיקוד, שבו נבחרת זווית העבודה המתאימה ביותר להמשך בירור ופיתוח.</p>
+          </div>
+          <div class="tool-num">2</div>
+        </div>
+
+        <div class="field" style="margin-bottom: 12px;">
+          <label>בחרו כיוון אחד מרכזי</label>
+          <div class="mini-note">סמנו כיוון אחד, ואז כתבו במשפט קצר למה זה הכיוון שהכי מתאים לבעיה.</div>
+        </div>
+
+        <div class="choice-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir1" value="לשפר"><label for="dir1">לשפר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir2" value="למנוע"><label for="dir2">למנוע</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir3" value="לזהות מוקדם יותר"><label for="dir3">לזהות מוקדם יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir4" value="לצמצם"><label for="dir4">לצמצם</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir5" value="להפוך לברור יותר"><label for="dir5">להפוך לברור יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir6" value="להפוך לבטוח יותר"><label for="dir6">להפוך לבטוח יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dir7" value="להפוך למדויק יותר"><label for="dir7">להפוך למדויק יותר</label></div>
+        </div>
+
+        <div class="field" style="margin-top: 14px;">
+          <label for="directionReason">למה בחרתן דווקא בכיוון הזה?</label>
+          <textarea id="directionReason" class="short" placeholder="כתבו בקצרה למה זה הכיוון המתאים ביותר להמשך החשיבה"></textarea>
+        </div>
+      </section>
+
+      <section class="tool" id="tool3">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-a">שלב א׳ | הבנת הבעיה</div>
+            <h3>כלי 3 – מנסחים את האתגר</h3>
+            <p>שלב שבו הבעיה מקבלת ניסוח חדש, בהיר ומכוון פעולה, שמאפשר להתקדם לחשיבה יזמית או טכנולוגית.</p>
+          </div>
+          <div class="tool-num">3</div>
+        </div>
+
+
+        <div class="tool-grid" style="margin-top: 14px; grid-template-columns: 1fr;">
+          <div class="field">
+            <label for="challengeVerb">1. איך אפשר...</label>
+            <textarea id="challengeVerb" class="short" placeholder="לשפר / למנוע / לצמצם..."></textarea>
+          </div>
+          <div class="field">
+            <label for="challengeWhat">2. את מה?</label>
+            <textarea id="challengeWhat" class="short" placeholder="למשל: תהליך הזיהוי, הסימון, הבקרה"></textarea>
+          </div>
+          <div class="field">
+            <label for="challengeForWhom">3. עבור מי?</label>
+            <textarea id="challengeForWhom" class="short" placeholder="למי זה מיועד או עבור מי זה נדרש"></textarea>
+          </div>
+          <div class="field">
+            <label for="challengeStage">4. באיזה שלב?</label>
+            <textarea id="challengeStage" class="short" placeholder="למשל: בשלב הייצור / ההובלה / השימוש"></textarea>
+          </div>
+          <div class="field">
+            <label for="challengeImpact">5. כך ש־...</label>
+            <textarea id="challengeImpact" class="short" placeholder="מה התוצאה הרצויה של האתגר"></textarea>
+          </div>
+        </div>
+
+        <div class="preview-box" style="margin-top: 14px;">
+          <strong>אתגר מנוסח:</strong>
+          <div id="challengePreview" style="margin-top: 8px; line-height: 1.9; color: #4d5a74;">עדיין לא הושלם ניסוח האתגר.</div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool4">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-b">שלב ב׳ | ניסוח ודיוק</div>
+            <h3>כלי 4 – מגדירים ואז מנסחים</h3>
+            <p>שלב שמחבר בין הגדרת הבעיה לבין ניסוח אתגר מדויק, באמצעות תהליך מסודר של הגדרה, מיקוד וניסוח.</p>
+          </div>
+          <div class="tool-num">4</div>
+        </div>
+
+        <div class="tool-grid">
+          <div class="field span-2">
+            <label for="tool4Define">שלב 1 – מגדירים את הבעיה במילים שלכן</label>
+            <textarea id="tool4Define" placeholder="נסחו בקצרה מה הבעיה, למי היא מפריעה, באיזה שלב היא מופיעה ומה ההשפעה שלה"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="tool4Focus">שלב 2 – מהו כיוון החשיבה שנבחר?</label>
+            <textarea id="tool4Focus" class="short" placeholder="כתבו את הכיוון שנבחר ולמה הוא מתאים לבעיה"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="tool4Draft">שלב 3 – ניסוח ביניים של האתגר</label>
+            <textarea id="tool4Draft" class="short" placeholder="נסחו כאן אתגר ראשוני לפני בחירה סופית"></textarea>
+          </div>
+        </div>
+
+        <div class="preview-box" style="margin-top: 14px; margin-bottom: 14px;">
+          <strong>סיכום אוטומטי מהכלים הקודמים:</strong>
+          <div class="mini-note" style="margin-top: 8px;">
+            
+          </div>
+        </div>
+
+        <div class="tool-grid-3">
+          <div class="preview-box">
+            <strong>שלב 1</strong>
+            <div id="tool4ProblemSummary" class="mini-note" style="margin-top: 8px;"></div>
+          </div>
+          <div class="preview-box">
+            <strong>שלב 2</strong>
+            <div id="tool4DirectionSummary" class="mini-note" style="margin-top: 8px;"></div>
+          </div>
+          <div class="preview-box">
+            <strong>שלב 3</strong>
+            <div id="tool4ChallengeSummary" class="mini-note" style="margin-top: 8px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool5">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-b">שלב ב׳ | ניסוח ודיוק</div>
+            <h3>כלי 5 – חמש על חמש</h3>
+            <p>שלב מסכם של בחינה והערכה, שבו נבדק האם האתגר שנוסח אכן ברור, מדויק, רלוונטי ומשרת את המשך הדרך.</p>
+          </div>
+          <div class="tool-num">5</div>
+        </div>
+
+        <div class="tool-grid-3">
+          <div class="rating-card">
+            <label for="rateProblem">1. הבעיה ברורה</label>
+            <select id="rateProblem">
+              <option value="">בחרו</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+            <div class="mini-note">מה בדיוק לא עובד?</div>
+          </div>
+          <div class="rating-card">
+            <label for="rateAudience">2. קהל היעד ברור</label>
+            <select id="rateAudience">
+              <option value="">בחרו</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+            <div class="mini-note">למי זה מפריע?</div>
+          </div>
+          <div class="rating-card">
+            <label for="rateStage">3. השלב ברור</label>
+            <select id="rateStage">
+              <option value="">בחרו</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+            <div class="mini-note">מתי או באיזה שלב זה קורה?</div>
+          </div>
+          <div class="rating-card">
+            <label for="rateImpact">4. ההשפעה ברורה</label>
+            <select id="rateImpact">
+              <option value="">בחרו</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+            <div class="mini-note">למה זה חשוב?</div>
+          </div>
+          <div class="rating-card">
+            <label for="rateQuality">5. איכות הניסוח גבוהה</label>
+            <select id="rateQuality">
+              <option value="">בחרו</option>
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            </select>
+            <div class="mini-note">האם האתגר ברור, ממוקד ומתאים לבעיה?</div>
+          </div>
+        </div>
+
+        <div class="score-summary" style="margin-top: 16px;">
+          <div class="score-total">
+            <div>ציון סופי</div>
+            <div class="big" id="scoreTotal">0</div>
+            <div>/ 25</div>
+          </div>
+          <div class="analysis-box warn" id="scoreAnalysis">
+            <strong>ניתוח אוטומטי:</strong>
+            <div style="margin-top: 8px; line-height: 1.9;">בחרו ציונים בכל 5 הסעיפים כדי לקבל ניתוח של רמת הדיוק והאיכות של האתגר.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool6">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-c">שלב ג׳ | בחירה והכרעה</div>
+            <h3>כלי 6 – בחירת האתגר הסופי</h3>
+            <p>שלב שבו בוחנים כמה ניסוחים אפשריים ובוחרים את האתגר שהכי ברור, מדויק ומתאים לבעיה.</p>
+          </div>
+          <div class="tool-num">6</div>
+        </div>
+        <div class="tool-grid">
+          <div class="field span-2">
+            <label for="option1">אתגר אפשרי 1</label>
+            <textarea id="option1" class="short" placeholder="כתבו אתגר אפשרי ראשון"></textarea>
+          </div>
+          <div class="field span-2">
+            <label for="option2">אתגר אפשרי 2</label>
+            <textarea id="option2" class="short" placeholder="כתבו אתגר אפשרי שני"></textarea>
+          </div>
+          <div class="field span-2">
+            <label for="option3">אתגר אפשרי 3</label>
+            <textarea id="option3" class="short" placeholder="כתבו אתגר אפשרי שלישי"></textarea>
+          </div>
+          <div class="field">
+            <label for="finalChoice">איזה אתגר נבחר?</label>
+            <select id="finalChoice">
+              <option value="">בחרו</option>
+              <option value="אתגר 1">אתגר 1</option>
+              <option value="אתגר 2">אתגר 2</option>
+              <option value="אתגר 3">אתגר 3</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="finalReason">למה בחרתם בו?</label>
+            <textarea id="finalReason" class="short" placeholder="למשל: הכי ברור, הכי מדויק, הכי מתאים לבעיה"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool7">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label phase-c">שלב ג׳ | בחירה והכרעה</div>
+            <h3>כלי 7 – משימת המיזם: מבעיה לאתגר</h3>
+            <p>שלב עבודה מסכם, שבו מיישמים את כל מהלך החשיבה מן הבעיה הראשונית ועד לבחירת אתגר אחד מדויק וברור.</p>
+          </div>
+          <div class="tool-num">7</div>
+        </div>
+        <div class="tool-grid">
+          <div class="field">
+            <label for="missionProblem">1. מדייקים את הבעיה</label>
+            <textarea id="missionProblem" placeholder="מה בדיוק לא עובד, למי זה מפריע, ומה ההשפעה"></textarea>
+          </div>
+          <div class="field">
+            <label for="missionChallenges">2. מנסחים 2–3 אתגרים אפשריים</label>
+            <textarea id="missionChallenges" placeholder="לא כותבים פתרון – כותבים רק שאלות אתגר"></textarea>
+          </div>
+          <div class="field span-2">
+            <label for="missionFinal">3. בוחרים אתגר אחד</label>
+            <textarea id="missionFinal" class="short" placeholder="כתבו את האתגר שנבחר ולמה הוא הכי ברור, מדויק ומתאים לבעיה"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="print-panel">
+      <div class="buttons">
+        <button class="btn secondary" id="clearBtn" type="button">נקה את כל הדף</button>
+        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
+        <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
       </div>
-
-      <div class="summary-card" data-problem-card data-title="ההודעה החשובה שנעלמה" data-problem="הודעות חשובות נבלעות בתוך עומס של התראות, שיחות ועדכונים." data-audience="תלמידים, קבוצות לימוד, מורים ובני משפחה." data-direction="סינון הודעות לפי דחיפות, סימון הודעות פעולה, או תזכורת למידע שלא טופל." data-article="2">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-2">
-            <input class="problem-radio" id="problem-2" type="radio" name="selectedProblem" value="2" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">2</div>
-        <div class="card-name">ההודעה החשובה שנעלמה</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">הודעות חשובות נבלעות בתוך עומס של התראות, שיחות ועדכונים.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, קבוצות לימוד, מורים ובני משפחה.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">סינון הודעות לפי דחיפות, סימון הודעות פעולה, או תזכורת למידע שלא טופל.</div></div>
-        <a class="card-link" href="news2.html">לכתבה</a>
+      <div class="print-only" style="margin-top: 16px;">
+        <strong>פרטי הדפסה:</strong>
+        <div style="margin-top: 6px; line-height: 1.8;">דף עבודה קבוצתי – 7 כלים למעבר מבעיה לאתגר</div>
       </div>
+    </section>
 
-      <div class="summary-card" data-problem-card data-title="התיק שמסתיר דברים קטנים" data-problem="חפצים קטנים נמצאים בתיק, אבל לא נגישים בזמן שצריך אותם." data-audience="תלמידים, חברים שממתינים, מורים והורים." data-direction="ארגון חכם בתיק, סימון חפצים חשובים, או תזכורת מיקום לחפצים קטנים." data-article="3">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-3">
-            <input class="problem-radio" id="problem-3" type="radio" name="selectedProblem" value="3" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">3</div>
-        <div class="card-name">התיק שמסתיר דברים קטנים</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חפצים קטנים נמצאים בתיק, אבל לא נגישים בזמן שצריך אותם.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים שממתינים, מורים והורים.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">ארגון חכם בתיק, סימון חפצים חשובים, או תזכורת מיקום לחפצים קטנים.</div></div>
-        <a class="card-link" href="news3.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="הבקבוק שנשאר מלא" data-problem="המים נמצאים ליד התלמיד, אבל ההרגל לשתות נדחק בתוך יום עמוס." data-audience="תלמידים, הורים ומורים שרואים ירידה בריכוז או באנרגיה." data-direction="תזכורת שתייה עדינה, בקבוק עם חיווי, או מעקב פשוט אחרי שתייה במהלך היום." data-article="4">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-4">
-            <input class="problem-radio" id="problem-4" type="radio" name="selectedProblem" value="4" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">4</div>
-        <div class="card-name">הבקבוק שנשאר מלא</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">המים נמצאים ליד התלמיד, אבל ההרגל לשתות נדחק בתוך יום עמוס.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים ומורים שרואים ירידה בריכוז או באנרגיה.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">תזכורת שתייה עדינה, בקבוק עם חיווי, או מעקב פשוט אחרי שתייה במהלך היום.</div></div>
-        <a class="card-link" href="news4.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="כשצריך עזרה ולא יודעים למי לפנות" data-problem="ברגע לחץ קשה לדעת למי לפנות ואיך לבקש עזרה בצורה שקטה וברורה." data-audience="תלמידים, חברים, הורים וצוות חינוכי." data-direction="סימון מצוקה דיסקרטי, בחירת איש קשר מתאים, או כלי עזרה מהירה במצבי לחץ." data-article="5">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-5">
-            <input class="problem-radio" id="problem-5" type="radio" name="selectedProblem" value="5" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">5</div>
-        <div class="card-name">כשצריך עזרה ולא יודעים למי לפנות</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">ברגע לחץ קשה לדעת למי לפנות ואיך לבקש עזרה בצורה שקטה וברורה.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים, הורים וצוות חינוכי.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">סימון מצוקה דיסקרטי, בחירת איש קשר מתאים, או כלי עזרה מהירה במצבי לחץ.</div></div>
-        <a class="card-link" href="news5.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="שלחתי לפני שחשבתי" data-problem="מידע אישי נשלח מהר מדי, לפני שבודקים מה בדיוק נחשף ולמי." data-audience="תלמידים, חברים בקבוצות, הורים וצוות חינוכי." data-direction="עצירת בדיקה לפני שליחה, חיווי פרטיות, או שאלת אישור לפני שיתוף רגיש." data-article="6">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-6">
-            <input class="problem-radio" id="problem-6" type="radio" name="selectedProblem" value="6" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">6</div>
-        <div class="card-name">שלחתי לפני שחשבתי</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">מידע אישי נשלח מהר מדי, לפני שבודקים מה בדיוק נחשף ולמי.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, חברים בקבוצות, הורים וצוות חינוכי.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">עצירת בדיקה לפני שליחה, חיווי פרטיות, או שאלת אישור לפני שיתוף רגיש.</div></div>
-        <a class="card-link" href="news6.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="האוטובוס שכמעט תמיד מפתיע" data-problem="חוסר ודאות בתחבורה יוצר לחץ, המתנה, איחור ושינוי תכניות." data-audience="תלמידים, הורים, מורים, חברים ומדריכים." data-direction="חיווי זמן יציאה, התראה על שינוי, או תכנון נסיעה ברור לפי מצב אמת." data-article="7">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-7">
-            <input class="problem-radio" id="problem-7" type="radio" name="selectedProblem" value="7" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">7</div>
-        <div class="card-name">האוטובוס שכמעט תמיד מפתיע</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חוסר ודאות בתחבורה יוצר לחץ, המתנה, איחור ושינוי תכניות.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים, מורים, חברים ומדריכים.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">חיווי זמן יציאה, התראה על שינוי, או תכנון נסיעה ברור לפי מצב אמת.</div></div>
-        <a class="card-link" href="news7.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="הרעש שמתגבר בלי ששמים לב" data-problem="רעש קטן מצטבר בהדרגה עד שהוא פוגע בריכוז ובאווירת הלמידה." data-audience="תלמידים, מורים, קבוצות עבודה ותלמידים הרגישים לרעש." data-direction="מד רעש כיתתי, סימן ויסות משותף, או התראה רכה לפני שהרעש משתלט." data-article="8">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-8">
-            <input class="problem-radio" id="problem-8" type="radio" name="selectedProblem" value="8" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">8</div>
-        <div class="card-name">הרעש שמתגבר בלי ששמים לב</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">רעש קטן מצטבר בהדרגה עד שהוא פוגע בריכוז ובאווירת הלמידה.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, מורים, קבוצות עבודה ותלמידים הרגישים לרעש.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">מד רעש כיתתי, סימן ויסות משותף, או התראה רכה לפני שהרעש משתלט.</div></div>
-        <a class="card-link" href="news8.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="המקרר שאף אחד לא באמת מכיר" data-problem="המקרר נראה מלא, אבל בני הבית לא יודעים מה באמת יש, מה חסר ומה עומד להתקלקל." data-audience="בני בית, מי שמבשל, מי שיוצא לקניות ומי שמנסה לחסוך בזבוז." data-direction="רשימת מלאי ביתית, סימון תוקף, או כלי תיאום קניות ושימוש בשאריות." data-article="9">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-9">
-            <input class="problem-radio" id="problem-9" type="radio" name="selectedProblem" value="9" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">9</div>
-        <div class="card-name">המקרר שאף אחד לא באמת מכיר</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">המקרר נראה מלא, אבל בני הבית לא יודעים מה באמת יש, מה חסר ומה עומד להתקלקל.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">בני בית, מי שמבשל, מי שיוצא לקניות ומי שמנסה לחסוך בזבוז.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">רשימת מלאי ביתית, סימון תוקף, או כלי תיאום קניות ושימוש בשאריות.</div></div>
-        <a class="card-link" href="news9.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="מי האכיל את הכלב?" data-problem="אחריות לטיפול בחיית מחמד מפוזרת בין כמה אנשים, בלי ודאות מה כבר נעשה." data-audience="בני בית, ילדים, הורים וחיות המחמד שתלויות בטיפול קבוע." data-direction="לוח אחריות משפחתי, סימון משימות שבוצעו, או תזכורת טיפול לפי תורנות." data-article="10">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-10">
-            <input class="problem-radio" id="problem-10" type="radio" name="selectedProblem" value="10" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">10</div>
-        <div class="card-name">מי האכיל את הכלב?</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">אחריות לטיפול בחיית מחמד מפוזרת בין כמה אנשים, בלי ודאות מה כבר נעשה.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">בני בית, ילדים, הורים וחיות המחמד שתלויות בטיפול קבוע.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">לוח אחריות משפחתי, סימון משימות שבוצעו, או תזכורת טיפול לפי תורנות.</div></div>
-        <a class="card-link" href="news10.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="לא שמעתי שקראו לי" data-problem="האוזניות עוזרות להתרכז או להתנתק, אבל מחלישות קולות חשובים מהסביבה." data-audience="תלמידים עם אוזניות, חברים, מורים, הורים ואנשים בסביבה." data-direction="מצב קשב סביבתי, זיהוי קריאה חשובה, או חיווי בטיחות בזמן שימוש באוזניות." data-article="11">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-11">
-            <input class="problem-radio" id="problem-11" type="radio" name="selectedProblem" value="11" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">11</div>
-        <div class="card-name">לא שמעתי שקראו לי</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">האוזניות עוזרות להתרכז או להתנתק, אבל מחלישות קולות חשובים מהסביבה.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים עם אוזניות, חברים, מורים, הורים ואנשים בסביבה.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">מצב קשב סביבתי, זיהוי קריאה חשובה, או חיווי בטיחות בזמן שימוש באוזניות.</div></div>
-        <a class="card-link" href="news11.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card" data-problem-card data-title="הדבר הקטן שנעלם בדיוק כשצריך אותו" data-problem="חפצים קטנים וחשובים זזים ממקום למקום, ונעלמים דווקא ברגע שצריך אותם." data-audience="תלמידים, הורים, חברים שמחכים ומורים שמנסים להתחיל פעילות." data-direction="מעקב אחר חפצים, רשימת יציאה, או תזכורת לפני מעבר בין בית, כיתה ותחבורה." data-article="12">
-        <div class="selection-row">
-          <label class="selection-label" for="problem-12">
-            <input class="problem-radio" id="problem-12" type="radio" name="selectedProblem" value="12" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">12</div>
-        <div class="card-name">הדבר הקטן שנעלם בדיוק כשצריך אותו</div>
-        <div class="card-row"><div class="label">בעיה מרכזית</div><div class="value">חפצים קטנים וחשובים זזים ממקום למקום, ונעלמים דווקא ברגע שצריך אותם.</div></div>
-        <div class="card-row"><div class="label">קהל יעד</div><div class="value">תלמידים, הורים, חברים שמחכים ומורים שמנסים להתחיל פעילות.</div></div>
-        <div class="card-row"><div class="label">כיוון אפשרי</div><div class="value">מעקב אחר חפצים, רשימת יציאה, או תזכורת לפני מעבר בין בית, כיתה ותחבורה.</div></div>
-        <a class="card-link" href="news12.html">לכתבה</a>
-      </div>
-
-      <div class="summary-card choice-card" data-problem-card data-custom-card>
-        <div class="selection-row">
-          <label class="selection-label" for="problem-custom">
-            <input class="problem-radio" id="problem-custom" type="radio" name="selectedProblem" value="custom" />
-            <span>בחירה</span>
-          </label>
-        </div>
-        <div class="card-num">+</div>
-        <div class="card-name">בעיה לבחירה שלכם</div>
-        <div class="card-row">
-          <label class="label" for="choice-title">שם הבעיה</label>
-          <input id="choice-title" class="choice-field" type="text" placeholder="כתבו את שם הבעיה שבחרתם" data-save="choice-title" />
-        </div>
-        <div class="card-row">
-          <label class="label" for="choice-problem">בעיה מרכזית</label>
-          <textarea id="choice-problem" class="choice-field" placeholder="מה בדיוק לא עובד טוב במצב הזה?" data-save="choice-problem"></textarea>
-        </div>
-        <div class="card-row">
-          <label class="label" for="choice-audience">קהל יעד</label>
-          <input id="choice-audience" class="choice-field" type="text" placeholder="מי מושפע מהבעיה?" data-save="choice-audience" />
-        </div>
-        <div class="card-row">
-          <label class="label" for="choice-direction">כיוון אפשרי</label>
-          <textarea id="choice-direction" class="choice-field" placeholder="איזה כיוון ראשוני יכול לעזור, בלי להיכנס עדיין לפתרון מלא?" data-save="choice-direction"></textarea>
-        </div>
-        <div class="choice-actions">
-          <button class="choice-clear" type="button" id="clear-choice-card">ניקוי</button>
-        </div>
-        <div class="choice-note">המידע נשמר בדפדפן של המכשיר.</div>
-      </div>
-    </div>
-
-    <div class="footer-strip">בחרו בעיה אחת מתוך הכרטיסים, או כתבו בעיה משלכם בכרטיס הפתוח.</div>
-
-    <div class="activity-action">
-      <div class="activity-note">אחרי שבחרתם בעיה והבנתם מה הקושי המרכזי, מי מושפע ממנו ומה הצורך שעולה ממנו — סמנו את הבעיה שבחרתם והמשיכו לדף הפעילות.</div>
-      <div class="selection-warning" id="selection-warning">כדי להמשיך, צריך לסמן בעיה אחת מתוך הכרטיסים או את הכרטיס הפתוח.</div>
-    </div>
-
-    <div class="page-footer">© פרימיום Marvell</div>
+    <footer class="footer">© פרימיום | תעשיידע</footer>
   </div>
 
   <script>
-    const activityNextBtn = document.getElementById('activity-next-btn');
-    const selectionWarning = document.getElementById('selection-warning');
-    const problemCards = Array.from(document.querySelectorAll('[data-problem-card]'));
-    const problemRadios = Array.from(document.querySelectorAll('.problem-radio'));
-    const TARGET_PAGE = 'newswork4-2.html';
+    const STORAGE_KEY = 'premium7toolsWorkbook';
+    const fields = Array.from(document.querySelectorAll('input, textarea, select'));
+    const saveStatus = document.getElementById('saveStatus');
+    const scoreTotal = document.getElementById('scoreTotal');
+    const scoreAnalysis = document.getElementById('scoreAnalysis');
+    const challengePreview = document.getElementById('challengePreview');
+    const articleGoBtn = document.getElementById('articleGoBtn');
+    const articleNameSelect = document.getElementById('articleName');
+    const tool4ProblemSummary = document.getElementById('tool4ProblemSummary');
+    const tool4DirectionSummary = document.getElementById('tool4DirectionSummary');
+    const tool4ChallengeSummary = document.getElementById('tool4ChallengeSummary');
+    const selectedProblemPanel = document.getElementById('selectedProblemPanel');
+    const selectedProblemTitle = document.getElementById('selectedProblemTitle');
+    const selectedProblemText = document.getElementById('selectedProblemText');
+    const selectedProblemAudience = document.getElementById('selectedProblemAudience');
+    const selectedProblemDirection = document.getElementById('selectedProblemDirection');
 
-    function buildSelectedProblemPayload() {
-      const selectedRadio = document.querySelector('.problem-radio:checked');
-      const selectedCard = selectedRadio?.closest('[data-problem-card]');
-      if (!selectedCard) return null;
 
-      if (selectedCard.hasAttribute('data-custom-card')) {
-        return {
-          type: 'custom',
-          articleNumber: '',
-          title: document.getElementById('choice-title')?.value.trim() || 'בעיה לבחירה שלכם',
-          problem: document.getElementById('choice-problem')?.value.trim() || '',
-          audience: document.getElementById('choice-audience')?.value.trim() || '',
-          direction: document.getElementById('choice-direction')?.value.trim() || '',
-          articleUrl: ''
-        };
+    function applySelectedProblemFromShortnews() {
+      let payload = null;
+
+      try {
+        const raw = localStorage.getItem('marvell-selected-problem');
+        if (raw) payload = JSON.parse(raw);
+      } catch (error) {
+        console.error(error);
       }
 
-      return {
-        type: 'article',
-        articleNumber: selectedCard.dataset.article || '',
-        title: selectedCard.dataset.title || '',
-        problem: selectedCard.dataset.problem || '',
-        audience: selectedCard.dataset.audience || '',
-        direction: selectedCard.dataset.direction || '',
-        articleUrl: selectedCard.dataset.article ? `news${selectedCard.dataset.article}.html` : ''
-      };
-    }
-
-    function saveSelectedProblem() {
-      const payload = buildSelectedProblemPayload();
-      if (!payload) return null;
-
-      localStorage.setItem('marvell-selected-problem', JSON.stringify(payload));
-      localStorage.setItem('marvell-shortnews-selected-problem', payload.type === 'custom' ? 'custom' : payload.articleNumber);
-      return payload;
-    }
-
-    function updateNextButtonHref() {
-      const payload = buildSelectedProblemPayload();
-      if (!activityNextBtn) return;
-
-      if (!payload) {
-        activityNextBtn.href = TARGET_PAGE;
+      if (!payload || (!payload.title && !payload.problem && !payload.audience && !payload.direction)) {
         return;
       }
 
-      const params = new URLSearchParams();
-      params.set('source', payload.type);
-      if (payload.articleNumber) params.set('article', payload.articleNumber);
-      activityNextBtn.href = `${TARGET_PAGE}?${params.toString()}`;
+      selectedProblemPanel.hidden = false;
+      selectedProblemTitle.textContent = payload.title || 'בעיה שנבחרה';
+      selectedProblemText.textContent = payload.problem || 'לא הוזנה בעיה מרכזית.';
+      selectedProblemAudience.textContent = payload.audience || 'לא הוזן קהל יעד.';
+      selectedProblemDirection.textContent = payload.direction || 'לא הוזן כיוון אפשרי.';
+
+      if (payload.title) {
+        let matchingOption = Array.from(articleNameSelect.options).find(option => option.value === payload.title);
+        if (!matchingOption) {
+          matchingOption = new Option(payload.title, payload.title);
+          if (payload.articleUrl) matchingOption.dataset.href = payload.articleUrl;
+          articleNameSelect.add(matchingOption);
+        }
+        articleNameSelect.value = payload.title;
+      }
+
+      const problemWhatField = document.getElementById('problemWhat');
+      const problemWhoField = document.getElementById('problemWho');
+      const directionReasonField = document.getElementById('directionReason');
+      const tool4DefineField = document.getElementById('tool4Define');
+      const missionProblemField = document.getElementById('missionProblem');
+
+      if (problemWhatField && !problemWhatField.value && payload.problem) problemWhatField.value = payload.problem;
+      if (problemWhoField && !problemWhoField.value && payload.audience) problemWhoField.value = payload.audience;
+      if (directionReasonField && !directionReasonField.value && payload.direction) directionReasonField.value = payload.direction;
+      if (tool4DefineField && !tool4DefineField.value) {
+        tool4DefineField.value = [
+          payload.problem ? `הבעיה: ${payload.problem}` : '',
+          payload.audience ? `מי מושפע: ${payload.audience}` : '',
+          payload.direction ? `כיוון אפשרי: ${payload.direction}` : ''
+        ].filter(Boolean).join('\n');
+      }
+      if (missionProblemField && !missionProblemField.value) {
+        missionProblemField.value = [
+          payload.title ? `שם הבעיה: ${payload.title}` : '',
+          payload.problem ? `מה לא עובד: ${payload.problem}` : '',
+          payload.audience ? `מי מושפע: ${payload.audience}` : ''
+        ].filter(Boolean).join('\n');
+      }
     }
 
-    function updateProblemSelection() {
-      const selectedRadio = document.querySelector('.problem-radio:checked');
-      const hasSelection = Boolean(selectedRadio);
-
-      problemCards.forEach((card) => {
-        const radio = card.querySelector('.problem-radio');
-        card.classList.toggle('is-selected', radio?.checked === true);
-      });
-
-      activityNextBtn?.classList.toggle('is-disabled', !hasSelection);
-      activityNextBtn?.setAttribute('aria-disabled', hasSelection ? 'false' : 'true');
-      selectionWarning?.classList.remove('is-visible');
-
-      if (selectedRadio) saveSelectedProblem();
-      updateNextButtonHref();
-    }
-
-    problemRadios.forEach((radio) => {
-      radio.addEventListener('change', updateProblemSelection);
-    });
-
-    document.querySelectorAll('[data-save]').forEach((field) => {
-      const key = `marvell-shortnews-${field.dataset.save}`;
-      const savedValue = localStorage.getItem(key);
-      if (savedValue !== null) field.value = savedValue;
-
-      field.addEventListener('input', () => {
-        localStorage.setItem(key, field.value);
-        if (field.closest('.choice-card')?.classList.contains('is-selected')) {
-          saveSelectedProblem();
-          updateNextButtonHref();
+    function getData() {
+      const data = {};
+      fields.forEach((field) => {
+        if (field.type === 'radio') {
+          data[field.id] = field.checked;
+        } else {
+          data[field.id] = field.value;
         }
       });
-    });
-
-    const savedProblem = localStorage.getItem('marvell-shortnews-selected-problem');
-    if (savedProblem) {
-      const savedRadio = document.querySelector(`.problem-radio[value="${savedProblem}"]`);
-      if (savedRadio) savedRadio.checked = true;
+      return data;
     }
-    updateProblemSelection();
 
-    activityNextBtn?.addEventListener('click', (event) => {
-      if (!document.querySelector('.problem-radio:checked')) {
-        event.preventDefault();
-        selectionWarning?.classList.add('is-visible');
+    function setData(data) {
+      fields.forEach((field) => {
+        if (!(field.id in data)) return;
+        if (field.type === 'radio') {
+          field.checked = Boolean(data[field.id]);
+        } else {
+          field.value = data[field.id];
+        }
+      });
+    }
+
+    function saveData(message = 'הנתונים נשמרו.') {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
+      saveStatus.textContent = message;
+    }
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        setData(JSON.parse(raw));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function getSelectedDirection() {
+      const selected = document.querySelector('input[name="thinkingDirection"]:checked');
+      return selected ? selected.value : '';
+    }
+
+    function buildChallengeText() {
+      const verb = document.getElementById('challengeVerb').value.trim();
+      const what = document.getElementById('challengeWhat').value.trim();
+      const whom = document.getElementById('challengeForWhom').value.trim();
+      const stage = document.getElementById('challengeStage').value.trim();
+      const impact = document.getElementById('challengeImpact').value.trim();
+
+      if (!verb && !what && !whom && !stage && !impact) {
+        return 'עדיין לא הושלם ניסוח האתגר.';
+      }
+
+      return `איך אפשר ${verb || '______'} את ${what || '______'} עבור ${whom || '______'} בשלב ${stage || '______'} כך ש־${impact || '______'}?`;
+    }
+
+    function updateSummaries() {
+      const problemWhat = document.getElementById('problemWhat').value.trim();
+      const problemWho = document.getElementById('problemWho').value.trim();
+      const problemStage = document.getElementById('problemStage').value.trim();
+      const problemImpact = document.getElementById('problemImpact').value.trim();
+      const direction = getSelectedDirection();
+      const challengeText = buildChallengeText();
+
+      challengePreview.textContent = challengeText;
+      tool4ProblemSummary.textContent = problemWhat || problemWho || problemStage || problemImpact
+        ? `הבעיה: ${problemWhat || 'לא הושלם'} | למי: ${problemWho || 'לא הושלם'} | שלב: ${problemStage || 'לא הושלם'} | השפעה: ${problemImpact || 'לא הושלם'}`
+        : '';
+      tool4DirectionSummary.textContent = direction
+        ? `כיוון החשיבה שנבחר: ${direction}`
+        : '';
+      tool4ChallengeSummary.textContent = challengeText;
+    }
+
+    function updateScoreAnalysis() {
+      const ratings = [
+        { name: 'הבעיה ברורה', value: Number(document.getElementById('rateProblem').value || 0) },
+        { name: 'קהל היעד ברור', value: Number(document.getElementById('rateAudience').value || 0) },
+        { name: 'השלב ברור', value: Number(document.getElementById('rateStage').value || 0) },
+        { name: 'ההשפעה ברורה', value: Number(document.getElementById('rateImpact').value || 0) },
+        { name: 'איכות הניסוח גבוהה', value: Number(document.getElementById('rateQuality').value || 0) }
+      ];
+
+      const filled = ratings.every(item => item.value > 0);
+      const total = ratings.reduce((sum, item) => sum + item.value, 0);
+      scoreTotal.textContent = total;
+
+      if (!filled) {
+        scoreAnalysis.className = 'analysis-box warn';
+        scoreAnalysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top: 8px; line-height: 1.9;">בחרו ציונים בכל 5 הסעיפים כדי לקבל ניתוח של רמת הדיוק והאיכות של האתגר.</div>';
         return;
       }
 
-      saveSelectedProblem();
-      updateNextButtonHref();
-    });
+      const weakest = ratings.filter(item => item.value === Math.min(...ratings.map(r => r.value))).map(item => item.name);
+      const strongest = ratings.filter(item => item.value === Math.max(...ratings.map(r => r.value))).map(item => item.name);
+      const average = total / 5;
 
-    document.getElementById('clear-choice-card')?.addEventListener('click', () => {
-      document.querySelectorAll('[data-save]').forEach((field) => {
-        const key = `marvell-shortnews-${field.dataset.save}`;
-        field.value = '';
-        localStorage.removeItem(key);
+      let levelText = '';
+      let recommendation = '';
+      let className = 'analysis-box warn';
+
+      if (total >= 22) {
+        levelText = 'האתגר מנוסח ברמה גבוהה מאוד. הוא ברור, ממוקד ומתאים היטב לבעיה.';
+        recommendation = `כדאי לשמר את החוזקות ב־${strongest.join(' ו־')} ולעשות רק ליטוש קטן אם צריך.`;
+        className = 'analysis-box good';
+      } else if (total >= 16) {
+        levelText = 'האתגר בכיוון טוב, אבל עדיין יש מקום לחידוד כדי להפוך אותו למדויק יותר.';
+        recommendation = `מומלץ לחזור במיוחד אל ${weakest.join(' ו־')} ולנסח מחדש את האתגר בצורה חדה יותר.`;
+        className = 'analysis-box warn';
+      } else {
+        levelText = 'האתגר עדיין לא מספיק מדויק. נראה שחסרים מרכיבים חשובים בהגדרת הבעיה או בניסוח.';
+        recommendation = `כדאי לעצור, לחזור להגדרת הבעיה, ולחזק קודם את ${weakest.join(' ו־')} לפני שבוחרים ניסוח סופי.`;
+        className = 'analysis-box bad';
+      }
+
+      scoreAnalysis.className = className;
+      scoreAnalysis.innerHTML = `
+        <strong>ניתוח אוטומטי:</strong>
+        <div style="margin-top: 8px; line-height: 1.9;">
+          <div><strong>רמת הביצוע:</strong> ${levelText}</div>
+          <div><strong>ממוצע:</strong> ${average.toFixed(1)} מתוך 5</div>
+          <div><strong>נקודות לחיזוק:</strong> ${weakest.join(' ו־')}</div>
+          <div><strong>המלצה:</strong> ${recommendation}</div>
+        </div>
+      `;
+    }
+
+    function updateArticleGoButton() {
+      const selectedOption = articleNameSelect.options[articleNameSelect.selectedIndex];
+      articleGoBtn.disabled = !selectedOption || !selectedOption.dataset.href;
+    }
+
+    function goToSelectedArticle() {
+      const selectedOption = articleNameSelect.options[articleNameSelect.selectedIndex];
+      if (!selectedOption || !selectedOption.dataset.href) return;
+      window.location.href = selectedOption.dataset.href;
+    }
+
+    function clearAll() {
+      if (!confirm('לנקות את כל הנתונים בדף?')) return;
+      fields.forEach((field) => {
+        if (field.type === 'radio') {
+          field.checked = false;
+        } else {
+          field.value = '';
+        }
       });
+      localStorage.removeItem(STORAGE_KEY);
+      updateSummaries();
+      updateScoreAnalysis();
+      saveStatus.textContent = 'כל הנתונים נמחקו.';
+    }
 
-      const customRadio = document.getElementById('problem-custom');
-      if (customRadio) customRadio.checked = false;
-      localStorage.removeItem('marvell-shortnews-selected-problem');
-      localStorage.removeItem('marvell-selected-problem');
-      updateProblemSelection();
+    fields.forEach((field) => {
+      const eventName = field.tagName.toLowerCase() === 'select' || field.type === 'radio' ? 'change' : 'input';
+      field.addEventListener(eventName, () => {
+        updateSummaries();
+        updateScoreAnalysis();
+        saveData('הטיוטה נשמרה אוטומטית.');
+      });
     });
+
+    articleNameSelect.addEventListener('change', updateArticleGoButton);
+    articleGoBtn.addEventListener('click', goToSelectedArticle);
+
+    document.getElementById('clearBtn').addEventListener('click', clearAll);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    loadData();
+    applySelectedProblemFromShortnews();
+    updateSummaries();
+    updateScoreAnalysis();
+    updateArticleGoButton();
   </script>
-  <script src="../pwa-register.js" defer></script>
 </body>
 </html>
