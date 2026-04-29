@@ -669,9 +669,29 @@ function setupOtherOptionInputs() {
 
     const updateState = () => {
       otherInput.disabled = !checkbox.checked;
+
+      if (!checkbox.checked) {
+        otherInput.value = '';
+        otherInput.removeAttribute('value');
+      }
     };
 
     checkbox.addEventListener('change', updateState);
+
+    otherInput.addEventListener('focus', () => {
+      checkbox.checked = true;
+      checkbox.setAttribute('checked', 'checked');
+      otherInput.disabled = false;
+    });
+
+    otherInput.addEventListener('input', () => {
+      if (otherInput.value.trim()) {
+        checkbox.checked = true;
+        checkbox.setAttribute('checked', 'checked');
+        otherInput.disabled = false;
+      }
+    });
+
     updateState();
   });
 }
@@ -706,8 +726,26 @@ function syncFormValuesForPrint() {
 
   document.querySelectorAll('.check-item').forEach(item => {
     const checkbox = item.querySelector('input[type="checkbox"]');
+    const otherInput = item.querySelector('.inline-input');
 
-    if (checkbox && !checkbox.checked) {
+    if (!checkbox) return;
+
+    const otherValue = otherInput ? otherInput.value.trim() : '';
+
+    if (otherInput && otherValue) {
+      checkbox.checked = true;
+      checkbox.setAttribute('checked', 'checked');
+      otherInput.disabled = false;
+      otherInput.setAttribute('value', otherValue);
+      return;
+    }
+
+    if (!checkbox.checked) {
+      item.classList.add('print-hidden');
+      return;
+    }
+
+    if (otherInput && !otherValue) {
       item.classList.add('print-hidden');
     }
   });
