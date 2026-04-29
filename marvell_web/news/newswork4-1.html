@@ -309,6 +309,11 @@
       font-size: 0.92rem;
     }
 
+    .inline-input:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .need-complete {
       display: grid;
       gap: 10px;
@@ -655,6 +660,21 @@
   </div>
 
   <script>
+    function setupOtherOptionInputs() {
+      document.querySelectorAll('.check-item').forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        const otherInput = item.querySelector('.inline-input');
+        if (!checkbox || !otherInput) return;
+
+        const updateState = () => {
+          otherInput.disabled = !checkbox.checked;
+        };
+
+        checkbox.addEventListener('change', updateState);
+        updateState();
+      });
+    }
+
     function cleanPrintClasses() {
       document.querySelectorAll('.print-hidden, .print-empty').forEach(el => {
         el.classList.remove('print-hidden', 'print-empty');
@@ -680,7 +700,15 @@
 
       document.querySelectorAll('.check-item').forEach(item => {
         const checkbox = item.querySelector('input[type="checkbox"]');
-        if (checkbox && !checkbox.checked) item.classList.add('print-hidden');
+        if (checkbox && !checkbox.checked) {
+          item.classList.add('print-hidden');
+          return;
+        }
+
+        const otherInput = item.querySelector('.inline-input');
+        if (checkbox && otherInput && !(otherInput.value || '').trim()) {
+          item.classList.add('print-hidden');
+        }
       });
 
       document.querySelectorAll('textarea, input[type="text"], select').forEach(field => {
@@ -695,6 +723,7 @@
 
     window.addEventListener('beforeprint', syncFormValuesForPrint);
     window.addEventListener('afterprint', cleanPrintClasses);
+    setupOtherOptionInputs();
   </script>
   <script src="../pwa-register.js" defer></script>
 </body>
