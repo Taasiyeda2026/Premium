@@ -701,6 +701,89 @@
       display: block;
       margin-top: 8px;
     }
+
+    /* תיקוני יישור וריווח סופיים */
+
+    #tool2 .method-row + .field {
+      margin-top: 20px;
+    }
+
+    #tool3 .sentence-builder {
+      gap: 14px;
+    }
+
+    #tool3 .builder-field {
+      display: grid;
+      grid-template-columns: 31px minmax(0, 1fr);
+      column-gap: 13px;
+      align-items: start;
+      padding-right: 0;
+    }
+
+    #tool3 .builder-field::before {
+      position: static;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      margin-top: 29px;
+    }
+
+    #tool3 .builder-field label,
+    #tool3 .builder-field textarea {
+      grid-column: 2;
+      width: 100%;
+    }
+
+    #tool4 .auto-grid {
+      align-items: stretch;
+    }
+
+    #tool4 .summary-box {
+      min-height: 132px;
+      height: 100%;
+    }
+
+    #tool4 .tool-grid {
+      align-items: stretch;
+    }
+
+    #tool4 .tool-grid .field {
+      height: 100%;
+      margin-top: 0;
+    }
+
+    #tool4 .tool-grid textarea {
+      min-height: 104px;
+      height: 100%;
+    }
+
+    #tool5 .rating-card select {
+      width: 86px;
+      min-height: 42px;
+      padding: 8px 10px;
+      align-self: center;
+      text-align: center;
+    }
+
+    #tool6 .tool-grid .field {
+      margin-top: 0;
+    }
+
+    #tool6 .tool-grid label {
+      display: block;
+      min-height: 24px;
+    }
+
+    #tool6 .option-choice label {
+      display: block;
+      padding: 14px 16px;
+      text-align: right;
+      white-space: normal;
+    }
+
+    #tool6 .option-choice .mini-note {
+      display: block;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
@@ -754,7 +837,7 @@
         <a class="nav-step" href="#tool4" data-step="4">4<br>דיוק ניסוח</a>
         <a class="nav-step" href="#tool5" data-step="5">5<br>חמש על חמש</a>
         <a class="nav-step" href="#tool6" data-step="6">6<br>בחירת אתגר</a>
-        <a class="nav-step" href="#tool7" data-step="7">7<br>קנבס מסכם</a>
+        <a class="nav-step" href="#tool7" data-step="7">7<br>בחירה סופית</a>
       </div>
     </nav>
 
@@ -824,13 +907,13 @@
         <div class="tool-head"><div><div class="phase-label">שלב ג׳ | בחירה והכרעה</div><h3>כלי 6 – בחירת האתגר הסופי</h3><p class="tool-subtitle">משווים בין כמה ניסוחי אתגר אפשריים ובוחרים את הניסוח המתאים ביותר. הבחירה צריכה להיות מנומקת לפי בהירות, מיקוד והתאמה לבעיה.</p></div><div class="tool-num">6</div></div>
         <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לבחור את ניסוח האתגר המדויק ביותר להמשך העבודה.</p></div><div class="method-box"><strong>מה עושים?</strong><p>כותבים 2–3 אפשרויות, משווים ביניהן, מסמנים בחירה וכותבים נימוק.</p></div></div>
         <div class="tool-grid"><div class="field span-2"><label for="option1">אתגר אפשרי 1</label><textarea id="option1" class="short" placeholder="כתבו אתגר אפשרי ראשון"></textarea></div><div class="field span-2"><label for="option2">אתגר אפשרי 2</label><textarea id="option2" class="short" placeholder="כתבו אתגר אפשרי שני"></textarea></div><div class="field span-2"><label for="option3">אתגר אפשרי 3</label><textarea id="option3" class="short" placeholder="כתבו אתגר אפשרי שלישי, אם יש"></textarea></div></div>
-        <div class="option-select"><div class="choice option-choice"><input type="radio" name="finalChoice" id="final1" value="1"><label for="final1">בחירה באתגר 1<br><span id="option1Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final2" value="2"><label for="final2">בחירה באתגר 2<br><span id="option2Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final3" value="3"><label for="final3">בחירה באתגר 3<br><span id="option3Mini" class="mini-note"></span></label></div></div>
+        <div class="option-select"><div class="choice option-choice"><input type="radio" name="finalChoice" id="final1" value="1"><label for="final1">בחירה באתגר&nbsp;1<br><span id="option1Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final2" value="2"><label for="final2">בחירה באתגר&nbsp;2<br><span id="option2Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final3" value="3"><label for="final3">בחירה באתגר&nbsp;3<br><span id="option3Mini" class="mini-note"></span></label></div></div>
         <div class="field" style="margin-top:14px;"><label for="finalReason">בחרנו באתגר הזה כי...</label><textarea id="finalReason" class="short" placeholder="למשל: הוא הכי ברור, הכי ממוקד, הכי מתאים לבעיה"></textarea></div>
         <div class="preview final-preview"><strong>האתגר הסופי שנבחר:</strong><div id="finalChallengePreview" style="margin-top:7px;">עדיין לא נבחר אתגר סופי.</div></div>
       </section>
 
       <section class="tool phase-c" id="tool7" data-required="canvasProblem,canvasFinal">
-        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | בחירה והכרעה</div><h3>כלי 7 – קנבס מבעיה לאתגר</h3><p class="tool-subtitle">מסכמים את כל תהליך החשיבה במקום אחד. הקנבס מרכז את הבעיה, מי מושפע ממנה, הכיוון שנבחר והאתגר הסופי שממנו ממשיכים לשלב הרעיונות.</p></div><div class="tool-num">7</div></div>
+        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | בחירה והכרעה</div><h3>כלי 7 – בחירה סופית</h3><p class="tool-subtitle">בכלי הזה מרכזים את תהליך החשיבה ובוחרים את האתגר הסופי שממנו ממשיכים לשלב הרעיונות.</p></div><div class="tool-num">7</div></div>
         <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לסכם את מהלך החשיבה ולהכין בסיס ברור לשלב הבא.</p></div><div class="method-box"><strong>מה עושים?</strong><p>מרכזים את הבעיה, קהל היעד, ההשפעה, הכיוון שנבחר והאתגר הסופי.</p></div></div>
         <div class="tool-grid"><div class="field"><label for="canvasProblem">1. שם הבעיה ומה לא עובד</label><textarea id="canvasProblem" placeholder="כתבו את שם הבעיה ואת הקושי המרכזי"></textarea></div><div class="field"><label for="canvasAudienceImpact">2. מי מושפע ומה ההשפעה</label><textarea id="canvasAudienceImpact" placeholder="כתבו מי מושפע מהבעיה ולמה זה חשוב"></textarea></div><div class="field"><label for="canvasDirection">3. כיוון החשיבה שנבחר</label><textarea id="canvasDirection" class="short" placeholder="כתבו את הכיוון שנבחר ואת הסיבה"></textarea></div><div class="field"><label for="canvasOptions">4. אתגרים אפשריים</label><textarea id="canvasOptions" class="short" placeholder="כתבו בקצרה את 2–3 האתגרים האפשריים"></textarea></div><div class="field span-2"><label for="canvasFinal">5. האתגר הסופי להמשך העבודה</label><textarea id="canvasFinal" class="short" placeholder="כתבו את האתגר שנבחר ולמה הוא מתאים להמשך"></textarea></div></div>
         <div class="print-summary" style="margin-top:14px;"><strong>משפט סיכום לצוות:</strong><div id="teamSummary" style="margin-top:7px;">לאחר השלמת הכלים יופיע כאן סיכום קצר של המעבר מבעיה לאתגר.</div></div>
@@ -840,11 +923,10 @@
     <section class="action-panel">
       <div class="buttons">
         <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
-        <button class="btn primary" id="fillCanvasBtn" type="button">מלא קנבס אוטומטית</button>
         <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
         <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
       </div>
-      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> 7 כלים מבעיה לאתגר</div>
+      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> 7 כלים למעבר מבעיה לאתגר</div>
     </section>
 
     <footer class="footer">© פרימיום | תעשיידע</footer>
@@ -923,4 +1005,115 @@
       }
 
       function getSelectedProblemPayload() {
-        if (!arrivedFromSelection()) return n
+        if (!arrivedFromSelection()) return null;
+
+        let payload = null;
+
+        try {
+          const raw = localStorage.getItem(SELECTED_PROBLEM_KEY);
+          if (raw) payload = JSON.parse(raw);
+        } catch (error) {
+          console.error(error);
+        }
+
+        if (!payload || (!payload.title && !payload.problem && !payload.audience && !payload.direction)) {
+          return null;
+        }
+
+        return payload;
+      }
+
+      function selectedProblemSignature(payload) {
+        return [payload?.title, payload?.problem, payload?.audience, payload?.direction].map((v) => String(v || '').trim()).join('|');
+      }
+
+      function renderSelectedProblem(payload) {
+        if (!payload) {
+          selectedProblemTitle.textContent = 'לא נבחרה בעיה לעבודה.';
+          selectedProblemText.textContent = 'כדי להתחיל, חזרו לעמוד הכרטיסים ובחרו בעיה דרך הכפתור "מבעיה לאתגר".';
+          selectedProblemAudience.textContent = '—';
+          selectedProblemDirection.textContent = '—';
+          return;
+        }
+        selectedProblemTitle.textContent = payload.title || 'בעיה נבחרת';
+        selectedProblemText.textContent = payload.problem || '—';
+        selectedProblemAudience.textContent = payload.audience || '—';
+        selectedProblemDirection.textContent = payload.direction || '—';
+      }
+
+      function fillFromSelectedProblem(payload) {
+        if (!payload) return;
+        const signature = selectedProblemSignature(payload);
+        const lastSignature = localStorage.getItem(LAST_SELECTED_SIGNATURE_KEY);
+        if (signature === lastSignature) return;
+
+        setValue('problemWhat', payload.problem || payload.title || '', false);
+        setValue('problemWho', payload.audience || '', false);
+        setValue('directionOther', payload.direction || '', false);
+        localStorage.setItem(LAST_SELECTED_SIGNATURE_KEY, signature);
+      }
+
+      function updateDerivedContent() {
+        const challengeText = [valueOf('challengeVerb'), valueOf('challengeWhat'), valueOf('challengeForWhom'), valueOf('challengeStage'), valueOf('challengeImpact')].filter(Boolean).join(' | ');
+        byId('challengePreview').textContent = challengeText || 'עדיין לא הושלם ניסוח האתגר.';
+
+        byId('autoProblemSummary').textContent = lineJoin([valueOf('problemWhat'), valueOf('problemWho'), valueOf('problemStage'), valueOf('problemImpact')]) || 'עדיין לא הושלמו פרטי הבעיה.';
+        byId('autoDirectionSummary').textContent = lineJoin([getSelectedDirection(), valueOf('directionReason')]) || 'עדיין לא נבחר כיוון חשיבה.';
+        byId('autoChallengeSummary').textContent = byId('challengePreview').textContent;
+
+        ['1','2','3'].forEach((n)=>{ byId(`option${n}Mini`).textContent = trimText(valueOf(`option${n}`), 90); });
+
+        const finalText = getFinalChallengeText();
+        byId('finalChallengePreview').textContent = finalText || 'עדיין לא נבחר אתגר סופי.';
+
+        const scores = ['rateProblem','rateAudience','rateStage','rateImpact','rateQuality'].map((id)=>Number(valueOf(id)||0));
+        const total = scores.reduce((a,b)=>a+b,0);
+        byId('scoreTotal').textContent = String(total);
+
+        const analysis = byId('scoreAnalysis');
+        const allFilled = scores.every((n)=>n>=1 && n<=5);
+        if (!allFilled) {
+          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">בחרו ציונים בכל חמשת הסעיפים כדי לקבל ניתוח.</div>';
+        } else if (total >= 21) {
+          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">ניסוח חזק וברור. אפשר להתקדם לשלב הרעיונות.</div>';
+        } else if (total >= 15) {
+          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">כיוון טוב, אבל כדאי לדייק חלק מהסעיפים לפני ההמשך.</div>';
+        } else {
+          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">נדרש חידוד משמעותי של הבעיה והאתגר לפני המעבר הלאה.</div>';
+        }
+
+        byId('teamSummary').textContent = finalText ? `בחרנו להתמקד באתגר: ${finalText}` : 'לאחר השלמת הכלים יופיע כאן סיכום קצר של המעבר מבעיה לאתגר.';
+      }
+
+      function bindEvents() {
+        fields.forEach((field) => {
+          field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
+          field.addEventListener('change', () => { updateDerivedContent(); saveData(); });
+        });
+
+        byId('clearBtn').addEventListener('click', () => {
+          if (!window.confirm('לנקות את כל הטופס?')) return;
+          clearWorkbookFields();
+          updateDerivedContent();
+          saveData('הטופס נוקה ונשמר.');
+        });
+
+        byId('printBtn').addEventListener('click', () => window.print());
+        byId('clearSelectedProblemBtn').addEventListener('click', () => {
+          localStorage.removeItem(SELECTED_PROBLEM_KEY);
+          localStorage.removeItem(LAST_SELECTED_SIGNATURE_KEY);
+          renderSelectedProblem(null);
+        });
+      }
+
+      loadData();
+      const selectedProblem = getSelectedProblemPayload();
+      renderSelectedProblem(selectedProblem);
+      fillFromSelectedProblem(selectedProblem);
+      bindEvents();
+      updateDerivedContent();
+      saveData('הנתונים נשמרים אוטומטית.');
+    })();
+  </script>
+</body>
+</html>
