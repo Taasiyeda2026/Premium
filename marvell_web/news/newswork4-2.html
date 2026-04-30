@@ -147,7 +147,7 @@
       font-size: clamp(2rem, 4vw, 3.25rem);
       line-height: 1.04;
       font-weight: 900;
-      letter-spacing: -0.04em;
+      letter-spacing: 0.01em;
       text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
     }
 
@@ -607,7 +607,7 @@
       .page { width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; background: white; }
       .page::before, .topbar, .home-link, .progress-nav, .buttons, .status, .mini-btn { display: none !important; }
       .header, .hero, .content, .selected-problem, .action-panel, .footer { padding: 10px 14px; margin: 0; border: none; box-shadow: none; background: white; }
-      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; }
+      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; letter-spacing: 0.01em; }
       .brand-copy p { color: #52627a; }
       .brand img { width: 52px; height: 52px; filter: none; }
       .intro, .meta, .tool, .selected-problem, .action-panel, .card { box-shadow: none; break-inside: avoid; }
@@ -615,6 +615,10 @@
       input, textarea, select { border: 1px solid #ccd7e5; box-shadow: none; }
       textarea:placeholder-shown, input:placeholder-shown { color: transparent; }
       .empty-print { display: none !important; }
+      .print-hide { display: none !important; }
+      #tool2 .choice-grid { grid-template-columns: 1fr; }
+      #tool2 .choice input { display: none !important; }
+      #tool2 .choice label { min-height: auto; justify-content: flex-start; text-align: right; padding: 10px 12px; }
       .print-only { display: block; color: #123b64; }
       .footer { color: #65758e; }
     }
@@ -679,6 +683,24 @@
       padding: 8px 10px;
       align-self: center;
       text-align: center;
+    }
+
+    .analysis-details {
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .analysis-item {
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(120,170,220,0.22);
+    }
+
+    .analysis-item strong {
+      display: inline;
+      margin: 0;
     }
 
     #tool6 .tool-grid .field {
@@ -964,8 +986,6 @@
         const lastSignature = localStorage.getItem(LAST_SELECTED_SIGNATURE_KEY);
         if (signature === lastSignature) return;
 
-        setValue('problemWhat', payload.problem || payload.title || '', false);
-        setValue('problemWho', payload.audience || '', false);
         setValue('directionOther', payload.direction || '', false);
         localStorage.setItem(LAST_SELECTED_SIGNATURE_KEY, signature);
       }
@@ -989,19 +1009,95 @@
 
         const analysis = byId('scoreAnalysis');
         const allFilled = scores.every((n)=>n>=1 && n<=5);
+        const scoreCriteria = [
+          {
+            id: 'rateProblem',
+            title: 'הבעיה ברורה',
+            low: 'צריך לדייק מה בדיוק לא עובד במצב הקיים.',
+            mid: 'הבעיה מתחילה להיות ברורה, אבל כדאי לחדד את הקושי המרכזי.',
+            high: 'הבעיה מנוסחת בצורה ברורה ומאפשרת להתקדם.'
+          },
+          {
+            id: 'rateAudience',
+            title: 'קהל היעד ברור',
+            low: 'צריך לדייק למי הבעיה מפריעה ומי מושפע ממנה.',
+            mid: 'קהל היעד קיים, אבל כדאי להפוך אותו לממוקד יותר.',
+            high: 'ברור מי מושפע מהבעיה.'
+          },
+          {
+            id: 'rateStage',
+            title: 'המצב ברור',
+            low: 'צריך לדייק מתי, איפה או באיזה שלב הבעיה מתרחשת.',
+            mid: 'המצב מתואר חלקית, אבל כדאי להוסיף הקשר ברור יותר.',
+            high: 'ברור באיזה מצב או שלב הבעיה מופיעה.'
+          },
+          {
+            id: 'rateImpact',
+            title: 'ההשפעה ברורה',
+            low: 'צריך להסביר למה הבעיה חשובה ומה המחיר שלה.',
+            mid: 'ההשפעה קיימת, אבל כדאי לחדד למה זה משמעותי.',
+            high: 'ההשפעה של הבעיה ברורה ומשכנעת.'
+          },
+          {
+            id: 'rateQuality',
+            title: 'איכות הניסוח',
+            low: 'האתגר עדיין סגור מדי או פתרוני מדי. כדאי לפתוח אותו לשאלה רחבה יותר.',
+            mid: 'הניסוח בכיוון טוב, אבל כדאי להפוך אותו לפתוח, ברור ומדויק יותר.',
+            high: 'האתגר מנוסח בצורה פתוחה וברורה, בלי לקבוע פתרון מראש.'
+          }
+        ];
         if (!allFilled) {
+          analysis.className = 'analysis-box warn';
           analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">בחרו ציונים בכל חמשת הסעיפים כדי לקבל ניתוח.</div>';
-        } else if (total >= 21) {
-          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">ניסוח חזק וברור. אפשר להתקדם לשלב הרעיונות.</div>';
-        } else if (total >= 15) {
-          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">כיוון טוב, אבל כדאי לדייק חלק מהסעיפים לפני ההמשך.</div>';
         } else {
-          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">נדרש חידוד משמעותי של הבעיה והאתגר לפני המעבר הלאה.</div>';
+          const summary = total >= 21
+            ? 'האתגר ברור ומוכן להמשך עבודה.'
+            : total >= 15
+              ? 'יש בסיס טוב, אך כדאי לדייק כמה נקודות לפני שלב הרעיונות.'
+              : 'נדרש חידוד משמעותי לפני מעבר לשלב הבא.';
+          analysis.className = total >= 21 ? 'analysis-box good' : (total >= 15 ? 'analysis-box warn' : 'analysis-box bad');
+          const detailItems = scoreCriteria.map((criterion) => {
+            const score = Number(valueOf(criterion.id) || 0);
+            const message = score <= 2 ? criterion.low : (score === 3 ? criterion.mid : criterion.high);
+            return `<div class="analysis-item"><strong>${criterion.title} (${score}/5):</strong> ${message}</div>`;
+          }).join('');
+          analysis.innerHTML = `<strong>ניתוח תוצאות מורחב:</strong><div style="margin-top:7px;">${summary}</div><div class="analysis-details">${detailItems}</div>`;
         }
 
         byId('teamSummary').textContent = finalText ? `בחרנו להתמקד באתגר: ${finalText}` : 'לאחר השלמת הכלים יופיע כאן סיכום קצר של המעבר מבעיה לאתגר.';
       }
 
+
+
+      function preparePrintState() {
+        document.querySelectorAll('#tool2 .print-hide, #tool2 .empty-print').forEach((el) => el.classList.remove('print-hide', 'empty-print'));
+        const choices = Array.from(document.querySelectorAll('#tool2 .choice'));
+        const checked = document.querySelector('input[name="thinkingDirection"]:checked');
+        choices.forEach((choice) => {
+          const input = choice.querySelector('input[name="thinkingDirection"]');
+          if (!input || !input.checked) choice.classList.add('print-hide');
+        });
+
+        const choiceGrid = document.querySelector('#tool2 .choice-grid');
+        if (choiceGrid) {
+          if (!checked) choiceGrid.classList.add('print-hide');
+          else choiceGrid.classList.remove('print-hide');
+        }
+
+        const directionOther = byId('directionOther');
+        const dirOtherChoice = byId('dirOther');
+        if (directionOther) {
+          const showOther = !!(dirOtherChoice && dirOtherChoice.checked && valueOf('directionOther'));
+          directionOther.classList.toggle('print-hide', !showOther);
+        }
+
+        const directionReason = byId('directionReason');
+        if (directionReason) directionReason.classList.toggle('print-hide', !valueOf('directionReason'));
+      }
+
+      function afterPrintCleanup() {
+        document.querySelectorAll('#tool2 .print-hide, #tool2 .empty-print').forEach((el) => el.classList.remove('print-hide', 'empty-print'));
+      }
       function bindEvents() {
         fields.forEach((field) => {
           field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
@@ -1015,7 +1111,7 @@
           saveData('הטופס נוקה ונשמר.');
         });
 
-        byId('printBtn').addEventListener('click', () => window.print());
+        byId('printBtn').addEventListener('click', () => { preparePrintState(); window.print(); });
         byId('clearSelectedProblemBtn').addEventListener('click', () => {
           localStorage.removeItem(SELECTED_PROBLEM_KEY);
           localStorage.removeItem(LAST_SELECTED_SIGNATURE_KEY);
@@ -1026,6 +1122,8 @@
       loadData();
       const selectedProblem = getSelectedProblemPayload();
       renderSelectedProblem(selectedProblem);
+      window.addEventListener('beforeprint', preparePrintState);
+      window.addEventListener('afterprint', afterPrintCleanup);
       fillFromSelectedProblem(selectedProblem);
       bindEvents();
       updateDerivedContent();
