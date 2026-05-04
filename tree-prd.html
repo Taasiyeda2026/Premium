@@ -6,22 +6,22 @@
   <title>קורס יזמות פרימיום — אפיון מוצר פיזי</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f8f3f5;
+      --bg:#f4f6f8;
       --card:#ffffff;
-      --line:#eadde2;
-      --text:#2e2327;
-      --muted:#6f5a61;
-      --primary:#7f1f38;
-      --primary-2:#a83d5a;
-      --soft:#f4e6eb;
-      --soft-2:#fbf6f8;
+      --line:#d9e0e7;
+      --text:#1f2933;
+      --muted:#5f6b7a;
+      --primary:#1f4e79;
+      --primary-2:#2f6f9f;
+      --soft:#eaf1f7;
+      --soft-2:#f8fafc;
       --ok:#1f8a58;
       --warn:#b86a12;
-      --shadow:0 10px 24px rgba(56,20,31,.08);
-      --radius:16px;
+      --shadow:0 10px 24px rgba(31,78,121,.10);
+      --radius:14px;
     }
 
     *{box-sizing:border-box}
@@ -29,7 +29,7 @@
     body{
       margin:0;
       font-family:"Heebo",Arial,sans-serif;
-      background:linear-gradient(180deg,#fbf6f8 0%,var(--bg) 45%,#fff 100%);
+      background:linear-gradient(180deg,#f8fafc 0%,var(--bg) 48%,#fff 100%);
       color:var(--text);
       direction:rtl;
     }
@@ -55,151 +55,166 @@
       width:78px;
       height:78px;
       border:1px solid var(--line);
-      border-radius:18px;
+      border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:center;
       background:#fff;
       overflow:hidden;
+      flex:none;
     }
     .logo-wrap img{width:62px;height:62px;object-fit:contain}
-    .logo-fallback{font-weight:800;color:var(--primary);text-align:center;font-size:.9rem}
+    .logo-fallback{font-weight:700;color:var(--primary);text-align:center;font-size:.9rem}
 
-    .title-wrap h1{margin:0;color:var(--primary);font-size:2rem;line-height:1.2}
+    .title-wrap h1{margin:0;color:var(--primary);font-size:2rem;line-height:1.2;font-weight:800}
     .title-wrap p{margin:6px 0 0;color:var(--muted);font-size:1.05rem}
 
     .actions{display:flex;flex-wrap:wrap;gap:8px}
     .header-actions{margin-top:12px}
     button{
       border:0;
-      border-radius:10px;
+      border-radius:9px;
       padding:7px 13px;
       min-height:34px;
-      font-weight:800;
+      font-weight:700;
       cursor:pointer;
       font-size:.94rem;
       font-family:inherit;
       transition:.15s ease;
     }
-    button:hover{transform:translateY(-1px);filter:brightness(.98)}
+    button:hover{filter:brightness(.98)}
     .primary{background:var(--primary);color:#fff}
-    .secondary{background:var(--soft);color:#4a3238}
-    .danger{background:#f8e4e4;color:#8a1d1d}
+    .secondary{background:var(--soft);color:#203040}
+    .danger{background:#f5e7d6;color:#854d0e}
 
-    h2{margin:0 0 8px;color:var(--primary);font-size:1.45rem}
-    h3{margin:0 0 8px;color:#4a3238}
-    .section-kicker{color:var(--muted);margin:0 0 12px;font-size:1rem}
+    h2{margin:0 0 8px;color:var(--primary);font-size:1.45rem;line-height:1.25;font-weight:800}
+    h3{margin:0 0 8px;color:#203040;font-weight:700}
+    .field-hint{font-size:.9rem;color:var(--muted);font-weight:400;margin-inline-start:4px}
     .required-badge{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      font-size:.86rem;
-      background:#fff3d8;
-      color:#744a00;
-      border:1px solid #f1d28a;
-      border-radius:999px;
-      padding:3px 9px;
+      font-size:.84rem;
+      background:#fff4df;
+      color:#6b4a13;
+      border:1px solid #e7c57e;
+      border-radius:8px;
+      padding:3px 8px;
       margin-inline-start:8px;
       vertical-align:middle;
+      font-weight:600;
     }
 
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .full{grid-column:1/-1}
-
-    .osem-spec-field{display:flex;flex-direction:column;gap:6px}
-    label{font-weight:800;color:#3e2d33}
-    .field-hint{font-size:.9rem;color:var(--muted);margin-top:-2px}
+    .osem-spec-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+    label{font-weight:600;color:#263442;line-height:1.35}
 
     input,textarea,select{
-      border:1px solid #dccbd1;
-      border-radius:11px;
+      border:1px solid #cfd9e3;
+      border-radius:10px;
       padding:9px 10px;
       font-family:inherit;
       font-size:1rem;
       width:100%;
       background:#fff;
       color:var(--text);
+      line-height:1.45;
     }
-    input:focus,textarea:focus,select:focus{outline:2px solid rgba(127,31,56,.18);border-color:var(--primary-2)}
+    input:focus,textarea:focus,select:focus{outline:2px solid rgba(31,78,121,.18);border-color:var(--primary-2)}
     textarea{min-height:84px;resize:vertical}
-    .short{min-height:54px}
-    .mini-input{min-width:130px;max-width:230px;width:auto;display:inline-block;margin:0 4px}
+    .short{min-height:56px}
+    .mini-input{min-width:140px;max-width:240px;width:auto;display:inline-block;margin:0 4px;vertical-align:middle}
 
     .helper-box{
       text-align:center;
       background:var(--soft-2);
-      border:1px dashed #dabdc8;
-      border-radius:12px;
+      border:1px dashed #b9c7d5;
+      border-radius:10px;
       padding:10px;
-      color:#5e494f;
+      color:#465667;
       margin:8px 0 12px;
       line-height:1.55;
     }
 
-    .choice-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .choice-group{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:8px;
+      margin-top:4px;
+    }
     .choice-chip{
-      display:inline-flex;
+      display:flex;
       align-items:center;
-      gap:6px;
-      border:1px solid #ecdde2;
-      background:#fcf9fa;
-      color:#4a3238;
-      border-radius:999px;
-      padding:7px 10px;
+      gap:8px;
+      border:1px solid #cfd9e3;
+      background:#ffffff;
+      color:#263442;
+      border-radius:8px;
+      padding:8px 10px;
       cursor:pointer;
-      font-weight:700;
+      font-weight:500;
       user-select:none;
       transition:.15s ease;
+      min-height:38px;
+      line-height:1.3;
     }
-    .choice-chip input{display:none}
-    .choice-chip:has(input:checked){background:var(--primary);color:#fff;border-color:var(--primary)}
-    .choice-chip:hover{border-color:#cfa9b6}
+    .choice-chip input{
+      display:inline-block;
+      width:16px;
+      height:16px;
+      min-width:16px;
+      margin:0;
+      accent-color:var(--primary);
+      flex:0 0 auto;
+    }
+    .choice-chip:has(input:checked){
+      background:#eaf3fb;
+      color:#173f5f;
+      border-color:var(--primary-2);
+      box-shadow:inset 0 0 0 1px rgba(31,78,121,.12);
+    }
+    .choice-chip:hover{border-color:#8fa9bf;background:#f8fbfd}
 
     .inline-template{
-      display:flex;
-      flex-wrap:wrap;
-      gap:7px;
-      align-items:center;
-      line-height:2.15;
-      background:#fffbfd;
-      border:1px solid #efdee4;
-      border-radius:12px;
+      display:block;
+      line-height:2.35;
+      background:#fbfdff;
+      border:1px solid #dbe6ee;
+      border-radius:10px;
       padding:10px;
     }
     .generated-box{
-      background:#f9f0f3;
-      border:1px solid #e6cbd4;
-      border-radius:12px;
+      background:#eef5fb;
+      border:1px solid #c9d9e6;
+      border-radius:10px;
       padding:10px 12px;
       margin-top:8px;
       line-height:1.7;
+      clear:both;
     }
-    .generated-title{font-weight:800;color:var(--primary);display:block;margin-bottom:4px}
+    .generated-title{font-weight:600;color:var(--primary);display:block;margin-bottom:4px}
 
-    .parts-table{width:100%;border-collapse:separate;border-spacing:0 8px}
-    .parts-table th{text-align:right;color:#5b444b;font-size:.95rem;padding:0 6px}
-    .parts-table td{padding:0 5px;vertical-align:top}
-
-    .progress-wrap{height:10px;background:#f0e4e8;border-radius:999px;overflow:hidden}
-    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#b05f78);transition:.2s ease}
+    .progress-wrap{height:10px;background:#e3eaf0;border-radius:999px;overflow:hidden}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#3f7fa8);transition:.2s ease}
     .small-note{font-size:.92rem;color:var(--muted);margin-top:6px}
-    .save-toast{color:var(--ok);font-weight:800;min-height:20px;margin-top:4px}
+    .save-toast{color:var(--ok);font-weight:700;min-height:20px;margin-top:4px}
 
-    #previewBox{background:#fffafd;border:1px solid #d8bbc5;border-radius:13px;padding:14px;line-height:1.85}
+    #previewBox{background:#fbfdff;border:1px solid #c7d7e5;border-radius:12px;padding:14px;line-height:1.85}
     #previewBox h3{color:var(--primary);margin:14px 0 4px}
-    #previewBox hr{border:0;border-top:1px solid #ecdde2;margin:12px 0}
+    #previewBox hr{border:0;border-top:1px solid #dbe3ea;margin:12px 0}
 
     .missing{border-color:#d77!important;background:#fff8f8!important}
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000}
     .modal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;max-width:560px;box-shadow:0 20px 60px rgba(0,0,0,.22)}
 
     @media (max-width:900px){
-      .grid,.grid-3{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
       .osem-header{grid-template-columns:1fr;text-align:center}
       .logo-wrap{margin-inline:auto}
       .actions{justify-content:center}
-      .mini-input{width:100%;max-width:none}
+      .choice-group{grid-template-columns:1fr}
+      .mini-input{display:block;width:100%;max-width:none;margin:6px 0}
+      .inline-template{line-height:1.8}
     }
 
     @media print{
@@ -262,7 +277,7 @@
 
           <div class="osem-spec-field full">
             <label>איזה סוג מוצר זה בערך? *</label>
-            <div class="choice-group" data-choice="s1_product_type" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s1_product_type" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s1_product_type" value="אריזה">אריזה</label>
               <label class="choice-chip"><input type="radio" name="s1_product_type" value="אביזר עזר">אביזר עזר</label>
               <label class="choice-chip"><input type="radio" name="s1_product_type" value="כלי מדידה">כלי מדידה</label>
@@ -277,7 +292,7 @@
 
           <div class="osem-spec-field full">
             <label>הוא עוזר במצב שבו... *</label>
-            <div class="choice-group" data-choice="s1_problem_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s1_problem_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="קשה לפתוח / לסגור משהו">קשה לפתוח / לסגור משהו</label>
               <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="יש בלבול בשימוש">יש בלבול בשימוש</label>
               <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="לא ברור אם המוצר תקין">לא ברור אם המוצר תקין</label>
@@ -293,7 +308,7 @@
 
           <div class="osem-spec-field full">
             <label>מי שצריך את זה הוא... *</label>
-            <div class="choice-group" data-choice="s1_audience_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s1_audience_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="תלמידים/ות">תלמידים/ות</label>
               <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="ילדים/ות">ילדים/ות</label>
               <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="הורים">הורים</label>
@@ -311,7 +326,7 @@
 
           <div class="osem-spec-field full">
             <label>משתמשים בו ב־... *</label>
-            <div class="choice-group" data-choice="s1_place_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s1_place_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בבית">בבית</label>
               <label class="choice-chip"><input type="radio" name="s1_place_choice" value="במטבח">במטבח</label>
               <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בבית הספר">בבית הספר</label>
@@ -329,7 +344,7 @@
 
           <div class="osem-spec-field full">
             <label>המוצר הזה חשוב כי... *</label>
-            <div class="choice-group" data-choice="s1_value_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s1_value_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא חוסך זמן">הוא חוסך זמן</label>
               <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא מפחית בלבול">הוא מפחית בלבול</label>
               <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא משפר בטיחות">הוא משפר בטיחות</label>
@@ -359,7 +374,7 @@
         <div class="grid">
           <div class="osem-spec-field full">
             <label>איך המוצר נראה בערך? *</label>
-            <div class="choice-group" data-choice="s2_look_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s2_look_choice">
               <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="קטן">קטן</label>
               <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="מתקפל">מתקפל</label>
               <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="נצמד לאריזה">נצמד לאריזה</label>
@@ -373,7 +388,7 @@
 
           <div class="osem-spec-field full">
             <label>אילו חלקים פיזיים יש בו? *</label>
-            <div class="choice-group" data-choice="s2_parts_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s2_parts_choice">
               <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="מכסה">מכסה</label>
               <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="ידית">ידית</label>
               <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="בסיס">בסיס</label>
@@ -389,7 +404,7 @@
 
           <div class="osem-spec-field full">
             <label>איזו צורה מתאימה לו? *</label>
-            <div class="choice-group" data-choice="s2_shape_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s2_shape_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="עגול">עגול</label>
               <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="מרובע">מרובע</label>
               <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="ארוך">ארוך</label>
@@ -403,7 +418,7 @@
 
           <div class="osem-spec-field full">
             <label>אילו צבעים או סימונים יעזרו להבין אותו? *</label>
-            <div class="choice-group" data-choice="s2_markings_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s2_markings_choice">
               <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="ירוק / אדום">ירוק / אדום</label>
               <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="חץ">חץ</label>
               <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="קו מדידה">קו מדידה</label>
@@ -417,7 +432,7 @@
 
           <div class="osem-spec-field full">
             <label>מה צריך להיות ברור מיד כשרואים את המוצר? *</label>
-            <div class="choice-group" data-choice="s2_clear_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s2_clear_choice">
               <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="מה עושים איתו">מה עושים איתו</label>
               <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="איפה מחזיקים">איפה מחזיקים</label>
               <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="מה נפתח או נסגר">מה נפתח או נסגר</label>
@@ -429,7 +444,7 @@
 
           <div class="osem-spec-field full">
             <label>מה לא כדאי שיהיה בו?</label>
-            <div class="choice-group" data-choice="s2_avoid_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s2_avoid_choice">
               <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="עומס">עומס</label>
               <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="יותר מדי חלקים">יותר מדי חלקים</label>
               <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="צבעים מבלבלים">צבעים מבלבלים</label>
@@ -445,7 +460,7 @@
       <section class="osem-spec-card" id="section3">
         <h2>3 — הפעולה המרכזית של המוצר</h2>
         <p class="helper-box">כל מוצר פיזי צריך פעולה מרכזית אחת. זו הליבה — הדבר שחייב לעבוד כדי לפתור את הבעיה.</p>
-        <div class="choice-group" data-choice="coreAction" data-required-choice="1" data-mode="single">
+        <div class="choice-group" data-choice="coreAction" data-required-choice="1">
           <label class="choice-chip"><input type="radio" name="coreAction" value="פותח">פותח</label>
           <label class="choice-chip"><input type="radio" name="coreAction" value="סוגר">סוגר</label>
           <label class="choice-chip"><input type="radio" name="coreAction" value="שומר">שומר</label>
@@ -485,7 +500,7 @@
 
           <div class="osem-spec-field full">
             <label>הפירות — מה הערך שמתקבל בסוף?</label>
-            <div class="choice-group" data-choice="fruits" data-mode="multi">
+            <div class="choice-group" data-choice="fruits">
               <label class="choice-chip"><input type="checkbox" name="fruits" value="קל יותר">קל יותר</label>
               <label class="choice-chip"><input type="checkbox" name="fruits" value="בטוח יותר">בטוח יותר</label>
               <label class="choice-chip"><input type="checkbox" name="fruits" value="ברור יותר">ברור יותר</label>
@@ -509,7 +524,7 @@
         <div class="grid">
           <div class="osem-spec-field full">
             <label>חלקים מרכזיים * <span class="field-hint">3–5 חלקים חשובים</span></label>
-            <div class="choice-group" data-choice="s5_parts_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s5_parts_choice">
               <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="בסיס">בסיס</label>
               <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="מכסה">מכסה</label>
               <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="ידית">ידית</label>
@@ -525,7 +540,7 @@
 
           <div class="osem-spec-field full">
             <label>צורה *</label>
-            <div class="choice-group" data-choice="s5_shape_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s5_shape_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="עגול">עגול</label>
               <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="שטוח">שטוח</label>
               <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="ארוך">ארוך</label>
@@ -539,7 +554,7 @@
 
           <div class="osem-spec-field full">
             <label>צבעים / סימונים * <span class="field-hint">מה מסומן ומה בולט</span></label>
-            <div class="choice-group" data-choice="s5_colors_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s5_colors_choice">
               <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="ירוק / אדום">ירוק / אדום</label>
               <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="חץ">חץ</label>
               <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="קו מדידה">קו מדידה</label>
@@ -552,7 +567,7 @@
 
           <div class="osem-spec-field full">
             <label>חומר משוער *</label>
-            <div class="choice-group" data-choice="s5_material_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s5_material_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s5_material_choice" value="פלסטיק">פלסטיק</label>
               <label class="choice-chip"><input type="radio" name="s5_material_choice" value="קרטון">קרטון</label>
               <label class="choice-chip"><input type="radio" name="s5_material_choice" value="נייר קשיח">נייר קשיח</label>
@@ -565,7 +580,7 @@
 
           <div class="osem-spec-field full">
             <label>גודל משוער *</label>
-            <div class="choice-group" data-choice="s5_size_choice" data-required-choice="1" data-mode="single">
+            <div class="choice-group" data-choice="s5_size_choice" data-required-choice="1">
               <label class="choice-chip"><input type="radio" name="s5_size_choice" value="קטן מאוד">קטן מאוד</label>
               <label class="choice-chip"><input type="radio" name="s5_size_choice" value="בגודל כף יד">בגודל כף יד</label>
               <label class="choice-chip"><input type="radio" name="s5_size_choice" value="כ־20 ס״מ">כ־20 ס״מ</label>
@@ -577,7 +592,7 @@
 
           <div class="osem-spec-field full">
             <label>איך מחזיקים או מניחים את המוצר</label>
-            <div class="choice-group" data-choice="s5_hold_choice" data-mode="single">
+            <div class="choice-group" data-choice="s5_hold_choice">
               <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="ביד אחת">ביד אחת</label>
               <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="בשתי ידיים">בשתי ידיים</label>
               <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="על משטח">על משטח</label>
@@ -590,7 +605,7 @@
 
           <div class="osem-spec-field full">
             <label>מה נפתח / נסגר / זז / מתחבר</label>
-            <div class="choice-group" data-choice="s5_moves_choice" data-mode="multi">
+            <div class="choice-group" data-choice="s5_moves_choice">
               <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="מכסה נפתח">מכסה נפתח</label>
               <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="לשונית נסגרת">לשונית נסגרת</label>
               <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="חלק מסתובב">חלק מסתובב</label>
@@ -625,7 +640,7 @@
       <section class="osem-spec-card" id="section7">
         <h2>7 — נקודות חיכוך</h2>
         <p class="helper-box">נקודת חיכוך היא רגע שבו השימוש עלול להסתבך. למצוא חיכוך זה חלק חשוב מפיתוח מוצר.</p>
-        <div class="choice-group" data-choice="friction" data-mode="multi">
+        <div class="choice-group" data-choice="friction">
           <label class="choice-chip"><input type="checkbox" name="friction" value="לא ברור איך להשתמש">לא ברור איך להשתמש</label>
           <label class="choice-chip"><input type="checkbox" name="friction" value="לא נוח להחזיק">לא נוח להחזיק</label>
           <label class="choice-chip"><input type="checkbox" name="friction" value="משהו עלול להישבר">משהו עלול להישבר</label>
@@ -671,8 +686,7 @@
   </div>
 
 <script>
-  const STORAGE_KEY = 'premium_osem_physical_product_spec_v2';
-  const form = document.getElementById('specForm');
+  const STORAGE_KEY = 'premium_osem_physical_product_spec_clean_v1';
   const generatedTargets = new Set(['s1_team_sentence','s3_core_sentence','s4_trunk_sentence','s4_fruit_sentence','s6_sentence','s7_sentence','sum_final']);
   let hydrated = false;
 
@@ -687,14 +701,12 @@
   function selectedRadio(name){ return clean(document.querySelector(`input[name="${name}"]:checked`)?.value); }
   function selectedChecks(name){ return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x => x.value); }
   function joinChoice(name){ return selectedChecks(name).join(', '); }
-  function best(...vals){ return vals.map(clean).find(Boolean) || ''; }
-  function blankAware(...vals){ return vals.map(v => clean(v) || '_____'); }
 
-  function fillFromChoice(inputId, choiceName, overwrite = false){
+  function fillFromChoice(inputId, choiceName){
     const input = byId(inputId);
     if(!input) return;
     const selected = selectedRadio(choiceName) || joinChoice(choiceName);
-    if(selected && (overwrite || !clean(input.value))) input.value = selected;
+    if(selected && !clean(input.value)) input.value = selected;
   }
 
   function readForm(){
@@ -724,6 +736,12 @@
     });
   }
 
+  function setGeneratedValue(id, text, overwrite=false){
+    const el = byId(id);
+    if(!el) return;
+    if(overwrite || !hydrated || !clean(el.value)) el.value = text;
+  }
+
   function updateGeneratedSentences({overwrite=false} = {}){
     fillFromChoice('s1_product_type_other','s1_product_type');
     fillFromChoice('s1_problem','s1_problem_choice');
@@ -744,48 +762,30 @@
     fillFromChoice('s5_hold','s5_hold_choice');
     fillFromChoice('s5_moves','s5_moves_choice');
 
-    const product = value('s1_product');
-    const audience = value('s1_audience');
-    const problem = value('s1_problem');
-    const why = value('s1_why');
-    const teamSentence = `אנחנו מפתחים את ${product} כדי לעזור ל־${audience} במצב שבו ${problem} באמצעות מוצר ש־${why}.`;
-    setText('generated_team_sentence', teamSentence);
-
-    const coreAction = selectedRadio('coreAction') || value('s3_act_1');
     if(selectedRadio('coreAction') && !clean(byId('s3_act_1').value)) byId('s3_act_1').value = selectedRadio('coreAction');
+
+    const teamSentence = `אנחנו מפתחים את ${value('s1_product')} כדי לעזור ל־${value('s1_audience')} במצב שבו ${value('s1_problem')} באמצעות מוצר ש־${value('s1_why')}.`;
     const coreSentence = `המוצר שלנו ${value('s3_act_1')} את / על / עבור ${value('s3_act_2')} כדי ש־${value('s3_act_3')}.`;
-    setText('generated_core_sentence', coreSentence);
-
     const trunkSentence = `הגזע של המוצר הוא ${value('s4_trunk_1')}, כי בלי זה המוצר לא יוכל ${value('s4_trunk_2')}.`;
-    setText('generated_trunk_sentence', trunkSentence);
-
     const fruitSentence = `בסוף השימוש, קהל היעד מקבל ${value('s4_fruit_1')} כי המוצר ${value('s4_fruit_2')}.`;
-    setText('generated_fruit_sentence', fruitSentence);
-
     const usageSentence = `כאשר ${value('s6_problem')}, משתמשים במוצר כך: ${value('s6_approach')}. לאחר מכן ${value('s6_action')}. המוצר עוזר בכך שהוא ${value('s6_help')}. בסוף מקבלים ${value('s6_value')}.`;
-    setText('generated_usage_sentence', usageSentence);
-
     const frictionSentence = `השימוש עלול להסתבך כאשר ${value('s7_when')}. זה עלול להפריע כי ${value('s7_why')}. כדי לשפר, נרצה ${value('s7_fix')}.`;
-    setText('generated_friction_sentence', frictionSentence);
-
     const summarySentence = `המוצר שלנו נקרא ${value('tempProduct')}. הוא מיועד ל־${value('s1_audience')}. הוא עוזר במצב שבו ${value('s1_problem')}. הפעולה המרכזית שלו היא ${value('s3_act_1')}. המוצר בנוי מ־${value('s5_parts_core')}. הצורה שלו היא ${value('s5_shape')}, החומר המשוער הוא ${value('s5_material')}, והחלק הכי חשוב בדגם הראשון הוא ${value('s5_first_important')}. משתמשים בו כך: ${value('s6_sentence')}. הערך שהוא נותן הוא ${value('s6_value')}. בשלב הבא נרצה לשפר את ${value('s7_when')}.`;
 
-    const map = {
-      s1_team_sentence: teamSentence,
-      s3_core_sentence: coreSentence,
-      s4_trunk_sentence: trunkSentence,
-      s4_fruit_sentence: fruitSentence,
-      s6_sentence: usageSentence,
-      s7_sentence: frictionSentence,
-      sum_final: summarySentence
-    };
+    setText('generated_team_sentence', teamSentence);
+    setText('generated_core_sentence', coreSentence);
+    setText('generated_trunk_sentence', trunkSentence);
+    setText('generated_fruit_sentence', fruitSentence);
+    setText('generated_usage_sentence', usageSentence);
+    setText('generated_friction_sentence', frictionSentence);
 
-    Object.entries(map).forEach(([id,text]) => {
-      const el = byId(id);
-      if(!el) return;
-      const isEmpty = !clean(el.value);
-      if(overwrite || isEmpty || !hydrated) el.value = text;
-    });
+    setGeneratedValue('s1_team_sentence', teamSentence, overwrite);
+    setGeneratedValue('s3_core_sentence', coreSentence, overwrite);
+    setGeneratedValue('s4_trunk_sentence', trunkSentence, overwrite);
+    setGeneratedValue('s4_fruit_sentence', fruitSentence, overwrite);
+    setGeneratedValue('s6_sentence', usageSentence, overwrite);
+    setGeneratedValue('s7_sentence', frictionSentence, overwrite);
+    setGeneratedValue('sum_final', summarySentence, overwrite);
   }
 
   function save(show=false){
@@ -803,34 +803,28 @@
     const requiredChoiceGroups = [...document.querySelectorAll('[data-required-choice="1"]')];
     let total = requiredInputs.length + requiredChoiceGroups.length;
     let filled = requiredInputs.filter(el => clean(el.value)).length;
-    filled += requiredChoiceGroups.filter(group => {
-      const name = group.dataset.choice;
-      return !!document.querySelector(`input[name="${name}"]:checked`);
-    }).length;
+    filled += requiredChoiceGroups.filter(group => !!document.querySelector(`input[name="${group.dataset.choice}"]:checked`)).length;
     const p = total ? Math.round((filled / total) * 100) : 0;
     byId('progressBar').style.width = p + '%';
     byId('progressText').textContent = `${filled} מתוך ${total} שדות מרכזיים מולאו (${p}%)`;
   }
 
-  function markMissing(missing){
-    document.querySelectorAll('.missing').forEach(el => el.classList.remove('missing'));
-    missing.forEach(el => el.classList.add('missing'));
-  }
-
   function getMissing(){
     const arr = [...document.querySelectorAll('[data-required="1"]')].filter(el => !clean(el.value));
     [...document.querySelectorAll('[data-required-choice="1"]')].forEach(group => {
-      const name = group.dataset.choice;
-      if(!document.querySelector(`input[name="${name}"]:checked`)) arr.push(group);
+      if(!document.querySelector(`input[name="${group.dataset.choice}"]:checked`)) arr.push(group);
     });
     return arr;
   }
 
   function labelFor(el){
-    if(el.dataset?.choice){
-      return el.closest('.osem-spec-field')?.querySelector('label')?.textContent || el.dataset.choice;
-    }
+    if(el.dataset?.choice) return el.closest('.osem-spec-field')?.querySelector('label')?.textContent || el.dataset.choice;
     return el.closest('.osem-spec-field')?.querySelector('label')?.textContent || el.id;
+  }
+
+  function markMissing(missing){
+    document.querySelectorAll('.missing').forEach(el => el.classList.remove('missing'));
+    missing.forEach(el => el.classList.add('missing'));
   }
 
   function preview(){
@@ -902,18 +896,13 @@
   }
 
   function handleInput(e){
-    if(e.target && generatedTargets.has(e.target.id)){
-      // מאפשרים עריכה ידנית ולא דורסים מיד את השדה.
-    } else {
-      updateGeneratedSentences({overwrite:false});
-    }
+    if(e.target && !generatedTargets.has(e.target.id)) updateGeneratedSentences({overwrite:false});
     save(false);
     preview();
   }
 
-  form.addEventListener('input', handleInput);
-  form.addEventListener('change', handleInput);
-
+  document.getElementById('specForm').addEventListener('input', handleInput);
+  document.getElementById('specForm').addEventListener('change', handleInput);
   byId('saveBtn').onclick = () => { updateGeneratedSentences(); save(true); preview(); };
   byId('previewBtn').onclick = () => { updateGeneratedSentences(); preview(); byId('previewSection').scrollIntoView({behavior:'smooth'}); };
   byId('pdfBtn').onclick = askPdf;
