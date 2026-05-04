@@ -8,156 +8,937 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f7f2f4;--card:#fff;--line:#e8dbe0;--text:#2f2326;--muted:#705b61;--primary:#7f1f38;--soft:#f3e6eb;--ok:#1f8a58;--shadow:0 8px 20px rgba(56,20,31,.08)}
-    *{box-sizing:border-box} html{zoom:75%}
-    body{margin:0;font-family:"Heebo",sans-serif;background:var(--bg);color:var(--text);direction:rtl}
-    .osem-spec-page{max-width:1100px;margin:auto;padding:18px}
-    .osem-spec-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
-    .osem-header{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
-    .logo-wrap{width:74px;height:74px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fff}
-    .logo-wrap img{width:56px;height:56px;object-fit:contain}
+    :root{
+      --bg:#f8f3f5;
+      --card:#ffffff;
+      --line:#eadde2;
+      --text:#2e2327;
+      --muted:#6f5a61;
+      --primary:#7f1f38;
+      --primary-2:#a83d5a;
+      --soft:#f4e6eb;
+      --soft-2:#fbf6f8;
+      --ok:#1f8a58;
+      --warn:#b86a12;
+      --shadow:0 10px 24px rgba(56,20,31,.08);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Heebo",Arial,sans-serif;
+      background:linear-gradient(180deg,#fbf6f8 0%,var(--bg) 45%,#fff 100%);
+      color:var(--text);
+      direction:rtl;
+    }
+
+    .osem-spec-page{max-width:1120px;margin:auto;padding:18px}
+    .osem-spec-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      margin:0 0 14px;
+      box-shadow:var(--shadow);
+    }
+
+    .osem-header{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:16px;
+      align-items:center;
+    }
+
+    .logo-wrap{
+      width:78px;
+      height:78px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      overflow:hidden;
+    }
+    .logo-wrap img{width:62px;height:62px;object-fit:contain}
     .logo-fallback{font-weight:800;color:var(--primary);text-align:center;font-size:.9rem}
-    .title-wrap h1{margin:0;color:var(--primary);font-size:2rem}.title-wrap p{margin:6px 0 0;color:var(--muted)}
-    .actions{display:flex;flex-wrap:wrap;gap:8px}.header-actions{margin-top:10px}
-    button{border:0;border-radius:9px;padding:7px 12px;min-height:36px;font-weight:700;cursor:pointer;font-size:.94rem}
-    .primary{background:var(--primary);color:#fff}.secondary{background:var(--soft);color:#4a3238}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.full{grid-column:1/-1}
-    .osem-spec-field{display:flex;flex-direction:column;gap:6px} label{font-weight:700}
-    .inline-template{display:flex;flex-wrap:wrap;gap:8px;align-items:center;line-height:2}
-    .inline-template input{min-width:150px;max-width:260px}
-    input,textarea,select{border:1px solid #dbcad0;border-radius:10px;padding:8px 10px;font-family:inherit;font-size:1rem;width:100%}
-    textarea{min-height:76px;resize:vertical} .short{min-height:52px}
-    .helper-box{text-align:center;background:#fbf6f8;border:1px dashed #d9bcc7;border-radius:10px;padding:8px;color:#5e494f}
-    .checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px}
-    .checks label{font-weight:500;background:#fcf9fa;border:1px solid #ecdde2;border-radius:9px;padding:7px}
-    .progress-wrap{height:10px;background:#f0e4e8;border-radius:999px;overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#b05f78)}
-    .small-note{font-size:.9rem;color:var(--muted)} .save-toast{color:var(--ok);font-weight:700;min-height:20px}
-    #previewBox{background:#fffafd;border:1px solid #d8bbc5;border-radius:11px;padding:12px;line-height:1.8}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px}
-    .modal{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;max-width:560px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}.osem-header{grid-template-columns:1fr}.logo-wrap{margin-inline:auto}.title-wrap{text-align:center}}
-    @media print{.no-print,.save-toast,.progress-wrap,.small-note,.modal-backdrop{display:none!important}.osem-spec-card{box-shadow:none}.osem-spec-page{padding:0}}
+
+    .title-wrap h1{margin:0;color:var(--primary);font-size:2rem;line-height:1.2}
+    .title-wrap p{margin:6px 0 0;color:var(--muted);font-size:1.05rem}
+
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .header-actions{margin-top:12px}
+    button{
+      border:0;
+      border-radius:10px;
+      padding:7px 13px;
+      min-height:34px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:.94rem;
+      font-family:inherit;
+      transition:.15s ease;
+    }
+    button:hover{transform:translateY(-1px);filter:brightness(.98)}
+    .primary{background:var(--primary);color:#fff}
+    .secondary{background:var(--soft);color:#4a3238}
+    .danger{background:#f8e4e4;color:#8a1d1d}
+
+    h2{margin:0 0 8px;color:var(--primary);font-size:1.45rem}
+    h3{margin:0 0 8px;color:#4a3238}
+    .section-kicker{color:var(--muted);margin:0 0 12px;font-size:1rem}
+    .required-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:.86rem;
+      background:#fff3d8;
+      color:#744a00;
+      border:1px solid #f1d28a;
+      border-radius:999px;
+      padding:3px 9px;
+      margin-inline-start:8px;
+      vertical-align:middle;
+    }
+
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .full{grid-column:1/-1}
+
+    .osem-spec-field{display:flex;flex-direction:column;gap:6px}
+    label{font-weight:800;color:#3e2d33}
+    .field-hint{font-size:.9rem;color:var(--muted);margin-top:-2px}
+
+    input,textarea,select{
+      border:1px solid #dccbd1;
+      border-radius:11px;
+      padding:9px 10px;
+      font-family:inherit;
+      font-size:1rem;
+      width:100%;
+      background:#fff;
+      color:var(--text);
+    }
+    input:focus,textarea:focus,select:focus{outline:2px solid rgba(127,31,56,.18);border-color:var(--primary-2)}
+    textarea{min-height:84px;resize:vertical}
+    .short{min-height:54px}
+    .mini-input{min-width:130px;max-width:230px;width:auto;display:inline-block;margin:0 4px}
+
+    .helper-box{
+      text-align:center;
+      background:var(--soft-2);
+      border:1px dashed #dabdc8;
+      border-radius:12px;
+      padding:10px;
+      color:#5e494f;
+      margin:8px 0 12px;
+      line-height:1.55;
+    }
+
+    .choice-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .choice-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border:1px solid #ecdde2;
+      background:#fcf9fa;
+      color:#4a3238;
+      border-radius:999px;
+      padding:7px 10px;
+      cursor:pointer;
+      font-weight:700;
+      user-select:none;
+      transition:.15s ease;
+    }
+    .choice-chip input{display:none}
+    .choice-chip:has(input:checked){background:var(--primary);color:#fff;border-color:var(--primary)}
+    .choice-chip:hover{border-color:#cfa9b6}
+
+    .inline-template{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      align-items:center;
+      line-height:2.15;
+      background:#fffbfd;
+      border:1px solid #efdee4;
+      border-radius:12px;
+      padding:10px;
+    }
+    .generated-box{
+      background:#f9f0f3;
+      border:1px solid #e6cbd4;
+      border-radius:12px;
+      padding:10px 12px;
+      margin-top:8px;
+      line-height:1.7;
+    }
+    .generated-title{font-weight:800;color:var(--primary);display:block;margin-bottom:4px}
+
+    .parts-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .parts-table th{text-align:right;color:#5b444b;font-size:.95rem;padding:0 6px}
+    .parts-table td{padding:0 5px;vertical-align:top}
+
+    .progress-wrap{height:10px;background:#f0e4e8;border-radius:999px;overflow:hidden}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#b05f78);transition:.2s ease}
+    .small-note{font-size:.92rem;color:var(--muted);margin-top:6px}
+    .save-toast{color:var(--ok);font-weight:800;min-height:20px;margin-top:4px}
+
+    #previewBox{background:#fffafd;border:1px solid #d8bbc5;border-radius:13px;padding:14px;line-height:1.85}
+    #previewBox h3{color:var(--primary);margin:14px 0 4px}
+    #previewBox hr{border:0;border-top:1px solid #ecdde2;margin:12px 0}
+
+    .missing{border-color:#d77!important;background:#fff8f8!important}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000}
+    .modal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;max-width:560px;box-shadow:0 20px 60px rgba(0,0,0,.22)}
+
+    @media (max-width:900px){
+      .grid,.grid-3{grid-template-columns:1fr}
+      .osem-header{grid-template-columns:1fr;text-align:center}
+      .logo-wrap{margin-inline:auto}
+      .actions{justify-content:center}
+      .mini-input{width:100%;max-width:none}
+    }
+
+    @media print{
+      body{background:#fff}
+      .no-print,.save-toast,.progress-wrap,.small-note,.modal-backdrop{display:none!important}
+      .osem-spec-page{max-width:none;padding:0}
+      .osem-spec-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid;margin-bottom:10px}
+      button{display:none!important}
+      input,textarea,select{border:0;background:transparent;padding:0;min-height:auto}
+      .choice-group,.inline-template{display:none!important}
+      .generated-box{border:1px solid #ddd;background:#fff}
+    }
   </style>
 </head>
 <body>
   <main class="osem-spec-page">
     <section class="osem-spec-card">
       <div class="osem-header">
-        <div class="logo-wrap"><img src="images/logo.png" alt="לוגו קורס פרימיום" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="logo-fallback" style="display:none">לוגו</div></div>
+        <div class="logo-wrap">
+          <img src="images/logo.png" alt="לוגו קורס פרימיום" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+          <div class="logo-fallback" style="display:none">לוגו</div>
+        </div>
         <div class="title-wrap">
           <h1>קורס יזמות פרימיום — אפיון מוצר פיזי</h1>
           <p>הופכים כיוון ראשוני למוצר פיזי ברור שאפשר להבין, לתכנן ולהציג.</p>
           <div class="actions header-actions no-print">
-            <button class="primary" id="saveBtn" type="button">שמירה</button><button class="secondary" id="clearBtn" type="button">ניקוי טופס</button><button class="secondary" id="previewBtn" type="button">תצוגה מקדימה</button><button class="primary" id="pdfBtn" type="button">ייצוא PDF</button>
+            <button class="primary" id="saveBtn" type="button">שמירה</button>
+            <button class="secondary" id="previewBtn" type="button">תצוגה מקדימה</button>
+            <button class="primary" id="pdfBtn" type="button">ייצוא PDF</button>
+            <button class="danger" id="clearBtn" type="button">ניקוי</button>
           </div>
         </div>
       </div>
-      <div class="grid" style="margin-top:12px">
-        <div class="osem-spec-field"><label>שם הצוות *</label><input id="teamName" data-required="1" placeholder="לדוגמה: צוות שינוי"/></div>
-        <div class="osem-spec-field"><label>שמות חברי/ות הצוות</label><input id="members" placeholder="שמות"/></div>
-        <div class="osem-spec-field"><label>שם מוצר זמני *</label><input id="tempProduct" data-required="1" placeholder="לדוגמה: מחזיק חכם"/></div>
-        <div class="osem-spec-field"><label>בית ספר / כיתה</label><input id="school" placeholder="אופציונלי"/></div>
+
+      <div class="grid" style="margin-top:14px">
+        <div class="osem-spec-field"><label for="teamName">שם הצוות *</label><input id="teamName" data-required="1" placeholder="לדוגמה: צוות חדשנות" /></div>
+        <div class="osem-spec-field"><label for="members">שמות חברי/ות הצוות</label><input id="members" placeholder="שמות" /></div>
+        <div class="osem-spec-field"><label for="tempProduct">שם מוצר זמני *</label><input id="tempProduct" data-required="1" placeholder="לדוגמה: סוגר חכם" /></div>
+        <div class="osem-spec-field"><label for="school">בית ספר / כיתה</label><input id="school" placeholder="אופציונלי" /></div>
       </div>
     </section>
 
-    <section class="osem-spec-card no-print"><h3>התקדמות</h3><div class="progress-wrap"><div class="progress" id="progressBar"></div></div><div class="small-note" id="progressText"></div><div class="save-toast" id="saveToast"></div></section>
+    <section class="osem-spec-card no-print">
+      <h3>התקדמות</h3>
+      <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+      <div class="small-note" id="progressText"></div>
+      <div class="save-toast" id="saveToast"></div>
+    </section>
 
     <form id="specForm">
-      <section class="osem-spec-card"><h2>1 — מתחברים לכיוון המוצרי</h2><p class="helper-box">שלב קצר לחיבור לרעיון: למה שווה לפתח את המוצר.</p><div class="grid">
-        <div class="osem-spec-field"><label>המוצר שלנו הוא</label><input id="s1_product" placeholder="מוצר פיזי פשוט וברור"></div>
-        <div class="osem-spec-field"><label>הוא בא לעזור במצב שבו *</label><input id="s1_problem" data-required="1" placeholder="לדוגמה: קשה לדעת מתי..."></div>
-        <div class="osem-spec-field"><label>מי שצריך את זה הוא *</label><input id="s1_audience" data-required="1" placeholder="מי שמשתמשים במוצר"></div>
-        <div class="osem-spec-field"><label>זה חשוב כי</label><input id="s1_why" placeholder="מה הערך בחיים האמיתיים"></div>
-        <div class="osem-spec-field full"><label>משפט צוות מובנה</label>
-          <div class="inline-template">אנחנו מפתחים את המוצר הזה כי הוא עוזר ל־<input id="s1_team_audience" placeholder="קהל יעד"> במצב שבו <input id="s1_team_problem" placeholder="המצב"> באמצעות <input id="s1_team_action" placeholder="מה המוצר עושה">.</div>
-          <textarea id="s1_team_sentence" class="short" placeholder="המשפט המלא יופיע כאן לעריכה"></textarea>
+      <section class="osem-spec-card" id="section1">
+        <h2>1 — מתחברים לכיוון המוצרי <span class="required-badge">חלק חובה</span></h2>
+        <p class="helper-box">מתחילים בקטן: בוחרים מה הכי מתאים, משלימים כמה מילים, ובונים משפט צוות ראשון. לא צריך ניסוח מושלם — צריך להבין למה המוצר שווה פיתוח.</p>
+
+        <div class="grid">
+          <div class="osem-spec-field full">
+            <label for="s1_product">המוצר שלנו הוא...</label>
+            <input id="s1_product" data-required="1" placeholder="לדוגמה: סוגר חכם לאריזה / מדבקת טריות / כלי מדידה פשוט" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>איזה סוג מוצר זה בערך? *</label>
+            <div class="choice-group" data-choice="s1_product_type" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="אריזה">אריזה</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="אביזר עזר">אביזר עזר</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="כלי מדידה">כלי מדידה</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="סימון / מדבקה">סימון / מדבקה</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="מנגנון פתיחה / סגירה">מנגנון פתיחה / סגירה</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="מתקן אחסון">מתקן אחסון</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="מגן / כיסוי">מגן / כיסוי</label>
+              <label class="choice-chip"><input type="radio" name="s1_product_type" value="כלי ארגון">כלי ארגון</label>
+            </div>
+            <input id="s1_product_type_other" placeholder="אחר / דיוק קצר" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>הוא עוזר במצב שבו... *</label>
+            <div class="choice-group" data-choice="s1_problem_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="קשה לפתוח / לסגור משהו">קשה לפתוח / לסגור משהו</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="יש בלבול בשימוש">יש בלבול בשימוש</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="לא ברור אם המוצר תקין">לא ברור אם המוצר תקין</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="קשה למדוד כמות">קשה למדוד כמות</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="יש בזבוז">יש בזבוז</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="המוצר לא נשמר טוב">המוצר לא נשמר טוב</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="קשה לאחסן או לסדר">קשה לאחסן או לסדר</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="יש חשש לבטיחות">יש חשש לבטיחות</label>
+              <label class="choice-chip"><input type="radio" name="s1_problem_choice" value="האריזה לא נוחה">האריזה לא נוחה</label>
+            </div>
+            <input id="s1_problem" data-required="1" placeholder="במילים שלנו, הבעיה היא..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>מי שצריך את זה הוא... *</label>
+            <div class="choice-group" data-choice="s1_audience_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="תלמידים/ות">תלמידים/ות</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="ילדים/ות">ילדים/ות</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="הורים">הורים</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="משפחות">משפחות</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="צרכנים/ות בבית">צרכנים/ות בבית</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="עובדים/ות במפעל">עובדים/ות במפעל</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="צוות איכות">צוות איכות</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="צוות אריזה">צוות אריזה</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="חנויות / סופר">חנויות / סופר</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="אנשים שממהרים">אנשים שממהרים</label>
+              <label class="choice-chip"><input type="radio" name="s1_audience_choice" value="אנשים שמתקשים בפתיחה / אחיזה">אנשים שמתקשים בפתיחה / אחיזה</label>
+            </div>
+            <input id="s1_audience" data-required="1" placeholder="קהל היעד המרכזי שלנו הוא..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>משתמשים בו ב־... *</label>
+            <div class="choice-group" data-choice="s1_place_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בבית">בבית</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="במטבח">במטבח</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בבית הספר">בבית הספר</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בסופר / חנות">בסופר / חנות</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="במפעל">במפעל</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="באזור אריזה">באזור אריזה</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בזמן אחסון">בזמן אחסון</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בזמן פתיחת מוצר">בזמן פתיחת מוצר</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בזמן שימוש במוצר">בזמן שימוש במוצר</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בזמן בדיקה או בקרה">בזמן בדיקה או בקרה</label>
+              <label class="choice-chip"><input type="radio" name="s1_place_choice" value="בדרך / מחוץ לבית">בדרך / מחוץ לבית</label>
+            </div>
+            <input id="s1_place" data-required="1" placeholder="המקום המרכזי שבו זה קורה הוא..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>המוצר הזה חשוב כי... *</label>
+            <div class="choice-group" data-choice="s1_value_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא חוסך זמן">הוא חוסך זמן</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא מפחית בלבול">הוא מפחית בלבול</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא משפר בטיחות">הוא משפר בטיחות</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא שומר על איכות">הוא שומר על איכות</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא מקטין בזבוז">הוא מקטין בזבוז</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא מקל על שימוש">הוא מקל על שימוש</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא עוזר להבין מה לעשות">הוא עוזר להבין מה לעשות</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא הופך פעולה יומיומית לפשוטה יותר">הוא הופך פעולה יומיומית לפשוטה יותר</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא עוזר לשמור על טריות">הוא עוזר לשמור על טריות</label>
+              <label class="choice-chip"><input type="radio" name="s1_value_choice" value="הוא נותן תחושת ביטחון">הוא נותן תחושת ביטחון</label>
+            </div>
+            <input id="s1_why" data-required="1" placeholder="הסיבה שהמוצר שווה פיתוח היא..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>משפט צוות</label>
+            <div class="generated-box"><span class="generated-title">המשפט שנוצר:</span><span id="generated_team_sentence">אנחנו מפתחים את _____ כדי לעזור ל־_____ במצב שבו _____ באמצעות מוצר ש־_____.</span></div>
+            <textarea id="s1_team_sentence" class="short" data-required="1" placeholder="אפשר לערוך כאן את משפט הצוות הסופי"></textarea>
+          </div>
         </div>
-      </div></section>
-
-      <section class="osem-spec-card"><h2>2 — מדייקים את המוצר הפיזי</h2><p class="helper-box">תדמיינו שמישהו רואה את המוצר בפעם הראשונה: מה רואים מבחוץ ומה מבינים מיד?</p><div class="grid">
-        <div class="osem-spec-field"><label>איך המוצר נראה בערך?</label><input id="s2_look" placeholder="קטן, עגול, מתקפל, עומד על שולחן..."></div>
-        <div class="osem-spec-field"><label>אילו חלקים פיזיים יש בו?</label><input id="s2_parts" placeholder="מכסה, ידית, בסיס, חלון סימון..."></div>
-        <div class="osem-spec-field"><label>איזו צורה מתאימה לו?</label><select id="s2_shape"><option>עגול</option><option>מרובע</option><option>ארוך</option><option>שטוח</option><option>מתקפל</option><option>נצמד</option><option>עומד</option><option>אחר</option></select></div>
-        <div class="osem-spec-field"><label>אילו צבעים או סימונים יעזרו להבין אותו?</label><input id="s2_markings" placeholder="חץ, ירוק/אדום, מספרים, קו מדידה"></div>
-        <div class="osem-spec-field"><label>מה צריך להיות ברור מיד כשרואים את המוצר? *</label><input id="s2_clear_now" data-required="1" placeholder="מה עושים איתו? איפה מחזיקים?"></div>
-        <div class="osem-spec-field"><label>מה לא כדאי שיהיה בו?</label><input id="s2_avoid" placeholder="עומס, טקסט ארוך, צבעים מבלבלים..."></div>
-      </div></section>
-
-      <section class="osem-spec-card"><h2>3 — הפעולה המרכזית של המוצר</h2><div class="checks" id="coreActionWrap"></div>
-      <div class="helper-box" style="margin:8px 0">דוגמה: המוצר שלנו מסמן את מצב הטריות כדי שיהיה ברור מתי כדאי להשתמש במוצר.</div>
-      <div class="osem-spec-field"><label>משפט ליבה מובנה *</label><div class="inline-template">המוצר שלנו <input id="s3_act_1" data-required="1" placeholder="הפעולה"> את / על / עבור <input id="s3_act_2" placeholder="על מה פועל"> כדי ש־<input id="s3_act_3" data-required="1" placeholder="מה הערך"></div><textarea id="s3_core_sentence" class="short" data-required="1" placeholder="המשפט המלא לעריכה"></textarea></div>
       </section>
 
-      <section class="osem-spec-card"><h2>4 — עץ מוצר</h2><div class="grid">
-        <div class="osem-spec-field full"><label>הגזע (משפט מובנה)</label><div class="inline-template">הגזע של המוצר הוא <input id="s4_trunk_1" placeholder="חלק/פעולה מרכזית">, כי בלי זה המוצר לא יוכל <input id="s4_trunk_2" placeholder="מה לא יקרה"></div><textarea id="s4_trunk_sentence" class="short"></textarea></div>
-        <div class="osem-spec-field"><label>ענף 1</label><input id="s4_branch1" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
-        <div class="osem-spec-field"><label>ענף 2</label><input id="s4_branch2" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
-        <div class="osem-spec-field"><label>ענף 3</label><input id="s4_branch3" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
-        <div class="osem-spec-field full"><label>פירות (ערך)</label><div class="checks" id="fruitWrap"></div></div>
-        <div class="osem-spec-field full"><div class="inline-template">בסוף השימוש, קהל היעד מקבל <input id="s4_fruit_1" placeholder="הערך"> כי המוצר <input id="s4_fruit_2" placeholder="מה הוא מאפשר"></div><textarea id="s4_fruit_sentence" class="short"></textarea></div>
-      </div></section>
+      <section class="osem-spec-card" id="section2">
+        <h2>2 — מדייקים את המוצר הפיזי</h2>
+        <p class="helper-box">תדמיינו שמישהו רואה את המוצר בפעם הראשונה: מה רואים מבחוץ ומה מבינים מיד? בשלב הזה לא צריך לדעת בדיוק איך משתמשים במוצר — רק מתחילים לתת לו צורה.</p>
 
-      <section class="osem-spec-card"><h2>5 — מבנה המוצר</h2><p class="helper-box">כאן מפרקים בצורה מדויקת יותר את המבנה הפיזי, בצורה פשוטה וברורה.</p><div class="grid">
-        <div class="osem-spec-field"><label>חלקים מרכזיים *</label><input id="s5_parts_core" data-required="1" placeholder="3–5 חלקים חשובים"></div>
-        <div class="osem-spec-field"><label>צורה *</label><input id="s5_shape" data-required="1" placeholder="עגול/שטוח/ארוך..."></div>
-        <div class="osem-spec-field"><label>צבעים / סימונים *</label><input id="s5_colors" data-required="1" placeholder="מה מסומן ומה בולט"></div>
-        <div class="osem-spec-field"><label>חומר משוער *</label><input id="s5_material" data-required="1" placeholder="פלסטיק, קרטון, מתכת קלה..."></div>
-        <div class="osem-spec-field"><label>גודל משוער *</label><input id="s5_size" data-required="1" placeholder="כף יד / 20 ס״מ / קטן"></div>
-        <div class="osem-spec-field"><label>איך מחזיקים או מניחים את המוצר</label><input id="s5_hold" placeholder="ביד אחת / על משטח / תלוי"></div>
-        <div class="osem-spec-field"><label>מה נפתח / נסגר / זז / מתחבר</label><input id="s5_moves" placeholder="מכסה נפתח, לשונית נסגרת..."></div>
-        <div class="osem-spec-field"><label>מה החלק הכי חשוב בדגם הראשון *</label><input id="s5_first_important" data-required="1" placeholder="החלק שחייב לעבוד"></div>
-      </div></section>
+        <div class="grid">
+          <div class="osem-spec-field full">
+            <label>איך המוצר נראה בערך? *</label>
+            <div class="choice-group" data-choice="s2_look_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="קטן">קטן</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="מתקפל">מתקפל</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="נצמד לאריזה">נצמד לאריזה</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="עומד על משטח">עומד על משטח</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="מחובר למוצר אחר">מחובר למוצר אחר</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="נפתח ונסגר">נפתח ונסגר</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_look_choice" value="עם אזור שקוף">עם אזור שקוף</label>
+            </div>
+            <input id="s2_look" data-required="1" placeholder="תיאור קצר: איך זה נראה מבחוץ?" />
+          </div>
 
-      <section class="osem-spec-card"><h2>6 — מסלול שימוש</h2><div class="grid">
-        <div class="osem-spec-field full"><label>משפט מסלול שימוש מובנה *</label><div class="inline-template">כאשר <input id="s6_audience" placeholder="קהל היעד"> פוגשים את הבעיה של <input id="s6_problem" placeholder="הבעיה">, משתמשים במוצר כך: <input id="s6_action" placeholder="לוקחים/פותחים/...">. לאחר מכן <input id="s6_next" placeholder="מה עושים">. המוצר <input id="s6_help" placeholder="עוזר/מסמן/..."> בכך שהוא <input id="s6_how" placeholder="מה קורה">. בסוף מקבלים <input id="s6_value" data-required="1" placeholder="הערך"></div><textarea id="s6_sentence" class="short" data-required="1" placeholder="משפט מלא לעריכה"></textarea></div>
-      </div></section>
+          <div class="osem-spec-field full">
+            <label>אילו חלקים פיזיים יש בו? *</label>
+            <div class="choice-group" data-choice="s2_parts_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="מכסה">מכסה</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="ידית">ידית</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="בסיס">בסיס</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="מדבקה">מדבקה</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="חלון סימון">חלון סימון</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="תופסן">תופסן</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="חלק נפתח">חלק נפתח</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="מנגנון פשוט">מנגנון פשוט</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_parts_choice" value="סימון צבעוני">סימון צבעוני</label>
+            </div>
+            <input id="s2_parts" data-required="1" placeholder="3–5 חלקים עיקריים" />
+          </div>
 
-      <section class="osem-spec-card"><h2>7 — נקודות חיכוך</h2><div class="checks" id="frictionWrap"></div><div class="osem-spec-field" style="margin-top:8px"><label>משפט חיכוך מובנה *</label><div class="inline-template">השימוש עלול להסתבך כאשר <input id="s7_when" data-required="1" placeholder="מה קורה">. זה עלול להפריע כי <input id="s7_why" data-required="1" placeholder="למה זה בעייתי">. כדי לשפר, נרצה <input id="s7_fix" data-required="1" placeholder="מה נשנה"></div><textarea id="s7_sentence" class="short" data-required="1"></textarea></div></section>
+          <div class="osem-spec-field full">
+            <label>איזו צורה מתאימה לו? *</label>
+            <div class="choice-group" data-choice="s2_shape_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="עגול">עגול</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="מרובע">מרובע</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="ארוך">ארוך</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="שטוח">שטוח</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="מתקפל">מתקפל</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="נצמד">נצמד</label>
+              <label class="choice-chip"><input type="radio" name="s2_shape_choice" value="עומד">עומד</label>
+            </div>
+            <input id="s2_shape" placeholder="אם צריך, דיוק נוסף לצורה" />
+          </div>
 
-      <section class="osem-spec-card"><h2>8 — אפיון מסכם להצגה</h2><div class="osem-spec-field"><label>סיכום מובנה (אפשר לערוך חופשי) *</label><textarea id="sum_final" data-required="1" placeholder="הסיכום המלא יופיע כאן"></textarea></div></section>
+          <div class="osem-spec-field full">
+            <label>אילו צבעים או סימונים יעזרו להבין אותו? *</label>
+            <div class="choice-group" data-choice="s2_markings_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="ירוק / אדום">ירוק / אדום</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="חץ">חץ</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="קו מדידה">קו מדידה</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="מספרים">מספרים</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="אזור שקוף">אזור שקוף</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="צבע אזהרה">צבע אזהרה</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_markings_choice" value="סימון פתיחה / סגירה">סימון פתיחה / סגירה</label>
+            </div>
+            <input id="s2_markings" data-required="1" placeholder="מה מסומן ומה צריך לבלוט?" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>מה צריך להיות ברור מיד כשרואים את המוצר? *</label>
+            <div class="choice-group" data-choice="s2_clear_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="מה עושים איתו">מה עושים איתו</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="איפה מחזיקים">איפה מחזיקים</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="מה נפתח או נסגר">מה נפתח או נסגר</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="מה הוא מסמן">מה הוא מסמן</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_clear_choice" value="איך יודעים אם זה עובד">איך יודעים אם זה עובד</label>
+            </div>
+            <input id="s2_clear_now" data-required="1" placeholder="מה מבינים מיד?" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>מה לא כדאי שיהיה בו?</label>
+            <div class="choice-group" data-choice="s2_avoid_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="עומס">עומס</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="יותר מדי חלקים">יותר מדי חלקים</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="צבעים מבלבלים">צבעים מבלבלים</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="טקסט ארוך">טקסט ארוך</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="חלקים קטנים מדי">חלקים קטנים מדי</label>
+              <label class="choice-chip"><input type="checkbox" name="s2_avoid_choice" value="מנגנון מסובך">מנגנון מסובך</label>
+            </div>
+            <input id="s2_avoid" placeholder="מה כדאי להימנע ממנו?" />
+          </div>
+        </div>
+      </section>
+
+      <section class="osem-spec-card" id="section3">
+        <h2>3 — הפעולה המרכזית של המוצר</h2>
+        <p class="helper-box">כל מוצר פיזי צריך פעולה מרכזית אחת. זו הליבה — הדבר שחייב לעבוד כדי לפתור את הבעיה.</p>
+        <div class="choice-group" data-choice="coreAction" data-required-choice="1" data-mode="single">
+          <label class="choice-chip"><input type="radio" name="coreAction" value="פותח">פותח</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="סוגר">סוגר</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="שומר">שומר</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מסמן">מסמן</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מודד">מודד</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מזהה">מזהה</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מגן">מגן</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מונע">מונע</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מארגן">מארגן</label>
+          <label class="choice-chip"><input type="radio" name="coreAction" value="מקל על שימוש">מקל על שימוש</label>
+        </div>
+
+        <div class="osem-spec-field full" style="margin-top:12px">
+          <label>משפט ליבה מובנה *</label>
+          <div class="inline-template">
+            המוצר שלנו <input class="mini-input" id="s3_act_1" data-required="1" placeholder="פעולה"> את / על / עבור <input class="mini-input" id="s3_act_2" placeholder="מה הדבר"> כדי ש־<input class="mini-input" id="s3_act_3" data-required="1" placeholder="מה הערך">.
+          </div>
+          <div class="generated-box"><span class="generated-title">המשפט שנוצר:</span><span id="generated_core_sentence">המוצר שלנו _____ את / על / עבור _____ כדי ש־_____.</span></div>
+          <textarea id="s3_core_sentence" class="short" data-required="1" placeholder="אפשר לערוך כאן את משפט הליבה"></textarea>
+        </div>
+      </section>
+
+      <section class="osem-spec-card" id="section4">
+        <h2>4 — עץ מוצר</h2>
+        <p class="helper-box">גזע — מה חייב לעבוד | ענפים — מה עוזר לזה לעבוד | פירות — הערך שמתקבל בסוף.</p>
+        <div class="grid">
+          <div class="osem-spec-field full">
+            <label>הגזע — מה חייב לעבוד?</label>
+            <div class="inline-template">הגזע של המוצר הוא <input class="mini-input" id="s4_trunk_1" placeholder="חלק / פעולה">, כי בלי זה המוצר לא יוכל <input class="mini-input" id="s4_trunk_2" placeholder="מה לא יקרה">.</div>
+            <div class="generated-box"><span class="generated-title">המשפט שנוצר:</span><span id="generated_trunk_sentence">הגזע של המוצר הוא _____, כי בלי זה המוצר לא יוכל _____.</span></div>
+            <textarea id="s4_trunk_sentence" class="short"></textarea>
+          </div>
+
+          <div class="osem-spec-field"><label for="s4_branch1">ענף 1</label><input id="s4_branch1" placeholder="החלק ___ עוזר בכך שהוא ___" /></div>
+          <div class="osem-spec-field"><label for="s4_branch2">ענף 2</label><input id="s4_branch2" placeholder="החלק ___ עוזר בכך שהוא ___" /></div>
+          <div class="osem-spec-field"><label for="s4_branch3">ענף 3</label><input id="s4_branch3" placeholder="החלק ___ עוזר בכך שהוא ___" /></div>
+
+          <div class="osem-spec-field full">
+            <label>הפירות — מה הערך שמתקבל בסוף?</label>
+            <div class="choice-group" data-choice="fruits" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="קל יותר">קל יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="בטוח יותר">בטוח יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="ברור יותר">ברור יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="נוח יותר">נוח יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="מסודר יותר">מסודר יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="איכותי יותר">איכותי יותר</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="פחות בזבוז">פחות בזבוז</label>
+              <label class="choice-chip"><input type="checkbox" name="fruits" value="פחות בלבול">פחות בלבול</label>
+            </div>
+            <div class="inline-template" style="margin-top:8px">בסוף השימוש, קהל היעד מקבל <input class="mini-input" id="s4_fruit_1" placeholder="הערך"> כי המוצר <input class="mini-input" id="s4_fruit_2" placeholder="מה הוא מאפשר">.</div>
+            <div class="generated-box"><span class="generated-title">המשפט שנוצר:</span><span id="generated_fruit_sentence">בסוף השימוש, קהל היעד מקבל _____ כי המוצר _____.</span></div>
+            <textarea id="s4_fruit_sentence" class="short"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="osem-spec-card" id="section5">
+        <h2>5 — מבנה המוצר</h2>
+        <p class="helper-box">כאן מפרקים בצורה מדויקת יותר את המבנה הפיזי, בצורה פשוטה וברורה.</p>
+
+        <div class="grid">
+          <div class="osem-spec-field full">
+            <label>חלקים מרכזיים * <span class="field-hint">3–5 חלקים חשובים</span></label>
+            <div class="choice-group" data-choice="s5_parts_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="בסיס">בסיס</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="מכסה">מכסה</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="ידית">ידית</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="תופסן">תופסן</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="חלון סימון">חלון סימון</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="מדבקה">מדבקה</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="ציר">ציר</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="לשונית">לשונית</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_parts_choice" value="מנגנון פשוט">מנגנון פשוט</label>
+            </div>
+            <input id="s5_parts_core" data-required="1" placeholder="כתבו 3–5 חלקים חשובים" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>צורה *</label>
+            <div class="choice-group" data-choice="s5_shape_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="עגול">עגול</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="שטוח">שטוח</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="ארוך">ארוך</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="מרובע">מרובע</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="מתקפל">מתקפל</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="נצמד">נצמד</label>
+              <label class="choice-chip"><input type="radio" name="s5_shape_choice" value="עומד">עומד</label>
+            </div>
+            <input id="s5_shape" data-required="1" placeholder="עגול / שטוח / ארוך..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>צבעים / סימונים * <span class="field-hint">מה מסומן ומה בולט</span></label>
+            <div class="choice-group" data-choice="s5_colors_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="ירוק / אדום">ירוק / אדום</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="חץ">חץ</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="קו מדידה">קו מדידה</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="אזור שקוף">אזור שקוף</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="סימון אזהרה">סימון אזהרה</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_colors_choice" value="סימון פתיחה / סגירה">סימון פתיחה / סגירה</label>
+            </div>
+            <input id="s5_colors" data-required="1" placeholder="מה מסומן ומה בולט?" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>חומר משוער *</label>
+            <div class="choice-group" data-choice="s5_material_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="פלסטיק">פלסטיק</label>
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="קרטון">קרטון</label>
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="נייר קשיח">נייר קשיח</label>
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="מתכת קלה">מתכת קלה</label>
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="סיליקון / גומי">סיליקון / גומי</label>
+              <label class="choice-chip"><input type="radio" name="s5_material_choice" value="בד / רצועה">בד / רצועה</label>
+            </div>
+            <input id="s5_material" data-required="1" placeholder="פלסטיק, קרטון, מתכת קלה..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>גודל משוער *</label>
+            <div class="choice-group" data-choice="s5_size_choice" data-required-choice="1" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s5_size_choice" value="קטן מאוד">קטן מאוד</label>
+              <label class="choice-chip"><input type="radio" name="s5_size_choice" value="בגודל כף יד">בגודל כף יד</label>
+              <label class="choice-chip"><input type="radio" name="s5_size_choice" value="כ־20 ס״מ">כ־20 ס״מ</label>
+              <label class="choice-chip"><input type="radio" name="s5_size_choice" value="גדול מאריזה רגילה">גדול מאריזה רגילה</label>
+              <label class="choice-chip"><input type="radio" name="s5_size_choice" value="תלוי בגודל האריזה">תלוי בגודל האריזה</label>
+            </div>
+            <input id="s5_size" data-required="1" placeholder="כף יד / 20 ס״מ / קטן" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>איך מחזיקים או מניחים את המוצר</label>
+            <div class="choice-group" data-choice="s5_hold_choice" data-mode="single">
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="ביד אחת">ביד אחת</label>
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="בשתי ידיים">בשתי ידיים</label>
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="על משטח">על משטח</label>
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="תלוי">תלוי</label>
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="נצמד לאריזה">נצמד לאריזה</label>
+              <label class="choice-chip"><input type="radio" name="s5_hold_choice" value="מחובר למוצר">מחובר למוצר</label>
+            </div>
+            <input id="s5_hold" placeholder="ביד אחת / על משטח / תלוי" />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>מה נפתח / נסגר / זז / מתחבר</label>
+            <div class="choice-group" data-choice="s5_moves_choice" data-mode="multi">
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="מכסה נפתח">מכסה נפתח</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="לשונית נסגרת">לשונית נסגרת</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="חלק מסתובב">חלק מסתובב</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="חלק נשלף">חלק נשלף</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="חלק נצמד">חלק נצמד</label>
+              <label class="choice-chip"><input type="checkbox" name="s5_moves_choice" value="סימון משתנה">סימון משתנה</label>
+            </div>
+            <input id="s5_moves" placeholder="מכסה נפתח, לשונית נסגרת..." />
+          </div>
+
+          <div class="osem-spec-field full">
+            <label>מה החלק הכי חשוב בדגם הראשון? *</label>
+            <input id="s5_first_important" data-required="1" placeholder="החלק שחייב לעבוד" />
+          </div>
+        </div>
+      </section>
+
+      <section class="osem-spec-card" id="section6">
+        <h2>6 — מסלול שימוש</h2>
+        <p class="helper-box">מסלול שימוש הוא רצף קצר וברור של מה שקורה מהרגע שפוגשים את הבעיה ועד שמקבלים ערך מהמוצר.</p>
+        <div class="grid">
+          <div class="osem-spec-field"><label for="s6_problem">שלב 1 — פוגשים את הבעיה *</label><input id="s6_problem" data-required="1" placeholder="הבעיה מופיעה כאשר..." /></div>
+          <div class="osem-spec-field"><label for="s6_approach">שלב 2 — ניגשים למוצר</label><input id="s6_approach" placeholder="לוקחים / מניחים / פותחים / מחברים..." /></div>
+          <div class="osem-spec-field"><label for="s6_action">שלב 3 — מבצעים פעולה</label><input id="s6_action" placeholder="מה עושים עם המוצר?" /></div>
+          <div class="osem-spec-field"><label for="s6_help">שלב 4 — המוצר עוזר</label><input id="s6_help" placeholder="המוצר עוזר בכך שהוא..." /></div>
+          <div class="osem-spec-field full"><label for="s6_value">שלב 5 — מקבלים ערך *</label><input id="s6_value" data-required="1" placeholder="בסוף השימוש מתקבל..." /></div>
+        </div>
+        <div class="generated-box"><span class="generated-title">מסלול השימוש שנוצר:</span><span id="generated_usage_sentence">כאשר _____, משתמשים במוצר כך: _____. לאחר מכן _____. המוצר עוזר בכך שהוא _____. בסוף מקבלים _____.</span></div>
+        <textarea id="s6_sentence" class="short" data-required="1" placeholder="אפשר לערוך כאן את מסלול השימוש"></textarea>
+      </section>
+
+      <section class="osem-spec-card" id="section7">
+        <h2>7 — נקודות חיכוך</h2>
+        <p class="helper-box">נקודת חיכוך היא רגע שבו השימוש עלול להסתבך. למצוא חיכוך זה חלק חשוב מפיתוח מוצר.</p>
+        <div class="choice-group" data-choice="friction" data-mode="multi">
+          <label class="choice-chip"><input type="checkbox" name="friction" value="לא ברור איך להשתמש">לא ברור איך להשתמש</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="לא נוח להחזיק">לא נוח להחזיק</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="משהו עלול להישבר">משהו עלול להישבר</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="הסימון לא ברור">הסימון לא ברור</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="יש יותר מדי פעולות">יש יותר מדי פעולות</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="הערך לא ברור">הערך לא ברור</label>
+          <label class="choice-chip"><input type="checkbox" name="friction" value="המוצר מסורבל">המוצר מסורבל</label>
+        </div>
+        <div class="grid" style="margin-top:12px">
+          <div class="osem-spec-field"><label for="s7_when">השימוש עלול להסתבך כאשר *</label><input id="s7_when" data-required="1" placeholder="מה קורה?" /></div>
+          <div class="osem-spec-field"><label for="s7_why">זה עלול להפריע כי *</label><input id="s7_why" data-required="1" placeholder="למה זה בעייתי?" /></div>
+          <div class="osem-spec-field full"><label for="s7_fix">כדי לשפר, נרצה *</label><input id="s7_fix" data-required="1" placeholder="מה נשנה / נפשט / נבליט?" /></div>
+        </div>
+        <div class="generated-box"><span class="generated-title">משפט החיכוך שנוצר:</span><span id="generated_friction_sentence">השימוש עלול להסתבך כאשר _____. זה עלול להפריע כי _____. כדי לשפר, נרצה _____.</span></div>
+        <textarea id="s7_sentence" class="short" data-required="1" placeholder="אפשר לערוך כאן את משפט החיכוך"></textarea>
+      </section>
+
+      <section class="osem-spec-card" id="section8">
+        <h2>8 — אפיון מסכם להצגה / PDF</h2>
+        <p class="helper-box">בסוף השיעור יוצאים עם אפיון קצר וברור שממנו אפשר להתקדם לדגם ראשוני.</p>
+        <div class="osem-spec-field">
+          <label for="sum_final">סיכום מובנה לעריכה *</label>
+          <textarea id="sum_final" data-required="1" placeholder="הסיכום המלא יופיע כאן ואפשר לערוך אותו"></textarea>
+        </div>
+      </section>
     </form>
 
-    <section class="osem-spec-card" id="previewSection"><h2>תצוגה מקדימה</h2><div id="previewBox"></div></section>
+    <section class="osem-spec-card" id="previewSection">
+      <h2>תצוגה מקדימה</h2>
+      <div id="previewBox"></div>
+    </section>
   </main>
 
-  <div class="modal-backdrop" id="missingModal"><div class="modal"><h3>חלק מהשדות המרכזיים עדיין ריקים</h3><p id="missingText"></p><div class="actions"><button class="secondary" id="backFill" type="button">חזרה להשלמה</button><button class="primary" id="forcePdf" type="button">ייצוא בכל זאת</button></div></div></div>
+  <div class="modal-backdrop" id="missingModal">
+    <div class="modal">
+      <h3>חלק מהשדות המרכזיים עדיין ריקים</h3>
+      <p id="missingText"></p>
+      <div class="actions">
+        <button class="secondary" id="backFill" type="button">חזרה להשלמה</button>
+        <button class="primary" id="forcePdf" type="button">ייצוא בכל זאת</button>
+      </div>
+    </div>
+  </div>
 
 <script>
-const STORAGE_KEY='premium_osem_physical_product_spec';
-const actions=['פותח','סוגר','שומר','מסמן','מודד','מזהה','מגן','מונע','מארגן','מקל על שימוש','אחר'];
-const fruits=['קל יותר','בטוח יותר','ברור יותר','נוח יותר','מסודר יותר','איכותי יותר','פחות בזבוז','פחות בלבול','אחר'];
-const friction=['לא ברור איך להשתמש','לא נוח להחזיק','משהו עלול להישבר','הסימון לא ברור','יש יותר מדי פעולות','הערך לא ברור','המוצר מסורבל','אחר'];
-const form=document.getElementById('specForm');
-function renderChecks(id,name,arr,type='checkbox'){document.getElementById(id).innerHTML=arr.map(v=>`<label><input type="${type}" name="${name}" value="${v}"> ${v}</label>`).join('')}
-renderChecks('coreActionWrap','coreAction',actions,'radio');renderChecks('fruitWrap','fruits',fruits);renderChecks('frictionWrap','friction',friction);
-const all=[...document.querySelectorAll('input,textarea,select')];
-function read(){const d={};all.forEach(f=>{if((f.type==='checkbox'||f.type==='radio')&&!f.checked)return;if(f.type==='checkbox'){(d[f.name]??=[]).push(f.value)}else if(f.type==='radio'){d[f.name]=f.value}else d[f.id]=f.value});return d}
-function write(d={}){all.forEach(f=>{if(f.type==='checkbox')f.checked=(d[f.name]||[]).includes(f.value);else if(f.type==='radio')f.checked=d[f.name]===f.value;else if(d[f.id]!=null)f.value=d[f.id]})}
-function compose(){
-  const set=(id,val)=>{const e=document.getElementById(id);if(e&&!e.value.trim())e.value=val};
-  set('s1_team_sentence',`אנחנו מפתחים את המוצר הזה כי הוא עוזר ל־${v('s1_team_audience')} במצב שבו ${v('s1_team_problem')} באמצעות ${v('s1_team_action')}.`);
-  set('s3_core_sentence',`המוצר שלנו ${v('s3_act_1')} את / על / עבור ${v('s3_act_2')} כדי ש־${v('s3_act_3')}.`);
-  set('s4_trunk_sentence',`הגזע של המוצר הוא ${v('s4_trunk_1')}, כי בלי זה המוצר לא יוכל ${v('s4_trunk_2')}.`);
-  set('s4_fruit_sentence',`בסוף השימוש, קהל היעד מקבל ${v('s4_fruit_1')} כי המוצר ${v('s4_fruit_2')}.`);
-  set('s6_sentence',`כאשר ${v('s6_audience')} פוגשים את הבעיה של ${v('s6_problem')}, משתמשים במוצר כך: ${v('s6_action')}. לאחר מכן ${v('s6_next')}. המוצר ${v('s6_help')} בכך שהוא ${v('s6_how')}. בסוף מקבלים ${v('s6_value')}.`);
-  set('s7_sentence',`השימוש עלול להסתבך כאשר ${v('s7_when')}. זה עלול להפריע כי ${v('s7_why')}. כדי לשפר, נרצה ${v('s7_fix')}.`);
-  set('sum_final',`המוצר שלנו נקרא ${v('tempProduct')}. הוא מיועד ל־${v('s1_audience')}. הוא עוזר במצב שבו ${v('s1_problem')}. הפעולה המרכזית שלו היא ${v('s3_core_sentence')}. המוצר בנוי מ־${v('s5_parts_core')}. משתמשים בו על ידי ${v('s6_sentence')}. הערך שהוא נותן הוא ${v('s6_value')}. בשלב הבא נרצה לשפר את ${v('s7_when')}.`);
-}
-function v(id){return (document.getElementById(id)?.value||'').trim()}
-function save(show=false){localStorage.setItem(STORAGE_KEY,JSON.stringify(read()));updateProgress();if(show){const t=document.getElementById('saveToast');t.textContent='נשמר אוטומטית';setTimeout(()=>t.textContent='',1300)}}
-function updateProgress(){const req=[...document.querySelectorAll('[data-required="1"]')];const n=req.filter(e=>e.value.trim()).length;const p=Math.round(n/req.length*100);document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=`${n} מתוך ${req.length} שדות מרכזיים מולאו (${p}%)`}
-function preview(){compose();const d=read();document.getElementById('previewBox').innerHTML=`<strong>תאריך יצירה:</strong> ${new Date().toLocaleDateString('he-IL')}<br><strong>שם הצוות:</strong> ${d.teamName||''}<br><strong>שמות חברי/ות הצוות:</strong> ${d.members||''}<hr><strong>צורה:</strong> ${d.s2_shape||d.s5_shape||''}<br><strong>חלקים:</strong> ${d.s2_parts||d.s5_parts_core||''}<br><strong>צבעים / סימונים:</strong> ${d.s2_markings||d.s5_colors||''}<br><strong>חומר משוער:</strong> ${d.s5_material||''}<br><strong>גודל משוער:</strong> ${d.s5_size||''}<br><strong>מה ברור מיד כשרואים את המוצר:</strong> ${d.s2_clear_now||''}<br><strong>מה לא כדאי שיהיה בו:</strong> ${d.s2_avoid||''}<hr>${(d.sum_final||'').replace(/\n/g,'<br>')}`}
-function missing(){return [...document.querySelectorAll('[data-required="1"]')].filter(e=>!e.value.trim())}
-function askPdf(){const m=missing();if(!m.length){window.print();return;}document.getElementById('missingText').textContent='אפשר להשלים עכשיו או להמשיך לייצוא. חסרים: '+m.map(x=>x.previousElementSibling?.textContent||x.id).join(' | ');document.getElementById('missingModal').style.display='flex'}
-form.addEventListener('input',()=>{compose();save(false);preview()});
-document.getElementById('saveBtn').onclick=()=>{compose();save(true)};
-document.getElementById('clearBtn').onclick=()=>{if(confirm('לנקות את כל הטופס?')){localStorage.removeItem(STORAGE_KEY);form.reset();document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(x=>x.checked=false);compose();save(true);preview()}};
-document.getElementById('previewBtn').onclick=()=>{preview();document.getElementById('previewSection').scrollIntoView({behavior:'smooth'})};
-document.getElementById('pdfBtn').onclick=()=>{compose();preview();askPdf()};
-document.getElementById('backFill').onclick=()=>document.getElementById('missingModal').style.display='none';
-document.getElementById('forcePdf').onclick=()=>{document.getElementById('missingModal').style.display='none';window.print()};
-try{write(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'))}catch(e){console.warn(e)}
-compose();updateProgress();preview();
+  const STORAGE_KEY = 'premium_osem_physical_product_spec_v2';
+  const form = document.getElementById('specForm');
+  const generatedTargets = new Set(['s1_team_sentence','s3_core_sentence','s4_trunk_sentence','s4_fruit_sentence','s6_sentence','s7_sentence','sum_final']);
+  let hydrated = false;
+
+  function byId(id){ return document.getElementById(id); }
+  function clean(value){ return (value || '').toString().trim(); }
+  function value(id, fallback = '_____'){
+    const el = byId(id);
+    const val = clean(el?.value);
+    return val || fallback;
+  }
+  function setText(id, text){ const el = byId(id); if(el) el.textContent = text; }
+  function selectedRadio(name){ return clean(document.querySelector(`input[name="${name}"]:checked`)?.value); }
+  function selectedChecks(name){ return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x => x.value); }
+  function joinChoice(name){ return selectedChecks(name).join(', '); }
+  function best(...vals){ return vals.map(clean).find(Boolean) || ''; }
+  function blankAware(...vals){ return vals.map(v => clean(v) || '_____'); }
+
+  function fillFromChoice(inputId, choiceName, overwrite = false){
+    const input = byId(inputId);
+    if(!input) return;
+    const selected = selectedRadio(choiceName) || joinChoice(choiceName);
+    if(selected && (overwrite || !clean(input.value))) input.value = selected;
+  }
+
+  function readForm(){
+    const data = {};
+    [...document.querySelectorAll('input, textarea, select')].forEach(el => {
+      if(!el.id && !el.name) return;
+      if(el.type === 'checkbox'){
+        if(el.checked) (data[el.name] ||= []).push(el.value);
+      } else if(el.type === 'radio'){
+        if(el.checked) data[el.name] = el.value;
+      } else {
+        data[el.id] = el.value;
+      }
+    });
+    return data;
+  }
+
+  function writeForm(data = {}){
+    [...document.querySelectorAll('input, textarea, select')].forEach(el => {
+      if(el.type === 'checkbox'){
+        el.checked = Array.isArray(data[el.name]) && data[el.name].includes(el.value);
+      } else if(el.type === 'radio'){
+        el.checked = data[el.name] === el.value;
+      } else if(data[el.id] != null){
+        el.value = data[el.id];
+      }
+    });
+  }
+
+  function updateGeneratedSentences({overwrite=false} = {}){
+    fillFromChoice('s1_product_type_other','s1_product_type');
+    fillFromChoice('s1_problem','s1_problem_choice');
+    fillFromChoice('s1_audience','s1_audience_choice');
+    fillFromChoice('s1_place','s1_place_choice');
+    fillFromChoice('s1_why','s1_value_choice');
+    fillFromChoice('s2_look','s2_look_choice');
+    fillFromChoice('s2_parts','s2_parts_choice');
+    fillFromChoice('s2_shape','s2_shape_choice');
+    fillFromChoice('s2_markings','s2_markings_choice');
+    fillFromChoice('s2_clear_now','s2_clear_choice');
+    fillFromChoice('s2_avoid','s2_avoid_choice');
+    fillFromChoice('s5_parts_core','s5_parts_choice');
+    fillFromChoice('s5_shape','s5_shape_choice');
+    fillFromChoice('s5_colors','s5_colors_choice');
+    fillFromChoice('s5_material','s5_material_choice');
+    fillFromChoice('s5_size','s5_size_choice');
+    fillFromChoice('s5_hold','s5_hold_choice');
+    fillFromChoice('s5_moves','s5_moves_choice');
+
+    const product = value('s1_product');
+    const audience = value('s1_audience');
+    const problem = value('s1_problem');
+    const why = value('s1_why');
+    const teamSentence = `אנחנו מפתחים את ${product} כדי לעזור ל־${audience} במצב שבו ${problem} באמצעות מוצר ש־${why}.`;
+    setText('generated_team_sentence', teamSentence);
+
+    const coreAction = selectedRadio('coreAction') || value('s3_act_1');
+    if(selectedRadio('coreAction') && !clean(byId('s3_act_1').value)) byId('s3_act_1').value = selectedRadio('coreAction');
+    const coreSentence = `המוצר שלנו ${value('s3_act_1')} את / על / עבור ${value('s3_act_2')} כדי ש־${value('s3_act_3')}.`;
+    setText('generated_core_sentence', coreSentence);
+
+    const trunkSentence = `הגזע של המוצר הוא ${value('s4_trunk_1')}, כי בלי זה המוצר לא יוכל ${value('s4_trunk_2')}.`;
+    setText('generated_trunk_sentence', trunkSentence);
+
+    const fruitSentence = `בסוף השימוש, קהל היעד מקבל ${value('s4_fruit_1')} כי המוצר ${value('s4_fruit_2')}.`;
+    setText('generated_fruit_sentence', fruitSentence);
+
+    const usageSentence = `כאשר ${value('s6_problem')}, משתמשים במוצר כך: ${value('s6_approach')}. לאחר מכן ${value('s6_action')}. המוצר עוזר בכך שהוא ${value('s6_help')}. בסוף מקבלים ${value('s6_value')}.`;
+    setText('generated_usage_sentence', usageSentence);
+
+    const frictionSentence = `השימוש עלול להסתבך כאשר ${value('s7_when')}. זה עלול להפריע כי ${value('s7_why')}. כדי לשפר, נרצה ${value('s7_fix')}.`;
+    setText('generated_friction_sentence', frictionSentence);
+
+    const summarySentence = `המוצר שלנו נקרא ${value('tempProduct')}. הוא מיועד ל־${value('s1_audience')}. הוא עוזר במצב שבו ${value('s1_problem')}. הפעולה המרכזית שלו היא ${value('s3_act_1')}. המוצר בנוי מ־${value('s5_parts_core')}. הצורה שלו היא ${value('s5_shape')}, החומר המשוער הוא ${value('s5_material')}, והחלק הכי חשוב בדגם הראשון הוא ${value('s5_first_important')}. משתמשים בו כך: ${value('s6_sentence')}. הערך שהוא נותן הוא ${value('s6_value')}. בשלב הבא נרצה לשפר את ${value('s7_when')}.`;
+
+    const map = {
+      s1_team_sentence: teamSentence,
+      s3_core_sentence: coreSentence,
+      s4_trunk_sentence: trunkSentence,
+      s4_fruit_sentence: fruitSentence,
+      s6_sentence: usageSentence,
+      s7_sentence: frictionSentence,
+      sum_final: summarySentence
+    };
+
+    Object.entries(map).forEach(([id,text]) => {
+      const el = byId(id);
+      if(!el) return;
+      const isEmpty = !clean(el.value);
+      if(overwrite || isEmpty || !hydrated) el.value = text;
+    });
+  }
+
+  function save(show=false){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(readForm()));
+    updateProgress();
+    if(show){
+      const toast = byId('saveToast');
+      toast.textContent = 'נשמר';
+      setTimeout(() => toast.textContent = '', 1300);
+    }
+  }
+
+  function updateProgress(){
+    const requiredInputs = [...document.querySelectorAll('[data-required="1"]')];
+    const requiredChoiceGroups = [...document.querySelectorAll('[data-required-choice="1"]')];
+    let total = requiredInputs.length + requiredChoiceGroups.length;
+    let filled = requiredInputs.filter(el => clean(el.value)).length;
+    filled += requiredChoiceGroups.filter(group => {
+      const name = group.dataset.choice;
+      return !!document.querySelector(`input[name="${name}"]:checked`);
+    }).length;
+    const p = total ? Math.round((filled / total) * 100) : 0;
+    byId('progressBar').style.width = p + '%';
+    byId('progressText').textContent = `${filled} מתוך ${total} שדות מרכזיים מולאו (${p}%)`;
+  }
+
+  function markMissing(missing){
+    document.querySelectorAll('.missing').forEach(el => el.classList.remove('missing'));
+    missing.forEach(el => el.classList.add('missing'));
+  }
+
+  function getMissing(){
+    const arr = [...document.querySelectorAll('[data-required="1"]')].filter(el => !clean(el.value));
+    [...document.querySelectorAll('[data-required-choice="1"]')].forEach(group => {
+      const name = group.dataset.choice;
+      if(!document.querySelector(`input[name="${name}"]:checked`)) arr.push(group);
+    });
+    return arr;
+  }
+
+  function labelFor(el){
+    if(el.dataset?.choice){
+      return el.closest('.osem-spec-field')?.querySelector('label')?.textContent || el.dataset.choice;
+    }
+    return el.closest('.osem-spec-field')?.querySelector('label')?.textContent || el.id;
+  }
+
+  function preview(){
+    updateGeneratedSentences();
+    const d = readForm();
+    const choice = (name) => Array.isArray(d[name]) ? d[name].join(', ') : (d[name] || '');
+    byId('previewBox').innerHTML = `
+      <strong>תאריך יצירה:</strong> ${new Date().toLocaleDateString('he-IL')}<br>
+      <strong>שם הצוות:</strong> ${d.teamName || ''}<br>
+      <strong>שמות חברי/ות הצוות:</strong> ${d.members || ''}<br>
+      <strong>שם מוצר זמני:</strong> ${d.tempProduct || ''}<br>
+      <strong>בית ספר / כיתה:</strong> ${d.school || ''}
+      <hr>
+      <h3>1 — מתחברים לכיוון המוצרי</h3>
+      <strong>סוג מוצר:</strong> ${d.s1_product_type || d.s1_product_type_other || ''}<br>
+      <strong>בעיה:</strong> ${d.s1_problem || d.s1_problem_choice || ''}<br>
+      <strong>קהל יעד:</strong> ${d.s1_audience || d.s1_audience_choice || ''}<br>
+      <strong>מקום שימוש:</strong> ${d.s1_place || d.s1_place_choice || ''}<br>
+      <strong>משפט צוות:</strong> ${d.s1_team_sentence || ''}
+
+      <h3>2 — מדייקים את המוצר הפיזי</h3>
+      <strong>מראה כללי:</strong> ${d.s2_look || choice('s2_look_choice')}<br>
+      <strong>חלקים פיזיים:</strong> ${d.s2_parts || choice('s2_parts_choice')}<br>
+      <strong>צורה:</strong> ${d.s2_shape || d.s2_shape_choice || ''}<br>
+      <strong>צבעים / סימונים:</strong> ${d.s2_markings || choice('s2_markings_choice')}<br>
+      <strong>מה ברור מיד:</strong> ${d.s2_clear_now || choice('s2_clear_choice')}<br>
+      <strong>מה לא כדאי שיהיה:</strong> ${d.s2_avoid || choice('s2_avoid_choice')}
+
+      <h3>3 — הפעולה המרכזית</h3>
+      <strong>פעולה:</strong> ${d.coreAction || d.s3_act_1 || ''}<br>
+      <strong>משפט ליבה:</strong> ${d.s3_core_sentence || ''}
+
+      <h3>4 — עץ מוצר</h3>
+      <strong>גזע:</strong> ${d.s4_trunk_sentence || ''}<br>
+      <strong>ענפים:</strong> ${(d.s4_branch1 || '')} ${(d.s4_branch2 ? '<br>' + d.s4_branch2 : '')} ${(d.s4_branch3 ? '<br>' + d.s4_branch3 : '')}<br>
+      <strong>פירות:</strong> ${choice('fruits')}<br>
+      <strong>משפט ערך:</strong> ${d.s4_fruit_sentence || ''}
+
+      <h3>5 — מבנה המוצר</h3>
+      <strong>חלקים מרכזיים:</strong> ${d.s5_parts_core || choice('s5_parts_choice')}<br>
+      <strong>צורה:</strong> ${d.s5_shape || d.s5_shape_choice || ''}<br>
+      <strong>צבעים / סימונים:</strong> ${d.s5_colors || choice('s5_colors_choice')}<br>
+      <strong>חומר משוער:</strong> ${d.s5_material || d.s5_material_choice || ''}<br>
+      <strong>גודל משוער:</strong> ${d.s5_size || d.s5_size_choice || ''}<br>
+      <strong>אחיזה / הנחה:</strong> ${d.s5_hold || d.s5_hold_choice || ''}<br>
+      <strong>מה נפתח / נסגר / זז / מתחבר:</strong> ${d.s5_moves || choice('s5_moves_choice')}<br>
+      <strong>החלק הכי חשוב בדגם הראשון:</strong> ${d.s5_first_important || ''}
+
+      <h3>6 — מסלול שימוש</h3>
+      ${String(d.s6_sentence || '').replace(/\n/g,'<br>')}
+
+      <h3>7 — נקודת חיכוך</h3>
+      <strong>אפשרויות שסומנו:</strong> ${choice('friction')}<br>
+      ${String(d.s7_sentence || '').replace(/\n/g,'<br>')}
+
+      <h3>8 — אפיון מסכם</h3>
+      ${String(d.sum_final || '').replace(/\n/g,'<br>')}
+    `;
+  }
+
+  function askPdf(){
+    updateGeneratedSentences();
+    preview();
+    const missing = getMissing();
+    markMissing(missing);
+    if(!missing.length){ window.print(); return; }
+    byId('missingText').textContent = 'אפשר להשלים עכשיו או להמשיך לייצוא. חסרים: ' + missing.map(labelFor).join(' | ');
+    byId('missingModal').style.display = 'flex';
+  }
+
+  function handleInput(e){
+    if(e.target && generatedTargets.has(e.target.id)){
+      // מאפשרים עריכה ידנית ולא דורסים מיד את השדה.
+    } else {
+      updateGeneratedSentences({overwrite:false});
+    }
+    save(false);
+    preview();
+  }
+
+  form.addEventListener('input', handleInput);
+  form.addEventListener('change', handleInput);
+
+  byId('saveBtn').onclick = () => { updateGeneratedSentences(); save(true); preview(); };
+  byId('previewBtn').onclick = () => { updateGeneratedSentences(); preview(); byId('previewSection').scrollIntoView({behavior:'smooth'}); };
+  byId('pdfBtn').onclick = askPdf;
+  byId('clearBtn').onclick = () => {
+    if(confirm('לנקות את כל הטופס?')){
+      localStorage.removeItem(STORAGE_KEY);
+      document.querySelectorAll('input,textarea,select').forEach(el => {
+        if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+        else el.value = '';
+      });
+      hydrated = false;
+      updateGeneratedSentences({overwrite:true});
+      hydrated = true;
+      save(true);
+      preview();
+    }
+  };
+  byId('backFill').onclick = () => byId('missingModal').style.display = 'none';
+  byId('forcePdf').onclick = () => { byId('missingModal').style.display = 'none'; window.print(); };
+
+  try{ writeForm(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')); }catch(e){ console.warn(e); }
+  updateGeneratedSentences({overwrite:false});
+  hydrated = true;
+  updateProgress();
+  preview();
 </script>
 </body>
 </html>
