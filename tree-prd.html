@@ -628,4 +628,104 @@
           <div class="osem-spec-field full"><label for="s6_value">שלב 5 — מקבלים ערך *</label><input id="s6_value" data-required="1" placeholder="בסוף השימוש מתקבל..." /></div>
         </div>
         <div class="generated-box"><span class="generated-title">מסלול השימוש שנוצר:</span><span id="generated_usage_sentence">כאשר _____, משתמשים במוצר כך: _____. לאחר מכן _____. המוצר עוזר בכך שהוא _____. בסוף מקבלים _____.</span></div>
-        <textarea id="s6_sentence" clas
+        <textarea id="s6_sentence" class="short" data-required="1" placeholder="אפשר לערוך כאן את מסלול השימוש"></textarea>
+      </section>
+
+      <section class="osem-spec-card" id="section7">
+        <h2>7 — חיכוך ושיפור</h2>
+        <div class="grid">
+          <div class="osem-spec-field"><label for="s7_when">מתי השימוש מסתבך?</label><input id="s7_when" placeholder="כאשר..." /></div>
+          <div class="osem-spec-field"><label for="s7_why">למה זה בעייתי?</label><input id="s7_why" placeholder="זה מפריע כי..." /></div>
+          <div class="osem-spec-field full"><label for="s7_improve">מה נרצה לשפר?</label><input id="s7_improve" placeholder="נרצה לשפר..." /></div>
+        </div>
+        <div class="generated-box"><span class="generated-title">המשפט שנוצר:</span><span id="generated_friction_sentence">השימוש עלול להסתבך כאשר _____. זה עלול להפריע כי _____. כדי לשפר, נרצה _____.</span></div>
+        <textarea id="s7_sentence" class="short" placeholder="אפשר לערוך כאן את משפט החיכוך"></textarea>
+      </section>
+
+      <section class="osem-spec-card" id="section8">
+        <h2>8 — סיכום סופי</h2>
+        <textarea id="sum_final" class="short" rows="6" placeholder="הסיכום יתמלא אוטומטית כאן"></textarea>
+      </section>
+    </main>
+
+    <section class="osem-spec-card" id="previewBox"></section>
+  </div>
+
+<script>
+const BLANK = '_____';
+const STORAGE_KEY = 'premium_tree_prd_v1';
+const lastGenerated = {};
+let hydrated = false;
+
+const byId = (id)=>document.getElementById(id);
+const clean = (v)=> String(v ?? '').trim().replace(/\s+/g,' ');
+const safe = (v)=> { const t=clean(v); return (!t || ['undefined','null','nan'].includes(t.toLowerCase())) ? BLANK : t; };
+const selectedValue = (name)=> document.querySelector(`input[name="${name}"]:checked`)?.value || '';
+const joinChecked = (name)=> [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(i=>i.value).filter(Boolean).join(', ');
+function setText(id,text){ const el=byId(id); if(el) el.textContent=text; }
+function setGeneratedValue(id, text, overwrite=false){
+  const el = byId(id);
+  if(!el) return;
+  const current = clean(el.value);
+  const previousGenerated = clean(lastGenerated[id]);
+  if(overwrite || !hydrated || !current || current === previousGenerated){ el.value = text; }
+  lastGenerated[id] = text;
+}
+function updateGeneratedSentences({overwrite=false}={}){
+  const s1 = `אנחנו מפתחים את ${safe(byId('s1_product')?.value)} כדי לעזור ל־${safe(byId('s1_audience')?.value)} במצב שבו ${safe(byId('s1_problem')?.value)} באמצעות מוצר ש־${safe(byId('s1_why')?.value)}.`;
+  setText('generated_team_sentence', s1); setGeneratedValue('s1_team_sentence', s1, overwrite);
+
+  const act = safe(selectedValue('coreAction') || byId('s3_act_1')?.value);
+  if(byId('s3_act_1') && (!byId('s3_act_1').value || byId('s3_act_1').value===lastGenerated.s3_act_1)) byId('s3_act_1').value = act===BLANK?'':act;
+  lastGenerated.s3_act_1 = byId('s3_act_1')?.value || '';
+  const s3 = `המוצר שלנו ${safe(byId('s3_act_1')?.value)} את / על / עבור ${safe(byId('s3_act_2')?.value)} כדי ש־${safe(byId('s3_act_3')?.value)}.`;
+  setText('generated_core_sentence', s3); setGeneratedValue('s3_core_sentence', s3, overwrite);
+
+  const s4t = `הגזע של המוצר הוא ${safe(byId('s4_trunk_1')?.value)}, כי בלי זה המוצר לא יוכל ${safe(byId('s4_trunk_2')?.value)}.`;
+  setText('generated_trunk_sentence', s4t); setGeneratedValue('s4_trunk_sentence', s4t, overwrite);
+  const s4f = `בסוף השימוש, קהל היעד מקבל ${safe(byId('s4_fruit_1')?.value || joinChecked('fruits'))} כי המוצר ${safe(byId('s4_fruit_2')?.value)}.`;
+  setText('generated_fruit_sentence', s4f); setGeneratedValue('s4_fruit_sentence', s4f, overwrite);
+
+  const s6 = `כאשר ${safe(byId('s6_problem')?.value)}, משתמשים במוצר כך: ${safe(byId('s6_approach')?.value)}. לאחר מכן ${safe(byId('s6_action')?.value)}. המוצר עוזר בכך שהוא ${safe(byId('s6_help')?.value)}. בסוף מקבלים ${safe(byId('s6_value')?.value)}.`;
+  setText('generated_usage_sentence', s6); setGeneratedValue('s6_sentence', s6, overwrite);
+
+  const s7 = `השימוש עלול להסתבך כאשר ${safe(byId('s7_when')?.value)}. זה עלול להפריע כי ${safe(byId('s7_why')?.value)}. כדי לשפר, נרצה ${safe(byId('s7_improve')?.value)}.`;
+  setText('generated_friction_sentence', s7); setGeneratedValue('s7_sentence', s7, overwrite);
+
+  const sum = `המוצר שלנו נקרא ${safe(byId('s1_product')?.value)}. הוא מיועד ל־${safe(byId('s1_audience')?.value)}. הוא עוזר במצב שבו ${safe(byId('s1_problem')?.value)}. הפעולה המרכזית שלו היא ${safe(byId('s3_act_1')?.value || selectedValue('coreAction'))}. המוצר בנוי מ־${safe(byId('s5_parts_core')?.value)}. הצורה שלו היא ${safe(byId('s5_shape')?.value)}, החומר המשוער הוא ${safe(byId('s5_material')?.value)}, והחלק הכי חשוב בדגם הראשון הוא ${safe(byId('s5_first_important')?.value)}. משתמשים בו כך: ${safe(byId('s6_sentence')?.value)}. הערך שהוא נותן הוא ${safe(byId('s6_value')?.value || byId('s4_fruit_1')?.value)}. בשלב הבא נרצה לשפר את ${safe(byId('s7_improve')?.value)}.`;
+  setGeneratedValue('sum_final', sum, overwrite);
+}
+function save(){
+  const data={};
+  document.querySelectorAll('input[id],textarea[id]').forEach(el=>data[el.id]=el.value);
+  document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>{ if(el.checked) data[`checked:${el.name}:${el.value}`]=1; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+function load(){
+  const raw=localStorage.getItem(STORAGE_KEY); if(!raw) return;
+  const data=JSON.parse(raw);
+  document.querySelectorAll('input[id],textarea[id]').forEach(el=>{ if(data[el.id]!=null) el.value=data[el.id]; });
+  document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>{ el.checked=!!data[`checked:${el.name}:${el.value}`]; });
+  updateGeneratedSentences({overwrite:false});
+}
+function preview(){
+  updateGeneratedSentences({overwrite:false});
+  byId('previewBox').innerHTML = `<h3>תצוגה מקדימה</h3><p>${byId('sum_final')?.value || ''}</p>`;
+}
+function exportPdf(){ updateGeneratedSentences({overwrite:false}); window.print(); }
+function clearForm(){ document.querySelectorAll('input,textarea').forEach(el=>{ if(el.type==='radio'||el.type==='checkbox') el.checked=false; else el.value=''; }); updateGeneratedSentences({overwrite:true}); save(); preview(); }
+function handleInput(){ updateGeneratedSentences({overwrite:false}); save(false); preview(); }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  load();
+  hydrated = true;
+  updateGeneratedSentences({overwrite:false});
+  document.addEventListener('input', handleInput);
+  document.addEventListener('change', handleInput);
+  byId('previewBtn')?.addEventListener('click', preview);
+  byId('pdfBtn')?.addEventListener('click', exportPdf);
+  byId('clearBtn')?.addEventListener('click', clearForm);
+  preview();
+});
+</script>
+</body></html>
