@@ -8,160 +8,156 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f6f2f3;--card:#fff;--line:#e7d9dd;--text:#2f2326;--muted:#6d585d;--primary:#7a1f35;--primary-soft:#aa556d;--ok:#1f8a58;--shadow:0 10px 24px rgba(58,19,31,.08)}
-    *{box-sizing:border-box} html{zoom:75%} body{margin:0;font-family:"Heebo",sans-serif;background:var(--bg);color:var(--text);direction:rtl}
-    .osem-spec-page{max-width:1100px;margin:auto;padding:20px}
-    .osem-spec-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 14px;box-shadow:var(--shadow)}
-    h1{margin:0;color:var(--primary)} h2{margin:0 0 8px;color:var(--primary)} h3{margin:0 0 8px;color:#4b3037}
-    .sub{color:var(--muted);margin-top:8px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}
-    .osem-spec-field{display:flex;flex-direction:column;gap:6px}
-    label{font-weight:700} input,textarea,select{border:1px solid #d9c7cc;border-radius:10px;padding:10px;font-family:inherit;font-size:1rem;width:100%}
-    textarea{min-height:90px;resize:vertical}
-    .checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
-    .checks label{font-weight:500;background:#fbf7f8;border:1px solid #eadbe0;border-radius:10px;padding:8px}
-    .actions{display:flex;flex-wrap:wrap;gap:10px}
-    button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-    .primary{background:var(--primary);color:#fff}.secondary{background:#efe5e8;color:#4d343a}
-    .progress-wrap{height:12px;background:#f0e4e7;border-radius:999px;overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-soft))}
-    .small-note{font-size:.9rem;color:var(--muted)} .save-toast{color:var(--ok);font-weight:700;min-height:24px}
-    #previewBox{background:#fffafc;border:1px dashed #c9a4af;border-radius:12px;padding:14px;line-height:1.8}
-    .hidden{display:none!important}
+    :root{--bg:#f7f2f4;--card:#fff;--line:#e8dbe0;--text:#2f2326;--muted:#705b61;--primary:#7f1f38;--soft:#f3e6eb;--ok:#1f8a58;--shadow:0 8px 20px rgba(56,20,31,.08)}
+    *{box-sizing:border-box} html{zoom:75%}
+    body{margin:0;font-family:"Heebo",sans-serif;background:var(--bg);color:var(--text);direction:rtl}
+    .osem-spec-page{max-width:1100px;margin:auto;padding:18px}
+    .osem-spec-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
+    .osem-header{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+    .logo-wrap{width:74px;height:74px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fff}
+    .logo-wrap img{width:56px;height:56px;object-fit:contain}
+    .logo-fallback{font-weight:800;color:var(--primary);text-align:center;font-size:.9rem}
+    .title-wrap h1{margin:0;color:var(--primary);font-size:2rem}.title-wrap p{margin:6px 0 0;color:var(--muted)}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}.header-actions{margin-top:10px}
+    button{border:0;border-radius:9px;padding:7px 12px;min-height:36px;font-weight:700;cursor:pointer;font-size:.94rem}
+    .primary{background:var(--primary);color:#fff}.secondary{background:var(--soft);color:#4a3238}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.full{grid-column:1/-1}
+    .osem-spec-field{display:flex;flex-direction:column;gap:6px} label{font-weight:700}
+    .inline-template{display:flex;flex-wrap:wrap;gap:8px;align-items:center;line-height:2}
+    .inline-template input{min-width:150px;max-width:260px}
+    input,textarea,select{border:1px solid #dbcad0;border-radius:10px;padding:8px 10px;font-family:inherit;font-size:1rem;width:100%}
+    textarea{min-height:76px;resize:vertical} .short{min-height:52px}
+    .helper-box{text-align:center;background:#fbf6f8;border:1px dashed #d9bcc7;border-radius:10px;padding:8px;color:#5e494f}
+    .checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px}
+    .checks label{font-weight:500;background:#fcf9fa;border:1px solid #ecdde2;border-radius:9px;padding:7px}
+    .progress-wrap{height:10px;background:#f0e4e8;border-radius:999px;overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#b05f78)}
+    .small-note{font-size:.9rem;color:var(--muted)} .save-toast{color:var(--ok);font-weight:700;min-height:20px}
+    #previewBox{background:#fffafd;border:1px solid #d8bbc5;border-radius:11px;padding:12px;line-height:1.8}
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px}
-    .modal{background:#fff;border-radius:14px;max-width:560px;width:100%;padding:18px;border:1px solid #e8d3da}
-    @media (max-width:800px){.grid{grid-template-columns:1fr}}
-    @media print{
-      body{background:#fff} .no-print,.save-toast,.progress-wrap,.small-note,.modal-backdrop{display:none!important}
-      .osem-spec-page{max-width:none;padding:0}.osem-spec-card{box-shadow:none;break-inside:avoid}
-    }
+    .modal{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;max-width:560px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.osem-header{grid-template-columns:1fr}.logo-wrap{margin-inline:auto}.title-wrap{text-align:center}}
+    @media print{.no-print,.save-toast,.progress-wrap,.small-note,.modal-backdrop{display:none!important}.osem-spec-card{box-shadow:none}.osem-spec-page{padding:0}}
   </style>
 </head>
 <body>
-  <main class="osem-spec-page" id="specPage">
+  <main class="osem-spec-page">
     <section class="osem-spec-card">
-      <h1>קורס יזמות פרימיום — אפיון מוצר פיזי</h1>
-      <p class="sub">הופכים כיוון ראשוני למוצר פיזי ברור שאפשר להבין, לתכנן ולהציג.</p>
+      <div class="osem-header">
+        <div class="logo-wrap"><img src="images/logo.png" alt="לוגו קורס פרימיום" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="logo-fallback" style="display:none">לוגו</div></div>
+        <div class="title-wrap">
+          <h1>קורס יזמות פרימיום — אפיון מוצר פיזי</h1>
+          <p>הופכים כיוון ראשוני למוצר פיזי ברור שאפשר להבין, לתכנן ולהציג.</p>
+          <div class="actions header-actions no-print">
+            <button class="primary" id="saveBtn" type="button">שמירה</button><button class="secondary" id="clearBtn" type="button">ניקוי טופס</button><button class="secondary" id="previewBtn" type="button">תצוגה מקדימה</button><button class="primary" id="pdfBtn" type="button">ייצוא PDF</button>
+          </div>
+        </div>
+      </div>
       <div class="grid" style="margin-top:12px">
-        <div class="osem-spec-field"><label for="teamName">שם הצוות *</label><input id="teamName" data-required="1" placeholder="לדוגמה: צוות חדשנות ירוק"/></div>
-        <div class="osem-spec-field"><label for="members">שמות חברי/ות הצוות</label><input id="members" placeholder="שמות משתתפות/ים"/></div>
-        <div class="osem-spec-field"><label for="tempProduct">שם מוצר זמני *</label><input id="tempProduct" data-required="1" placeholder="לדוגמה: קופסה חכמה לאחסון"/></div>
-        <div class="osem-spec-field"><label for="school">בית ספר / כיתה</label><input id="school" placeholder="אופציונלי"/></div>
+        <div class="osem-spec-field"><label>שם הצוות *</label><input id="teamName" data-required="1" placeholder="לדוגמה: צוות שינוי"/></div>
+        <div class="osem-spec-field"><label>שמות חברי/ות הצוות</label><input id="members" placeholder="שמות"/></div>
+        <div class="osem-spec-field"><label>שם מוצר זמני *</label><input id="tempProduct" data-required="1" placeholder="לדוגמה: מחזיק חכם"/></div>
+        <div class="osem-spec-field"><label>בית ספר / כיתה</label><input id="school" placeholder="אופציונלי"/></div>
       </div>
     </section>
 
-    <section class="osem-spec-card no-print"><h3>התקדמות מילוי</h3><div class="progress-wrap"><div class="progress" id="progressBar"></div></div><div class="small-note" id="progressText"></div></section>
+    <section class="osem-spec-card no-print"><h3>התקדמות</h3><div class="progress-wrap"><div class="progress" id="progressBar"></div></div><div class="small-note" id="progressText"></div><div class="save-toast" id="saveToast"></div></section>
 
     <form id="specForm">
-      <section class="osem-spec-card"><h2>1 — מתחברים לכיוון המוצרי</h2><p class="sub">מחדדים כיוון ראשוני והופכים אותו למוצר פיזי ברור.</p><div class="grid">
-        <div class="osem-spec-field full"><label>המוצר שלנו הוא</label><textarea id="s1_product" placeholder="מוצר פיזי שנותן מענה ברור למצב אמיתי"></textarea></div>
-        <div class="osem-spec-field"><label>הבעיה שהוא פותר *</label><textarea id="s1_problem" data-required="1" placeholder="המוצר עוזר במצב שבו..."></textarea></div>
-        <div class="osem-spec-field"><label>קהל היעד *</label><textarea id="s1_audience" data-required="1" placeholder="מי שצריך את המוצר הוא..."></textarea></div>
-        <div class="osem-spec-field"><label>איפה זה קורה?</label><textarea id="s1_where" placeholder="משתמשים במוצר ב־..."></textarea></div>
-        <div class="osem-spec-field"><label>למה זה שווה פיתוח?</label><textarea id="s1_why" placeholder="המוצר הזה חשוב כי..."></textarea></div>
-        <div class="osem-spec-field"><label>משפט צוות</label><textarea id="s1_team_sentence" placeholder="אנחנו מפתחים את המוצר הזה כי..."></textarea></div>
-      </div></section>
-
-      <section class="osem-spec-card"><h2>2 — שאלות אפיון ראשוניות</h2><div class="grid">
-        <div class="osem-spec-field"><label>מה הבעיה? *</label><textarea id="s2_problem" data-required="1"></textarea></div>
-        <div class="osem-spec-field"><label>מי קהל היעד? *</label><textarea id="s2_audience" data-required="1"></textarea></div>
-        <div class="osem-spec-field"><label>מה המוצר?</label><textarea id="s2_product"></textarea></div>
-        <div class="osem-spec-field"><label>איפה משתמשים בו?</label><textarea id="s2_where"></textarea></div>
-        <div class="osem-spec-field"><label>איך משתמשים בו?</label><textarea id="s2_how"></textarea></div>
-        <div class="osem-spec-field"><label>מה הערך שהוא נותן? *</label><textarea id="s2_value" data-required="1"></textarea></div>
-        <div class="osem-spec-field"><label for="s2_clarity">האם אפשר להבין את המוצר במשפט אחד?</label><select id="s2_clarity"><option>כן</option><option>חלקית</option><option>עדיין לא</option></select></div>
-        <div class="osem-spec-field" id="s2_refine_wrap"><label>מה צריך לדייק?</label><textarea id="s2_refine"></textarea></div>
-      </div></section>
-
-      <section class="osem-spec-card"><h2>3 — הפעולה המרכזית של המוצר</h2>
-        <div class="checks" id="coreActionWrap"></div>
-        <div class="grid" style="margin-top:10px">
-          <div class="osem-spec-field"><label>משפט ליבה *</label><textarea id="s3_core_sentence" data-required="1" placeholder="המוצר שלנו ____ כדי ש־____"></textarea></div>
-          <div class="osem-spec-field"><label>ניסוח פשוט יותר</label><textarea id="s3_simple"></textarea></div>
-          <div class="osem-spec-field"><label>האם הפעולה המרכזית ברורה?</label><select id="s3_clarity"><option>כן</option><option>חלקית</option><option>עדיין לא</option></select></div>
-          <div class="osem-spec-field"><label>אם לא, ניסוח משופר</label><textarea id="s3_refine"></textarea></div>
+      <section class="osem-spec-card"><h2>1 — מתחברים לכיוון המוצרי</h2><p class="helper-box">שלב קצר לחיבור לרעיון: למה שווה לפתח את המוצר.</p><div class="grid">
+        <div class="osem-spec-field"><label>המוצר שלנו הוא</label><input id="s1_product" placeholder="מוצר פיזי פשוט וברור"></div>
+        <div class="osem-spec-field"><label>הוא בא לעזור במצב שבו *</label><input id="s1_problem" data-required="1" placeholder="לדוגמה: קשה לדעת מתי..."></div>
+        <div class="osem-spec-field"><label>מי שצריך את זה הוא *</label><input id="s1_audience" data-required="1" placeholder="מי שמשתמשים במוצר"></div>
+        <div class="osem-spec-field"><label>זה חשוב כי</label><input id="s1_why" placeholder="מה הערך בחיים האמיתיים"></div>
+        <div class="osem-spec-field full"><label>משפט צוות מובנה</label>
+          <div class="inline-template">אנחנו מפתחים את המוצר הזה כי הוא עוזר ל־<input id="s1_team_audience" placeholder="קהל יעד"> במצב שבו <input id="s1_team_problem" placeholder="המצב"> באמצעות <input id="s1_team_action" placeholder="מה המוצר עושה">.</div>
+          <textarea id="s1_team_sentence" class="short" placeholder="המשפט המלא יופיע כאן לעריכה"></textarea>
         </div>
+      </div></section>
+
+      <section class="osem-spec-card"><h2>2 — מדייקים את המוצר הפיזי</h2><p class="helper-box">תדמיינו שמישהו רואה את המוצר בפעם הראשונה: מה רואים מבחוץ ומה מבינים מיד?</p><div class="grid">
+        <div class="osem-spec-field"><label>איך המוצר נראה בערך?</label><input id="s2_look" placeholder="קטן, עגול, מתקפל, עומד על שולחן..."></div>
+        <div class="osem-spec-field"><label>אילו חלקים פיזיים יש בו?</label><input id="s2_parts" placeholder="מכסה, ידית, בסיס, חלון סימון..."></div>
+        <div class="osem-spec-field"><label>איזו צורה מתאימה לו?</label><select id="s2_shape"><option>עגול</option><option>מרובע</option><option>ארוך</option><option>שטוח</option><option>מתקפל</option><option>נצמד</option><option>עומד</option><option>אחר</option></select></div>
+        <div class="osem-spec-field"><label>אילו צבעים או סימונים יעזרו להבין אותו?</label><input id="s2_markings" placeholder="חץ, ירוק/אדום, מספרים, קו מדידה"></div>
+        <div class="osem-spec-field"><label>מה צריך להיות ברור מיד כשרואים את המוצר? *</label><input id="s2_clear_now" data-required="1" placeholder="מה עושים איתו? איפה מחזיקים?"></div>
+        <div class="osem-spec-field"><label>מה לא כדאי שיהיה בו?</label><input id="s2_avoid" placeholder="עומס, טקסט ארוך, צבעים מבלבלים..."></div>
+      </div></section>
+
+      <section class="osem-spec-card"><h2>3 — הפעולה המרכזית של המוצר</h2><div class="checks" id="coreActionWrap"></div>
+      <div class="helper-box" style="margin:8px 0">דוגמה: המוצר שלנו מסמן את מצב הטריות כדי שיהיה ברור מתי כדאי להשתמש במוצר.</div>
+      <div class="osem-spec-field"><label>משפט ליבה מובנה *</label><div class="inline-template">המוצר שלנו <input id="s3_act_1" data-required="1" placeholder="הפעולה"> את / על / עבור <input id="s3_act_2" placeholder="על מה פועל"> כדי ש־<input id="s3_act_3" data-required="1" placeholder="מה הערך"></div><textarea id="s3_core_sentence" class="short" data-required="1" placeholder="המשפט המלא לעריכה"></textarea></div>
       </section>
 
       <section class="osem-spec-card"><h2>4 — עץ מוצר</h2><div class="grid">
-        <div class="osem-spec-field"><label>הגזע — מה חייב לעבוד?</label><textarea id="s4_trunk"></textarea></div><div class="osem-spec-field"><label>כי בלי זה...</label><textarea id="s4_trunk_why"></textarea></div>
-        <div class="osem-spec-field full"><label>ענפים — חלקים שעוזרים לליבה לעבוד</label><textarea id="s4_branches" placeholder="חלק — תפקידו (3–5 שורות)"></textarea></div>
-        <div class="osem-spec-field full"><label>פירות — הערך שמתקבל</label><div class="checks" id="fruitWrap"></div></div>
-        <div class="osem-spec-field full"><label>אחרי השימוש, קהל היעד מקבל</label><textarea id="s4_after"></textarea></div>
+        <div class="osem-spec-field full"><label>הגזע (משפט מובנה)</label><div class="inline-template">הגזע של המוצר הוא <input id="s4_trunk_1" placeholder="חלק/פעולה מרכזית">, כי בלי זה המוצר לא יוכל <input id="s4_trunk_2" placeholder="מה לא יקרה"></div><textarea id="s4_trunk_sentence" class="short"></textarea></div>
+        <div class="osem-spec-field"><label>ענף 1</label><input id="s4_branch1" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
+        <div class="osem-spec-field"><label>ענף 2</label><input id="s4_branch2" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
+        <div class="osem-spec-field"><label>ענף 3</label><input id="s4_branch3" placeholder="החלק ___ עוזר בכך שהוא ___"></div>
+        <div class="osem-spec-field full"><label>פירות (ערך)</label><div class="checks" id="fruitWrap"></div></div>
+        <div class="osem-spec-field full"><div class="inline-template">בסוף השימוש, קהל היעד מקבל <input id="s4_fruit_1" placeholder="הערך"> כי המוצר <input id="s4_fruit_2" placeholder="מה הוא מאפשר"></div><textarea id="s4_fruit_sentence" class="short"></textarea></div>
       </div></section>
 
-      <section class="osem-spec-card"><h2>5 — מבנה המוצר</h2><div class="osem-spec-field"><label>סימון רכיבים רלוונטיים</label><div class="checks" id="structureWrap"></div></div>
-        <div class="osem-spec-field" style="margin-top:10px"><label>טבלת חלקי המוצר (לפחות 5 שורות)</label><textarea id="s5_table" placeholder="חלק | תפקיד | למה חייב להיות"></textarea></div>
-        <div class="osem-spec-field"><label>מה לא חייב להיכנס לדגם הראשון?</label><textarea id="s5_not_first"></textarea></div>
-      </section>
-
-      <section class="osem-spec-card"><h2>6 — מסלול שימוש *</h2><div class="grid">
-        <div class="osem-spec-field"><label>שלב 1</label><textarea id="s6_1"></textarea></div><div class="osem-spec-field"><label>שלב 2</label><textarea id="s6_2"></textarea></div>
-        <div class="osem-spec-field"><label>שלב 3</label><textarea id="s6_3"></textarea></div><div class="osem-spec-field"><label>שלב 4</label><textarea id="s6_4"></textarea></div>
-        <div class="osem-spec-field full"><label>שלב 5</label><textarea id="s6_5" data-required="1"></textarea></div>
-        <div class="osem-spec-field"><label>האם אפשר להבין בלי הסבר ארוך?</label><select id="s6_simple"><option>כן</option><option>חלקית</option><option>עדיין לא</option></select></div>
-        <div class="osem-spec-field"><label>אם לא, מה צריך לפשט?</label><textarea id="s6_refine"></textarea></div>
+      <section class="osem-spec-card"><h2>5 — מבנה המוצר</h2><p class="helper-box">כאן מפרקים בצורה מדויקת יותר את המבנה הפיזי, בצורה פשוטה וברורה.</p><div class="grid">
+        <div class="osem-spec-field"><label>חלקים מרכזיים *</label><input id="s5_parts_core" data-required="1" placeholder="3–5 חלקים חשובים"></div>
+        <div class="osem-spec-field"><label>צורה *</label><input id="s5_shape" data-required="1" placeholder="עגול/שטוח/ארוך..."></div>
+        <div class="osem-spec-field"><label>צבעים / סימונים *</label><input id="s5_colors" data-required="1" placeholder="מה מסומן ומה בולט"></div>
+        <div class="osem-spec-field"><label>חומר משוער *</label><input id="s5_material" data-required="1" placeholder="פלסטיק, קרטון, מתכת קלה..."></div>
+        <div class="osem-spec-field"><label>גודל משוער *</label><input id="s5_size" data-required="1" placeholder="כף יד / 20 ס״מ / קטן"></div>
+        <div class="osem-spec-field"><label>איך מחזיקים או מניחים את המוצר</label><input id="s5_hold" placeholder="ביד אחת / על משטח / תלוי"></div>
+        <div class="osem-spec-field"><label>מה נפתח / נסגר / זז / מתחבר</label><input id="s5_moves" placeholder="מכסה נפתח, לשונית נסגרת..."></div>
+        <div class="osem-spec-field"><label>מה החלק הכי חשוב בדגם הראשון *</label><input id="s5_first_important" data-required="1" placeholder="החלק שחייב לעבוד"></div>
       </div></section>
 
-      <section class="osem-spec-card"><h2>7 — נקודות חיכוך</h2><div class="checks" id="frictionWrap"></div>
-        <div class="grid" style="margin-top:10px">
-          <div class="osem-spec-field"><label>נקודת החיכוך המרכזית שלנו *</label><textarea id="s7_main" data-required="1"></textarea></div>
-          <div class="osem-spec-field"><label>למה זה עלול להפריע?</label><textarea id="s7_why"></textarea></div>
-          <div class="osem-spec-field full"><label>מה נרצה לשפר בדגם הבא?</label><textarea id="s7_next"></textarea></div>
-        </div>
-      </section>
-
-      <section class="osem-spec-card"><h2>8 — אפיון מסכם להצגה</h2><div class="grid">
-        <div class="osem-spec-field"><label>שם המוצר</label><input id="sum_name"></div><div class="osem-spec-field"><label>הבעיה</label><textarea id="sum_problem"></textarea></div>
-        <div class="osem-spec-field"><label>קהל היעד</label><textarea id="sum_audience"></textarea></div><div class="osem-spec-field"><label>המוצר הפיזי</label><textarea id="sum_product"></textarea></div>
-        <div class="osem-spec-field"><label>הפעולה המרכזית *</label><input id="sum_action" data-required="1"></div><div class="osem-spec-field"><label>החלקים המרכזיים</label><textarea id="sum_parts"></textarea></div>
-        <div class="osem-spec-field"><label>מסלול שימוש קצר *</label><textarea id="sum_path" data-required="1"></textarea></div><div class="osem-spec-field"><label>הערך *</label><textarea id="sum_value" data-required="1"></textarea></div>
-        <div class="osem-spec-field full"><label>נקודת חיכוך לשיפור *</label><textarea id="sum_friction" data-required="1"></textarea></div>
+      <section class="osem-spec-card"><h2>6 — מסלול שימוש</h2><div class="grid">
+        <div class="osem-spec-field full"><label>משפט מסלול שימוש מובנה *</label><div class="inline-template">כאשר <input id="s6_audience" placeholder="קהל היעד"> פוגשים את הבעיה של <input id="s6_problem" placeholder="הבעיה">, משתמשים במוצר כך: <input id="s6_action" placeholder="לוקחים/פותחים/...">. לאחר מכן <input id="s6_next" placeholder="מה עושים">. המוצר <input id="s6_help" placeholder="עוזר/מסמן/..."> בכך שהוא <input id="s6_how" placeholder="מה קורה">. בסוף מקבלים <input id="s6_value" data-required="1" placeholder="הערך"></div><textarea id="s6_sentence" class="short" data-required="1" placeholder="משפט מלא לעריכה"></textarea></div>
       </div></section>
+
+      <section class="osem-spec-card"><h2>7 — נקודות חיכוך</h2><div class="checks" id="frictionWrap"></div><div class="osem-spec-field" style="margin-top:8px"><label>משפט חיכוך מובנה *</label><div class="inline-template">השימוש עלול להסתבך כאשר <input id="s7_when" data-required="1" placeholder="מה קורה">. זה עלול להפריע כי <input id="s7_why" data-required="1" placeholder="למה זה בעייתי">. כדי לשפר, נרצה <input id="s7_fix" data-required="1" placeholder="מה נשנה"></div><textarea id="s7_sentence" class="short" data-required="1"></textarea></div></section>
+
+      <section class="osem-spec-card"><h2>8 — אפיון מסכם להצגה</h2><div class="osem-spec-field"><label>סיכום מובנה (אפשר לערוך חופשי) *</label><textarea id="sum_final" data-required="1" placeholder="הסיכום המלא יופיע כאן"></textarea></div></section>
     </form>
-
-    <section class="osem-spec-card no-print"><div class="actions">
-      <button class="primary" id="saveBtn" type="button">שמירה</button>
-      <button class="secondary" id="clearBtn" type="button">ניקוי טופס</button>
-      <button class="secondary" id="previewBtn" type="button">תצוגה מקדימה</button>
-      <button class="primary" id="pdfBtn" type="button">ייצוא PDF</button>
-    </div><div class="save-toast" id="saveToast"></div></section>
 
     <section class="osem-spec-card" id="previewSection"><h2>תצוגה מקדימה</h2><div id="previewBox"></div></section>
   </main>
 
-  <div class="modal-backdrop" id="missingModal"><div class="modal"><h3>חלק מהשדות המרכזיים עדיין ריקים</h3><p class="sub" id="missingText"></p><div class="actions"><button class="secondary" id="backFill" type="button">חזרה להשלמה</button><button class="primary" id="forcePdf" type="button">ייצוא בכל זאת</button></div></div></div>
+  <div class="modal-backdrop" id="missingModal"><div class="modal"><h3>חלק מהשדות המרכזיים עדיין ריקים</h3><p id="missingText"></p><div class="actions"><button class="secondary" id="backFill" type="button">חזרה להשלמה</button><button class="primary" id="forcePdf" type="button">ייצוא בכל זאת</button></div></div></div>
 
 <script>
 const STORAGE_KEY='premium_osem_physical_product_spec';
-const actionOptions=['פותח','סוגר','שומר','מסמן','מודד','מזהה','מגן','מונע','מארגן','מקל על שימוש','אחר'];
+const actions=['פותח','סוגר','שומר','מסמן','מודד','מזהה','מגן','מונע','מארגן','מקל על שימוש','אחר'];
 const fruits=['קל יותר','בטוח יותר','ברור יותר','נוח יותר','מסודר יותר','איכותי יותר','פחות בזבוז','פחות בלבול','אחר'];
-const structure=['צורה ברורה','גודל מתאים','חלק שנפתח / נסגר','סימון','צבע או חיווי','ידית / אחיזה','בסיס','מכסה','חיבור בין חלקים','מנגנון פשוט','חלק שמגן','חלק שמודד','הוראה קצרה לשימוש','אחר'];
 const friction=['לא ברור איך להשתמש','לא נוח להחזיק','משהו עלול להישבר','הסימון לא ברור','יש יותר מדי פעולות','הערך לא ברור','המוצר מסורבל','אחר'];
-
-function renderChecks(elId,name,arr,type='checkbox'){document.getElementById(elId).innerHTML=arr.map((t,i)=>`<label><input type="${type}" name="${name}" value="${t}"> ${t}</label>`).join('')}
-renderChecks('coreActionWrap','coreAction',actionOptions,'radio'); renderChecks('fruitWrap','fruits',fruits); renderChecks('structureWrap','structure',structure); renderChecks('frictionWrap','friction',friction);
-
-const form=document.getElementById('specForm'); const allFields=[...document.querySelectorAll('input, textarea, select')];
-const toast=document.getElementById('saveToast');
-function getData(){const data={};allFields.forEach(f=>{if((f.type==='checkbox'||f.type==='radio')&&!f.checked)return;if(f.type==='checkbox'){(data[f.name]??=[]).push(f.value)}else if(f.type==='radio'){data[f.name]=f.value}else data[f.id]=f.value});return data}
-function setData(data={}){allFields.forEach(f=>{if(f.type==='checkbox'){f.checked=(data[f.name]||[]).includes(f.value)}else if(f.type==='radio'){f.checked=data[f.name]===f.value}else if(data[f.id]!=null){f.value=data[f.id]}})}
-function save(show=true){localStorage.setItem(STORAGE_KEY,JSON.stringify(getData()));updateProgress();if(show){toast.textContent='נשמר אוטומטית';setTimeout(()=>toast.textContent='',1200)}}
-function load(){try{setData(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'))}catch(e){console.warn(e)};autofillSummary();updateProgress();renderPreview()}
-function updateProgress(){const req=[...document.querySelectorAll('[data-required="1"]')];const filled=req.filter(el=>el.value&&el.value.trim()).length;const p=Math.round((filled/req.length)*100);document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=`${filled} מתוך ${req.length} שדות מרכזיים מולאו (${p}%)`}
-function autofillSummary(){const map={sum_name:'tempProduct',sum_problem:'s2_problem',sum_audience:'s2_audience',sum_product:'s2_product',sum_action:'s3_core_sentence',sum_parts:'s5_table',sum_path:'s6_1',sum_value:'s2_value',sum_friction:'s7_main'};for(const [to,from] of Object.entries(map)){const t=document.getElementById(to),s=document.getElementById(from);if(t&&s&&!t.value.trim())t.value=s.value}}
-function renderPreview(){autofillSummary();const d=getData();document.getElementById('previewBox').innerHTML=`<strong>תאריך יצירה:</strong> ${new Date().toLocaleDateString('he-IL')}<br><strong>שם הצוות:</strong> ${d.teamName||''}<br><strong>חברי/ות צוות:</strong> ${d.members||''}<hr><strong>שם מוצר:</strong> ${d.sum_name||''}<br><strong>הבעיה:</strong> ${d.sum_problem||''}<br><strong>קהל היעד:</strong> ${d.sum_audience||''}<br><strong>המוצר הפיזי:</strong> ${d.sum_product||''}<br><strong>הפעולה המרכזית:</strong> ${d.sum_action||''}<br><strong>החלקים המרכזיים:</strong> ${d.sum_parts||''}<br><strong>מסלול שימוש קצר:</strong> ${d.sum_path||''}<br><strong>הערך:</strong> ${d.sum_value||''}<br><strong>נקודת חיכוך לשיפור:</strong> ${d.sum_friction||''}`}
-
-function missingRequired(){return [...document.querySelectorAll('[data-required="1"]')].filter(el=>!el.value||!el.value.trim())}
-function tryExport(){const miss=missingRequired();if(!miss.length){window.print();return;}document.getElementById('missingText').textContent='אפשר להשלים עכשיו, או להמשיך לייצוא. חסרים: '+miss.map(m=>m.previousElementSibling?.textContent||m.id).join(' | ');document.getElementById('missingModal').style.display='flex'}
-
-form.addEventListener('input',()=>{if(['חלקית','עדיין לא'].includes(document.getElementById('s2_clarity').value))document.getElementById('s2_refine_wrap').classList.remove('hidden');else document.getElementById('s2_refine_wrap').classList.add('hidden');save(false);renderPreview()});
-document.getElementById('saveBtn').onclick=()=>save(true);
-document.getElementById('clearBtn').onclick=()=>{if(confirm('לנקות את כל הטופס?')){localStorage.removeItem(STORAGE_KEY);form.reset();allFields.forEach(el=>{if(el.type==='checkbox'||el.type==='radio')el.checked=false});save(true);renderPreview()}};
-document.getElementById('previewBtn').onclick=()=>{renderPreview();document.getElementById('previewSection').scrollIntoView({behavior:'smooth'})};
-document.getElementById('pdfBtn').onclick=()=>{save(false);renderPreview();tryExport()};
+const form=document.getElementById('specForm');
+function renderChecks(id,name,arr,type='checkbox'){document.getElementById(id).innerHTML=arr.map(v=>`<label><input type="${type}" name="${name}" value="${v}"> ${v}</label>`).join('')}
+renderChecks('coreActionWrap','coreAction',actions,'radio');renderChecks('fruitWrap','fruits',fruits);renderChecks('frictionWrap','friction',friction);
+const all=[...document.querySelectorAll('input,textarea,select')];
+function read(){const d={};all.forEach(f=>{if((f.type==='checkbox'||f.type==='radio')&&!f.checked)return;if(f.type==='checkbox'){(d[f.name]??=[]).push(f.value)}else if(f.type==='radio'){d[f.name]=f.value}else d[f.id]=f.value});return d}
+function write(d={}){all.forEach(f=>{if(f.type==='checkbox')f.checked=(d[f.name]||[]).includes(f.value);else if(f.type==='radio')f.checked=d[f.name]===f.value;else if(d[f.id]!=null)f.value=d[f.id]})}
+function compose(){
+  const set=(id,val)=>{const e=document.getElementById(id);if(e&&!e.value.trim())e.value=val};
+  set('s1_team_sentence',`אנחנו מפתחים את המוצר הזה כי הוא עוזר ל־${v('s1_team_audience')} במצב שבו ${v('s1_team_problem')} באמצעות ${v('s1_team_action')}.`);
+  set('s3_core_sentence',`המוצר שלנו ${v('s3_act_1')} את / על / עבור ${v('s3_act_2')} כדי ש־${v('s3_act_3')}.`);
+  set('s4_trunk_sentence',`הגזע של המוצר הוא ${v('s4_trunk_1')}, כי בלי זה המוצר לא יוכל ${v('s4_trunk_2')}.`);
+  set('s4_fruit_sentence',`בסוף השימוש, קהל היעד מקבל ${v('s4_fruit_1')} כי המוצר ${v('s4_fruit_2')}.`);
+  set('s6_sentence',`כאשר ${v('s6_audience')} פוגשים את הבעיה של ${v('s6_problem')}, משתמשים במוצר כך: ${v('s6_action')}. לאחר מכן ${v('s6_next')}. המוצר ${v('s6_help')} בכך שהוא ${v('s6_how')}. בסוף מקבלים ${v('s6_value')}.`);
+  set('s7_sentence',`השימוש עלול להסתבך כאשר ${v('s7_when')}. זה עלול להפריע כי ${v('s7_why')}. כדי לשפר, נרצה ${v('s7_fix')}.`);
+  set('sum_final',`המוצר שלנו נקרא ${v('tempProduct')}. הוא מיועד ל־${v('s1_audience')}. הוא עוזר במצב שבו ${v('s1_problem')}. הפעולה המרכזית שלו היא ${v('s3_core_sentence')}. המוצר בנוי מ־${v('s5_parts_core')}. משתמשים בו על ידי ${v('s6_sentence')}. הערך שהוא נותן הוא ${v('s6_value')}. בשלב הבא נרצה לשפר את ${v('s7_when')}.`);
+}
+function v(id){return (document.getElementById(id)?.value||'').trim()}
+function save(show=false){localStorage.setItem(STORAGE_KEY,JSON.stringify(read()));updateProgress();if(show){const t=document.getElementById('saveToast');t.textContent='נשמר אוטומטית';setTimeout(()=>t.textContent='',1300)}}
+function updateProgress(){const req=[...document.querySelectorAll('[data-required="1"]')];const n=req.filter(e=>e.value.trim()).length;const p=Math.round(n/req.length*100);document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=`${n} מתוך ${req.length} שדות מרכזיים מולאו (${p}%)`}
+function preview(){compose();const d=read();document.getElementById('previewBox').innerHTML=`<strong>תאריך יצירה:</strong> ${new Date().toLocaleDateString('he-IL')}<br><strong>שם הצוות:</strong> ${d.teamName||''}<br><strong>שמות חברי/ות הצוות:</strong> ${d.members||''}<hr><strong>צורה:</strong> ${d.s2_shape||d.s5_shape||''}<br><strong>חלקים:</strong> ${d.s2_parts||d.s5_parts_core||''}<br><strong>צבעים / סימונים:</strong> ${d.s2_markings||d.s5_colors||''}<br><strong>חומר משוער:</strong> ${d.s5_material||''}<br><strong>גודל משוער:</strong> ${d.s5_size||''}<br><strong>מה ברור מיד כשרואים את המוצר:</strong> ${d.s2_clear_now||''}<br><strong>מה לא כדאי שיהיה בו:</strong> ${d.s2_avoid||''}<hr>${(d.sum_final||'').replace(/\n/g,'<br>')}`}
+function missing(){return [...document.querySelectorAll('[data-required="1"]')].filter(e=>!e.value.trim())}
+function askPdf(){const m=missing();if(!m.length){window.print();return;}document.getElementById('missingText').textContent='אפשר להשלים עכשיו או להמשיך לייצוא. חסרים: '+m.map(x=>x.previousElementSibling?.textContent||x.id).join(' | ');document.getElementById('missingModal').style.display='flex'}
+form.addEventListener('input',()=>{compose();save(false);preview()});
+document.getElementById('saveBtn').onclick=()=>{compose();save(true)};
+document.getElementById('clearBtn').onclick=()=>{if(confirm('לנקות את כל הטופס?')){localStorage.removeItem(STORAGE_KEY);form.reset();document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(x=>x.checked=false);compose();save(true);preview()}};
+document.getElementById('previewBtn').onclick=()=>{preview();document.getElementById('previewSection').scrollIntoView({behavior:'smooth'})};
+document.getElementById('pdfBtn').onclick=()=>{compose();preview();askPdf()};
 document.getElementById('backFill').onclick=()=>document.getElementById('missingModal').style.display='none';
 document.getElementById('forcePdf').onclick=()=>{document.getElementById('missingModal').style.display='none';window.print()};
-load();
+try{write(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'))}catch(e){console.warn(e)}
+compose();updateProgress();preview();
 </script>
 </body>
 </html>
