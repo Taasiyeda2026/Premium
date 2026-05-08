@@ -420,6 +420,16 @@
       background: rgba(53, 196, 232, 0.10);
       border-radius: 6px;
       padding: 0 4px;
+      white-space: pre-line;
+    }
+
+    .auto-value {
+      display: inline;
+      color: #0d3a76;
+      font-weight: 900;
+      background: rgba(53, 196, 232, 0.12);
+      border-radius: 6px;
+      padding: 0 5px;
     }
 
     .choice { position: relative; }
@@ -624,7 +634,7 @@
           <div class="field"><label for="targetAudience">מי שצריך את זה הוא...</label><textarea id="targetAudience" class="short" placeholder="קהל היעד המרכזי שלנו הוא..."></textarea></div>
           <div class="field"><label for="usePlace">משתמשים בו ב־...</label><textarea id="usePlace" class="short" placeholder="המקום או המצב שבו זה קורה..."></textarea></div>
           <div class="field"><label for="productReason">המוצר הזה חשוב כי...</label><textarea id="productReason" class="short" placeholder="הסיבה שהמוצר שווה פיתוח היא..."></textarea></div>
-          <div class="field span-2"><label for="teamSentence">משפט צוות אוטומטי</label><textarea id="teamSentence" class="short" placeholder="המשפט יתמלא אוטומטית לפי התשובות שלכם"></textarea></div>
+          <div class="field span-2"><label for="teamSentence">משפט צוות</label><textarea id="teamSentence" class="short" placeholder="אנחנו מפתחים את _____ כדי לעזור ל־_____ במצב שבו _____."></textarea></div>
         </div>
       </section>
 
@@ -685,7 +695,6 @@
 
         <div class="product-path" data-path="digital">
           <div class="path-title digital">עץ מערכת דיגיטלית</div>
-          <div class="method-row"><div class="method-box"><strong>הגזע</strong><p>הפעולה הדיגיטלית שחייבת לעבוד כדי שהמערכת תיתן ערך.</p></div><div class="method-box"><strong>הענפים</strong><p>מסכים, כפתורים, שאלון, מידע שנכנס, תוצאה, המלצה או התראה.</p></div></div>
           <div class="tool-grid">
             <div class="field span-2"><label for="digitalTreeCore">הגזע — מה חייב לעבוד במערכת?</label><textarea id="digitalTreeCore" class="short" placeholder="הגזע של המערכת הוא _____, כי בלי זה המערכת לא תוכל _____."></textarea></div>
             <div class="field"><label for="digitalTreeBranch1">ענף 1 — מסך או פעולה</label><textarea id="digitalTreeBranch1" class="short" placeholder="המסך / הפעולה _____ עוזר/ת בכך ש־_____"></textarea></div>
@@ -703,7 +712,7 @@
       </section>
 
       <section class="tool phase-flow requires-product" id="tool4" data-required="flow1,flow3,flow5">
-        <div class="tool-head"><div><div class="phase-label">זרימת שימוש | צעד אחר צעד</div><h3>4 — מה המשתמש עושה?</h3><p class="tool-subtitle">מוצר פיזי ומוצר דיגיטלי עובדים אחרת. בחרו את המסלול שמתאים למוצר שלכם.</p></div><div class="tool-num">4</div></div>
+        <div class="tool-head"><div><div class="phase-label">זרימת שימוש | צעד אחר צעד</div><h3>4 — מה המשתמש עושה?</h3><p class="tool-subtitle">כתבו את רצף הפעולות שהמשתמש עובר בזמן השימוש במוצר.</p></div><div class="tool-num">4</div></div>
 
         <div class="product-path" data-path="physical">
           <div class="path-title physical">זרימת שימוש במוצר פיזי</div>
@@ -774,7 +783,6 @@
       <div class="buttons">
         <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
         <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
-        <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
       </div>
       <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> אפיון מוצר</div>
     </section>
@@ -783,191 +791,243 @@
   </div>
 
   <script>
-    (function () {
-      const STORAGE_KEY = 'marvellProductSpec_work6_clean_v2';
-      const fields = Array.from(document.querySelectorAll('input, textarea, select'));
-      const saveStatus = document.getElementById('saveStatus');
+  (function () {
+    const STORAGE_KEY = 'marvellProductSpec_work6_clean_v2';
 
-      function byId(id) {
-        return document.getElementById(id);
+    function byId(id) {
+      return document.getElementById(id);
+    }
+
+    function getFields() {
+      return Array.from(document.querySelectorAll('input, textarea, select'));
+    }
+
+    function valueOf(id) {
+      const field = byId(id);
+      return field ? String(field.value || '').trim() : '';
+    }
+
+    function setText(id, text) {
+      const el = byId(id);
+      if (el) el.textContent = text;
+    }
+
+    function getProductMode() {
+      const type = valueOf('productType');
+      if (type === 'מוצר פיזי') return 'physical';
+      if (type === 'מוצר דיגיטלי') return 'digital';
+      return '';
+    }
+
+    function updateProductPaths() {
+      const mode = getProductMode();
+      const page = document.querySelector('.page');
+
+      if (page) {
+        page.classList.toggle('has-product-type', mode === 'physical' || mode === 'digital');
+        page.setAttribute('data-product-mode', mode);
       }
 
-      function valueOf(id) {
-        const field = byId(id);
-        return field ? String(field.value || '').trim() : '';
-      }
-
-      function setText(id, text) {
-        const el = byId(id);
-        if (el) el.textContent = text;
-      }
-
-      function getProductMode() {
-        const type = valueOf('productType');
-        if (type === 'מוצר פיזי') return 'physical';
-        if (type === 'מוצר דיגיטלי') return 'digital';
-        return '';
-      }
-
-      function activeValue(physicalId, digitalId, fallback) {
-        const mode = getProductMode();
-        if (mode === 'digital') return valueOf(digitalId) || fallback || '';
-        if (mode === 'physical') return valueOf(physicalId) || fallback || '';
-        return fallback || '';
-      }
-
-      function updateProductPaths() {
-        const mode = getProductMode();
-        const page = document.querySelector('.page');
-        if (page) {
-          page.classList.toggle('has-product-type', mode === 'physical' || mode === 'digital');
-          page.setAttribute('data-product-mode', mode || '');
-        }
-
-        document.querySelectorAll('.product-path').forEach((path) => {
-          path.classList.toggle('is-active', path.dataset.path === mode);
-        });
-      }
-
-      function getData() {
-        const data = {};
-        fields.forEach((field) => {
-          if (!field.id) return;
-          data[field.id] = field.type === 'radio' ? field.checked : field.value;
-        });
-        return data;
-      }
-
-      function setData(data) {
-        fields.forEach((field) => {
-          if (!field.id || !(field.id in data)) return;
-          if (field.type === 'radio') field.checked = Boolean(data[field.id]);
-          else field.value = data[field.id];
-        });
-      }
-
-      function saveData(message) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-        if (saveStatus) saveStatus.textContent = message || 'הטיוטה נשמרה אוטומטית.';
-      }
-
-      function loadData() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (raw) setData(JSON.parse(raw));
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      function updateAutoFields() {
-        const productName = valueOf('productName') || '__________';
-        const problemText = valueOf('problemText') || '__________';
-        const targetAudience = valueOf('targetAudience') || '__________';
-
-        const teamSentence = byId('teamSentence');
-        if (teamSentence && !teamSentence.matches(':focus')) {
-          teamSentence.value = `אנחנו מפתחים את ${productName} כדי לעזור ל־${targetAudience} במצב שבו ${problemText}.`;
-        }
-
-        const mode = getProductMode();
-        const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
-        const flow2 = activeValue('flow2', 'digitalFlow2', '__________');
-        const flow3 = activeValue('flow3', 'digitalFlow3', '__________');
-        const flow4 = activeValue('flow4', 'digitalFlow4', '__________');
-        const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
-
-        const flowSentence = byId('flowSentence');
-        if (flowSentence && mode === 'physical' && !flowSentence.matches(':focus')) {
-          flowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המוצר ${flow4}. בסוף ${flow5}.`;
-        }
-
-        const digitalFlowSentence = byId('digitalFlowSentence');
-        if (digitalFlowSentence && mode === 'digital' && !digitalFlowSentence.matches(':focus')) {
-          digitalFlowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המערכת ${flow4}. בסוף ${flow5}.`;
-        }
-      }
-
-      function updateSummary() {
-        const productName = valueOf('productName') || '__________';
-        const productType = valueOf('productType') || '__________';
-        const problemText = valueOf('problemText') || '__________';
-        const targetAudience = valueOf('targetAudience') || '__________';
-        const usePlace = valueOf('usePlace') || '__________';
-        const coreAction = activeValue('coreAction', 'digitalCoreAction', '__________');
-        const treeCore = activeValue('treeCore', 'digitalTreeCore', '__________');
-        const treeFruit = activeValue('treeFruit', 'digitalTreeFruit', '__________');
-        const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
-        const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
-        const frictionPoint = activeValue('frictionPoint', 'digitalFrictionPoint', '__________');
-        const frictionImprove = activeValue('frictionImprove', 'digitalFrictionImprove', '__________');
-
-        setText('sumDirection', `${productName} | ${productType}
-בעיה: ${problemText}
-קהל יעד: ${targetAudience}
-הקשר שימוש: ${usePlace}`);
-        setText('sumTree', `${treeCore}
-${treeFruit}`);
-        setText('sumFlow', `תחילת שימוש: ${flow1}
-סיום שימוש: ${flow5}
-חיכוך: ${frictionPoint}`);
-        setText('finalSummary', `אנחנו מאפיינים את ${productName}, ${productType}, שמיועד ל־${targetAudience}. הוא עוזר במצב שבו ${problemText}. הפעולה המרכזית שלו היא ${coreAction}. בעץ המוצר הגזע הוא: ${treeCore}. בזרימת השימוש המשתמש מתחיל מ־${flow1} ובסוף: ${flow5}. נקודת החיכוך המרכזית היא ${frictionPoint} ובהמשך נרצה לשפר את ${frictionImprove}.`);
-      }
-
-      function updateNavCompletion() {
-        const mode = getProductMode();
-        const stepRequirements = [
-          ['productName', 'productType', 'problemText', 'targetAudience', 'productReason'],
-          mode === 'digital' ? ['digitalTreeCore', 'digitalTreeBranch1', 'digitalTreeFruit'] : ['treeCore', 'treeBranch1', 'treeFruit'],
-          mode === 'digital' ? ['digitalFlow1', 'digitalFlow3', 'digitalFlow5'] : ['flow1', 'flow3', 'flow5'],
-          mode === 'digital' ? ['digitalFrictionPoint', 'digitalFrictionImprove'] : ['frictionPoint', 'frictionImprove']
-        ];
-
-        stepRequirements.forEach((ids, index) => {
-          const complete = ids.every((id) => valueOf(id));
-          const nav = document.querySelector(`.nav-step[data-step="${index + 1}"]`);
-          if (nav) nav.classList.toggle('is-complete', complete);
-        });
-      }
-
-      function updatePage() {
-        updateProductPaths();
-        updateAutoFields();
-        updateSummary();
-        updateNavCompletion();
-      }
-
-      fields.forEach((field) => {
-        field.addEventListener('input', () => {
-          updatePage();
-          saveData();
-        });
-        field.addEventListener('change', () => {
-          updatePage();
-          saveData();
-        });
+      document.querySelectorAll('.product-path').forEach((path) => {
+        path.classList.toggle('is-active', path.dataset.path === mode);
       });
+
+      const notice = byId('pathNotice');
+      if (notice) {
+        notice.style.display = mode ? 'none' : 'block';
+      }
+    }
+
+    function activeValue(physicalId, digitalId, fallback = '') {
+      const mode = getProductMode();
+      if (mode === 'physical') return valueOf(physicalId) || fallback;
+      if (mode === 'digital') return valueOf(digitalId) || fallback;
+      return fallback;
+    }
+
+    function getData() {
+      const data = {};
+      getFields().forEach((field) => {
+        if (!field.id) return;
+        data[field.id] = field.type === 'radio' || field.type === 'checkbox' ? field.checked : field.value;
+      });
+      return data;
+    }
+
+    function setData(data) {
+      if (!data || typeof data !== 'object') return;
+
+      getFields().forEach((field) => {
+        if (!field.id || !(field.id in data)) return;
+
+        if (field.type === 'radio' || field.type === 'checkbox') {
+          field.checked = Boolean(data[field.id]);
+        } else {
+          field.value = data[field.id];
+        }
+      });
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
+      } catch (error) {
+        console.error('שמירת הנתונים נכשלה:', error);
+      }
+    }
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) setData(JSON.parse(raw));
+
+        const productType = byId('productType');
+        if (productType) productType.value = '';
+      } catch (error) {
+        console.error('טעינת הנתונים נכשלה:', error);
+      }
+    }
+
+    function updateAutoFields() {
+      const productName = valueOf('productName') || '__________';
+      const problemText = valueOf('problemText') || '__________';
+      const targetAudience = valueOf('targetAudience') || '__________';
+      const mode = getProductMode();
+
+      const teamSentence = byId('teamSentence');
+      if (teamSentence && !teamSentence.matches(':focus')) {
+        teamSentence.value = `אנחנו מפתחים את ${productName} כדי לעזור ל־${targetAudience} במצב שבו ${problemText}.`;
+      }
+
+      const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
+      const flow2 = activeValue('flow2', 'digitalFlow2', '__________');
+      const flow3 = activeValue('flow3', 'digitalFlow3', '__________');
+      const flow4 = activeValue('flow4', 'digitalFlow4', '__________');
+      const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
+
+      const flowSentence = byId('flowSentence');
+      if (flowSentence && mode === 'physical' && !flowSentence.matches(':focus')) {
+        flowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המוצר ${flow4}. בסוף ${flow5}.`;
+      }
+
+      const digitalFlowSentence = byId('digitalFlowSentence');
+      if (digitalFlowSentence && mode === 'digital' && !digitalFlowSentence.matches(':focus')) {
+        digitalFlowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המערכת ${flow4}. בסוף ${flow5}.`;
+      }
+    }
+
+    function updateSummary() {
+      const productName = valueOf('productName') || '__________';
+      const productType = valueOf('productType') || '__________';
+      const problemText = valueOf('problemText') || '__________';
+      const targetAudience = valueOf('targetAudience') || '__________';
+      const usePlace = valueOf('usePlace') || '__________';
+      const coreAction = activeValue('coreAction', 'digitalCoreAction', '__________');
+      const treeCore = activeValue('treeCore', 'digitalTreeCore', '__________');
+      const treeFruit = activeValue('treeFruit', 'digitalTreeFruit', '__________');
+      const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
+      const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
+      const frictionPoint = activeValue('frictionPoint', 'digitalFrictionPoint', '__________');
+      const frictionImprove = activeValue('frictionImprove', 'digitalFrictionImprove', '__________');
+
+      setText('sumDirection', `כיוון מוצרי: ${productType}.
+מוצר: ${productName}.
+בעיה: ${problemText}.
+קהל יעד: ${targetAudience}.
+הקשר שימוש: ${usePlace}.`);
+      setText('sumTree', `הליבה של המוצר / המערכת: ${treeCore}.
+מה המוצר אמור לעשות: ${coreAction}.
+התוצאה הרצויה: ${treeFruit}.`);
+      setText('sumFlow', `תחילת השימוש: ${flow1}.
+סוף השימוש: ${flow5}.
+חיכוך מרכזי: ${frictionPoint}.
+שיפור מוצע: ${frictionImprove}.`);
+      setText('finalSummary', `אנחנו מפתחים את ${productName} עבור ${targetAudience}. המוצר עוזר במצב שבו ${problemText}. הליבה שלו היא ${treeCore}, ובשלב הבא נרצה לשפר את ${frictionImprove}.`);
+    }
+
+    function updateProgress() {
+      document.querySelectorAll('.nav-step').forEach((step) => {
+        const number = Number(step.dataset.step);
+        let complete = false;
+
+        if (number === 1) {
+          complete = Boolean(valueOf('productName') && valueOf('productType') && valueOf('problemText') && valueOf('targetAudience'));
+        }
+
+        if (number === 2) {
+          complete = Boolean(activeValue('treeCore', 'digitalTreeCore', ''));
+        }
+
+        if (number === 3) {
+          complete = Boolean(activeValue('flow1', 'digitalFlow1', '') && activeValue('flow5', 'digitalFlow5', ''));
+        }
+
+        if (number === 4) {
+          complete = Boolean(activeValue('frictionPoint', 'digitalFrictionPoint', '') && activeValue('frictionImprove', 'digitalFrictionImprove', ''));
+        }
+
+        step.classList.toggle('is-complete', complete);
+      });
+    }
+
+    function updateAll() {
+      updateProductPaths();
+      updateAutoFields();
+      updateSummary();
+      updateProgress();
+      saveData();
+    }
+
+    function clearWork() {
+      if (!confirm('לנקות את כל העבודה בדף?')) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      getFields().forEach((field) => {
+        if (field.type === 'radio' || field.type === 'checkbox') {
+          field.checked = false;
+        } else {
+          field.value = '';
+        }
+      });
+
+      updateAll();
+    }
+
+    function init() {
+      loadData();
+      updateProductPaths();
+      updateAutoFields();
+      updateSummary();
+      updateProgress();
+
+      getFields().forEach((field) => {
+        field.addEventListener('input', updateAll);
+        field.addEventListener('change', updateAll);
+      });
+
+      const productType = byId('productType');
+      if (productType) {
+        productType.addEventListener('change', updateAll);
+      }
 
       const clearBtn = byId('clearBtn');
       if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          if (!confirm('לנקות את כל דף האפיון?')) return;
-          fields.forEach((field) => {
-            if (field.type === 'radio') field.checked = false;
-            else field.value = '';
-          });
-          localStorage.removeItem(STORAGE_KEY);
-          updatePage();
-          saveData('הדף נוקה.');
-        });
+        clearBtn.addEventListener('click', clearWork);
       }
 
       const printBtn = byId('printBtn');
-      if (printBtn) printBtn.addEventListener('click', () => window.print());
+      if (printBtn) {
+        printBtn.addEventListener('click', () => window.print());
+      }
+    }
 
-      loadData();
-      updatePage();
-    })();
-  </script>
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
 </body>
 </html>
