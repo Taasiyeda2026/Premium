@@ -784,13 +784,50 @@
 
   <script>
     (function () {
-      const STORAGE_KEY = 'marvellProductSpec_work6_clean_v1';
+      const STORAGE_KEY = 'marvellProductSpec_work6_clean_v2';
       const fields = Array.from(document.querySelectorAll('input, textarea, select'));
       const saveStatus = document.getElementById('saveStatus');
 
-      function byId(id) { return document.getElementById(id); }
-      function valueOf(id) { const field = byId(id); return field ? String(field.value || '').trim() : ''; }
-      function setText(id, text) { const el = byId(id); if (el) el.textContent = text; }
+      function byId(id) {
+        return document.getElementById(id);
+      }
+
+      function valueOf(id) {
+        const field = byId(id);
+        return field ? String(field.value || '').trim() : '';
+      }
+
+      function setText(id, text) {
+        const el = byId(id);
+        if (el) el.textContent = text;
+      }
+
+      function getProductMode() {
+        const type = valueOf('productType');
+        if (type === 'מוצר פיזי') return 'physical';
+        if (type === 'מוצר דיגיטלי') return 'digital';
+        return '';
+      }
+
+      function activeValue(physicalId, digitalId, fallback) {
+        const mode = getProductMode();
+        if (mode === 'digital') return valueOf(digitalId) || fallback || '';
+        if (mode === 'physical') return valueOf(physicalId) || fallback || '';
+        return fallback || '';
+      }
+
+      function updateProductPaths() {
+        const mode = getProductMode();
+        const page = document.querySelector('.page');
+        if (page) {
+          page.classList.toggle('has-product-type', mode === 'physical' || mode === 'digital');
+          page.setAttribute('data-product-mode', mode || '');
+        }
+
+        document.querySelectorAll('.product-path').forEach((path) => {
+          path.classList.toggle('is-active', path.dataset.path === mode);
+        });
+      }
 
       function getData() {
         const data = {};
@@ -818,37 +855,40 @@
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
           if (raw) setData(JSON.parse(raw));
-        } catch (error) { console.error(error); }
+        } catch (error) {
+          console.error(error);
+        }
       }
 
-      function getProductMode() {
-        const type = valueOf('productType');
-        if (type === 'מוצר פיזי') return 'physical';
-        if (type === 'מוצר דיגיטלי') return 'digital';
-        return '';
-      }
+      function updateAutoFields() {
+        const productName = valueOf('productName') || '__________';
+        const problemText = valueOf('problemText') || '__________';
+        const targetAudience = valueOf('targetAudience') || '__________';
 
-      function activeValue(physicalId, digitalId, fallback) {
+        const teamSentence = byId('teamSentence');
+        if (teamSentence && !teamSentence.matches(':focus')) {
+          teamSentence.value = `אנחנו מפתחים את ${productName} כדי לעזור ל־${targetAudience} במצב שבו ${problemText}.`;
+        }
+
         const mode = getProductMode();
-        if (mode === 'digital') return valueOf(digitalId) || fallback || '';
-        if (mode === 'physical') return valueOf(physicalId) || fallback || '';
-        return fallback || '';
+        const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
+        const flow2 = activeValue('flow2', 'digitalFlow2', '__________');
+        const flow3 = activeValue('flow3', 'digitalFlow3', '__________');
+        const flow4 = activeValue('flow4', 'digitalFlow4', '__________');
+        const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
+
+        const flowSentence = byId('flowSentence');
+        if (flowSentence && mode === 'physical' && !flowSentence.matches(':focus')) {
+          flowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המוצר ${flow4}. בסוף ${flow5}.`;
+        }
+
+        const digitalFlowSentence = byId('digitalFlowSentence');
+        if (digitalFlowSentence && mode === 'digital' && !digitalFlowSentence.matches(':focus')) {
+          digitalFlowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המערכת ${flow4}. בסוף ${flow5}.`;
+        }
       }
 
-      function updateProductPaths() {
-        const mode = getProductMode();
-        const page = document.querySelector('.page');
-        const notice = byId('pathNotice');
-        if (page) page.classList.toggle('has-product-type', Boolean(mode));
-        document.querySelectorAll('.product-path').forEach((path) => {
-          const pathType = path.dataset.path;
-          path.classList.toggle('is-active', mode === pathType);
-        });
-        if (notice) notice.style.display = mode ? 'none' : 'block';
-      }
-
-      function updateDerivedContent() {
-        updateProductPaths();
+      function updateSummary() {
         const productName = valueOf('productName') || '__________';
         const productType = valueOf('productType') || '__________';
         const problemText = valueOf('problemText') || '__________';
@@ -858,31 +898,76 @@
         const treeCore = activeValue('treeCore', 'digitalTreeCore', '__________');
         const treeFruit = activeValue('treeFruit', 'digitalTreeFruit', '__________');
         const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
-        const flow2 = activeValue('flow2', 'digitalFlow2', '__________');
-        const flow3 = activeValue('flow3', 'digitalFlow3', '__________');
-        const flow4 = activeValue('flow4', 'digitalFlow4', '__________');
         const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
         const frictionPoint = activeValue('frictionPoint', 'digitalFrictionPoint', '__________');
         const frictionImprove = activeValue('frictionImprove', 'digitalFrictionImprove', '__________');
-
-        const teamSentence = byId('teamSentence');
-        if (teamSentence && !teamSentence.matches(':focus')) {
-          teamSentence.value = `אנחנו מפתחים את ${productName} כדי לעזור ל־${targetAudience} במצב שבו ${problemText}.`;
-        }
-
-        const flowSentence = byId('flowSentence');
-        if (flowSentence && !flowSentence.matches(':focus')) {
-          flowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המוצר ${flow4}. בסוף ${flow5}.`;
-        }
-
-        const digitalFlowSentence = byId('digitalFlowSentence');
-        if (digitalFlowSentence && !digitalFlowSentence.matches(':focus')) {
-          digitalFlowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המערכת ${flow4}. בסוף ${flow5}.`;
-        }
 
         setText('sumDirection', `${productName} | ${productType}
 בעיה: ${problemText}
 קהל יעד: ${targetAudience}
 הקשר שימוש: ${usePlace}`);
         setText('sumTree', `${treeCore}
-${treeFr
+${treeFruit}`);
+        setText('sumFlow', `תחילת שימוש: ${flow1}
+סיום שימוש: ${flow5}
+חיכוך: ${frictionPoint}`);
+        setText('finalSummary', `אנחנו מאפיינים את ${productName}, ${productType}, שמיועד ל־${targetAudience}. הוא עוזר במצב שבו ${problemText}. הפעולה המרכזית שלו היא ${coreAction}. בעץ המוצר הגזע הוא: ${treeCore}. בזרימת השימוש המשתמש מתחיל מ־${flow1} ובסוף: ${flow5}. נקודת החיכוך המרכזית היא ${frictionPoint} ובהמשך נרצה לשפר את ${frictionImprove}.`);
+      }
+
+      function updateNavCompletion() {
+        const mode = getProductMode();
+        const stepRequirements = [
+          ['productName', 'productType', 'problemText', 'targetAudience', 'productReason'],
+          mode === 'digital' ? ['digitalTreeCore', 'digitalTreeBranch1', 'digitalTreeFruit'] : ['treeCore', 'treeBranch1', 'treeFruit'],
+          mode === 'digital' ? ['digitalFlow1', 'digitalFlow3', 'digitalFlow5'] : ['flow1', 'flow3', 'flow5'],
+          mode === 'digital' ? ['digitalFrictionPoint', 'digitalFrictionImprove'] : ['frictionPoint', 'frictionImprove']
+        ];
+
+        stepRequirements.forEach((ids, index) => {
+          const complete = ids.every((id) => valueOf(id));
+          const nav = document.querySelector(`.nav-step[data-step="${index + 1}"]`);
+          if (nav) nav.classList.toggle('is-complete', complete);
+        });
+      }
+
+      function updatePage() {
+        updateProductPaths();
+        updateAutoFields();
+        updateSummary();
+        updateNavCompletion();
+      }
+
+      fields.forEach((field) => {
+        field.addEventListener('input', () => {
+          updatePage();
+          saveData();
+        });
+        field.addEventListener('change', () => {
+          updatePage();
+          saveData();
+        });
+      });
+
+      const clearBtn = byId('clearBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (!confirm('לנקות את כל דף האפיון?')) return;
+          fields.forEach((field) => {
+            if (field.type === 'radio') field.checked = false;
+            else field.value = '';
+          });
+          localStorage.removeItem(STORAGE_KEY);
+          updatePage();
+          saveData('הדף נוקה.');
+        });
+      }
+
+      const printBtn = byId('printBtn');
+      if (printBtn) printBtn.addEventListener('click', () => window.print());
+
+      loadData();
+      updatePage();
+    })();
+  </script>
+</body>
+</html>
