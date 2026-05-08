@@ -298,19 +298,17 @@
       font-weight: 500;
     }
 
-    .summary-spacer { height: 8px; }
+    .summary-spacer {
+      height: 8px;
+    }
 
     .summary-question {
-      font-family: "Assistant", Arial, sans-serif;
       font-weight: 900;
-      font-size: 1.06rem;
       color: var(--red-dark);
     }
 
     .summary-answer {
-      font-family: "Assistant", Arial, sans-serif;
       font-weight: 500;
-      font-size: 0.96rem;
       color: var(--text);
     }
 
@@ -410,17 +408,8 @@
       .print-logo { display: block !important; }
       .summary-card h2 { color: var(--red); font-size: 1.6rem; margin-bottom: 10px; }
       .summary-print-box { border: 1px solid #d9cbc2; box-shadow: none; min-height: 0; font-weight: 500; }
-      .summary-question {
-        font-family: "Assistant", Arial, sans-serif;
-        font-weight: 900;
-        font-size: 1.08rem;
-      }
-
-      .summary-answer {
-        font-family: "Assistant", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 0.98rem;
-      }
+      .summary-question { font-weight: 900; }
+      .summary-answer { font-weight: 500; }
     }
   </style>
 </head>
@@ -446,7 +435,7 @@
     <main class="content">
       <section class="intro-card">
         <h2>מטרת הדף</h2>
-        <p class="subtext">להכין את הקבוצה להצגה קצרה, ברורה ומקצועית בפני אנשי אסם. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, איך הוא עובד ומה הערך למשתמש.</p>
+        <p class="subtext">להכין את הקבוצה להצגה קצרה, ברורה ומקצועית בפני אנשי אסם. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, איך הוא עובד ואיך נרצה לדייק אותו בעזרת המשוב.</p>
         <div class="team-grid">
           <div>
             <label for="teamMembers">שמות חברי הקבוצה</label>
@@ -461,48 +450,37 @@
 
       <section class="section-card" id="partA">
         <h2>מה אנחנו צריכים להציג?</h2>
+        <h3>1. פתיחה קצרה</h3>
         <div style="margin-top:10px;">
           <label>במיזם שלנו אנחנו עוסקים בבעיה שקשורה ל:</label>
           <div class="choice-grid">
-            <label class="choice-option"><input type="radio" name="topicType" id="quality" value="איכות"> איכות</label>
-            <label class="choice-option"><input type="radio" name="topicType" id="safety" value="בטיחות"> בטיחות</label>
-            <label class="choice-option"><input type="radio" name="topicType" id="qualitySafety" value="איכות ובטיחות"> איכות ובטיחות</label>
+            <label class="choice-option"><input type="checkbox" id="quality"> איכות</label>
+            <label class="choice-option"><input type="checkbox" id="safety"> בטיחות</label>
+            <label class="choice-option"><input type="checkbox" id="qualitySafety"> איכות ובטיחות</label>
           </div>
         </div>
       </section>
 
       <section class="section-card">
-        <h3>1. הבעיה שבחרנו</h3>
+        <h3>2. הבעיה שבחרנו</h3>
         <label for="problem">מה נגיד על הבעיה?</label>
         <textarea id="problem" class="tall" placeholder="הבעיה שבחרנו היא..."></textarea>
         <div class="two-grid" style="margin-top:10px;">
-          <div>
-            <label for="problemWhere">הבעיה מתרחשת כאשר:</label>
-            <textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea>
-          </div>
-          <div>
-            <label for="problemWhy">הבעיה חשובה כי:</label>
-            <textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea>
-          </div>
+          <div><label for="problemWhere">הבעיה מתרחשת כאשר:</label><textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea></div>
+          <div><label for="problemWhy">הבעיה חשובה כי:</label><textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea></div>
         </div>
-        <label for="whyProblemChosen" style="margin-top:10px;">למה בחרנו דווקא בבעיה הזאת?</label>
-        <textarea id="whyProblemChosen" class="short" placeholder="בחרנו בבעיה הזאת כי היא משמעותית, מופיעה במצבים אמיתיים ומשפיעה על איכות, בטיחות או תהליך העבודה..."></textarea>
       </section>
 
       <section class="section-card">
-        <h3>2. הרעיון שלנו</h3>
+        <h3>3. הרעיון שלנו</h3>
         <label for="idea">מה נגיד על הרעיון?</label>
         <textarea id="idea" class="tall" placeholder="הרעיון שלנו הוא..."></textarea>
         <label for="ideaImpact" style="margin-top:10px;">הרעיון מתמודד עם הבעיה בכך שהוא:</label>
         <textarea id="ideaImpact" class="short" placeholder="משפר / משדרג / פותר / מדייק / מונע / מאפשר..."></textarea>
-        <label for="valueText" style="margin-top:10px;">מה הערך למשתמש?</label>
-        <textarea id="valueText" class="short" placeholder="הערך למשתמש הוא חיסכון בזמן, פחות טעויות, פעולה פשוטה יותר, חוויה טובה יותר, סדר, בטיחות או יעילות..."></textarea>
-        <label for="whyThisSolution" style="margin-top:10px;">למה בחרנו דווקא בפתרון הזה?</label>
-        <textarea id="whyThisSolution" class="short" placeholder="בחרנו בפתרון הזה כי הוא מתאים לבעיה, אפשר להסביר איך הוא עובד והוא יכול ליצור שינוי ברור עבור המשתמש..."></textarea>
       </section>
 
       <section class="section-card">
-        <h3>3. מה הרעיון עושה?</h3>
+        <h3>4. מה הרעיון עושה?</h3>
         <label for="mainAction">מה הפעולה המרכזית של הרעיון?</label>
         <textarea id="mainAction" class="short" placeholder="הרעיון שלנו אמור לזהות / להתריע / למנוע / לבדוק / לשפר / לסדר / להכווין..."></textarea>
         <label for="mainActionSentence" style="margin-top:10px;">הפעולה המרכזית היא:</label>
@@ -510,7 +488,7 @@
       </section>
 
       <section class="section-card">
-        <h3>4. איך הרעיון עובד?</h3>
+        <h3>5. איך הרעיון עובד?</h3>
         <p class="subtext">כתבו את ההסבר בשלבים קצרים.</p>
         <div class="three-grid">
           <div><label for="step1">שלב 1 – קודם:</label><textarea id="step1" class="short"></textarea></div>
@@ -522,7 +500,7 @@
       </section>
 
       <section class="section-card">
-        <h3>5. מה כבר בדקנו?</h3>
+        <h3>6. מה כבר בדקנו?</h3>
         <div class="three-grid">
           <div><label for="checkedAlready">בדקנו:</label><textarea id="checkedAlready" class="short"></textarea></div>
           <div><label for="foundOut">גילינו ש:</label><textarea id="foundOut" class="short"></textarea></div>
@@ -531,7 +509,7 @@
       </section>
 
       <section class="section-card">
-        <h3>6. איך אנחנו מתכננים את המוצר?</h3>
+        <h3>7. איך אנחנו מתכננים את המוצר?</h3>
         <p class="subtext">מה נגיד על האפיון הראשוני?</p>
         <div class="two-grid">
           <div><label for="builtFrom">המוצר שלנו יהיה בנוי מ:</label><textarea id="builtFrom" class="short"></textarea></div>
@@ -560,7 +538,7 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'osemPresentationPreparation_cleanNoDup_v1';
+      var STORAGE_KEY = 'osemPresentationPreparation_cleanFinal_v2';
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
       var summaryPrintBox = document.getElementById('summaryPrintBox');
 
@@ -580,7 +558,7 @@
         if (checked('qualitySafety')) return 'איכות ובטיחות';
         if (checked('quality')) return 'איכות';
         if (checked('safety')) return 'בטיחות';
-        return '____________________________';
+        return 'איכות / בטיחות';
       }
 
       function escapeHtml(text) {
@@ -604,56 +582,36 @@
         var teamMembers = valueOf('teamMembers') || '____________________________';
         var ventureName = valueOf('ventureName') || '____________________________';
         var problem = valueOf('problem') || '____________________________';
-        var problemWhere = valueOf('problemWhere') || '____________________________';
         var problemWhy = valueOf('problemWhy') || '____________________________';
-        var whyProblemChosen = valueOf('whyProblemChosen') || '____________________________';
         var idea = valueOf('idea') || '____________________________';
         var ideaImpact = valueOf('ideaImpact') || '____________________________';
-        var valueText = valueOf('valueText') || '____________________________';
-        var whyThisSolution = valueOf('whyThisSolution') || '____________________________';
-        var mainAction = valueOf('mainAction') || '____________________________';
-        var mainActionSentence = valueOf('mainActionSentence') || '____________________________';
         var step1 = valueOf('step1') || '____________________________';
         var step2 = valueOf('step2') || '____________________________';
         var step3 = valueOf('step3') || '____________________________';
-        var result = valueOf('result') || '____________________________';
         var checkedAlready = valueOf('checkedAlready') || '____________________________';
         var foundOut = valueOf('foundOut') || '____________________________';
-        var understood = valueOf('understood') || '____________________________';
         var builtFrom = valueOf('builtFrom') || '____________________________';
-        var mainParts = valueOf('mainParts') || '____________________________';
         var mustWork = valueOf('mustWork') || '____________________________';
 
         return [
           summaryLine('שמות התלמידים:', teamMembers),
           summaryLine('שם המיזם:', ventureName),
           summarySpacer(),
-          summaryLine('התחום שבחרנו:', topicText()),
-          summaryLine('הבעיה שבחרנו היא:', problem),
-          summaryLine('הבעיה מתרחשת כאשר:', problemWhere),
+          summaryLine('בחרנו לעסוק בבעיית:', topicText() + ' שבה ' + problem),
           summaryLine('הבעיה חשובה כי:', problemWhy),
-          summaryLine('בחרנו דווקא בבעיה הזאת כי:', whyProblemChosen),
           summarySpacer(),
           summaryLine('הרעיון שלנו הוא:', idea),
           summaryLine('הרעיון מתמודד עם הבעיה בכך שהוא:', ideaImpact),
-          summaryLine('הערך למשתמש הוא:', valueText),
-          summaryLine('בחרנו דווקא בפתרון הזה כי:', whyThisSolution),
           summarySpacer(),
-          summaryLine('הפעולה המרכזית של הרעיון היא:', mainAction),
-          summaryLine('במילים שלנו:', mainActionSentence),
-          summarySpacer(),
-          summaryLine('דרך הפעולה היא:', 'קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.'),
-          summaryLine('התוצאה היא:', result),
+          summaryLine('הדרך שבה הרעיון עובד היא:', 'קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.'),
           summarySpacer(),
           summaryLine('בדקנו עד עכשיו:', checkedAlready),
           summaryLine('גילינו ש:', foundOut),
-          summaryLine('בעקבות הבדיקה הבנו ש:', understood),
           summarySpacer(),
-          summaryLine('אנחנו מתכננים שהמוצר יהיה בנוי מ:', builtFrom),
-          summaryLine('החלקים החשובים במוצר הם:', mainParts),
+          summaryLine('אנחנו מתכננים שהמוצר יהיה בנוי מ-', builtFrom),
           summaryLine('הדבר שהכי חשוב שיעבוד בו הוא:', mustWork),
           summarySpacer(),
-          summaryLine('השלבים הבאים:', 'אחרי המנטורינג נשתמש במשוב שנקבל כדי לשפר את הרעיון, לדייק את האפיון, להבין מה עדיין חסר או לא ברור ולהתקדם לשלב הבא: בניית אבטיפוס והדמיה מציאותית של המוצר באמצעות AI.')
+          summaryLine('נשמח לקבל מכם משוב מקצועי שיסייע לנו לדייק את הרעיון לקראת המשך הפיתוח.', '')
         ].join('');
       }
 
@@ -661,7 +619,7 @@
         var data = {};
         fields.forEach(function (field) {
           if (!field.id) return;
-          data[field.id] = field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value;
+          data[field.id] = field.type === 'checkbox' ? field.checked : field.value;
         });
         return data;
       }
@@ -669,7 +627,7 @@
       function setData(data) {
         fields.forEach(function (field) {
           if (!field.id || !(field.id in data)) return;
-          if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(data[field.id]);
+          if (field.type === 'checkbox') field.checked = Boolean(data[field.id]);
           else field.value = data[field.id];
         });
       }
@@ -696,16 +654,14 @@
 
       var clearBtn = byId('clearBtn');
       if (clearBtn) {
-        clearBtn.addEventListener('click', function (event) {
-          event.preventDefault();
+        clearBtn.addEventListener('click', function () {
+          if (!confirm('לנקות את כל דף ההכנה?')) return;
           fields.forEach(function (field) {
-            if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
+            if (field.type === 'checkbox') field.checked = false;
             else field.value = '';
           });
           try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
           updateScript();
-          clearBtn.textContent = 'נוקה';
-          window.setTimeout(function () { clearBtn.textContent = 'ניקוי העמוד'; }, 900);
         });
       }
 
