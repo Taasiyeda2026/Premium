@@ -247,14 +247,14 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="header-logo" href="../../index_marvell.html" aria-label="חזרה לעמוד הבית">
-        <img src="../../images/logo.png" alt="לוגו פרימיום Marvell">
+      <a class="header-logo" href="../index-marvell.html" aria-label="חזרה לעמוד הבית">
+        <img src="../images/logo.png" alt="לוגו פרימיום Marvell">
         <span>פרימיום Marvell</span>
       </a>
       <div class="header-actions">
         <a class="back-btn" href="need.html" aria-label="חזרה" title="חזרה">חזרה</a>
         <button class="print-btn" type="button" onclick="printAnsweredOnly()">PDF / הדפסה</button>
-        <a class="home-link" href="../../index_marvell.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
+        <a class="home-link" href="../index-marvell.html" aria-label="חזרה לדף הבית" title="דף הבית">🏠</a>
       </div>
     </div>
   </header>
@@ -490,7 +490,7 @@
 
       <div class="footer-nav">
         <a class="secondary-btn" href="need.html">חזרה לדף 1</a>
-        <a class="next-btn" href="../../index_marvell.html">סיום / חזרה לדף הבית</a>
+        <a class="next-btn" href="../index-marvell.html">סיום / חזרה לדף הבית</a>
       </div>
     </div>
   </main>
@@ -564,7 +564,7 @@
     }
 
     function printAnsweredOnly() {
-      const logoUrl = new URL('../../images/logo.png', window.location.href).href;
+      const logoUrl = new URL('../images/logo.png', window.location.href).href;
       const studentNames = document.getElementById('studentNames').value.trim();
       const exactProblem = document.getElementById('exactProblem').value.trim();
       const identifiedNeed = document.getElementById('identifiedNeed').value.trim();
