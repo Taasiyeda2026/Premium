@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>דף עבודה | הכנה למנטורינג תעשייתי</title>
+  <title>דף הכנה להצגה | מנטורינג תעשייתי – מארוול</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,18 +20,15 @@
       --cyan-soft: #9cecff;
       --orange: #f6a742;
       --green: #3cc58f;
-      --red: #d75f5f;
       --shadow: 0 28px 70px rgba(0, 7, 22, 0.42);
-      --shadow-soft: 0 18px 42px rgba(0, 16, 45, 0.22);
-      --radius-lg: 28px;
-      --radius: 18px;
+      --soft-shadow: 0 18px 42px rgba(0, 16, 45, 0.22);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      zoom: 0.72;
+      zoom: 0.75;
       min-height: 100vh;
       font-family: "Assistant", Arial, sans-serif;
       color: var(--text);
@@ -40,7 +37,7 @@
         radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
         radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.10), transparent 30%),
         linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
-      padding: 22px 14px 40px;
+      padding: 14px 10px 26px;
     }
 
     body::before {
@@ -58,13 +55,13 @@
     button, input, textarea, select { font-family: inherit; }
 
     .page {
-      width: min(1180px, 100%);
+      width: min(980px, 100%);
       margin: 0 auto;
       background:
         radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
         linear-gradient(180deg, rgba(10, 33, 69, 0.94), rgba(6, 19, 41, 0.96));
       border: 1px solid rgba(131, 190, 255, 0.30);
-      border-radius: 34px;
+      border-radius: 26px;
       box-shadow:
         0 34px 90px rgba(0, 0, 0, 0.44),
         inset 0 1px 0 rgba(255,255,255,0.12);
@@ -87,11 +84,11 @@
     .topbar {
       position: relative;
       z-index: 2;
-      padding: 10px 18px;
+      padding: 7px 14px;
       color: #eaf7ff;
       background: linear-gradient(90deg, #061329 0%, #0d3a76 50%, #061329 100%);
       border-bottom: 1px solid rgba(131, 190, 255, 0.25);
-      font-size: 0.92rem;
+      font-size: 0.82rem;
       font-weight: 800;
       text-align: center;
     }
@@ -99,7 +96,7 @@
     .header {
       position: relative;
       z-index: 2;
-      padding: 24px 24px 18px;
+      padding: 16px 20px 13px;
       background:
         radial-gradient(circle at 20% 20%, rgba(53,196,232,0.18), transparent 28%),
         linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
@@ -108,33 +105,33 @@
 
     .home-link {
       position: absolute;
-      top: 22px;
-      right: 22px;
-      width: 42px;
-      height: 42px;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 14px;
+      border-radius: 12px;
       text-decoration: none;
       border: 1px solid rgba(160, 210, 255, 0.55);
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.9));
       box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
     }
 
-    .home-link svg { width: 21px; height: 21px; fill: #0d2045; }
+    .home-link svg { width: 18px; height: 18px; fill: #0d2045; }
 
     .brand {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
       text-align: center;
     }
 
     .brand img {
-      width: 74px;
-      height: 74px;
+      width: 58px;
+      height: 58px;
       object-fit: contain;
       flex: 0 0 auto;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
@@ -142,27 +139,66 @@
 
     .brand-copy h1 {
       color: #ffffff;
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      line-height: 1.04;
+      font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+      line-height: 1.05;
       font-weight: 900;
-      letter-spacing: 0.01em;
       text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
     }
 
     .brand-copy p {
-      margin-top: 8px;
+      margin-top: 5px;
       color: #c8e9ff;
-      font-size: 1.05rem;
+      font-size: 0.92rem;
       font-weight: 600;
     }
 
-    .card,
-    .tool,
-    .action-panel,
-    .summary-panel {
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(6, 19, 41, 0.84);
+      border-bottom: 1px solid rgba(131, 190, 255, 0.26);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7px 8px;
+      border-radius: 11px;
+      text-decoration: none;
+      color: #d7ecff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(131, 190, 255, 0.22);
+      box-shadow: 0 10px 22px rgba(0, 5, 18, 0.22);
+      font-size: 0.76rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 14px 20px 8px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .intro-card,
+    .section-card,
+    .script-card,
+    .summary-card,
+    .action-panel {
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
       border: 1px solid rgba(140, 184, 230, 0.40);
-      border-radius: var(--radius-lg);
+      border-radius: 20px;
       box-shadow:
         0 20px 46px rgba(0, 10, 32, 0.28),
         inset 0 1px 0 rgba(255,255,255,0.82);
@@ -170,51 +206,69 @@
       position: relative;
     }
 
-    .hero {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 16px;
-      padding: 20px 24px 24px;
-      border-bottom: 1px solid rgba(131, 190, 255, 0.22);
-    }
-
-    .card::before,
-    .tool::before {
+    .intro-card::before,
+    .section-card::before,
+    .script-card::before,
+    .summary-card::before {
       content: "";
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-      height: 6px;
+      height: 4px;
       background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
     }
 
-    .intro,
-    .meta { padding: 22px; }
+    .section-card.phase-b::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
+    .section-card.phase-c::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
 
-    .intro h2 {
-      color: #163b63;
-      font-size: 1.45rem;
-      margin-bottom: 8px;
+    .intro-card,
+    .section-card,
+    .script-card,
+    .summary-card { padding: 15px; }
+
+    h2 {
+      color: #123b64;
+      font-size: 1.28rem;
+      line-height: 1.15;
       font-weight: 900;
+      margin-bottom: 6px;
     }
 
-    .intro p {
-      color: #485872;
+    h3 {
+      color: #123b64;
       font-size: 1.02rem;
-      line-height: 1.85;
-      font-weight: 500;
+      line-height: 1.22;
+      font-weight: 900;
+      margin: 10px 0 7px;
     }
 
-    .field { display: flex; flex-direction: column; gap: 7px; }
-    .field + .field { margin-top: 13px; }
+    .subtext {
+      color: #485872;
+      font-size: 0.9rem;
+      line-height: 1.62;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .team-grid,
+    .two-grid,
+    .three-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .team-grid,
+    .two-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .span-all { grid-column: 1 / -1; }
 
     label {
+      display: block;
       color: #18385c;
-      font-size: 0.94rem;
+      font-size: 0.84rem;
       font-weight: 900;
+      margin-bottom: 4px;
     }
 
     input,
@@ -222,18 +276,18 @@
     select {
       width: 100%;
       border: 1px solid #d6e2f0;
-      border-radius: 15px;
+      border-radius: 12px;
       background: #fff;
       color: var(--text);
-      font-size: 1rem;
-      padding: 12px 13px;
+      font-size: 0.9rem;
+      padding: 8px 10px;
       outline: none;
       transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
     }
 
-    textarea { min-height: 92px; resize: vertical; line-height: 1.65; }
-    textarea.short { min-height: 70px; }
-    textarea.tall { min-height: 130px; }
+    textarea { min-height: 58px; resize: vertical; line-height: 1.45; }
+    textarea.short { min-height: 46px; }
+    textarea.tall { min-height: 90px; }
 
     input:focus,
     textarea:focus,
@@ -243,500 +297,397 @@
       background: #fbfdff;
     }
 
-    .progress-nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 12px 24px;
-      background: rgba(6, 19, 41, 0.84);
-      border-bottom: 1px solid rgba(131, 190, 255, 0.26);
-      backdrop-filter: blur(14px);
-    }
-
-    .progress-inner {
+    .type-row {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
+      margin-top: 8px;
     }
 
-    .nav-step {
-      text-decoration: none;
-      color: #d7ecff;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(131, 190, 255, 0.22);
-      border-radius: 14px;
-      min-height: 50px;
+    .type-option {
+      flex: 1 1 0;
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 7px 6px;
-      font-size: 0.82rem;
-      font-weight: 900;
-      line-height: 1.15;
-      box-shadow: 0 10px 22px rgba(0, 5, 18, 0.22);
-    }
-
-    .nav-step.is-complete {
-      color: #061329;
-      background: linear-gradient(180deg, #35c4e8, #9cecff);
-      border-color: rgba(255,255,255,0.55);
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      padding: 22px 24px 10px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .tool { padding: 20px; }
-    .tool.phase-b::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
-    .tool.phase-c::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
-    .tool.phase-d::before { background: linear-gradient(90deg, #1e66a8 0%, #9cecff 50%, #3cc58f 100%); }
-
-    .tool-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .phase-label,
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: rgba(53, 196, 232, 0.12);
-      color: #0b5f83;
-      border: 1px solid rgba(53, 196, 232, 0.32);
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      font-weight: 900;
-    }
-
-    .phase-label { margin-bottom: 9px; }
-    .phase-b .phase-label { color: #805d14; background: rgba(242, 157, 53, 0.12); border-color: rgba(242, 157, 53, 0.28); }
-    .phase-c .phase-label { color: #1d6f63; background: rgba(43, 147, 111, 0.10); border-color: rgba(43, 147, 111, 0.25); }
-    .phase-d .phase-label { color: #194f86; background: rgba(53, 196, 232, 0.11); border-color: rgba(53, 196, 232, 0.25); }
-
-    .tool h3 {
-      color: #123b64;
-      font-size: 1.35rem;
-      font-weight: 900;
-      line-height: 1.25;
-      margin-bottom: 5px;
-    }
-
-    .tool-subtitle {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.65;
-      font-weight: 600;
-    }
-
-    .tool-num {
-      width: 48px;
-      height: 48px;
-      border-radius: 17px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.35rem;
-      font-weight: 900;
-      background: linear-gradient(180deg, #35c4e8, #0d3a76);
-      box-shadow: 0 14px 26px rgba(13, 58, 118, 0.34);
-    }
-
-    .phase-b .tool-num { background: linear-gradient(180deg, #ffca73, #f6a742); }
-    .phase-c .tool-num { background: linear-gradient(180deg, #52d6b2, #187b66); }
-    .phase-d .tool-num { background: linear-gradient(180deg, #9cecff, #1e66a8); }
-
-    .method-row,
-    .tool-grid,
-    .auto-grid,
-    .choice-grid,
-    .check-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .method-row,
-    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .auto-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
-    .choice-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-    .check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .span-2 { grid-column: 1 / -1; }
-
-    .method-box,
-    .preview,
-    .summary-box,
-    .print-summary,
-    .check-card {
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(120, 170, 220, 0.34);
-      background: linear-gradient(180deg, #ffffff, #f2f7fd);
-      color: #4f6078;
-      line-height: 1.75;
-      font-weight: 600;
-    }
-
-    .method-box strong,
-    .preview strong,
-    .summary-box strong,
-    .print-summary strong,
-    .check-card strong {
-      display: block;
-      color: #17395e;
-      font-weight: 900;
-      margin-bottom: 5px;
-    }
-
-    .method-box p { color: #52627a; font-size: 0.96rem; line-height: 1.6; font-weight: 600; }
-    .mini-note { color: #65758e; font-size: 0.88rem; line-height: 1.55; font-weight: 600; }
-
-    .choice { position: relative; }
-    .choice input { position: absolute; opacity: 0; pointer-events: none; }
-
-    .choice label {
-      min-height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 10px 9px;
-      border-radius: 16px;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
       border: 1px solid rgba(120, 170, 220, 0.35);
       background: linear-gradient(180deg, #ffffff, #eef6ff);
       color: #40546f;
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 6px 14px rgba(22,38,67,0.05);
-      font-size: 0.92rem;
+      font-size: 0.84rem;
       font-weight: 900;
     }
 
-    .choice input:checked + label {
-      color: #ffffff;
-      border-color: rgba(53,196,232,0.7);
-      background: linear-gradient(180deg, #1e66a8, #0d2045);
-      box-shadow: 0 12px 20px rgba(23, 74, 124, 0.16);
-      transform: translateY(-1px);
+    .type-option input { width: auto; accent-color: var(--primary-2); }
+
+    .ready-script,
+    .check-box,
+    .summary-print-box {
+      white-space: normal;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      padding: 12px 13px;
+      color: #4f6078;
+      line-height: 1.7;
+      font-size: 0.94rem;
+      font-weight: 500;
     }
 
-    .mentor-script {
-      background: linear-gradient(135deg, rgba(43,147,111,0.09), #fff);
-      border-color: rgba(43,147,111,0.28);
-      white-space: pre-wrap;
+    .summary-line {
+      margin: 0 0 7px;
+      font-weight: 500;
+    }
+
+    .summary-spacer {
+      height: 8px;
+    }
+
+    .summary-question {
+      font-weight: 900;
+      color: #123b64;
+    }
+
+    .summary-answer {
+      font-weight: 500;
+      color: #4f6078;
+    }
+
+    .product-paths {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .product-path {
+      display: none;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+    }
+
+    .product-path.is-active { display: block; }
+
+    .product-dependent {
+      display: none;
+    }
+
+    .has-product-type .product-dependent {
+      display: block;
+    }
+
+    .print-logo {
+      display: none;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .print-logo img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
     }
 
     .action-panel {
       position: relative;
       z-index: 2;
-      margin: 8px 24px 0;
-      padding: 18px;
+      margin: 6px 20px 0;
+      padding: 12px;
     }
 
-    .buttons { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
 
     .btn {
       border: 1px solid transparent;
-      border-radius: 15px;
-      padding: 11px 16px;
-      min-width: 138px;
+      border-radius: 10px;
+      padding: 6px 10px;
+      min-width: 74px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.94rem;
+      font-size: 0.76rem;
       font-weight: 900;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 9px 16px rgba(22,38,67,0.08);
+      box-shadow: 0 7px 14px rgba(22,38,67,0.08);
     }
 
     .btn:hover { transform: translateY(-1px); }
-    .btn.primary { color: white; background: linear-gradient(90deg, #0d3a76, #1e66a8); }
     .btn.secondary { color: #40546f; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
     .btn.accent { color: white; background: linear-gradient(90deg, #f08a24, #f6a742); }
-    .status { color: #65758e; font-size: 0.92rem; font-weight: 800; }
-    .footer { position: relative; z-index: 2; padding: 20px 18px 28px; text-align: center; color: #b8d9f7; font-weight: 700; }
-    .print-only { display: none; }
-
-    @media (max-width: 1040px) {
-      .progress-inner { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
+    .footer { position: relative; z-index: 2; padding: 12px 14px 18px; text-align: center; color: #b8d9f7; font-weight: 700; }
 
     @media (max-width: 860px) {
-      .hero, .method-row, .tool-grid, .auto-grid, .check-grid { grid-template-columns: 1fr; }
+      body { zoom: 1; }
       .home-link { position: static; margin-bottom: 10px; }
       .brand { flex-direction: column; }
-      .progress-nav { position: static; }
-    }
-
-    @media (max-width: 620px) {
-      body { padding: 10px 8px 28px; }
-      .page { border-radius: 24px; }
-      .header, .hero, .content, .progress-nav, .action-panel { padding-left: 14px; padding-right: 14px; }
-      .action-panel { margin-left: 14px; margin-right: 14px; }
-      .progress-inner, .choice-grid { grid-template-columns: 1fr; }
+      .nav { position: static; grid-template-columns: 1fr; }
+      .team-grid, .two-grid, .three-grid { grid-template-columns: 1fr; }
+      .type-row { flex-direction: column; }
     }
 
     @media print {
-      body { zoom: 1; padding: 0; background: white; }
-      body::before { display: none; }
-      .page { width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; background: white; }
-      .page::before, .topbar, .home-link, .progress-nav, .buttons, .status { display: none !important; }
-      .header, .hero, .content, .action-panel, .footer { padding: 10px 14px; margin: 0; border: none; box-shadow: none; background: white; }
-      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; letter-spacing: 0.01em; }
-      .brand-copy p { color: #52627a; }
-      .brand img { width: 52px; height: 52px; filter: none; }
-      .intro, .meta, .tool, .action-panel, .card { box-shadow: none; break-inside: avoid; }
-      .tool { page-break-inside: avoid; margin-bottom: 10px; padding: 12px; }
-      input, textarea, select { border: 1px solid #ccd7e5; box-shadow: none; }
-      .print-only { display: block; color: #123b64; }
-      .footer { color: #65758e; }
+      @page { margin: 12mm; }
+
+      body {
+        zoom: 1;
+        padding: 0;
+        background: #ffffff !important;
+      }
+
+      body::before,
+      .topbar,
+      .header,
+      .nav,
+      .intro-card,
+      .section-card,
+      .script-card,
+      .action-panel,
+      .footer {
+        display: none !important;
+      }
+
+      .page,
+      .content,
+      .summary-card {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+      }
+
+      .page::before,
+      .summary-card::before {
+        display: none !important;
+      }
+
+      .print-logo {
+        display: block !important;
+      }
+
+      .summary-card h2 {
+        color: #123b64;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+      }
+
+      .summary-card .subtext {
+        color: #333333;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      #summaryPrintBox {
+        border: 1px solid #ccd7e5;
+        box-shadow: none;
+        min-height: 0;
+        font-weight: 500;
+      }
+
+      .summary-question {
+        font-weight: 900;
+      }
+
+      .summary-answer {
+        font-weight: 500;
+      }
     }
-  
-
-    /* קומפקטיות ויישור אחיד לעמוד WORK7 */
-    .page { width: min(1080px, 100%); border-radius: 26px; }
-    body { padding: 14px 10px 26px; }
-    .topbar { padding: 7px 14px; font-size: 0.82rem; }
-    .header { padding: 16px 20px 13px; }
-    .home-link { top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 12px; }
-    .home-link svg { width: 18px; height: 18px; }
-    .brand { gap: 12px; }
-    .brand img { width: 58px; height: 58px; }
-    .brand-copy h1 { font-size: clamp(1.55rem, 3.2vw, 2.45rem); line-height: 1.05; }
-    .brand-copy p { margin-top: 5px; font-size: 0.92rem; }
-
-    .card,
-    .tool,
-    .action-panel,
-    .summary-panel { border-radius: 20px; }
-
-    .hero { grid-template-columns: 1.25fr 0.75fr; gap: 12px; padding: 14px 20px 16px; }
-    .card::before,
-    .tool::before { height: 4px; }
-    .intro,
-    .meta { padding: 15px; }
-    .intro h2 { font-size: 1.18rem; margin-bottom: 5px; }
-    .intro p { font-size: 0.9rem; line-height: 1.62; }
-
-    .field { gap: 4px; }
-    .field + .field { margin-top: 8px; }
-    label { font-size: 0.84rem; }
-    input,
-    textarea,
-    select { border-radius: 12px; font-size: 0.9rem; padding: 8px 10px; }
-    textarea { min-height: 58px; line-height: 1.45; }
-    textarea.short { min-height: 46px; }
-    textarea.tall { min-height: 92px; }
-
-    .progress-nav { padding: 8px 20px; }
-    .progress-inner { gap: 6px; }
-    .nav-step { min-height: 38px; padding: 5px 5px; border-radius: 11px; font-size: 0.72rem; line-height: 1.08; }
-
-    .content { padding: 14px 20px 8px; gap: 12px; }
-    .tool { padding: 14px; }
-    .tool-head { align-items: start; gap: 10px; margin-bottom: 10px; }
-    .phase-label,
-    .kicker { padding: 4px 10px; font-size: 0.72rem; }
-    .phase-label { margin-bottom: 6px; }
-    .tool h3 { font-size: 1.08rem; line-height: 1.18; margin-bottom: 3px; }
-    .tool-subtitle { font-size: 0.86rem; line-height: 1.45; }
-    .tool-num { width: 38px; height: 38px; border-radius: 13px; font-size: 1.05rem; }
-
-    .method-row,
-    .tool-grid,
-    .auto-grid,
-    .choice-grid,
-    .check-grid { gap: 8px; }
-    .method-box,
-    .preview,
-    .summary-box,
-    .print-summary,
-    .check-card { padding: 10px 12px; border-radius: 14px; line-height: 1.5; }
-    .method-box strong,
-    .preview strong,
-    .summary-box strong,
-    .print-summary strong,
-    .check-card strong { margin-bottom: 3px; }
-    .method-box p { font-size: 0.84rem; line-height: 1.42; }
-    .mini-note { font-size: 0.78rem; line-height: 1.35; }
-
-    .choice label { min-height: 40px; padding: 7px 8px; border-radius: 12px; font-size: 0.8rem; }
-    .preview.mentor-script { margin-top: 10px !important; }
-
-    .check-card { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; }
-    .check-card input { width: auto; }
-
-    .action-panel { margin: 6px 20px 0; padding: 12px; }
-    .buttons { gap: 8px; }
-    .btn { border-radius: 12px; padding: 8px 12px; min-width: 118px; font-size: 0.82rem; }
-    .status { font-size: 0.82rem; }
-    .footer { padding: 12px 14px 18px; }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="topbar">דף עבודה אינטראקטיבי | הכנה למנטורינג תעשייתי</div>
+    <div class="topbar">דף הכנה להצגה בפני אנשי מארוול</div>
 
     <header class="header">
-      <a class="home-link" href="../newsletter6.html" aria-label="חזרה לעמוד המנטורינג" title="חזרה לעמוד המנטורינג">
+      <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
       </a>
       <div class="brand">
         <img src="../images/logo.png" alt="לוגו תעשיידע">
         <div class="brand-copy">
-          <h1>מתכוננים למנטורינג תעשייתי</h1>
-          <p>מכינים הצגה קצרה ומסקרנת: מציגים רעיון, פעולה מרכזית ושאלה טובה — בלי לחשוף את כל הסיום.</p>
+          <h1>מנטורינג תעשייתי - מארוול</h1>
+          <p>מנסחים הצגה קצרה, ברורה ומקצועית של הרעיון, סוג המוצר והאפיון הראשוני.</p>
         </div>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="card intro">
-        <h2>מטרת הפעילות</h2>
-        <p>במפגש המנטורינג תציגו את המיזם שלכם למנטור או מנטורית מהעולם המקצועי. המטרה אינה לחשוף את כל התוצאה הסופית של הקורס, אלא להראות שאתם מבינים את הרעיון: איזו בעיה זיהיתם, מה הפעולה המרכזית של הפתרון ומה אתם רוצים לבדוק לפני שמתקדמים. חשוב להשאיר סקרנות ומתח לקראת ההצגה הסופית.</p>
-      </div>
-      <div class="card meta">
-        <div class="field"><label for="teamName">שם הצוות</label><input id="teamName" type="text" placeholder="למשל: צוות פתרון חכם"></div>
-        <div class="field"><label for="members">שמות חברי הצוות</label><textarea id="members" class="short" placeholder="כתבו את שמות חברי הצוות"></textarea></div>
-      </div>
-    </section>
-
-    <nav class="progress-nav" aria-label="ניווט בין שלבי ההכנה">
-      <div class="progress-inner">
-        <a class="nav-step" href="#tool1" data-step="1">1<br>כרטיס מיזם</a>
-        <a class="nav-step" href="#tool2" data-step="2">2<br>בעיה וקהל יעד</a>
-        <a class="nav-step" href="#tool3" data-step="3">3<br>הרעיון</a>
-        <a class="nav-step" href="#tool4" data-step="4">4<br>פעולה מרכזית</a>
-        <a class="nav-step" href="#tool5" data-step="5">5<br>מה לא מגלים</a>
-        <a class="nav-step" href="#tool6" data-step="6">6<br>שאלה והצגה</a>
-        <a class="nav-step" href="#tool7" data-step="7">7<br>משוב</a>
-      </div>
+    <nav class="nav" aria-label="ניווט בדף">
+      <a href="#partA">מה נציג?</a>
+      <a href="#productTypeSection">סוג מוצר</a>
+      <a href="#summary">טקסט ההצגה</a>
     </nav>
 
     <main class="content">
-      <section class="tool" id="tool1" data-required="productName,productType,shortProductSentence">
-        <div class="tool-head"><div><div class="phase-label">שלב א׳ | כרטיס מיזם קצר</div><h3>כלי 1 – מי אנחנו ומה הרעיון שלנו?</h3><p class="tool-subtitle">מתחילים בכרטיס קצר. לא חושפים את כל המוצר, אלא נותנים למנטור להבין את הכיוון ולרצות לשאול עוד.</p></div><div class="tool-num">1</div></div>
-        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לנסח את המיזם בצורה קצרה, ברורה ומסקרנת.</p></div><div class="method-box"><strong>מה חשוב?</strong><p>לתת למנטור להבין את הכיוון של הרעיון ואת מה שתרצו לבדוק איתו.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="productName">שם המיזם / המוצר</label><input id="productName" type="text" placeholder="שם קצר וזכיר"></div>
-          <div class="field"><label for="productType">סוג המוצר</label><select id="productType"><option value="">בחרו סוג מוצר</option><option>מוצר פיזי</option><option>מוצר דיגיטלי</option><option>מוצר משולב</option><option>עדיין לא בטוחים</option></select></div>
-          <div class="field span-2"><label for="shortProductSentence">משפט פתיחה קצר</label><textarea id="shortProductSentence" class="short" placeholder="אנחנו מפתחים רעיון שיעזור ל־___ להתמודד עם ___ בדרך של ___"></textarea></div>
+      <section class="intro-card">
+        <h2>מטרת הדף</h2>
+        <p class="subtext">להכין את הקבוצה להצגה קצרה וברורה בפני אנשי מארוול. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, מה סוג המוצר, איך הוא אמור לעבוד ומה נרצה לדייק בעזרת המשוב.</p>
+        <div class="team-grid">
+          <div>
+            <label for="teamMembers">שמות חברי הקבוצה</label>
+            <textarea id="teamMembers" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea>
+          </div>
+          <div>
+            <label for="ventureName">שם המיזם</label>
+            <input id="ventureName" type="text" placeholder="כתבו את שם המיזם">
+          </div>
         </div>
       </section>
 
-      <section class="tool" id="tool2" data-required="problemText,targetAudience,solutionText,valueText">
-        <div class="tool-head"><div><div class="phase-label">שלב א׳ | מחדדים את הצורך</div><h3>כלי 2 – הבעיה וקהל היעד</h3><p class="tool-subtitle">כאן מציגים את הצורך שהוביל לרעיון. לא צריך לחשוף את כל הפתרון — רק להסביר למה בכלל צריך אותו.</p></div><div class="tool-num">2</div></div>
-        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>להסביר מה הבעיה ולמי היא מפריעה.</p></div><div class="method-box"><strong>מה חשוב?</strong><p>להראות למה הבעיה משמעותית ולמה שווה לפתח עבורה פתרון.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="problemText">מה הבעיה שהמוצר פותר?</label><textarea id="problemText" placeholder="הבעיה היא ש..."></textarea></div>
-          <div class="field"><label for="targetAudience">למי הבעיה מפריעה?</label><textarea id="targetAudience" placeholder="הבעיה מפריעה ל..."></textarea></div>
-          <div class="field"><label for="problemContext">איפה או מתי הבעיה מתרחשת?</label><textarea id="problemContext" class="short" placeholder="הבעיה מתרחשת כאשר / ב..."></textarea></div>
-          <div class="field"><label for="solutionText">מה הכיוון הכללי של הרעיון?</label><textarea id="solutionText" class="short" placeholder="הרעיון שלנו מציע דרך ל..."></textarea></div>
-          <div class="field span-2"><label for="valueText">איזה ערך הוא אמור לתת?</label><textarea id="valueText" class="short" placeholder="המשתמש אמור לקבל... בלי לפרט עדיין את כל הדרך"></textarea></div>
+      <section class="section-card" id="partA">
+        <h2>מה אנחנו צריכים להציג?</h2>
+        <p class="subtext">במפגש נציג בקצרה את הבעיה, הרעיון, סוג המוצר, דרך הפעולה ומה נרצה לבדוק מול אנשי מארוול.</p>
+      </section>
+
+      <section class="section-card">
+        <h3>1. הבעיה שבחרנו</h3>
+        <label for="problem">מה נגיד על הבעיה?</label>
+        <textarea id="problem" class="tall" placeholder="הבעיה שבחרנו היא..."></textarea>
+        <div class="two-grid" style="margin-top:10px;">
+          <div>
+            <label for="problemWhere">הבעיה מתרחשת כאשר:</label>
+            <textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea>
+          </div>
+          <div>
+            <label for="problemWhy">הבעיה חשובה כי:</label>
+            <textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea>
+          </div>
         </div>
       </section>
 
-      <section class="tool phase-b" id="tool3" data-required="solutionText,coreAction">
-        <div class="tool-head"><div><div class="phase-label">שלב ב׳ | הרעיון בלי לחשוף הכול</div><h3>כלי 3 – מה מספרים על הרעיון?</h3><p class="tool-subtitle">בני 15 יודעים להציג חכם: לתת מספיק מידע כדי שהמנטור יבין, אבל לא לחשוף את כל התוצר הסופי.</p></div><div class="tool-num">3</div></div>
-        <div class="method-row"><div class="method-box"><strong>מה כן מציגים?</strong><p>הכיוון, הפעולה המרכזית, למי זה עוזר ומה רוצים לבדוק.</p></div><div class="method-box"><strong>מה שומרים להמשך?</strong><p>עיצוב סופי, כל המסכים, כל החלקים, כל הפתרונות הקטנים וההפתעה של סוף הקורס.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="coreAction">הפעולה המרכזית של הרעיון</label><textarea id="coreAction" class="short" placeholder="הפעולה המרכזית היא... למשל: לזהות, להתריע, לסדר, להציע, להגן, לחבר"></textarea></div>
-          <div class="field"><label for="prototypeImportantPart">מה הדבר שהכי חשוב לבדוק עם המנטור?</label><textarea id="prototypeImportantPart" class="short" placeholder="למשל: האם הפעולה ברורה? האם זה מתאים לקהל היעד? האם חסר שלב?"></textarea></div>
-          <div class="field"><label for="physicalDescription">אם זה מוצר פיזי — מה מותר להגיד עליו עכשיו?</label><textarea id="physicalDescription" placeholder="תארו רק את העיקר: מה מחזיקים / מפעילים / מניחים, בלי לפרט את כל הדגם הסופי"></textarea></div>
-          <div class="field"><label for="digitalDescription">אם זה מוצר דיגיטלי — מה מותר להגיד עליו עכשיו?</label><textarea id="digitalDescription" placeholder="תארו רק את הכיוון: פעולה, מסך מרכזי או תוצאה כללית, בלי לחשוף את כל המסכים"></textarea></div>
-          <div class="field"><label for="inputInfo">מה המנטור צריך לדעת כדי לעזור?</label><textarea id="inputInfo" class="short" placeholder="מידע בסיסי שחייבים לשתף"></textarea></div>
-          <div class="field"><label for="outputInfo">מה נשמור להצגת הסיום?</label><textarea id="outputInfo" class="short" placeholder="מה לא נחשוף עכשיו כדי לשמור על מתח וסקרנות"></textarea></div>
+      <section class="section-card">
+        <h3>2. הרעיון שלנו</h3>
+        <label for="idea">מה נגיד על הרעיון?</label>
+        <textarea id="idea" class="tall" placeholder="הרעיון שלנו הוא..."></textarea>
+        <label for="ideaHelps" style="margin-top:10px;">הרעיון מתמודד עם הבעיה בכך שהוא:</label>
+        <textarea id="ideaHelps" class="short" placeholder="משפר / משדרג / פותר / מדייק / מונע / מאפשר..."></textarea>
+      </section>
+
+      <section class="section-card phase-b" id="productTypeSection">
+        <h3>3. סוג המוצר וכיוון הפיתוח</h3>
+        <label>המוצר שלנו הוא:</label>
+        <div class="type-row">
+          <label class="type-option"><input type="radio" name="productType" id="typeNone" value="" checked> ללא בחירה</label>
+          <label class="type-option"><input type="radio" name="productType" id="typePhysical" value="מוצר פיזי"> מוצר פיזי</label>
+          <label class="type-option"><input type="radio" name="productType" id="typeDigital" value="מוצר דיגיטלי"> מוצר דיגיטלי</label>
+          <label class="type-option"><input type="radio" name="productType" id="typeHybrid" value="מוצר משולב"> מוצר משולב</label>
+        </div>
+        <label for="mainAction" style="margin-top:10px;">הפעולה המרכזית של המוצר:</label>
+        <textarea id="mainAction" class="short" placeholder="המוצר אמור לזהות / להתריע / למדוד / להציג / לעבד מידע / לחבר בין פעולות..."></textarea>
+        <label for="developmentDirection" style="margin-top:10px;">כיוון הפיתוח שלנו:</label>
+        <textarea id="developmentDirection" class="short" placeholder="כיוון הפיתוח שלנו הוא..."></textarea>
+      </section>
+
+      <section class="section-card phase-b product-dependent">
+        <h3>4. איך המוצר אמור להיות בנוי?</h3>
+        <p class="subtext">לאחר בחירת סוג המוצר ייפתחו השאלות המתאימות לאפיון שלו.</p>
+
+        <div class="product-paths">
+          <div class="product-path" data-path="physical">
+            <h3>אפיון מוצר פיזי</h3>
+            <div class="two-grid">
+              <div>
+                <label for="physicalSize">מה הגודל המשוער של המוצר?</label>
+                <textarea id="physicalSize" class="short" placeholder="קטן / בינוני / גדול, מתאים ליד / לשולחן / לסביבת עבודה..."></textarea>
+              </div>
+              <div>
+                <label for="physicalShape">מה הצורה או המבנה החיצוני שלו?</label>
+                <textarea id="physicalShape" class="short" placeholder="קופסה, מתקן, ידית, חיישן, עמדת בדיקה, רכיב שמתחבר למשהו..."></textarea>
+              </div>
+              <div>
+                <label for="physicalParts">מאילו חלקים או רכיבים הוא יהיה בנוי?</label>
+                <textarea id="physicalParts" class="short" placeholder="חיישן, כפתור, נורה, מסך קטן, מארז, מחבר, מנגנון..."></textarea>
+              </div>
+              <div>
+                <label for="physicalUse">איך משתמשים בו בפועל?</label>
+                <textarea id="physicalUse" class="short" placeholder="מחזיקים / מניחים / מחברים / מפעילים / בודקים / מקבלים סימון..."></textarea>
+              </div>
+              <div class="span-all">
+                <label for="physicalMustWork">מה חייב לעבוד במוצר הפיזי כדי שהוא יצליח?</label>
+                <textarea id="physicalMustWork" class="short" placeholder="החיישן, המנגנון, החיבור, ההתראה, הקריאה או התגובה של המוצר..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-path" data-path="digital">
+            <h3>אפיון מוצר דיגיטלי</h3>
+            <div class="two-grid">
+              <div>
+                <label for="digitalScreens">מהם המסכים המרכזיים במוצר?</label>
+                <textarea id="digitalScreens" class="short" placeholder="מסך פתיחה, שאלון, לוח בקרה, תוצאה, התראה, המלצה..."></textarea>
+              </div>
+              <div>
+                <label for="digitalInput">איזה מידע המשתמש מזין או המערכת מקבלת?</label>
+                <textarea id="digitalInput" class="short" placeholder="בחירה, נתונים, תמונה, תשובה לשאלה, מדידה, מצב תקלה..."></textarea>
+              </div>
+              <div>
+                <label for="digitalAction">מה המערכת עושה עם המידע?</label>
+                <textarea id="digitalAction" class="short" placeholder="בודקת, משווה, מדרגת, מזהה, מחשבת, מסווגת, שולחת התראה..."></textarea>
+              </div>
+              <div>
+                <label for="digitalOutput">מה המשתמש מקבל בסוף?</label>
+                <textarea id="digitalOutput" class="short" placeholder="תוצאה, המלצה, התראה, הוראה לפעולה, סיכום, אישור או דוח קצר..."></textarea>
+              </div>
+              <div class="span-all">
+                <label for="digitalMustWork">מה חייב לעבוד במוצר הדיגיטלי כדי שהוא יצליח?</label>
+                <textarea id="digitalMustWork" class="short" placeholder="המסך המרכזי, הזנת המידע, עיבוד הנתונים, ההמלצה או ההתראה..."></textarea>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="tool phase-b" id="tool4" data-required="treeCore,flowStep1,flowStep5">
-        <div class="tool-head"><div><div class="phase-label">שלב ב׳ | פעולה וזרימה בסיסית</div><h3>כלי 4 – פעולה מרכזית וזרימת שימוש קצרה</h3><p class="tool-subtitle">למנטור לא צריך להציג את כל עץ המוצר. מספיק להראות שאתם מבינים מה הפעולה המרכזית ואיך המשתמש אמור להתקדם באופן כללי.</p></div><div class="tool-num">4</div></div>
-        <div class="method-row"><div class="method-box"><strong>מה כן מציגים?</strong><p>רק את הליבה: מה הפעולה שהרעיון עושה כדי לעזור.</p></div><div class="method-box"><strong>מה שומרים בסוד?</strong><p>את כל הפרטים הקטנים של המוצר, העיצוב והתוצר הסופי.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="treeCore">מה הליבה של הרעיון?</label><textarea id="treeCore" class="short" placeholder="הליבה היא... הדבר שחייב לעבוד כדי שהרעיון יהיה מובן"></textarea></div>
-          <div class="field"><label for="treeBranches">מה נאמר בקצרה, בלי לפרט הכול?</label><textarea id="treeBranches" class="short" placeholder="נציג רק... ולא ניכנס עדיין ל..."></textarea></div>
-          <div class="field span-2"><label for="treeValue">מה הערך שנרצה שהמנטור יבין?</label><textarea id="treeValue" class="short" placeholder="הערך המרכזי הוא..."></textarea></div>
-          <div class="field"><label for="flowStep1">שלב 1 — המשתמש פוגש את הבעיה</label><textarea id="flowStep1" class="short"></textarea></div>
-          <div class="field"><label for="flowStep2">שלב 2 — המשתמש ניגש למוצר / נכנס למערכת</label><textarea id="flowStep2" class="short"></textarea></div>
-          <div class="field"><label for="flowStep3">שלב 3 — המשתמש מבצע פעולה</label><textarea id="flowStep3" class="short"></textarea></div>
-          <div class="field"><label for="flowStep4">שלב 4 — המוצר / המערכת מגיבים</label><textarea id="flowStep4" class="short"></textarea></div>
-          <div class="field span-2"><label for="flowStep5">שלב 5 — המשתמש מקבל ערך</label><textarea id="flowStep5" class="short"></textarea></div>
+      <section class="section-card phase-c product-dependent">
+        <h3>5. איך המוצר עובד?</h3>
+        <p class="subtext">כתבו את ההסבר בשלבים קצרים.</p>
+        <div class="three-grid">
+          <div><label for="step1">שלב 1 – קודם:</label><textarea id="step1" class="short"></textarea></div>
+          <div><label for="step2">שלב 2 – אחר כך:</label><textarea id="step2" class="short"></textarea></div>
+          <div><label for="step3">שלב 3 – בסוף:</label><textarea id="step3" class="short"></textarea></div>
+        </div>
+        <label for="result" style="margin-top:10px;">התוצאה היא:</label>
+        <textarea id="result" class="short"></textarea>
+      </section>
+
+      <section class="section-card phase-c product-dependent">
+        <h3>6. מה נרצה לבדוק במנטורינג?</h3>
+        <div class="two-grid">
+          <div>
+            <label for="frictionPoint">מה עדיין לא ברור או עלול להסתבך?</label>
+            <textarea id="frictionPoint" class="short" placeholder="נקודת החיכוך היא..."></textarea>
+          </div>
+          <div>
+            <label for="mentorQuestion">שאלה אחת לאנשי מארוול:</label>
+            <textarea id="mentorQuestion" class="short" placeholder="נשמח לקבל משוב על..."></textarea>
+          </div>
         </div>
       </section>
 
-      <section class="tool phase-c" id="tool5" data-required="frictionPoint,improvementIdea">
-        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | שומרים מתח וסקרנות</div><h3>כלי 5 – מה לא חושפים עכשיו?</h3><p class="tool-subtitle">המנטורינג הוא לא Demo Day. מציגים מספיק כדי לקבל משוב, אבל שומרים את ההצגה המלאה, ההפתעה והתוצר הסופי לסוף הקורס.</p></div><div class="tool-num">5</div></div>
-        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>להחליט מראש מה כן אומרים ומה לא מגלים.</p></div><div class="method-box"><strong>למה זה חשוב?</strong><p>ככה שומרים על מיקוד, ביטחון וסקרנות לקראת ההצגה הסופית.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="frictionPoint">מה נציג למנטור?</label><textarea id="frictionPoint" placeholder="נציג את הבעיה, הרעיון והפעולה המרכזית..."></textarea></div>
-          <div class="field"><label for="frictionReason">מה לא נחשוף עדיין?</label><textarea id="frictionReason" placeholder="לא נחשוף עדיין את... כדי לשמור על מתח לקראת הסיום"></textarea></div>
-          <div class="field span-2"><label for="improvementIdea">על מה כן נרצה לקבל משוב?</label><textarea id="improvementIdea" class="short" placeholder="נרצה משוב על... למשל פעולה מרכזית, התאמה לקהל יעד, בהירות הרעיון"></textarea></div>
-        </div>
-      </section>
-
-      <section class="tool phase-c" id="tool6" data-required="mentorQuestion1,presentationScript">
-        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | מזהים מה צריך משוב</div><h3>כלי 6 – שאלות למנטור והצגה קצרה</h3><p class="tool-subtitle">לא שואלים רק “מה דעתך?”. מכינים שאלה ממוקדת והצגה קצרה של 2–3 דקות.</p></div><div class="tool-num">6</div></div>
-        <div class="method-row"><div class="method-box"><strong>שאלה טובה</strong><p>שאלה שעוזרת לקבל משוב שאפשר לעבוד איתו.</p></div><div class="method-box"><strong>הצגה קצרה</strong><p>פתיחה, בעיה, קהל יעד, פתרון, שימוש, חיכוך ושאלה למנטור.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="mentorQuestion1">שאלה 1 למנטור</label><textarea id="mentorQuestion1" class="short" placeholder="למשל: האם זרימת השימוש שלנו ברורה?"></textarea></div>
-          <div class="field"><label for="mentorQuestion2">שאלה 2 למנטור</label><textarea id="mentorQuestion2" class="short" placeholder="שאלה נוספת, אם יש"></textarea></div>
-          <div class="field span-2"><label for="presentationScript">הצגה קצרה למנטור</label><textarea id="presentationScript" class="tall" placeholder="שלום, אנחנו צוות... אנחנו מפתחים את... זיהינו בעיה שבה... המוצר שלנו... נשמח לקבל משוב על..."></textarea></div>
-        </div>
-        <div class="preview mentor-script" style="margin-top:14px;"><strong>טיוטת הצגה אוטומטית:</strong><div id="autoScript" style="margin-top:7px;">לאחר מילוי השדות תופיע כאן טיוטת הצגה קצרה.</div></div>
-      </section>
-
-      <section class="tool phase-d" id="tool7" data-required="feedbackClear,feedbackImprove">
-        <div class="tool-head"><div><div class="phase-label">שלב ד׳ | בזמן המנטורינג</div><h3>כלי 7 – תיעוד משוב והחלטות להמשך</h3><p class="tool-subtitle">בזמן שהמנטור מדבר, לא מסתמכים על הזיכרון. רושמים נקודות, שאלות והחלטות עבודה.</p></div><div class="tool-num">7</div></div>
-        <div class="method-row"><div class="method-box"><strong>בזמן השיחה</strong><p>מקשיבים, רושמים, שואלים הבהרה ולא מתגוננים מיד.</p></div><div class="method-box"><strong>אחרי השיחה</strong><p>מחליטים מה משאירים, מה מדייקים ומה בודקים לפני אבטיפוס.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="feedbackStrong">מה המנטור אמר שהיה ברור וחזק?</label><textarea id="feedbackStrong"></textarea></div>
-          <div class="field"><label for="feedbackClear">מה המנטור אמר שדורש חידוד?</label><textarea id="feedbackClear"></textarea></div>
-          <div class="field"><label for="feedbackQuestion">איזו שאלה המנטור שאל אותנו?</label><textarea id="feedbackQuestion" class="short"></textarea></div>
-          <div class="field"><label for="feedbackRisk">איזה סיכון או קושי עלה בשיחה?</label><textarea id="feedbackRisk" class="short"></textarea></div>
-          <div class="field"><label for="feedbackCheck">מה כדאי לנו לבדוק שוב?</label><textarea id="feedbackCheck" class="short"></textarea></div>
-          <div class="field"><label for="feedbackImprove">מה כדאי לנו לשנות או לדייק?</label><textarea id="feedbackImprove" class="short"></textarea></div>
-          <div class="field"><label for="decisionKeep">החלטה 1 — מה נשאיר?</label><textarea id="decisionKeep" class="short" placeholder="אנחנו נשאיר את... כי..."></textarea></div>
-          <div class="field"><label for="decisionImprove">החלטה 2 — מה נדייק?</label><textarea id="decisionImprove" class="short" placeholder="אנחנו נדייק את... כי..."></textarea></div>
-          <div class="field span-2"><label for="decisionPrototype">החלטה 3 — מה נבדוק לפני אבטיפוס?</label><textarea id="decisionPrototype" class="short" placeholder="לפני האביטיפוס נבדוק את..."></textarea></div>
-        </div>
-      </section>
-
-      <section class="tool phase-d" id="readyCheck">
-        <div class="tool-head"><div><div class="phase-label">בדיקה לפני סיום</div><h3>האם אנחנו מוכנים למנטורינג?</h3><p class="tool-subtitle">סמנו מה כבר מוכן. אם משהו חסר — חזרו לשלב המתאים והשלימו.</p></div><div class="tool-num">✓</div></div>
-        <div class="check-grid">
-          <label class="check-card"><input type="checkbox" id="chk1"> יש לנו משפט הצגה קצר</label>
-          <label class="check-card"><input type="checkbox" id="chk2"> ברור מה הבעיה</label>
-          <label class="check-card"><input type="checkbox" id="chk3"> ברור מי קהל היעד</label>
-          <label class="check-card"><input type="checkbox" id="chk4"> ברור מה סוג המוצר</label>
-          <label class="check-card"><input type="checkbox" id="chk5"> ברור מה הפעולה המרכזית</label>
-          <label class="check-card"><input type="checkbox" id="chk6"> יש לנו עץ מוצר / עץ מערכת</label>
-          <label class="check-card"><input type="checkbox" id="chk7"> יש לנו זרימת שימוש</label>
-          <label class="check-card"><input type="checkbox" id="chk8"> יש לנו נקודת חיכוך</label>
-          <label class="check-card"><input type="checkbox" id="chk9"> כתבנו לפחות שאלה אחת למנטור</label>
-          <label class="check-card"><input type="checkbox" id="chk10"> יש לנו מקום לתיעוד המשוב</label>
-        </div>
-        <div class="print-summary" style="margin-top:14px;"><strong>משפט סיום:</strong><div id="finalReadySentence" style="margin-top:7px;">כשתשלימו את הדף, תגיעו למנטורינג מוכנים, ברורים ובקיאים במיזם שלכם.</div></div>
+      <section class="summary-card product-dependent" id="summary">
+        <div class="print-logo"><img src="../images/logo.png" alt="לוגו תעשיידע"></div>
+        <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
+        <div class="summary-print-box" id="summaryPrintBox"></div>
       </section>
     </main>
 
     <section class="action-panel">
       <div class="buttons">
-        <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
-        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
-        <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
+        <button class="btn secondary" id="clearBtn" type="button">ניקוי העמוד</button>
+        <button class="btn accent" id="printBtn" type="button">PDF</button>
       </div>
-      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> הכנה למנטורינג תעשייתי</div>
     </section>
 
     <footer class="footer">© פרימיום | תעשיידע</footer>
@@ -744,96 +695,215 @@
 
   <script>
     (function () {
-      const STORAGE_KEY = 'marvellMentoringPreparation_work7_v1';
-      const fields = Array.from(document.querySelectorAll('input, textarea, select'));
-      const saveStatus = document.getElementById('saveStatus');
+      var STORAGE_KEY = 'marvellPresentationPreparation_printSummaryLogo_v1';
+      var NEW_LINE = String.fromCharCode(10);
+      var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'));
+      var summaryPrintBox = document.getElementById('summaryPrintBox');
 
       function byId(id) { return document.getElementById(id); }
-      function valueOf(id) { const field = byId(id); return field ? String(field.value || '').trim() : ''; }
-      function setText(id, text) { const el = byId(id); if (el) el.textContent = text; }
+
+      function valueOf(id) {
+        var field = byId(id);
+        return field ? String(field.value || '').trim() : '';
+      }
+
+      function checked(id) {
+        var field = byId(id);
+        return field ? field.checked : false;
+      }
+
+      function productTypeText() {
+        if (checked('typeHybrid')) return 'מוצר משולב';
+        if (checked('typePhysical')) return 'מוצר פיזי';
+        if (checked('typeDigital')) return 'מוצר דיגיטלי';
+        return '____________________________';
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function summaryLine(question, answer) {
+        return '<p class="summary-line"><span class="summary-question">' + escapeHtml(question) + '</span> <span class="summary-answer">' + escapeHtml(answer) + '</span></p>';
+      }
+
+      function summarySpacer() {
+        return '<div class="summary-spacer"></div>';
+      }
+
+      function updateProductPaths() {
+        var mode = checked('typePhysical') ? 'physical' : checked('typeDigital') ? 'digital' : checked('typeHybrid') ? 'hybrid' : '';
+        var page = document.querySelector('.page');
+        if (page) {
+          page.classList.toggle('has-product-type', mode === 'physical' || mode === 'digital' || mode === 'hybrid');
+        }
+        document.querySelectorAll('.product-path').forEach(function (path) {
+          var pathType = path.getAttribute('data-path');
+          var active = pathType === mode || mode === 'hybrid';
+          path.classList.toggle('is-active', active);
+        });
+      }
+
+      function productTypeSummaryLines(data) {
+        if (checked('typePhysical')) {
+          return [
+            summaryLine('גודל משוער של המוצר:', data.physicalSize),
+            summaryLine('צורה או מבנה חיצוני:', data.physicalShape),
+            summaryLine('חלקים או רכיבים מרכזיים:', data.physicalParts),
+            summaryLine('אופן השימוש במוצר:', data.physicalUse),
+            summaryLine('מה חייב לעבוד במוצר הפיזי:', data.physicalMustWork)
+          ].join('');
+        }
+
+        if (checked('typeDigital')) {
+          return [
+            summaryLine('המסכים המרכזיים במוצר:', data.digitalScreens),
+            summaryLine('המידע שנכנס למערכת:', data.digitalInput),
+            summaryLine('מה המערכת עושה עם המידע:', data.digitalAction),
+            summaryLine('מה המשתמש מקבל בסוף:', data.digitalOutput),
+            summaryLine('מה חייב לעבוד במוצר הדיגיטלי:', data.digitalMustWork)
+          ].join('');
+        }
+
+        if (checked('typeHybrid')) {
+          return [
+            summaryLine('רכיבי המוצר הפיזי:', data.physicalParts),
+            summaryLine('אופן השימוש בחלק הפיזי:', data.physicalUse),
+            summaryLine('המסכים המרכזיים במערכת הדיגיטלית:', data.digitalScreens),
+            summaryLine('מה המערכת הדיגיטלית עושה:', data.digitalAction),
+            summaryLine('מה חייב לעבוד במוצר המשולב:', 'החלק הפיזי: ' + data.physicalMustWork + ' | החלק הדיגיטלי: ' + data.digitalMustWork)
+          ].join('');
+        }
+
+        return summaryLine('אפיון המוצר לפי סוג המוצר:', '____________________________');
+      }
+
+      function buildScript() {
+        var teamMembers = valueOf('teamMembers') || '____________________________';
+        var ventureName = valueOf('ventureName') || '____________________________';
+        var problem = valueOf('problem') || '____________________________';
+        var problemWhy = valueOf('problemWhy') || '____________________________';
+        var idea = valueOf('idea') || '____________________________';
+        var ideaImpact = valueOf('ideaHelps') || '____________________________';
+        var mainAction = valueOf('mainAction') || '____________________________';
+        var developmentDirection = valueOf('developmentDirection') || '____________________________';
+        var physicalSize = valueOf('physicalSize') || '____________________________';
+        var physicalShape = valueOf('physicalShape') || '____________________________';
+        var physicalParts = valueOf('physicalParts') || '____________________________';
+        var physicalUse = valueOf('physicalUse') || '____________________________';
+        var physicalMustWork = valueOf('physicalMustWork') || '____________________________';
+        var digitalScreens = valueOf('digitalScreens') || '____________________________';
+        var digitalInput = valueOf('digitalInput') || '____________________________';
+        var digitalAction = valueOf('digitalAction') || '____________________________';
+        var digitalOutput = valueOf('digitalOutput') || '____________________________';
+        var digitalMustWork = valueOf('digitalMustWork') || '____________________________';
+        var step1 = valueOf('step1') || '____________________________';
+        var step2 = valueOf('step2') || '____________________________';
+        var step3 = valueOf('step3') || '____________________________';
+        var result = valueOf('result') || '____________________________';
+        var mentorQuestion = valueOf('mentorQuestion') || '____________________________';
+
+        return [
+          summaryLine('שמות התלמידים:', teamMembers),
+          summaryLine('שם המיזם:', ventureName),
+          summarySpacer(),
+          summaryLine('זיהינו בעיה שבה:', problem),
+          summaryLine('הבעיה חשובה כי:', problemWhy),
+          summarySpacer(),
+          summaryLine('הרעיון שלנו הוא:', idea),
+          summaryLine('הרעיון מתמודד עם הבעיה בכך שהוא:', ideaImpact),
+          summarySpacer(),
+          summaryLine('המוצר שלנו הוא:', productTypeText()),
+          summaryLine('הפעולה המרכזית שלו היא:', mainAction),
+          summaryLine('כיוון הפיתוח שלנו הוא:', developmentDirection),
+          summarySpacer(),
+          productTypeSummaryLines({
+            physicalSize: physicalSize,
+            physicalShape: physicalShape,
+            physicalParts: physicalParts,
+            physicalUse: physicalUse,
+            physicalMustWork: physicalMustWork,
+            digitalScreens: digitalScreens,
+            digitalInput: digitalInput,
+            digitalAction: digitalAction,
+            digitalOutput: digitalOutput,
+            digitalMustWork: digitalMustWork
+          }),
+          summarySpacer(),
+          summaryLine('דרך הפעולה היא:', 'קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.'),
+          summaryLine('התוצאה היא:', result),
+          summarySpacer(),
+          summaryLine('נשמח לקבל מכם משוב מקצועי על:', mentorQuestion)
+        ].join('');
+      }
+
+      function buildSummary() {
+        return buildScript();
+      }
 
       function getData() {
-        const data = {};
-        fields.forEach((field) => {
+        var data = {};
+        fields.forEach(function (field) {
           if (!field.id) return;
-          data[field.id] = field.type === 'checkbox' ? field.checked : field.value;
+          data[field.id] = field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value;
         });
         return data;
       }
 
       function setData(data) {
-        fields.forEach((field) => {
+        fields.forEach(function (field) {
           if (!field.id || !(field.id in data)) return;
-          if (field.type === 'checkbox') field.checked = Boolean(data[field.id]);
+          if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(data[field.id]);
           else field.value = data[field.id];
         });
       }
 
-      function saveData(message) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-        if (saveStatus) saveStatus.textContent = message || 'הטיוטה נשמרה אוטומטית.';
+      function updateScript() {
+        updateProductPaths();
+        if (summaryPrintBox) summaryPrintBox.innerHTML = buildSummary();
+      }
+
+      function saveData() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getData())); } catch (error) {}
       }
 
       function loadData() {
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
+          var raw = localStorage.getItem(STORAGE_KEY);
           if (raw) setData(JSON.parse(raw));
-        } catch (error) { console.error(error); }
+        } catch (error) {}
       }
 
-      function buildAutoScript() {
-        const teamName = valueOf('teamName') || '__________';
-        const productName = valueOf('productName') || '__________';
-        const problemText = valueOf('problemText') || '__________';
-        const targetAudience = valueOf('targetAudience') || '__________';
-        const problemContext = valueOf('problemContext') || '__________';
-        const productType = valueOf('productType') || '__________';
-        const solutionText = valueOf('solutionText') || '__________';
-        const coreAction = valueOf('coreAction') || '__________';
-        const valueText = valueOf('valueText') || '__________';
-        const frictionPoint = valueOf('frictionPoint') || '__________';
-        const mentorQuestion1 = valueOf('mentorQuestion1') || '__________';
+      fields.forEach(function (field) {
+        field.addEventListener('input', function () { updateScript(); saveData(); });
+        field.addEventListener('change', function () { updateScript(); saveData(); });
+      });
 
-        return `שלום, אנחנו צוות ${teamName}.\nאנחנו מפתחים את ${productName}.\n\nזיהינו בעיה שבה ${problemText}.\nהבעיה מפריעה ל־${targetAudience}, בעיקר כאשר ${problemContext}.\n\nהמוצר שלנו הוא ${productType}.\nהוא פועל כך: ${solutionText}.\nהפעולה המרכזית שלו היא ${coreAction}.\nהערך שהוא נותן למשתמש הוא ${valueText}.\n\nבמהלך האפיון זיהינו שנקודת החיכוך המרכזית היא ${frictionPoint}.\nנשמח לקבל ממך משוב על: ${mentorQuestion1}.`;
-      }
-
-      function updateDerivedContent() {
-        setText('autoScript', buildAutoScript());
-        const productName = valueOf('productName') || 'המיזם שלנו';
-        const question = valueOf('mentorQuestion1') || 'שאלה ממוקדת למנטור';
-        setText('finalReadySentence', `${productName} מוכן להצגה כאשר הבעיה, הפתרון, זרימת השימוש ונקודת החיכוך ברורים — ויש לנו ${question}.`);
-        updateNavCompletion();
-      }
-
-      function updateNavCompletion() {
-        document.querySelectorAll('.tool[data-required]').forEach((tool, index) => {
-          const required = String(tool.dataset.required || '').split(',').filter(Boolean);
-          const complete = required.length > 0 && required.every((id) => valueOf(id));
-          const nav = document.querySelector(`.nav-step[data-step="${index + 1}"]`);
-          if (nav) nav.classList.toggle('is-complete', complete);
+      var clearBtn = byId('clearBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          if (!confirm('לנקות את כל דף ההכנה?')) return;
+          fields.forEach(function (field) {
+            if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
+            else field.value = '';
+          });
+          var typeNone = byId('typeNone');
+          if (typeNone) typeNone.checked = true;
+          try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
+          updateScript();
         });
       }
 
-      fields.forEach((field) => {
-        field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
-        field.addEventListener('change', () => { updateDerivedContent(); saveData(); });
-      });
-
-      byId('clearBtn').addEventListener('click', () => {
-        if (!confirm('לנקות את כל דף ההכנה?')) return;
-        fields.forEach((field) => {
-          if (field.type === 'checkbox') field.checked = false;
-          else field.value = '';
-        });
-        localStorage.removeItem(STORAGE_KEY);
-        updateDerivedContent();
-        saveData('הדף נוקה.');
-      });
-
-      byId('printBtn').addEventListener('click', () => window.print());
+      var printBtn = byId('printBtn');
+      if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
 
       loadData();
-      updateDerivedContent();
+      updateScript();
     })();
   </script>
 </body>
