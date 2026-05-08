@@ -3,552 +3,776 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>עמוד אינטראקטיבי — אפיון מוצר | פרימיום Marvell</title>
+  <title>דף עבודה | אפיון מוצר</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, "Heebo", sans-serif; background: #f4f8fd; color: #1f2937; line-height: 1.7; }
-    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.94); border-bottom: 1px solid #d9e2ec; box-shadow: 0 8px 24px rgba(15,76,129,0.08); }
-    .header-inner { max-width: 1100px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .header-logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #0f4c81; font-weight: 700; }
-    .header-logo img { width: 42px; object-fit: contain; border-radius: 12px; border: 1px solid #d9e2ec; background: #fff; }
-    .home-link, .back-btn, .print-btn, .save-btn, .go-btn {
-      display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 14px; text-decoration: none;
-      font-size: 0.95rem; background: #fff; color: #1d5fa7; border: 1px solid #d9e2ec; border-radius: 10px; cursor: pointer; font-weight: 700;
+    :root {
+      --bg-deep: #071a36;
+      --bg-mid: #0d2045;
+      --text: #10213d;
+      --muted: #5f708b;
+      --line: rgba(140, 184, 230, 0.34);
+      --primary: #0d2045;
+      --primary-2: #1e66a8;
+      --cyan: #35c4e8;
+      --cyan-soft: #9cecff;
+      --orange: #f6a742;
+      --green: #3cc58f;
+      --shadow: 0 28px 70px rgba(0, 7, 22, 0.42);
+      --shadow-soft: 0 18px 42px rgba(0, 16, 45, 0.22);
+      --radius-lg: 24px;
+      --radius: 16px;
     }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-    .container { max-width: 980px; margin: 0 auto; padding: 24px 16px 42px; }
-    .page-card { background: #fff; border: 1px solid #d9e2ec; border-radius: 24px; box-shadow: 0 16px 36px rgba(15,76,129,0.08); padding: 24px 18px; }
-    h1 { margin: 0 0 10px; text-align: center; color: #0f4c81; font-size: 2rem; }
-    .subtitle, .intro-main { text-align: center; color: #475569; max-width: 860px; margin: 0 auto 10px; }
-    .intro-main { margin-bottom: 16px; }
-    .intro-list { margin: 0 auto 20px; max-width: 780px; color: #334155; background: #f1f5f9; border: 1px solid #d9e2ec; border-radius: 16px; padding: 12px 16px; }
-    .section { margin-top: 18px; padding: 16px; border-radius: 18px; border: 1px solid #d9e2ec; background: #fff; }
-    .section h2 { margin: 0 0 12px; color: #1d5fa7; font-size: 1.2rem; }
-    .section h3 { margin: 8px 0 10px; color: #0f4c81; font-size: 1.05rem; }
-    .note { background: #f8fbff; border: 1px solid #d9e2ec; border-radius: 12px; padding: 10px 12px; color: #475569; margin-bottom: 10px; }
-    .question { margin-bottom: 14px; }
-    .q-title { font-weight: 700; margin-bottom: 6px; color: #1d5fa7; }
-    input[type="text"], textarea, select {
-      width: 100%; border: 1px solid #d9e2ec; border-radius: 12px; padding: 10px 12px; font: inherit; background: #fff; color: #1f2937; outline: none;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      zoom: 0.75;
+      min-height: 100vh;
+      font-family: "Assistant", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.10), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+      padding: 14px 10px 26px;
     }
-    textarea { min-height: 68px; resize: vertical; }
-    .inline-radio, .inline-check { display: grid; gap: 8px; margin-top: 8px; }
-    .inline-radio label, .inline-check label { display: flex; align-items: center; gap: 9px; border: 1px solid #d9e2ec; border-radius: 11px; padding: 8px 10px; background: #f8fafc; }
-    .auto-text { border: 1px dashed #93b3d4; background: #f7fbff; border-radius: 12px; padding: 12px; color: #334155; white-space: pre-line; }
-    .route-box { background: #eef6ff; border: 1px solid #c6ddf5; border-radius: 14px; padding: 12px; margin-top: 12px; }
-    .route-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .hidden { display: none; }
-    .save-btn { background: #1e4494; color: #fff; border-color: #1e4494; padding: 11px 20px; border-radius: 999px; }
-    .go-btn { border-radius: 999px; }
-    .footer-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-    .success-box { margin-top: 12px; background: #e8fff1; border: 1px solid #86d7a6; color: #1f5132; border-radius: 14px; padding: 14px; }
-    .footer { margin-top: 26px; text-align: center; padding: 13px 16px; background: #0f4c81; color: #fff; font-weight: 600; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+    }
+
+    button, input, textarea, select { font-family: inherit; }
+
+    .page {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
+        linear-gradient(180deg, rgba(10, 33, 69, 0.94), rgba(6, 19, 41, 0.96));
+      border: 1px solid rgba(131, 190, 255, 0.30);
+      border-radius: 28px;
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(53,196,232,0.09) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(53,196,232,0.07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 60%);
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      padding: 7px 14px;
+      color: #eaf7ff;
+      background: linear-gradient(90deg, #061329 0%, #0d3a76 50%, #061329 100%);
+      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      padding: 16px 20px 13px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
+      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
+    }
+
+    .home-link {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.9));
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+    }
+
+    .home-link svg { width: 18px; height: 18px; fill: #0d2045; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .brand img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+    }
+
+    .brand-copy h1 {
+      color: #ffffff;
+      font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-copy p {
+      margin-top: 5px;
+      color: #c8e9ff;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .card,
+    .tool,
+    .action-panel,
+    .phase-divider {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 20px 46px rgba(0, 10, 32, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+      padding: 14px 20px 16px;
+      border-bottom: 1px solid rgba(131, 190, 255, 0.22);
+    }
+
+    .card::before,
+    .tool::before,
+    .phase-divider::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+    }
+
+    .intro,
+    .meta { padding: 15px; }
+
+    .intro h2 {
+      color: #163b63;
+      font-size: 1.18rem;
+      margin-bottom: 5px;
+      font-weight: 900;
+    }
+
+    .intro p {
+      color: #485872;
+      font-size: 0.9rem;
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field + .field { margin-top: 8px; }
+
+    label {
+      color: #18385c;
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #d6e2f0;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    textarea { min-height: 58px; resize: vertical; line-height: 1.45; }
+    textarea.short { min-height: 46px; }
+    textarea.tall { min-height: 86px; }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(40, 120, 184, 0.74);
+      box-shadow: 0 0 0 4px rgba(40, 120, 184, 0.10);
+      background: #fbfdff;
+    }
+
+    .progress-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 8px 20px;
+      background: rgba(6, 19, 41, 0.84);
+      border-bottom: 1px solid rgba(131, 190, 255, 0.26);
+      backdrop-filter: blur(14px);
+    }
+
+    .progress-inner {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .nav-step {
+      text-decoration: none;
+      color: #d7ecff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(131, 190, 255, 0.22);
+      border-radius: 11px;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1.08;
+      box-shadow: 0 10px 22px rgba(0, 5, 18, 0.22);
+    }
+
+    .nav-step.is-complete {
+      color: #061329;
+      background: linear-gradient(180deg, #35c4e8, #9cecff);
+      border-color: rgba(255,255,255,0.55);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 14px 20px 8px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .phase-divider {
+      padding: 14px 16px;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.15), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(233,245,255,0.94));
+    }
+
+    .phase-divider.phase-main::before { background: linear-gradient(90deg, #35c4e8, #1e66a8); }
+    .phase-divider.phase-tree::before { background: linear-gradient(90deg, #3cc58f, #35c4e8); }
+    .phase-divider.phase-flow::before { background: linear-gradient(90deg, #1e66a8, #9cecff); }
+    .phase-divider.phase-friction::before { background: linear-gradient(90deg, #f6a742, #35c4e8); }
+
+    .phase-divider h2 {
+      color: #123b64;
+      font-size: 1.24rem;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .phase-divider p {
+      color: #53647d;
+      font-size: 0.9rem;
+      line-height: 1.48;
+      font-weight: 600;
+    }
+
+    .tool { padding: 14px; }
+    .tool.phase-tree::before { background: linear-gradient(90deg, #3cc58f 0%, #35c4e8 100%); }
+    .tool.phase-flow::before { background: linear-gradient(90deg, #1e66a8 0%, #9cecff 100%); }
+    .tool.phase-friction::before { background: linear-gradient(90deg, #f6a742 0%, #35c4e8 100%); }
+
+    .tool-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .phase-label,
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(53, 196, 232, 0.12);
+      color: #0b5f83;
+      border: 1px solid rgba(53, 196, 232, 0.32);
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .tool h3 {
+      color: #123b64;
+      font-size: 1.08rem;
+      font-weight: 900;
+      line-height: 1.18;
+      margin-bottom: 3px;
+    }
+
+    .tool-subtitle {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .tool-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #35c4e8, #0d3a76);
+      box-shadow: 0 14px 26px rgba(13, 58, 118, 0.34);
+    }
+
+    .tool-grid,
+    .method-row,
+    .summary-grid,
+    .choice-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .method-row,
+    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .span-2 { grid-column: 1 / -1; }
+
+    .method-box,
+    .preview,
+    .summary-box,
+    .print-summary {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      color: #4f6078;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .method-box strong,
+    .preview strong,
+    .summary-box strong,
+    .print-summary strong {
+      display: block;
+      color: #17395e;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .method-box p { color: #52627a; font-size: 0.84rem; line-height: 1.42; font-weight: 600; }
+    .mini-note { color: #65758e; font-size: 0.78rem; line-height: 1.35; font-weight: 600; }
+
+    .choice { position: relative; }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+
+    .choice label {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(120, 170, 220, 0.35);
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      color: #40546f;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 6px 14px rgba(22,38,67,0.05);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .choice input:checked + label {
+      color: #ffffff;
+      border-color: rgba(53,196,232,0.7);
+      background: linear-gradient(180deg, #1e66a8, #0d2045);
+      box-shadow: 0 12px 20px rgba(23, 74, 124, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .summary-panel {
+      position: relative;
+      z-index: 2;
+      margin: 6px 20px 0;
+      padding: 14px;
+      background:
+        radial-gradient(circle at top left, rgba(53,196,232,0.14), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(235,246,255,0.94));
+    }
+
+    .summary-panel h2 {
+      color: #123b64;
+      font-size: 1.18rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .summary-text {
+      white-space: pre-wrap;
+      color: #40546f;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .action-panel {
+      position: relative;
+      z-index: 2;
+      margin: 6px 20px 0;
+      padding: 12px;
+    }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 8px 12px;
+      min-width: 118px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 900;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 9px 16px rgba(22,38,67,0.08);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { color: white; background: linear-gradient(90deg, #0d3a76, #1e66a8); }
+    .btn.secondary { color: #40546f; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
+    .btn.accent { color: white; background: linear-gradient(90deg, #f08a24, #f6a742); }
+    .status { color: #65758e; font-size: 0.82rem; font-weight: 800; }
+    .footer { position: relative; z-index: 2; padding: 12px 14px 18px; text-align: center; color: #b8d9f7; font-weight: 700; }
+    .print-only { display: none; }
+
+    @media (max-width: 920px) {
+      .hero, .method-row, .tool-grid, .summary-grid { grid-template-columns: 1fr; }
+      .progress-inner, .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .home-link { position: static; margin-bottom: 10px; }
+      .brand { flex-direction: column; }
+      .progress-nav { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      body { padding: 10px 8px 28px; }
+      .page { border-radius: 24px; }
+      .header, .hero, .content, .progress-nav, .action-panel, .summary-panel { padding-left: 14px; padding-right: 14px; }
+      .action-panel, .summary-panel { margin-left: 14px; margin-right: 14px; }
+      .progress-inner, .choice-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { zoom: 1; padding: 0; background: white; }
+      body::before { display: none; }
+      .page { width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; background: white; }
+      .page::before, .topbar, .home-link, .progress-nav, .buttons, .status { display: none !important; }
+      .header, .hero, .content, .action-panel, .summary-panel, .footer { padding: 10px 14px; margin: 0; border: none; box-shadow: none; background: white; }
+      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; letter-spacing: 0.01em; }
+      .brand-copy p { color: #52627a; }
+      .brand img { width: 52px; height: 52px; filter: none; }
+      .intro, .meta, .tool, .action-panel, .card, .phase-divider { box-shadow: none; break-inside: avoid; }
+      .tool { page-break-inside: avoid; margin-bottom: 10px; padding: 12px; }
+      input, textarea, select { border: 1px solid #ccd7e5; box-shadow: none; }
+      .print-only { display: block; color: #123b64; }
+      .footer { color: #65758e; }
+    }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="header-logo" href="../index-marvell.html" aria-label="חזרה לעמוד הבית">
-        <img src="../images/logo.png" alt="לוגו פרימיום Marvell">
-        <span>פרימיום Marvell</span>
+  <div class="page">
+    <div class="topbar">דף עבודה אינטראקטיבי | אפיון מוצר</div>
+
+    <header class="header">
+      <a class="home-link" href="../newsletter6.html" aria-label="חזרה לעמוד אפיון מוצר" title="חזרה לעמוד אפיון מוצר">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
       </a>
-      <div class="header-actions">
-        <a class="back-btn" href="./need.html" aria-label="דף קודם">דף קודם</a>
-        <button class="print-btn" type="button" onclick="window.print()">PDF / הדפסה</button>
-        <a class="home-link" href="../index-marvell.html" aria-label="בית">בית</a>
+      <div class="brand">
+        <img src="../images/logo.png" alt="לוגו תעשיידע">
+        <div class="brand-copy">
+          <h1>אפיון מוצר</h1>
+          <p>מתחילים בכיוון המוצרי ואז בונים עץ מוצר, זרימת שימוש ונקודת חיכוך ברורה.</p>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
-    <div class="page-card">
-      <h1>מאפיינים את המוצר שלנו</h1>
-      <p class="subtitle">עמוד אינטראקטיבי — אפיון מוצר</p>
-      <p class="intro-main">בשלב הזה אנחנו הופכים רעיון כללי למוצר ברור שאפשר להבין, להסביר ובהמשך גם לבנות או להדגים.</p>
-      <div class="intro-list">
-        לא צריך מוצר מושלם.<br>
-        כן צריך להבין:<br>
-        - מה המוצר עושה<br>
-        - למי הוא מיועד<br>
-        - איך משתמשים בו<br>
-        - מה חייב לעבוד<br>
-        - ואיפה עוד צריך לשפר
+    <section class="hero">
+      <div class="card intro">
+        <h2>מטרת הפעילות</h2>
+        <p>בפעילות זו הופכים רעיון כללי למוצר ברור יותר. קודם מגדירים את הכיוון המוצרי: מה הבעיה, מי המשתמש ומה המוצר אמור לעשות. לאחר מכן עוברים לשלושה כלי אפיון: עץ מוצר, זרימת שימוש וחיכוך ושיפור.</p>
       </div>
+      <div class="card meta">
+        <div class="field"><label for="teamName">שם הצוות</label><input id="teamName" type="text" placeholder="שם הצוות"></div>
+        <div class="field"><label for="members">שמות חברי הצוות</label><textarea id="members" class="short" placeholder="כתבו את שמות חברי הצוות"></textarea></div>
+      </div>
+    </section>
 
-      <section class="section">
-        <h2>1 — מתחברים לכיוון המוצרי</h2>
-        <div class="note">מתחילים בקטן: בוחרים מה הכי מתאים, משלימים כמה מילים, ובונים משפט צוות ראשון.<br>לא צריך ניסוח מושלם — צריך להבין למה המוצר שווה פיתוח.</div>
-        <div class="question">
-          <div class="q-title">1. המוצר שלנו הוא...</div>
-          <div class="note">לדוגמה: סוגר חכם לאריזה / אפליקציית תזכורות / מערכת התראה / מדבקת טריות</div>
-          <input type="text" id="productName" placeholder="המוצר שלנו הוא: __________">
-        </div>
-        <div class="question">
-          <div class="q-title">2. איזה סוג מוצר זה?</div>
-          <div class="inline-radio">
-            <label><input type="radio" name="productType" value="מוצר פיזי"> מוצר פיזי</label>
-            <label><input type="radio" name="productType" value="מוצר דיגיטלי"> מוצר דיגיטלי</label>
-            <label><input type="radio" name="productType" value="מוצר משולב"> מוצר משולב</label>
-            <label><input type="radio" name="productType" value="אחר / עדיין לא בטוחים"> אחר / עדיין לא בטוחים</label>
-          </div>
-        </div>
-        <div class="question">
-          <div class="q-title">3. דיוק קצר לסוג המוצר</div>
-          <input type="text" id="productTypeRefine" placeholder="אם צריך, כתבו במילים שלכם">
-        </div>
-        <div class="question">
-          <div class="q-title">4. הוא עוזר במצב שבו...</div>
-          <input type="text" id="problemInWords" placeholder="במילים שלנו, הבעיה היא: __________">
-        </div>
-        <div class="question">
-          <div class="q-title">5. מי שצריך את זה הוא...</div>
-          <input type="text" id="targetAudience" placeholder="קהל היעד המרכזי שלנו הוא: __________">
-        </div>
-        <div class="question">
-          <div class="q-title">6. משתמשים בו ב־...</div>
-          <input type="text" id="useContext" placeholder="המקום או המצב המרכזי שבו זה קורה הוא: __________">
-        </div>
-        <div class="question">
-          <div class="q-title">7. המוצר הזה חשוב כי...</div>
-          <input type="text" id="productValueReason" placeholder="הסיבה שהמוצר שווה פיתוח היא: __________">
-        </div>
-        <h3>משפט צוות</h3>
-        <div id="teamSentence" class="auto-text"></div>
-        <div class="route-box">
-          אחרי מילוי שלב 1, האתר מציג בחירה:<br>
-          בחרתם מוצר פיזי? עברו למסלול מוצר פיזי.<br>
-          בחרתם מוצר דיגיטלי? עברו למסלול מוצר דיגיטלי.<br>
-          בחרתם מוצר משולב? מלאו גם את החלק הפיזי וגם את החלק הדיגיטלי.
-          <div class="route-actions">
-            <button type="button" class="go-btn" onclick="goToRoute('physical')">למסלול מוצר פיזי</button>
-            <button type="button" class="go-btn" onclick="goToRoute('digital')">למסלול מוצר דיגיטלי</button>
-          </div>
+    <nav class="progress-nav" aria-label="ניווט בין שלבי האפיון">
+      <div class="progress-inner">
+        <a class="nav-step" href="#stage1" data-step="1">כיוון<br>מוצרי</a>
+        <a class="nav-step" href="#tree" data-step="2">שלב 1<br>עץ מוצר</a>
+        <a class="nav-step" href="#flow" data-step="3">שלב 2<br>זרימה</a>
+        <a class="nav-step" href="#friction" data-step="4">שלב 3<br>חיכוך</a>
+      </div>
+    </nav>
+
+    <main class="content">
+      <section class="phase-divider phase-main" id="stage1">
+        <h2>כיוון מוצרי</h2>
+      </section>
+
+      <section class="tool" id="tool1" data-required="productName,productType,problemText,targetAudience,productReason">
+        <div class="tool-head"><div><div class="phase-label">חלק חובה | לכל הצוותים</div><h3>1 — כיוון מוצרי ראשון</h3><p class="tool-subtitle">מתחילים בקטן: בוחרים מה הכי מתאים, משלימים כמה מילים ובונים משפט צוות ראשון.</p></div><div class="tool-num">1</div></div>
+        <div class="method-row"><div class="method-box"><strong>מה עושים כאן?</strong><p>כותבים את המוצר במילים פשוטות, בלי ניסוח מושלם ובלי להיכנס עדיין לכל הפרטים.</p></div><div class="method-box"><strong>מה חשוב?</strong><p>שיהיה ברור למה המוצר שווה פיתוח ומה הבעיה שהוא אמור לפתור.</p></div></div>
+        <div class="tool-grid">
+          <div class="field"><label for="productName">המוצר שלנו הוא...</label><input id="productName" type="text" placeholder="לדוגמה: סוגר חכם לאריזה / אפליקציית תזכורות / כלי מדידה פשוט"></div>
+          <div class="field"><label for="productType">איזה סוג מוצר זה?</label><select id="productType"><option value="">בחרו סוג מוצר</option><option>מוצר פיזי</option><option>מוצר דיגיטלי</option><option>מוצר משולב</option><option>עדיין לא בטוחים</option></select></div>
+          <div class="field"><label for="problemText">הוא עוזר במצב שבו...</label><textarea id="problemText" class="short" placeholder="במילים שלנו, הבעיה היא..."></textarea></div>
+          <div class="field"><label for="targetAudience">מי שצריך את זה הוא...</label><textarea id="targetAudience" class="short" placeholder="קהל היעד המרכזי שלנו הוא..."></textarea></div>
+          <div class="field"><label for="usePlace">משתמשים בו ב־...</label><textarea id="usePlace" class="short" placeholder="המקום או המצב שבו זה קורה..."></textarea></div>
+          <div class="field"><label for="productReason">המוצר הזה חשוב כי...</label><textarea id="productReason" class="short" placeholder="הסיבה שהמוצר שווה פיתוח היא..."></textarea></div>
+          <div class="field span-2"><label for="teamSentence">משפט צוות</label><textarea id="teamSentence" class="short" placeholder="אנחנו מפתחים את _____ כדי לעזור ל־_____ במצב שבו _____ באמצעות מוצר ש־_____."></textarea></div>
         </div>
       </section>
 
-      <section id="combinedNotice" class="section hidden">
-        <h2>מסלול ג — מוצר משולב</h2>
-        <div class="note">אם המוצר שלכם משולב — מלאו גם את מסלול המוצר הפיזי וגם את מסלול המוצר הדיגיטלי.</div>
-        <h3>מוצר משולב — חיבור בין פיזי לדיגיטלי</h3>
-        <div class="question"><div class="q-title">1. מה החלק הפיזי במוצר?</div><input type="text" id="comboPhysical"></div>
-        <div class="question"><div class="q-title">2. מה החלק הדיגיטלי במוצר?</div><input type="text" id="comboDigital"></div>
-        <div class="question">
-          <div class="q-title">3. מה קורה קודם?</div>
-          <div class="inline-radio">
-            <label><input type="radio" name="comboFirst" value="פעולה פיזית"> פעולה פיזית</label>
-            <label><input type="radio" name="comboFirst" value="פעולה דיגיטלית"> פעולה דיגיטלית</label>
-          </div>
+      <section class="tool" id="tool2" data-required="coreAction,productShape,firstVersion">
+        <div class="tool-head"><div><div class="phase-label">חלק חובה | התאמה לסוג מוצר</div><h3>2 — מה המוצר עושה?</h3><p class="tool-subtitle">כאן מגדירים את הפעולה המרכזית של המוצר. זו הליבה שתלווה אותנו בעץ המוצר, בזרימה ובחיכוך.</p></div><div class="tool-num">2</div></div>
+        <div class="choice-grid" style="margin-bottom:8px;">
+          <div class="choice"><input type="radio" name="mainAction" id="act1" value="שומר"><label for="act1">שומר / מגן</label></div>
+          <div class="choice"><input type="radio" name="mainAction" id="act2" value="מסמן"><label for="act2">מסמן / מודד</label></div>
+          <div class="choice"><input type="radio" name="mainAction" id="act3" value="מתריע"><label for="act3">מתריע / ממליץ</label></div>
         </div>
-        <div class="question"><div class="q-title">4. איך שני החלקים מתחברים?</div><input type="text" id="comboConnect"></div>
-        <div class="question"><div class="q-title">5. מה חייב לעבוד בחיבור ביניהם?</div><input type="text" id="comboMustWork"></div>
-        <div class="question"><div class="q-title">6. איפה החיבור עלול להסתבך?</div><input type="text" id="comboFriction"></div>
-        <div class="question"><div class="q-title">7. איך אפשר לשפר את החיבור?</div><input type="text" id="comboImprove"></div>
-      </section>
-
-      <section id="otherNotice" class="section hidden">
-        <h2>המשך עבודה עבור “אחר / עדיין לא בטוחים”</h2>
-        <div class="note">לא עוצרים כאן: התחילו במסלול שהכי קרוב לרעיון שלכם, או מלאו את שני המסלולים אם יש גם חלק פיזי וגם חלק דיגיטלי.</div>
-      </section>
-
-      <div id="physicalRoute" class="hidden">
-        <section class="section">
-          <h2>מסלול א — מוצר פיזי</h2>
-        </section>
-        <section class="section">
-          <h2>2א — מדייקים את המוצר הפיזי</h2>
-          <div class="note">תדמיינו שמישהו רואה את המוצר בפעם הראשונה.<br>מה רואים מבחוץ? מה מבינים מיד? ומה עדיין צריך להסביר?<br><br>בשלב הזה לא צריך לדעת הכול.<br>המטרה היא להתחיל לתת למוצר צורה.</div>
-          <div class="question"><div class="q-title">1. איך המוצר נראה בערך?</div><textarea id="pLook" placeholder="איך זה נראה מבחוץ?"></textarea></div>
-          <div class="question"><div class="q-title">2. אילו חלקים פיזיים יש בו?</div><textarea id="pParts" placeholder="כתבו 3–5 חלקים עיקריים."></textarea></div>
-          <div class="question"><div class="q-title">3. איזו צורה מתאימה לו?</div><input type="text" id="pShape" placeholder="עגול / שטוח / ארוך / קטן / מתקפל / עומד / נתלה / מחובר למשהו"></div>
-          <div class="question"><div class="q-title">4. אילו צבעים או סימונים יעזרו להבין אותו?</div><textarea id="pColors" placeholder="מה צריך לבלוט? מה צריך להיות מסומן?"></textarea></div>
-          <div class="question"><div class="q-title">5. מה צריך להיות ברור מיד כשרואים את המוצר?</div><textarea id="pImmediate"></textarea></div>
-          <div class="question"><div class="q-title">6. מה לא כדאי שיהיה בו?</div><textarea id="pAvoid" placeholder="מה כדאי להימנע ממנו כדי שהמוצר לא יהיה מסורבל, מבלבל או לא שימושי?"></textarea></div>
-        </section>
-        <section class="section">
-          <h2>3א — הפעולה המרכזית של המוצר הפיזי</h2>
-          <div class="note">כל מוצר פיזי צריך פעולה מרכזית אחת.<br>זו הליבה של המוצר — הדבר שחייב לעבוד כדי שהמוצר באמת יפתור את הבעיה.</div>
-          <div class="q-title">הפעולה המרכזית של המוצר היא:</div>
-          <div class="inline-radio" id="pActionOptions">
-            <label><input type="radio" name="pAction" value="שומר"> שומר</label><label><input type="radio" name="pAction" value="מגן"> מגן</label>
-            <label><input type="radio" name="pAction" value="סוגר"> סוגר</label><label><input type="radio" name="pAction" value="פותח"> פותח</label>
-            <label><input type="radio" name="pAction" value="מודד"> מודד</label><label><input type="radio" name="pAction" value="מסמן"> מסמן</label>
-            <label><input type="radio" name="pAction" value="מחזיק"> מחזיק</label><label><input type="radio" name="pAction" value="מארגן"> מארגן</label>
-            <label><input type="radio" name="pAction" value="מונע"> מונע</label><label><input type="radio" name="pAction" value="מתריע"> מתריע</label>
-            <label><input type="radio" name="pAction" value="מחבר"> מחבר</label><label><input type="radio" name="pAction" value="מפעיל"> מפעיל</label>
-            <label><input type="radio" name="pAction" value="אחר"> אחר</label>
-          </div>
-          <div class="question hidden" id="pActionOtherWrap"><input type="text" id="pActionOther" placeholder="אחר: __________"></div>
-          <div class="question"><div class="q-title">את / על / עבור __________</div><input type="text" id="pActionFor"></div>
-          <div class="question"><div class="q-title">כדי ש־__________</div><input type="text" id="pActionGoal"></div>
-          <h3>משפט ליבה מובנה</h3><div id="pCoreSentence" class="auto-text"></div>
-          <div class="note">דוגמה עזר:<br>המוצר שלנו מסמן את מצב האריזה<br>כדי שהמשתמש יוכל לדעת אם היא עדיין תקינה.</div>
-        </section>
-        <section class="section">
-          <h2>4א — עץ מוצר פיזי</h2>
-          <div class="note">עץ מוצר עוזר לנו להבין מה באמת חשוב במוצר.<br><br>הגזע — מה חייב לעבוד<br>הענפים — מה עוזר לזה לעבוד<br>הפירות — הערך שמתקבל בסוף</div>
-          <h3>הגזע — מה חייב לעבוד?</h3>
-          <div class="question"><input type="text" id="pTrunk" placeholder="הגזע של המוצר הוא __________"></div>
-          <div class="question"><input type="text" id="pTrunkWhy" placeholder="כי בלי זה המוצר לא יוכל __________"></div>
-          <div class="note">דוגמאות לגזע: סגירה / סימון / מדידה / אחיזה / הגנה / שמירה / מניעה / חיבור</div>
-          <h3>ענפים — מה עוזר לגזע לעבוד?</h3>
-          <div class="question"><input type="text" id="pBranch1Part" placeholder="ענף 1: החלק __________"><input type="text" id="pBranch1Help" placeholder="עוזר בכך שהוא __________"></div>
-          <div class="question"><input type="text" id="pBranch2Part" placeholder="ענף 2: החלק __________"><input type="text" id="pBranch2Help" placeholder="עוזר בכך שהוא __________"></div>
-          <div class="question"><input type="text" id="pBranch3Part" placeholder="ענף 3: החלק __________"><input type="text" id="pBranch3Help" placeholder="עוזר בכך שהוא __________"></div>
-          <div class="question"><input type="text" id="pBranch4Part" placeholder="ענף 4 (אפשרי): החלק __________"><input type="text" id="pBranch4Help" placeholder="עוזר בכך שהוא __________"></div>
-          <h3>הפירות — מה הערך שמתקבל בסוף?</h3>
-          <div class="question"><input type="text" id="pFruit" placeholder="בסוף השימוש, קהל היעד מקבל __________"></div>
-          <div class="question"><input type="text" id="pFruitWhy" placeholder="כי המוצר __________"></div>
-          <div class="note">דוגמאות לערך: יותר ביטחון / פחות טעויות / יותר סדר / שימוש נוח יותר / חיסכון בזמן / פעולה ברורה יותר</div>
-        </section>
-        <section class="section">
-          <h2>5א — מבנה המוצר הפיזי</h2>
-          <div class="note">כאן מפרקים בצורה מדויקת יותר את המבנה הפיזי של המוצר.<br>כתבו פשוט וברור — לא צריך שרטוט הנדסי, רק להבין מה חייב להיות בדגם הראשון.</div>
-          <div class="question"><div class="q-title">1. חלקים מרכזיים</div><textarea id="pMainParts" placeholder="כתבו 3–5 חלקים חשובים."></textarea></div>
-          <div class="question"><div class="q-title">2. צורה</div><input type="text" id="pShape2" placeholder="עגול / שטוח / ארוך / קופסתי / מתקפל / עומד / נתלה / אחר"></div>
-          <div class="question"><div class="q-title">3. צבעים / סימונים</div><input type="text" id="pMarkings" placeholder="מה מסומן ומה בולט?"></div>
-          <div class="question"><div class="q-title">4. חומר משוער</div><input type="text" id="pMaterial" placeholder="פלסטיק / קרטון / מתכת קלה / בד / עץ / חומר ממוחזר / אחר"></div>
-          <div class="question"><div class="q-title">5. גודל משוער</div><input type="text" id="pSize" placeholder="כף יד / 20 ס״מ / קטן / בינוני / גדול / אחר"></div>
-          <div class="question"><div class="q-title">6. איך מחזיקים או מניחים את המוצר?</div><input type="text" id="pHandle" placeholder="ביד אחת / על משטח / תלוי / מחובר למוצר אחר / בתוך אריזה / אחר"></div>
-          <div class="question"><div class="q-title">7. מה נפתח / נסגר / זז / מתחבר?</div><input type="text" id="pMove" placeholder="מכסה נפתח, לשונית נסגרת, חלק מסתובב, חיבור נשלף"></div>
-          <div class="question"><div class="q-title">8. מה החלק הכי חשוב בדגם הראשון?</div><input type="text" id="pMostImportant" placeholder="החלק שחייב לעבוד הוא: __________"></div>
-        </section>
-        <section class="section">
-          <h2>6א — זרימת שימוש במוצר פיזי</h2>
-          <div class="note">זרימת שימוש היא רצף קצר וברור של מה שקורה מהרגע שפוגשים את הבעיה ועד שמקבלים ערך מהמוצר.<br>כתבו את הדרך של המשתמש ב־5 שלבים.</div>
-          <div class="question"><div class="q-title">שלב 1 — פוגשים את הבעיה</div><input type="text" id="pFlow1" placeholder="הבעיה מופיעה כאשר: __________"></div>
-          <div class="question"><div class="q-title">שלב 2 — ניגשים למוצר</div><input type="text" id="pFlow2" placeholder="לוקח / מניח / פותח / מחבר / מחזיק / מפעיל / אחר"></div>
-          <div class="question"><div class="q-title">שלב 3 — מבצעים פעולה</div><input type="text" id="pFlow3" placeholder="המשתמש עושה: __________"></div>
-          <div class="question"><div class="q-title">שלב 4 — המוצר עוזר</div><input type="text" id="pFlow4" placeholder="המוצר עוזר בכך שהוא: __________"></div>
-          <div class="question"><div class="q-title">שלב 5 — מקבלים ערך</div><input type="text" id="pFlow5" placeholder="בסוף השימוש מתקבל: __________"></div>
-          <h3>משפט זרימה אוטומטי</h3><div id="pFlowSentence" class="auto-text"></div>
-        </section>
-        <section class="section">
-          <h2>7א — חיכוך ושיפור במוצר פיזי</h2>
-          <div class="note">נקודת חיכוך היא המקום שבו השימוש עלול להסתבך.<br>זה לא אומר שהרעיון לא טוב — זה אומר שאנחנו יודעים מה צריך לשפר.</div>
-          <div class="question"><div class="q-title">1. מתי השימוש מסתבך?</div><input type="text" id="pFrictionWhen" placeholder="השימוש עלול להסתבך כאשר: __________"></div>
-          <div class="question"><div class="q-title">2. למה זה בעייתי?</div><input type="text" id="pFrictionWhy" placeholder="זה מפריע כי: __________"></div>
-          <div class="question"><div class="q-title">3. מה נרצה לשפר?</div><input type="text" id="pFrictionImprove" placeholder="נרצה לשפר: __________"></div>
-          <div class="q-title">מה עלול להיות בעייתי?</div>
-          <div class="inline-check">
-            <label><input type="checkbox"> לא ברור איך משתמשים במוצר</label><label><input type="checkbox"> לא נוח להחזיק</label>
-            <label><input type="checkbox"> קשה לפתוח או לסגור</label><label><input type="checkbox"> הוא עלול להישבר</label>
-            <label><input type="checkbox"> הוא גדול מדי</label><label><input type="checkbox"> הוא קטן מדי</label>
-            <label><input type="checkbox"> הסימון לא ברור</label><label><input type="checkbox"> יש יותר מדי פעולות</label>
-            <label><input type="checkbox"> הערך לא מספיק ברור</label><label><input type="checkbox" id="pIssueOtherCheck"> אחר</label>
-          </div>
-          <div class="question hidden" id="pIssueOtherWrap"><input type="text" id="pIssueOther" placeholder="אחר: __________"></div>
-          <h3>משפט חיכוך אוטומטי</h3><div id="pFrictionSentence" class="auto-text"></div>
-        </section>
-        <section class="section">
-          <h2>8א — סיכום מוצר פיזי</h2>
-          <div class="note">עכשיו נסכם את האפיון של המוצר הפיזי במשפט אחד ברור.<br>המשפט הזה יעזור לכם להציג את המוצר ולהתקדם לדגם ראשוני.</div>
-          <div id="pSummary" class="auto-text"></div>
-        </section>
-      </div>
-
-      <div id="digitalRoute" class="hidden">
-        <section class="section">
-          <h2>מסלול ב — מוצר דיגיטלי</h2>
-        </section>
-        <section class="section">
-          <h2>2ב — מדייקים את המוצר הדיגיטלי</h2>
-          <div class="note">תדמיינו שמשתמש נכנס לאפליקציה, לאתר או למערכת שלכם בפעם הראשונה.<br>מה הוא רואה? מה הוא עושה? ומה הוא אמור להבין מיד?<br><br>בשלב הזה לא צריך לעצב את כל המסכים.<br>צריך להבין את המבנה הבסיסי של המוצר הדיגיטלי.</div>
-          <div class="question"><div class="q-title">1. מהו המוצר הדיגיטלי שלנו?</div><input type="text" id="dType" placeholder="אפליקציה / אתר / מערכת / שאלון / מסך מידע / מערכת התראה / כלי המלצה / אחר"></div>
-          <div class="question"><div class="q-title">2. מה המשתמש אמור להבין מיד כשהוא נכנס?</div><textarea id="dImmediate"></textarea></div>
-          <div class="question"><div class="q-title">3. מה הפעולה הראשונה שהמשתמש עושה?</div><input type="text" id="dFirstAction" placeholder="לוחץ / בוחר / עונה / מחפש / מצלם / מזין מידע / קורא מידע / אחר"></div>
-          <div class="question"><div class="q-title">4. איזה מידע חשוב שהמערכת תאסוף?</div><textarea id="dCollect" placeholder="תשובות, העדפות, נתונים, תמונה, מיקום, גיל, צורך, תיאור בעיה"></textarea></div>
-          <div class="question"><div class="q-title">5. מה המשתמש אמור לקבל בסוף?</div><input type="text" id="dResult" placeholder="המלצה / תוצאה / התראה / סיכום / דירוג / פעולה מוצעת / מידע ברור / אחר"></div>
-          <div class="question"><div class="q-title">6. מה לא כדאי שיהיה במערכת?</div><textarea id="dAvoid" placeholder="מה עלול להעמיס, לבלבל או לגרום למשתמש לוותר?"></textarea></div>
-        </section>
-        <section class="section">
-          <h2>3ב — הפעולה המרכזית של המוצר הדיגיטלי</h2>
-          <div class="note">כל מוצר דיגיטלי צריך פעולה מרכזית אחת.<br>זו הליבה של המערכת — הדבר שחייב לעבוד כדי שהמוצר באמת ייתן ערך למשתמש.</div>
-          <div class="q-title">הפעולה המרכזית של המערכת היא:</div>
-          <div class="inline-radio">
-            <label><input type="radio" name="dAction" value="מציגה מידע"> מציגה מידע</label><label><input type="radio" name="dAction" value="שואלת שאלות"> שואלת שאלות</label>
-            <label><input type="radio" name="dAction" value="מנתחת תשובות"> מנתחת תשובות</label><label><input type="radio" name="dAction" value="מתאימה המלצה"> מתאימה המלצה</label>
-            <label><input type="radio" name="dAction" value="שולחת התראה"> שולחת התראה</label><label><input type="radio" name="dAction" value="מסדרת נתונים"> מסדרת נתונים</label>
-            <label><input type="radio" name="dAction" value="עוקבת אחרי מצב"> עוקבת אחרי מצב</label><label><input type="radio" name="dAction" value="מחברת בין משתמשים"> מחברת בין משתמשים</label>
-            <label><input type="radio" name="dAction" value="נותנת תוצאה"> נותנת תוצאה</label><label><input type="radio" name="dAction" value="מציעה פעולה"> מציעה פעולה</label>
-            <label><input type="radio" name="dAction" value="אחר"> אחר</label>
-          </div>
-          <div class="question hidden" id="dActionOtherWrap"><input type="text" id="dActionOther" placeholder="אחר: __________"></div>
-          <div class="question"><div class="q-title">את / עבור __________</div><input type="text" id="dActionFor"></div>
-          <div class="question"><div class="q-title">כדי ש־__________</div><input type="text" id="dActionGoal"></div>
-          <h3>משפט ליבה מובנה</h3><div id="dCoreSentence" class="auto-text"></div>
-          <div class="note">דוגמה עזר:<br>המערכת שלנו מתאימה המלצה עבור המשתמש<br>כדי שהוא ידע מה כדאי לעשות בשלב הבא.</div>
-        </section>
-        <section class="section">
-          <h2>4ב — עץ מערכת דיגיטלית</h2>
-          <div class="note">עץ מערכת עוזר לנו להבין מה באמת חשוב במוצר הדיגיטלי.<br><br>הגזע — הפעולה הדיגיטלית שחייבת לעבוד<br>הענפים — המסכים והפעולות שתומכים בה<br>הפירות — הערך שהמשתמש מקבל בסוף</div>
-          <h3>הגזע — מה חייב לעבוד?</h3>
-          <div class="question"><input type="text" id="dTrunk" placeholder="הגזע של המערכת הוא __________"></div>
-          <div class="question"><input type="text" id="dTrunkWhy" placeholder="כי בלי זה המערכת לא תוכל __________"></div>
-          <div class="note">דוגמאות לגזע: שאלון / התאמה / חיפוש / המלצה / התראה / הצגת תוצאה / מעקב / סידור מידע</div>
-          <h3>ענפים — מה עוזר לגזע לעבוד?</h3>
-          <div class="question"><input type="text" id="dBranch1Part" placeholder="ענף 1 — המסך / הפעולה __________"><input type="text" id="dBranch1Help" placeholder="עוזר/ת בכך ש־__________"></div>
-          <div class="question"><input type="text" id="dBranch2Part" placeholder="ענף 2 — המסך / הפעולה __________"><input type="text" id="dBranch2Help" placeholder="עוזר/ת בכך ש־__________"></div>
-          <div class="question"><input type="text" id="dBranch3Part" placeholder="ענף 3 — המסך / הפעולה __________"><input type="text" id="dBranch3Help" placeholder="עוזר/ת בכך ש־__________"></div>
-          <div class="question"><input type="text" id="dBranch4Part" placeholder="ענף 4 (אפשרי) — המסך / הפעולה __________"><input type="text" id="dBranch4Help" placeholder="עוזר/ת בכך ש־__________"></div>
-          <h3>הפירות — מה הערך שמתקבל בסוף?</h3>
-          <div class="question"><input type="text" id="dFruit" placeholder="בסוף השימוש, קהל היעד מקבל __________"></div>
-          <div class="question"><input type="text" id="dFruitWhy" placeholder="כי המערכת __________"></div>
-          <div class="note">דוגמאות לערך: החלטה טובה יותר / חיסכון בזמן / סדר / הבנה / ביטחון / תזכורת / פעולה ברורה</div>
-        </section>
-        <section class="section">
-          <h2>5ב — מבנה המוצר הדיגיטלי</h2>
-          <div class="note">כאן מגדירים את המבנה הבסיסי של המוצר הדיגיטלי.<br>לא צריך לבנות את כל האתר או האפליקציה — רק להבין מהם המסכים המרכזיים ומה קורה בכל אחד מהם.</div>
-          <div class="question"><div class="q-title">מסך 1 — שם המסך</div><input type="text" id="dScreen1" placeholder="מסך פתיחה / שאלון / בחירת צורך / צילום / תוצאה"></div>
-          <div class="question"><div class="q-title">מה קורה במסך 1?</div><input type="text" id="dScreen1What" placeholder="__________"></div>
-          <div class="question"><div class="q-title">מסך 2 — שם המסך</div><input type="text" id="dScreen2"></div>
-          <div class="question"><div class="q-title">מה קורה במסך 2?</div><input type="text" id="dScreen2What" placeholder="__________"></div>
-          <div class="question"><div class="q-title">מסך 3 — שם המסך</div><input type="text" id="dScreen3"></div>
-          <div class="question"><div class="q-title">מה קורה במסך 3?</div><input type="text" id="dScreen3What" placeholder="__________"></div>
-          <div class="question"><div class="q-title">איזה מידע המשתמש מזין?</div><input type="text" id="dInput" placeholder="תשובות / בחירות / העדפות / תמונה / תיאור / נתון / אחר"></div>
-          <div class="question"><div class="q-title">מה המערכת מחזירה למשתמש?</div><input type="text" id="dOutput" placeholder="המלצה / תוצאה / התראה / סיכום / פעולה מוצעת / מידע ברור / אחר"></div>
-          <div class="question"><div class="q-title">מה המסך הכי חשוב בגרסה הראשונה?</div><input type="text" id="dMostImportant" placeholder="המסך שחייב לעבוד הוא: __________"></div>
-          <div class="question"><div class="q-title">למה דווקא המסך הזה חשוב?</div><input type="text" id="dMostImportantWhy" placeholder="__________"></div>
-        </section>
-        <section class="section">
-          <h2>6ב — זרימת שימוש במוצר דיגיטלי</h2>
-          <div class="note">זרימת שימוש היא הדרך שהמשתמש עובר מהרגע שהוא פוגש את הבעיה ועד שהוא מקבל ערך מהמערכת.<br>כתבו את הדרך של המשתמש ב־5 שלבים.</div>
-          <div class="question"><div class="q-title">שלב 1 — פוגשים את הבעיה</div><input type="text" id="dFlow1" placeholder="הבעיה מופיעה כאשר: __________"></div>
-          <div class="question"><div class="q-title">שלב 2 — נכנסים למערכת</div><input type="text" id="dFlow2" placeholder="אפליקציה / אתר / מסך מידע / שאלון / מערכת התראה / אחר"></div>
-          <div class="question"><div class="q-title">שלב 3 — מבצעים פעולה</div><input type="text" id="dFlow3" placeholder="לוחץ / בוחר / עונה / מחפש / מצלם / מזין מידע / אחר"></div>
-          <div class="question"><div class="q-title">שלב 4 — המערכת מגיבה</div><input type="text" id="dFlow4" placeholder="מציגה מידע / נותנת המלצה / שולחת התראה / מציגה תוצאה / מסדרת מידע / מציעה פעולה / אחר"></div>
-          <div class="question"><div class="q-title">שלב 5 — מקבלים ערך</div><input type="text" id="dFlow5" placeholder="בסוף השימוש המשתמש מקבל: __________"></div>
-          <h3>משפט זרימה אוטומטי</h3><div id="dFlowSentence" class="auto-text"></div>
-        </section>
-        <section class="section">
-          <h2>7ב — חיכוך ושיפור במוצר דיגיטלי</h2>
-          <div class="note">נקודת חיכוך היא המקום שבו המשתמש עלול להסתבך, להתבלבל או לוותר.<br>במוצר דיגיטלי חשוב לבדוק במיוחד אם המסכים, הכפתורים והתוצאה ברורים.</div>
-          <div class="question"><div class="q-title">1. מתי השימוש מסתבך?</div><input type="text" id="dFrictionWhen" placeholder="השימוש עלול להסתבך כאשר: __________"></div>
-          <div class="question"><div class="q-title">2. למה זה בעייתי?</div><input type="text" id="dFrictionWhy" placeholder="זה מפריע כי: __________"></div>
-          <div class="question"><div class="q-title">3. מה נרצה לשפר?</div><input type="text" id="dFrictionImprove" placeholder="נרצה לשפר: __________"></div>
-          <div class="q-title">מה עלול להיות בעייתי?</div>
-          <div class="inline-check">
-            <label><input type="checkbox"> לא ברור מאיפה מתחילים</label><label><input type="checkbox"> יש יותר מדי שאלות</label>
-            <label><input type="checkbox"> המסך עמוס מדי</label><label><input type="checkbox"> הכפתור לא ברור</label>
-            <label><input type="checkbox"> התוצאה כללית מדי</label><label><input type="checkbox"> המשתמש לא מבין מה לעשות אחרי התוצאה</label>
-            <label><input type="checkbox"> יש יותר מדי שלבים</label><label><input type="checkbox"> חסר הסבר קצר</label>
-            <label><input type="checkbox"> הערך לא מספיק ברור</label><label><input type="checkbox" id="dIssueOtherCheck"> אחר</label>
-          </div>
-          <div class="question hidden" id="dIssueOtherWrap"><input type="text" id="dIssueOther" placeholder="אחר: __________"></div>
-          <h3>משפט חיכוך אוטומטי</h3><div id="dFrictionSentence" class="auto-text"></div>
-        </section>
-        <section class="section">
-          <h2>8ב — סיכום מוצר דיגיטלי</h2>
-          <div class="note">עכשיו נסכם את האפיון של המוצר הדיגיטלי במשפט אחד ברור.<br>המשפט הזה יעזור לכם להציג את המערכת ולהתקדם להמחשה ראשונית של המסכים.</div>
-          <div id="dSummary" class="auto-text"></div>
-        </section>
-      </div>
-
-      <section class="section">
-        <h2>שלב סיום כללי — בדיקה לפני שמירה</h2>
-        <h3>בדיקה לפני שמירה</h3>
-        <div class="note">
-          לפני שמירת דף האפיון בדקו:<br>
-          - ברור מה הבעיה<br>
-          - ברור מי קהל היעד<br>
-          - ברור מה סוג המוצר<br>
-          - ברור מה הפעולה המרכזית<br>
-          - ברור מה הגזע של המוצר או המערכת<br>
-          - ברור מהם הענפים שתומכים בו<br>
-          - ברור מה הערך למשתמש<br>
-          - ברור איך משתמשים במוצר<br>
-          - זיהינו נקודת חיכוך אחת<br>
-          - כתבנו מה נרצה לשפר בהמשך
-        </div>
-        <button type="button" class="save-btn" id="saveButton">סיום ושמירת דף האפיון</button>
-        <div class="success-box hidden" id="saveSuccess">
-          מעולה.<br>
-          סיימתם את שלב האפיון.<br><br>
-          עכשיו יש לכם בסיס ברור להמשך:<br>
-          רעיון שהפך למוצר שאפשר להבין, להסביר, לשפר ובהמשך להפוך לאבטיפוס או להמחשה ראשונית.
+        <div class="tool-grid">
+          <div class="field"><label for="coreAction">הפעולה המרכזית היא...</label><textarea id="coreAction" class="short" placeholder="המוצר שלנו _____ כדי ש־_____."></textarea></div>
+          <div class="field"><label for="firstVersion">מה חייב לעבוד בגרסה הראשונה?</label><textarea id="firstVersion" class="short" placeholder="החלק / המסך / הפעולה שחייבים לעבוד"></textarea></div>
+          <div class="field"><label for="productShape">אם זה מוצר פיזי — איך הוא נראה בערך?</label><textarea id="productShape" class="short" placeholder="צורה, גודל, חלקים, חומר או סימון מרכזי"></textarea></div>
+          <div class="field"><label for="digitalShape">אם זה מוצר דיגיטלי — מה המסכים או הפעולות המרכזיים?</label><textarea id="digitalShape" class="short" placeholder="מסך פתיחה, שאלון, תוצאה, התראה, המלצה..."></textarea></div>
         </div>
       </section>
 
-      <div class="footer-nav">
-        <a class="go-btn" href="./need.html">דף קודם</a>
-        <a class="go-btn" href="../index-marvell.html">סיום / בית</a>
-      </div>
-    </div>
-  </main>
+      <section class="phase-divider phase-tree" id="tree">
+        <h2>שלב 1 — עץ מוצר / עץ מערכת</h2>
+        <p>עכשיו עוברים מהכיוון הכללי למבנה. עץ מוצר עוזר להבין מה הליבה, מה תומך בה ומה הערך שמתקבל בסוף.</p>
+      </section>
 
-  <footer class="footer">© פרימיום Marvell | תעשיידע</footer>
+      <section class="tool phase-tree" id="tool3" data-required="treeCore,treeBranch1,treeFruit">
+        <div class="tool-head"><div><div class="phase-label">עץ מוצר | ליבה, תמיכה וערך</div><h3>3 — בונים עץ מוצר</h3><p class="tool-subtitle">הגזע הוא מה שחייב לעבוד. הענפים הם החלקים, המסכים או הפעולות שעוזרים לו. הפירות הם הערך למשתמש.</p></div><div class="tool-num">3</div></div>
+        <div class="method-row"><div class="method-box"><strong>במוצר פיזי</strong><p>הענפים יכולים להיות חלקים, חומרים, צורה, גודל, סימון, ידית, מכסה או מנגנון.</p></div><div class="method-box"><strong>במוצר דיגיטלי</strong><p>הענפים יכולים להיות מסכים, כפתורים, שאלון, מידע שנכנס, תוצאה או התראה.</p></div></div>
+        <div class="tool-grid">
+          <div class="field span-2"><label for="treeCore">הגזע — מה חייב לעבוד?</label><textarea id="treeCore" class="short" placeholder="הגזע של המוצר / המערכת הוא _____, כי בלי זה המוצר לא יוכל _____."></textarea></div>
+          <div class="field"><label for="treeBranch1">ענף 1</label><textarea id="treeBranch1" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
+          <div class="field"><label for="treeBranch2">ענף 2</label><textarea id="treeBranch2" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
+          <div class="field"><label for="treeBranch3">ענף 3</label><textarea id="treeBranch3" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
+          <div class="field"><label for="treeBranch4">ענף נוסף, אם צריך</label><textarea id="treeBranch4" class="short" placeholder="לא חובה"></textarea></div>
+          <div class="field span-2"><label for="treeFruit">הפירות — מה הערך שמתקבל בסוף?</label><textarea id="treeFruit" class="short" placeholder="בסוף השימוש, קהל היעד מקבל _____ כי המוצר / המערכת _____."></textarea></div>
+        </div>
+      </section>
+
+      <section class="phase-divider phase-flow" id="flow">
+        <h2>שלב 2 — זרימת שימוש</h2>
+        <p>אחרי שהבנו ממה המוצר בנוי, בודקים איך משתמשים בו בפועל. הזרימה מתארת את הדרך מהרגע שפוגשים את הבעיה ועד שמקבלים ערך.</p>
+      </section>
+
+      <section class="tool phase-flow" id="tool4" data-required="flow1,flow3,flow5">
+        <div class="tool-head"><div><div class="phase-label">זרימת שימוש | צעד אחר צעד</div><h3>4 — מה המשתמש עושה?</h3><p class="tool-subtitle">כתבו 5 שלבים קצרים וברורים. אם יש יותר מדי שלבים או שהשימוש לא ברור — זה סימן שצריך לפשט.</p></div><div class="tool-num">4</div></div>
+        <div class="tool-grid">
+          <div class="field"><label for="flow1">שלב 1 — פוגשים את הבעיה</label><textarea id="flow1" class="short" placeholder="הבעיה מופיעה כאשר..."></textarea></div>
+          <div class="field"><label for="flow2">שלב 2 — ניגשים למוצר / נכנסים למערכת</label><textarea id="flow2" class="short" placeholder="לוקחים / פותחים / נכנסים / בוחרים..."></textarea></div>
+          <div class="field"><label for="flow3">שלב 3 — מבצעים פעולה</label><textarea id="flow3" class="short" placeholder="מה המשתמש עושה?"></textarea></div>
+          <div class="field"><label for="flow4">שלב 4 — המוצר / המערכת מגיבים</label><textarea id="flow4" class="short" placeholder="המוצר מסמן / שומר / מציג / מתריע..."></textarea></div>
+          <div class="field span-2"><label for="flow5">שלב 5 — מקבלים ערך</label><textarea id="flow5" class="short" placeholder="בסוף המשתמש מקבל..."></textarea></div>
+          <div class="field span-2"><label for="flowSentence">משפט זרימה מסכם</label><textarea id="flowSentence" class="short" placeholder="כאשר _____, משתמשים במוצר כך: _____. לאחר מכן _____. המוצר עוזר בכך שהוא _____. בסוף מקבלים _____."></textarea></div>
+        </div>
+      </section>
+
+      <section class="phase-divider phase-friction" id="friction">
+        <h2>שלב 3 — חיכוך ושיפור</h2>
+        <p>עכשיו בודקים איפה השימוש עלול להסתבך. למצוא חיכוך זה לא כישלון — זה סימן שאתם חושבים כמו מפתחי מוצר.</p>
+      </section>
+
+      <section class="tool phase-friction" id="tool5" data-required="frictionPoint,frictionImprove">
+        <div class="tool-head"><div><div class="phase-label">חיכוך | מה צריך לשפר?</div><h3>5 — נקודת חיכוך אחת</h3><p class="tool-subtitle">בחרו נקודת חיכוך אחת שהכי חשוב לשפר לפני שמתקדמים לאבטיפוס או להמחשה ראשונית.</p></div><div class="tool-num">5</div></div>
+        <div class="method-row"><div class="method-box"><strong>במוצר פיזי</strong><p>בדקו נוחות, גודל, שבירה, פתיחה וסגירה, סימון לא ברור או יותר מדי פעולות.</p></div><div class="method-box"><strong>במוצר דיגיטלי</strong><p>בדקו מסך עמוס, יותר מדי שאלות, כפתור לא ברור, תוצאה כללית מדי או פעולה מסובכת.</p></div></div>
+        <div class="tool-grid">
+          <div class="field"><label for="frictionPoint">מתי השימוש מסתבך?</label><textarea id="frictionPoint" placeholder="השימוש עלול להסתבך כאשר..."></textarea></div>
+          <div class="field"><label for="frictionReason">למה זה בעייתי?</label><textarea id="frictionReason" placeholder="זה עלול להפריע כי..."></textarea></div>
+          <div class="field span-2"><label for="frictionImprove">מה נרצה לשפר?</label><textarea id="frictionImprove" class="short" placeholder="כדי לשפר, נרצה..."></textarea></div>
+        </div>
+      </section>
+    </main>
+
+    <section class="summary-panel">
+      <h2>סיכום האפיון</h2>
+      <div class="summary-grid">
+        <div class="summary-box"><strong>כיוון מוצרי</strong><div id="sumDirection" class="mini-note">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>עץ מוצר</strong><div id="sumTree" class="mini-note">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>זרימה וחיכוך</strong><div id="sumFlow" class="mini-note">עדיין לא הושלם.</div></div>
+      </div>
+      <div class="print-summary" style="margin-top:8px;"><strong>משפט סיכום לצוות:</strong><div id="finalSummary" class="summary-text">לאחר מילוי הדף יופיע כאן סיכום קצר של האפיון.</div></div>
+    </section>
+
+    <section class="action-panel">
+      <div class="buttons">
+        <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
+        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
+        <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
+      </div>
+      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> אפיון מוצר</div>
+    </section>
+
+    <footer class="footer">© פרימיום | תעשיידע</footer>
+  </div>
 
   <script>
-    const STORAGE_KEY = "marvell-work-6-product-spec";
-    function fill(v) { return v && String(v).trim() ? String(v).trim() : "__________"; }
-    function selectedValue(name) { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ""; }
-    function effectiveAction(name, otherId) { return selectedValue(name) === "אחר" ? document.getElementById(otherId).value.trim() : selectedValue(name); }
-    function byId(id) { return document.getElementById(id); }
+    (function () {
+      const STORAGE_KEY = 'marvellProductSpec_work6_clean_v1';
+      const fields = Array.from(document.querySelectorAll('input, textarea, select'));
+      const saveStatus = document.getElementById('saveStatus');
 
-    function updateRouteVisibility() {
-      const type = selectedValue("productType");
-      const physical = byId("physicalRoute");
-      const digital = byId("digitalRoute");
-      const combinedNotice = byId("combinedNotice");
-      const otherNotice = byId("otherNotice");
-      physical.classList.add("hidden");
-      digital.classList.add("hidden");
-      combinedNotice.classList.add("hidden");
-      otherNotice.classList.add("hidden");
-      if (type === "מוצר פיזי") {
-        physical.classList.remove("hidden");
-      } else if (type === "מוצר דיגיטלי") {
-        digital.classList.remove("hidden");
-      } else if (type === "מוצר משולב") {
-        combinedNotice.classList.remove("hidden");
-        physical.classList.remove("hidden");
-        digital.classList.remove("hidden");
-      } else if (type === "אחר / עדיין לא בטוחים") {
-        otherNotice.classList.remove("hidden");
-        physical.classList.remove("hidden");
-        digital.classList.remove("hidden");
+      function byId(id) { return document.getElementById(id); }
+      function valueOf(id) { const field = byId(id); return field ? String(field.value || '').trim() : ''; }
+      function setText(id, text) { const el = byId(id); if (el) el.textContent = text; }
+
+      function getData() {
+        const data = {};
+        fields.forEach((field) => {
+          if (!field.id) return;
+          data[field.id] = field.type === 'radio' ? field.checked : field.value;
+        });
+        return data;
       }
-    }
 
-    function goToRoute(route) {
-      updateRouteVisibility();
-      const id = route === "physical" ? "physicalRoute" : "digitalRoute";
-      const section = byId(id);
-      if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function updateAutoTexts() {
-      byId("teamSentence").textContent =
-        `אנחנו מפתחים את ${fill(byId("productName").value)}\n` +
-        `כדי לעזור ל־${fill(byId("targetAudience").value)}\n` +
-        `במצב שבו ${fill(byId("problemInWords").value)}\n` +
-        `באמצעות מוצר ש־${fill(byId("productValueReason").value)}.`;
-
-      byId("pCoreSentence").textContent =
-        `המוצר שלנו ${fill(effectiveAction("pAction", "pActionOther"))}\n` +
-        `את / על / עבור ${fill(byId("pActionFor").value)}\n` +
-        `כדי ש־${fill(byId("pActionGoal").value)}.`;
-
-      byId("pFlowSentence").textContent =
-        `כאשר ${fill(byId("pFlow1").value)},\n` +
-        `משתמשים במוצר כך: ${fill(byId("pFlow2").value)}.\n` +
-        `לאחר מכן ${fill(byId("pFlow3").value)}.\n` +
-        `המוצר עוזר בכך שהוא ${fill(byId("pFlow4").value)}.\n` +
-        `בסוף מקבלים ${fill(byId("pFlow5").value)}.`;
-
-      byId("pFrictionSentence").textContent =
-        `השימוש עלול להסתבך כאשר ${fill(byId("pFrictionWhen").value)}.\n` +
-        `זה עלול להפריע כי ${fill(byId("pFrictionWhy").value)}.\n` +
-        `כדי לשפר, נרצה ${fill(byId("pFrictionImprove").value)}.`;
-
-      byId("pSummary").textContent =
-        `המוצר שלנו נקרא ${fill(byId("productName").value)}.\n` +
-        `הוא מיועד ל־${fill(byId("targetAudience").value)}.\n` +
-        `הוא עוזר במצב שבו ${fill(byId("problemInWords").value)}.\n` +
-        `הפעולה המרכזית שלו היא ${fill(effectiveAction("pAction", "pActionOther"))}.\n` +
-        `המוצר בנוי מ־${fill(byId("pMainParts").value)}.\n` +
-        `הצורה שלו היא ${fill(byId("pShape2").value)},\n` +
-        `החומר המשוער הוא ${fill(byId("pMaterial").value)},\n` +
-        `והחלק הכי חשוב בדגם הראשון הוא ${fill(byId("pMostImportant").value)}.\n\n` +
-        `משתמשים בו כך:\n` +
-        `כאשר ${fill(byId("pFlow1").value)}, משתמשים במוצר כך: ${fill(byId("pFlow2").value)}.\n` +
-        `לאחר מכן ${fill(byId("pFlow3").value)}.\n` +
-        `המוצר עוזר בכך שהוא ${fill(byId("pFlow4").value)}.\n` +
-        `בסוף מקבלים ${fill(byId("pFlow5").value)}.\n\n` +
-        `הערך שהוא נותן הוא ${fill(byId("pFruit").value)}.\n` +
-        `בשלב הבא נרצה לשפר את ${fill(byId("pFrictionImprove").value)}.`;
-
-      byId("dCoreSentence").textContent =
-        `המערכת שלנו ${fill(effectiveAction("dAction", "dActionOther"))}\n` +
-        `את / עבור ${fill(byId("dActionFor").value)}\n` +
-        `כדי ש־${fill(byId("dActionGoal").value)}.`;
-
-      byId("dFlowSentence").textContent =
-        `כאשר ${fill(byId("dFlow1").value)},\n` +
-        `המשתמש נכנס ל־${fill(byId("dFlow2").value)}.\n` +
-        `לאחר מכן הוא ${fill(byId("dFlow3").value)}.\n` +
-        `המערכת ${fill(byId("dFlow4").value)}.\n` +
-        `בסוף המשתמש מקבל ${fill(byId("dFlow5").value)}.`;
-
-      byId("dFrictionSentence").textContent =
-        `השימוש עלול להסתבך כאשר ${fill(byId("dFrictionWhen").value)}.\n` +
-        `זה עלול להפריע כי ${fill(byId("dFrictionWhy").value)}.\n` +
-        `כדי לשפר, נרצה ${fill(byId("dFrictionImprove").value)}.`;
-
-      byId("dSummary").textContent =
-        `המוצר שלנו נקרא ${fill(byId("productName").value)}.\n` +
-        `הוא מיועד ל־${fill(byId("targetAudience").value)}.\n` +
-        `הוא עוזר במצב שבו ${fill(byId("problemInWords").value)}.\n` +
-        `הפעולה המרכזית שלו היא ${fill(effectiveAction("dAction", "dActionOther"))}.\n\n` +
-        `המערכת כוללת את המסכים המרכזיים:\n` +
-        `${fill(byId("dScreen1").value)}, ${fill(byId("dScreen2").value)}, ${fill(byId("dScreen3").value)}.\n\n` +
-        `המשתמש מזין ${fill(byId("dInput").value)},\n` +
-        `והמערכת מחזירה לו ${fill(byId("dOutput").value)}.\n\n` +
-        `משתמשים בו כך:\n` +
-        `כאשר ${fill(byId("dFlow1").value)}, המשתמש נכנס ל־${fill(byId("dFlow2").value)}.\n` +
-        `לאחר מכן הוא ${fill(byId("dFlow3").value)}.\n` +
-        `המערכת ${fill(byId("dFlow4").value)}.\n` +
-        `בסוף המשתמש מקבל ${fill(byId("dFlow5").value)}.\n\n` +
-        `הערך שהוא נותן הוא ${fill(byId("dFruit").value)}.\n` +
-        `בשלב הבא נרצה לשפר את ${fill(byId("dFrictionImprove").value)}.`;
-    }
-
-    function bindInputs() {
-      document.querySelectorAll("input, textarea").forEach((el) => {
-        el.addEventListener("input", updateAutoTexts);
-        el.addEventListener("change", () => {
-          updateRouteVisibility();
-          byId("pActionOtherWrap").classList.toggle("hidden", selectedValue("pAction") !== "אחר");
-          byId("dActionOtherWrap").classList.toggle("hidden", selectedValue("dAction") !== "אחר");
-          byId("pIssueOtherWrap").classList.toggle("hidden", !byId("pIssueOtherCheck").checked);
-          byId("dIssueOtherWrap").classList.toggle("hidden", !byId("dIssueOtherCheck").checked);
-          updateAutoTexts();
-          persistForm();
+      function setData(data) {
+        fields.forEach((field) => {
+          if (!field.id || !(field.id in data)) return;
+          if (field.type === 'radio') field.checked = Boolean(data[field.id]);
+          else field.value = data[field.id];
         });
-        el.addEventListener("input", persistForm);
-      });
-    }
+      }
 
-    function persistForm() {
-      const data = {};
-      document.querySelectorAll("input, textarea").forEach((el) => {
-        if (!el.id) return;
-        if (el.type === "radio" || el.type === "checkbox") {
-          data[el.id] = el.checked;
-        } else {
-          data[el.id] = el.value;
-        }
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
+      function saveData(message) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
+        if (saveStatus) saveStatus.textContent = message || 'הטיוטה נשמרה אוטומטית.';
+      }
 
-    function restoreForm() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      try {
-        const data = JSON.parse(raw);
-        Object.entries(data).forEach(([id, value]) => {
-          const el = byId(id);
-          if (!el) return;
-          if (el.type === "radio" || el.type === "checkbox") {
-            el.checked = Boolean(value);
-          } else {
-            el.value = String(value || "");
-          }
+      function loadData() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) setData(JSON.parse(raw));
+        } catch (error) { console.error(error); }
+      }
+
+      function updateDerivedContent() {
+        const productName = valueOf('productName') || 'המוצר שלנו';
+        const productType = valueOf('productType') || 'סוג מוצר לא הוגדר';
+        const problemText = valueOf('problemText') || 'בעיה עדיין לא הוגדרה';
+        const targetAudience = valueOf('targetAudience') || 'קהל יעד עדיין לא הוגדר';
+        const coreAction = valueOf('coreAction') || 'פעולה מרכזית עדיין לא הוגדרה';
+        const treeCore = valueOf('treeCore') || 'גזע עדיין לא הוגדר';
+        const treeFruit = valueOf('treeFruit') || 'ערך עדיין לא הוגדר';
+        const flow1 = valueOf('flow1') || 'תחילת שימוש לא הוגדרה';
+        const flow5 = valueOf('flow5') || 'ערך סופי לא הוגדר';
+        const frictionPoint = valueOf('frictionPoint') || 'חיכוך עדיין לא הוגדר';
+        const frictionImprove = valueOf('frictionImprove') || 'שיפור עדיין לא הוגדר';
+
+        setText('sumDirection', `${productName} | ${productType}\n${problemText}\nקהל היעד: ${targetAudience}`);
+        setText('sumTree', `${treeCore}\n${treeFruit}`);
+        setText('sumFlow', `התחלה: ${flow1}\nסוף: ${flow5}\nחיכוך: ${frictionPoint}`);
+
+        setText('finalSummary', `אנחנו מאפיינים את ${productName}, ${productType}, שמיועד ל־${targetAudience}. הוא עוזר במצב שבו ${problemText}. הפעולה המרכזית שלו היא ${coreAction}. בעץ המוצר הגזע הוא: ${treeCore}. בזרימת השימוש המשתמש מתחיל מ־${flow1} ובסוף מקבל: ${flow5}. נקודת החיכוך המרכזית היא ${frictionPoint} ובהמשך נרצה לשפר את ${frictionImprove}.`);
+        updateNavCompletion();
+      }
+
+      function updateNavCompletion() {
+        const tools = Array.from(document.querySelectorAll('.tool[data-required]'));
+        const completion = [
+          ['productName', 'productType', 'problemText', 'targetAudience', 'productReason'],
+          ['treeCore', 'treeBranch1', 'treeFruit'],
+          ['flow1', 'flow3', 'flow5'],
+          ['frictionPoint', 'frictionImprove']
+        ];
+        completion.forEach((ids, index) => {
+          const complete = ids.every((id) => valueOf(id));
+          const nav = document.querySelector(`.nav-step[data-step="${index + 1}"]`);
+          if (nav) nav.classList.toggle('is-complete', complete);
         });
-      } catch (e) {
+      }
+
+      fields.forEach((field) => {
+        field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
+        field.addEventListener('change', () => { updateDerivedContent(); saveData(); });
+      });
+
+      byId('clearBtn').addEventListener('click', () => {
+        if (!confirm('לנקות את כל דף האפיון?')) return;
+        fields.forEach((field) => {
+          if (field.type === 'radio') field.checked = false;
+          else field.value = '';
+        });
         localStorage.removeItem(STORAGE_KEY);
-      }
-    }
+        updateDerivedContent();
+        saveData('הדף נוקה.');
+      });
 
-    byId("saveButton").addEventListener("click", () => {
-      byId("saveSuccess").classList.remove("hidden");
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    });
+      byId('printBtn').addEventListener('click', () => window.print());
 
-    restoreForm();
-    bindInputs();
-    updateRouteVisibility();
-    updateAutoTexts();
+      loadData();
+      updateDerivedContent();
+    })();
   </script>
 </body>
 </html>
