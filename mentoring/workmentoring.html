@@ -124,7 +124,7 @@
       top: 0;
       z-index: 10;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       padding: 10px 22px;
       background: rgba(255, 255, 255, 0.84);
@@ -160,7 +160,6 @@
 
     .intro-card,
     .section-card,
-    .script-card,
     .summary-card,
     .action-panel {
       background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,245,239,0.94));
@@ -173,7 +172,6 @@
 
     .intro-card::before,
     .section-card::before,
-    .script-card::before,
     .summary-card::before {
       content: "";
       position: absolute;
@@ -186,7 +184,6 @@
 
     .intro-card,
     .section-card,
-    .script-card,
     .summary-card { padding: 16px 18px; }
 
     h2 {
@@ -283,7 +280,6 @@
 
     .choice-option input { width: auto; accent-color: var(--red); }
 
-    .ready-script,
     .summary-print-box {
       white-space: pre-wrap;
       border: 1px solid rgba(195, 32, 38, 0.15);
@@ -295,6 +291,18 @@
       font-size: 0.96rem;
       font-weight: 700;
       min-height: 190px;
+    }
+
+    .print-logo {
+      display: none;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .print-logo img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
     }
 
     .action-panel {
@@ -353,23 +361,15 @@
 
     @media print {
       @page { margin: 12mm; }
-      body {
-        zoom: 1;
-        padding: 0;
-        background: #ffffff !important;
-      }
-
+      body { zoom: 1; padding: 0; background: #ffffff !important; }
       body::before,
       .topbar,
       .header,
       .nav,
       .intro-card,
       .section-card,
-      .script-card,
       .action-panel,
-      .footer {
-        display: none !important;
-      }
+      .footer { display: none !important; }
 
       .page,
       .content,
@@ -386,6 +386,7 @@
       }
 
       .summary-card::before { display: none !important; }
+      .print-logo { display: block !important; }
       .summary-card h2 { color: var(--red); font-size: 1.6rem; margin-bottom: 10px; }
       .summary-card .subtext { color: #333333; font-size: 1rem; line-height: 1.7; }
       .summary-print-box { border: 1px solid #d9cbc2; box-shadow: none; min-height: 0; }
@@ -402,16 +403,13 @@
       </a>
       <div class="brand">
         <img src="/Premium/images/logo.png" alt="לוגו תעשיידע">
-        <div class="brand-copy">
-          <h1>מנטורינג תעשייתי - אסם</h1>
-        </div>
+        <div class="brand-copy"><h1>מנטורינג תעשייתי - אסם</h1></div>
       </div>
     </header>
 
     <nav class="nav" aria-label="ניווט בדף">
       <a href="#partA">מה נציג?</a>
-      <a href="#partC">טקסט ההצגה</a>
-      <a href="#summary">סיכום</a>
+      <a href="#summary">טקסט ההצגה</a>
     </nav>
 
     <main class="content">
@@ -424,8 +422,8 @@
             <textarea id="teamMembers" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea>
           </div>
           <div>
-            <label for="projectName">שם המיזם</label>
-            <input id="projectName" type="text" placeholder="כתבו את שם המיזם">
+            <label for="ventureName">שם המיזם</label>
+            <input id="ventureName" type="text" placeholder="כתבו את שם המיזם">
           </div>
         </div>
       </section>
@@ -433,16 +431,6 @@
       <section class="section-card" id="partA">
         <h2>מה אנחנו צריכים להציג?</h2>
         <h3>1. פתיחה קצרה</h3>
-        <div class="two-grid">
-          <div>
-            <label for="teamName">שלום, אנחנו צוות:</label>
-            <input id="teamName" type="text" placeholder="שם הצוות">
-          </div>
-          <div>
-            <label for="ventureName">המיזם שלנו נקרא:</label>
-            <input id="ventureName" type="text" placeholder="שם המיזם">
-          </div>
-        </div>
         <div style="margin-top:10px;">
           <label>במיזם שלנו אנחנו עוסקים בבעיה שקשורה ל:</label>
           <div class="choice-grid">
@@ -458,14 +446,8 @@
         <label for="problem">מה נגיד על הבעיה?</label>
         <textarea id="problem" class="tall" placeholder="הבעיה שבחרנו היא..."></textarea>
         <div class="two-grid" style="margin-top:10px;">
-          <div>
-            <label for="problemWhere">הבעיה מתרחשת כאשר:</label>
-            <textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea>
-          </div>
-          <div>
-            <label for="problemWhy">הבעיה חשובה כי:</label>
-            <textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea>
-          </div>
+          <div><label for="problemWhere">הבעיה מתרחשת כאשר:</label><textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea></div>
+          <div><label for="problemWhy">הבעיה חשובה כי:</label><textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea></div>
         </div>
       </section>
 
@@ -517,15 +499,10 @@
         <textarea id="mustWork" class="short"></textarea>
       </section>
 
-      <section class="script-card" id="partC">
-        <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
-        <p class="subtext">השלימו את הטקסט. זה יהיה הבסיס למה שתגידו במפגש.</p>
-        <div class="ready-script" id="autoScript"></div>
-      </section>
-
       <section class="summary-card" id="summary">
-        <h2>סיכום</h2>
-        <p class="subtext">אנחנו מגיעים למפגש עם אנשי אסם כדי להציג את הרעיון שלנו בצורה ברורה, לקבל משוב מקצועי ולדייק את המיזם לפני המשך הפיתוח.</p>
+        <div class="print-logo"><img src="/Premium/images/logo.png" alt="לוגו תעשיידע"></div>
+        <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
+        <p class="subtext">זהו נוסח מסכם להצגה בפני אנשי אסם. זה גם החלק שיודפס ב־PDF.</p>
         <div class="summary-print-box" id="summaryPrintBox"></div>
       </section>
     </main>
@@ -542,34 +519,29 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'osemPresentationPreparation_pdfSummaryOnly_v1';
+      var STORAGE_KEY = 'osemPresentationPreparation_cleanFinal_v1';
       var NEW_LINE = String.fromCharCode(10);
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
-      var autoScript = document.getElementById('autoScript');
       var summaryPrintBox = document.getElementById('summaryPrintBox');
 
       function byId(id) { return document.getElementById(id); }
-
       function valueOf(id) {
         var field = byId(id);
         return field ? String(field.value || '').trim() : '';
       }
-
       function checked(id) {
         var field = byId(id);
         return field ? field.checked : false;
       }
-
       function topicText() {
         if (checked('qualitySafety')) return 'איכות ובטיחות';
         if (checked('quality')) return 'איכות';
         if (checked('safety')) return 'בטיחות';
         return 'איכות / בטיחות';
       }
-
       function buildScript() {
-        var teamName = valueOf('teamName') || '____________________________';
-        var ventureName = valueOf('ventureName') || valueOf('projectName') || '____________________________';
+        var teamMembers = valueOf('teamMembers') || '____________________________';
+        var ventureName = valueOf('ventureName') || '____________________________';
         var problem = valueOf('problem') || '____________________________';
         var problemWhy = valueOf('problemWhy') || '____________________________';
         var idea = valueOf('idea') || '____________________________';
@@ -581,10 +553,11 @@
         var foundOut = valueOf('foundOut') || '____________________________';
         var builtFrom = valueOf('builtFrom') || '____________________________';
         var mustWork = valueOf('mustWork') || '____________________________';
-
         return [
-          'שלום, אנחנו צוות ' + teamName + '.',
-          'המיזם שלנו נקרא ' + ventureName + '.',
+          'סיכום הצגה – מנטורינג תעשייתי אסם',
+          '',
+          'שמות התלמידים: ' + teamMembers,
+          'שם המיזם: ' + ventureName,
           '',
           'בחרנו לעסוק בבעיית ' + topicText() + ' שבה ' + problem + '.',
           'הבעיה חשובה כי ' + problemWhy + '.',
@@ -599,21 +572,9 @@
           'אנחנו מתכננים שהמוצר יהיה בנוי מ-' + builtFrom + '.',
           'הדבר שהכי חשוב שיעבוד בו הוא ' + mustWork + '.',
           '',
-          'נשמח לקבל מכם משוב מקצועי שיעזור לנו לדייק את הרעיון לקראת המשך הפיתוח.'
+          'נשמח לקבל מכם משוב מקצועי שיסייע לנו לדייק את הרעיון לקראת המשך הפיתוח.'
         ].join(NEW_LINE);
       }
-
-      function buildSummary() {
-        return [
-          'סיכום הצגה – מנטורינג תעשייתי אסם',
-          '',
-          buildScript(),
-          '',
-          'מטרת המפגש:',
-          'להציג את הרעיון בצורה ברורה, לקבל משוב מקצועי ולדייק את המיזם לפני המשך הפיתוח.'
-        ].join(NEW_LINE);
-      }
-
       function getData() {
         var data = {};
         fields.forEach(function (field) {
@@ -622,7 +583,6 @@
         });
         return data;
       }
-
       function setData(data) {
         fields.forEach(function (field) {
           if (!field.id || !(field.id in data)) return;
@@ -630,28 +590,22 @@
           else field.value = data[field.id];
         });
       }
-
       function updateScript() {
-        if (autoScript) autoScript.textContent = buildScript();
-        if (summaryPrintBox) summaryPrintBox.textContent = buildSummary();
+        if (summaryPrintBox) summaryPrintBox.textContent = buildScript();
       }
-
       function saveData() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getData())); } catch (error) {}
       }
-
       function loadData() {
         try {
           var raw = localStorage.getItem(STORAGE_KEY);
           if (raw) setData(JSON.parse(raw));
         } catch (error) {}
       }
-
       fields.forEach(function (field) {
         field.addEventListener('input', function () { updateScript(); saveData(); });
         field.addEventListener('change', function () { updateScript(); saveData(); });
       });
-
       var clearBtn = byId('clearBtn');
       if (clearBtn) {
         clearBtn.addEventListener('click', function () {
@@ -664,10 +618,8 @@
           updateScript();
         });
       }
-
       var printBtn = byId('printBtn');
       if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
-
       loadData();
       updateScript();
     })();
