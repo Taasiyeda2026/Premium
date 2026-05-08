@@ -414,6 +414,14 @@
     .method-box p { color: #52627a; font-size: 0.84rem; line-height: 1.42; font-weight: 600; }
     .mini-note { color: #65758e; font-size: 0.78rem; line-height: 1.35; font-weight: 600; }
 
+    .summary-value {
+      color: #0d3a76;
+      font-weight: 900;
+      background: rgba(53, 196, 232, 0.10);
+      border-radius: 6px;
+      padding: 0 4px;
+    }
+
     .choice { position: relative; }
     .choice input { position: absolute; opacity: 0; pointer-events: none; }
 
@@ -442,6 +450,38 @@
       box-shadow: 0 12px 20px rgba(23, 74, 124, 0.16);
       transform: translateY(-1px);
     }
+
+    .path-notice {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(246,167,66,0.16), rgba(255,255,255,0.86));
+      border: 1px solid rgba(246, 167, 66, 0.30);
+      color: #5c4720;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .product-path { display: none; }
+    .product-path.is-active { display: block; }
+
+    .requires-product { display: none; }
+    .has-product-type .requires-product { display: block; }
+    .product-path + .product-path { margin-top: 10px; }
+
+    .path-title {
+      margin-bottom: 10px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      color: #123b64;
+      font-size: 0.98rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+    }
+
+    .path-title.physical { border-right: 5px solid #3cc58f; }
+    .path-title.digital { border-right: 5px solid #1e66a8; }
 
     .summary-panel {
       position: relative;
@@ -576,93 +616,158 @@
       </section>
 
       <section class="tool" id="tool1" data-required="productName,productType,problemText,targetAudience,productReason">
-        <div class="tool-head"><div><div class="phase-label">חלק חובה | לכל הצוותים</div><h3>1 — כיוון מוצרי ראשון</h3><p class="tool-subtitle">מתחילים בקטן: בוחרים מה הכי מתאים, משלימים כמה מילים ובונים משפט צוות ראשון.</p></div><div class="tool-num">1</div></div>
-        <div class="method-row"><div class="method-box"><strong>מה עושים כאן?</strong><p>כותבים את המוצר במילים פשוטות, בלי ניסוח מושלם ובלי להיכנס עדיין לכל הפרטים.</p></div><div class="method-box"><strong>מה חשוב?</strong><p>שיהיה ברור למה המוצר שווה פיתוח ומה הבעיה שהוא אמור לפתור.</p></div></div>
+        <div class="tool-head"><div><div class="phase-label">חלק חובה | לכל הצוותים</div><h3>כיוון מוצרי ראשון</h3><p class="tool-subtitle">נסחו בסיס קצר וברור למוצר: מה מפתחים, למי זה מיועד ובאיזה מצב הוא אמור לעזור.</p></div><div class="tool-num">1</div></div>
         <div class="tool-grid">
           <div class="field"><label for="productName">המוצר שלנו הוא...</label><input id="productName" type="text" placeholder="לדוגמה: סוגר חכם לאריזה / אפליקציית תזכורות / כלי מדידה פשוט"></div>
-          <div class="field"><label for="productType">איזה סוג מוצר זה?</label><select id="productType"><option value="">בחרו סוג מוצר</option><option>מוצר פיזי</option><option>מוצר דיגיטלי</option><option>מוצר משולב</option><option>עדיין לא בטוחים</option></select></div>
+          <div class="field"><label for="productType">איזה סוג מוצר זה?</label><select id="productType"><option value="">בחרו סוג מוצר</option><option>מוצר פיזי</option><option>מוצר דיגיטלי</option></select></div>
           <div class="field"><label for="problemText">הוא עוזר במצב שבו...</label><textarea id="problemText" class="short" placeholder="במילים שלנו, הבעיה היא..."></textarea></div>
           <div class="field"><label for="targetAudience">מי שצריך את זה הוא...</label><textarea id="targetAudience" class="short" placeholder="קהל היעד המרכזי שלנו הוא..."></textarea></div>
           <div class="field"><label for="usePlace">משתמשים בו ב־...</label><textarea id="usePlace" class="short" placeholder="המקום או המצב שבו זה קורה..."></textarea></div>
           <div class="field"><label for="productReason">המוצר הזה חשוב כי...</label><textarea id="productReason" class="short" placeholder="הסיבה שהמוצר שווה פיתוח היא..."></textarea></div>
-          <div class="field span-2"><label for="teamSentence">משפט צוות</label><textarea id="teamSentence" class="short" placeholder="אנחנו מפתחים את _____ כדי לעזור ל־_____ במצב שבו _____ באמצעות מוצר ש־_____."></textarea></div>
+          <div class="field span-2"><label for="teamSentence">משפט צוות אוטומטי</label><textarea id="teamSentence" class="short" placeholder="המשפט יתמלא אוטומטית לפי התשובות שלכם"></textarea></div>
         </div>
       </section>
 
-      <section class="tool" id="tool2" data-required="coreAction,productShape,firstVersion">
-        <div class="tool-head"><div><div class="phase-label">חלק חובה | התאמה לסוג מוצר</div><h3>2 — מה המוצר עושה?</h3><p class="tool-subtitle">כאן מגדירים את הפעולה המרכזית של המוצר. זו הליבה שתלווה אותנו בעץ המוצר, בזרימה ובחיכוך.</p></div><div class="tool-num">2</div></div>
-        <div class="choice-grid" style="margin-bottom:8px;">
-          <div class="choice"><input type="radio" name="mainAction" id="act1" value="שומר"><label for="act1">שומר / מגן</label></div>
-          <div class="choice"><input type="radio" name="mainAction" id="act2" value="מסמן"><label for="act2">מסמן / מודד</label></div>
-          <div class="choice"><input type="radio" name="mainAction" id="act3" value="מתריע"><label for="act3">מתריע / ממליץ</label></div>
+      <section class="tool requires-product" id="tool2" data-required="coreAction,firstVersion">
+        <div class="tool-head"><div><div class="phase-label">חלק חובה | התאמה לסוג מוצר</div><h3>מה המוצר עושה?</h3><p class="tool-subtitle">לאחר בחירת סוג המוצר, מלאו רק את השדות שנפתחים עבורו.</p></div><div class="tool-num">2</div></div>
+        <div class="path-notice" id="pathNotice">בחרו למעלה את סוג המוצר כדי לפתוח את השדות המתאימים.</div>
+
+        <div class="product-path" data-path="physical">
+          <div class="path-title physical">מסלול מוצר פיזי — מה מחזיקים, מפעילים או בונים?</div>
+          <div class="choice-grid" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="mainAction" id="act1" value="שומר"><label for="act1">שומר / מגן</label></div>
+            <div class="choice"><input type="radio" name="mainAction" id="act2" value="מסמן"><label for="act2">מסמן / מודד</label></div>
+            <div class="choice"><input type="radio" name="mainAction" id="act3" value="מחזיק"><label for="act3">מחזיק / מארגן</label></div>
+          </div>
+          <div class="tool-grid">
+            <div class="field"><label for="coreAction">הפעולה המרכזית היא...</label><textarea id="coreAction" class="short" placeholder="המוצר שלנו _____ את / על / עבור _____ כדי ש־_____."></textarea></div>
+            <div class="field"><label for="firstVersion">מה חייב לעבוד בדגם הראשון?</label><textarea id="firstVersion" class="short" placeholder="החלק / המנגנון / הסימון שחייבים לפתח קודם"></textarea></div>
+            <div class="field"><label for="productShape">איך המוצר נראה בערך?</label><textarea id="productShape" class="short" placeholder="צורה, גודל, חלקים, חומר או סימון מרכזי"></textarea></div>
+            <div class="field"><label for="physicalUse">איך מחזיקים או מפעילים אותו?</label><textarea id="physicalUse" class="short" placeholder="ביד, על משטח, בתוך אריזה, מחובר למשהו..."></textarea></div>
+          </div>
         </div>
-        <div class="tool-grid">
-          <div class="field"><label for="coreAction">הפעולה המרכזית היא...</label><textarea id="coreAction" class="short" placeholder="המוצר שלנו _____ כדי ש־_____."></textarea></div>
-          <div class="field"><label for="firstVersion">מה חייב לעבוד בגרסה הראשונה?</label><textarea id="firstVersion" class="short" placeholder="החלק / המסך / הפעולה שחייבים לעבוד"></textarea></div>
-          <div class="field"><label for="productShape">אם זה מוצר פיזי — איך הוא נראה בערך?</label><textarea id="productShape" class="short" placeholder="צורה, גודל, חלקים, חומר או סימון מרכזי"></textarea></div>
-          <div class="field"><label for="digitalShape">אם זה מוצר דיגיטלי — מה המסכים או הפעולות המרכזיים?</label><textarea id="digitalShape" class="short" placeholder="מסך פתיחה, שאלון, תוצאה, התראה, המלצה..."></textarea></div>
+
+        <div class="product-path" data-path="digital">
+          <div class="path-title digital">מסלול מוצר דיגיטלי — מה רואים במסך ומה המשתמש עושה?</div>
+          <div class="choice-grid" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="digitalAction" id="dig1" value="שואל"><label for="dig1">שואל / אוסף מידע</label></div>
+            <div class="choice"><input type="radio" name="digitalAction" id="dig2" value="מציג"><label for="dig2">מציג תוצאה</label></div>
+            <div class="choice"><input type="radio" name="digitalAction" id="dig3" value="מתריע"><label for="dig3">מתריע / ממליץ</label></div>
+          </div>
+          <div class="tool-grid">
+            <div class="field"><label for="digitalCoreAction">הפעולה המרכזית במערכת היא...</label><textarea id="digitalCoreAction" class="short" placeholder="המערכת שלנו _____ עבור המשתמש כדי ש־_____."></textarea></div>
+            <div class="field"><label for="digitalFirstVersion">מה חייב לעבוד בגרסה הראשונה?</label><textarea id="digitalFirstVersion" class="short" placeholder="המסך / הפעולה / התוצאה שחייבים לפתח קודם"></textarea></div>
+            <div class="field"><label for="digitalShape">מהם המסכים או הפעולות המרכזיים?</label><textarea id="digitalShape" class="short" placeholder="מסך פתיחה, שאלון, תוצאה, התראה, המלצה..."></textarea></div>
+            <div class="field"><label for="digitalOutput">מה המשתמש מקבל בסוף?</label><textarea id="digitalOutput" class="short" placeholder="המלצה, תוצאה, התראה, סיכום, פעולה מוצעת..."></textarea></div>
+          </div>
         </div>
       </section>
 
-      <section class="phase-divider phase-tree" id="tree">
+      <section class="phase-divider phase-tree requires-product" id="tree">
         <h2>שלב 1 — עץ מוצר / עץ מערכת</h2>
-        <p>עכשיו עוברים מהכיוון הכללי למבנה. עץ מוצר עוזר להבין מה הליבה, מה תומך בה ומה הערך שמתקבל בסוף.</p>
+        <p>עכשיו עוברים מהכיוון הכללי למבנה. עץ מוצר עוזר להבין מה הליבה של המוצר ומהם החלקים או המסכים שתומכים בה.</p>
       </section>
 
-      <section class="tool phase-tree" id="tool3" data-required="treeCore,treeBranch1,treeFruit">
-        <div class="tool-head"><div><div class="phase-label">עץ מוצר | ליבה, תמיכה וערך</div><h3>3 — בונים עץ מוצר</h3><p class="tool-subtitle">הגזע הוא מה שחייב לעבוד. הענפים הם החלקים, המסכים או הפעולות שעוזרים לו. הפירות הם הערך למשתמש.</p></div><div class="tool-num">3</div></div>
-        <div class="method-row"><div class="method-box"><strong>במוצר פיזי</strong><p>הענפים יכולים להיות חלקים, חומרים, צורה, גודל, סימון, ידית, מכסה או מנגנון.</p></div><div class="method-box"><strong>במוצר דיגיטלי</strong><p>הענפים יכולים להיות מסכים, כפתורים, שאלון, מידע שנכנס, תוצאה או התראה.</p></div></div>
-        <div class="tool-grid">
-          <div class="field span-2"><label for="treeCore">הגזע — מה חייב לעבוד?</label><textarea id="treeCore" class="short" placeholder="הגזע של המוצר / המערכת הוא _____, כי בלי זה המוצר לא יוכל _____."></textarea></div>
-          <div class="field"><label for="treeBranch1">ענף 1</label><textarea id="treeBranch1" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
-          <div class="field"><label for="treeBranch2">ענף 2</label><textarea id="treeBranch2" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
-          <div class="field"><label for="treeBranch3">ענף 3</label><textarea id="treeBranch3" class="short" placeholder="החלק / המסך _____ עוזר בכך שהוא _____"></textarea></div>
-          <div class="field"><label for="treeBranch4">ענף נוסף, אם צריך</label><textarea id="treeBranch4" class="short" placeholder="לא חובה"></textarea></div>
-          <div class="field span-2"><label for="treeFruit">הפירות — מה הערך שמתקבל בסוף?</label><textarea id="treeFruit" class="short" placeholder="בסוף השימוש, קהל היעד מקבל _____ כי המוצר / המערכת _____."></textarea></div>
+      <section class="tool phase-tree requires-product" id="tool3" data-required="treeCore,treeBranch1,treeFruit">
+        <div class="tool-head"><div><div class="phase-label">עץ מוצר | ליבה וחלקים תומכים</div><h3>בונים עץ מוצר / עץ מערכת</h3><p class="tool-subtitle">במוצר פיזי חושבים על חלקים ומבנה. במוצר דיגיטלי חושבים על מסכים, מידע ופעולות.</p></div><div class="tool-num">3</div></div>
+
+        <div class="product-path" data-path="physical">
+          <div class="path-title physical">עץ מוצר פיזי</div>
+          <div class="tool-grid">
+            <div class="field span-2"><label for="treeCore">הגזע — מה חייב לעבוד?</label><textarea id="treeCore" class="short" placeholder="הגזע של המוצר הוא _____, כי בלי זה המוצר לא יוכל _____."></textarea></div>
+            <div class="field"><label for="treeBranch1">ענף 1 — חלק פיזי</label><textarea id="treeBranch1" class="short" placeholder="החלק _____ עוזר בכך שהוא _____"></textarea></div>
+            <div class="field"><label for="treeBranch2">ענף 2 — חלק פיזי</label><textarea id="treeBranch2" class="short" placeholder="החלק _____ עוזר בכך שהוא _____"></textarea></div>
+            <div class="field"><label for="treeBranch3">ענף 3 — חלק פיזי</label><textarea id="treeBranch3" class="short" placeholder="החלק _____ עוזר בכך שהוא _____"></textarea></div>
+            <div class="field"><label for="treeBranch4">ענף נוסף, אם צריך</label><textarea id="treeBranch4" class="short" placeholder="לא חובה"></textarea></div>
+            <div class="field span-2"><label for="treeFruit">הפירות — מה התוצאה הרצויה?</label><textarea id="treeFruit" class="short" placeholder="בסוף השימוש, קהל היעד מצליח ל־_____ כי המוצר _____."></textarea></div>
+          </div>
+        </div>
+
+        <div class="product-path" data-path="digital">
+          <div class="path-title digital">עץ מערכת דיגיטלית</div>
+          <div class="method-row"><div class="method-box"><strong>הגזע</strong><p>הפעולה הדיגיטלית שחייבת לעבוד כדי שהמערכת תיתן ערך.</p></div><div class="method-box"><strong>הענפים</strong><p>מסכים, כפתורים, שאלון, מידע שנכנס, תוצאה, המלצה או התראה.</p></div></div>
+          <div class="tool-grid">
+            <div class="field span-2"><label for="digitalTreeCore">הגזע — מה חייב לעבוד במערכת?</label><textarea id="digitalTreeCore" class="short" placeholder="הגזע של המערכת הוא _____, כי בלי זה המערכת לא תוכל _____."></textarea></div>
+            <div class="field"><label for="digitalTreeBranch1">ענף 1 — מסך או פעולה</label><textarea id="digitalTreeBranch1" class="short" placeholder="המסך / הפעולה _____ עוזר/ת בכך ש־_____"></textarea></div>
+            <div class="field"><label for="digitalTreeBranch2">ענף 2 — מסך או פעולה</label><textarea id="digitalTreeBranch2" class="short" placeholder="המסך / הפעולה _____ עוזר/ת בכך ש־_____"></textarea></div>
+            <div class="field"><label for="digitalTreeBranch3">ענף 3 — מסך או פעולה</label><textarea id="digitalTreeBranch3" class="short" placeholder="המסך / הפעולה _____ עוזר/ת בכך ש־_____"></textarea></div>
+            <div class="field"><label for="digitalTreeBranch4">ענף נוסף, אם צריך</label><textarea id="digitalTreeBranch4" class="short" placeholder="לא חובה"></textarea></div>
+            <div class="field span-2"><label for="digitalTreeFruit">הפירות — מה התוצאה הרצויה?</label><textarea id="digitalTreeFruit" class="short" placeholder="בסוף השימוש, קהל היעד מצליח ל־_____ כי המערכת _____."></textarea></div>
+          </div>
         </div>
       </section>
 
-      <section class="phase-divider phase-flow" id="flow">
+      <section class="phase-divider phase-flow requires-product" id="flow">
         <h2>שלב 2 — זרימת שימוש</h2>
-        <p>אחרי שהבנו ממה המוצר בנוי, בודקים איך משתמשים בו בפועל. הזרימה מתארת את הדרך מהרגע שפוגשים את הבעיה ועד שמקבלים ערך.</p>
+        <p>אחרי שהבנו ממה המוצר בנוי, בודקים איך משתמשים בו בפועל. הזרימה מתארת את רצף הפעולות של המשתמש.</p>
       </section>
 
-      <section class="tool phase-flow" id="tool4" data-required="flow1,flow3,flow5">
-        <div class="tool-head"><div><div class="phase-label">זרימת שימוש | צעד אחר צעד</div><h3>4 — מה המשתמש עושה?</h3><p class="tool-subtitle">כתבו 5 שלבים קצרים וברורים. אם יש יותר מדי שלבים או שהשימוש לא ברור — זה סימן שצריך לפשט.</p></div><div class="tool-num">4</div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="flow1">שלב 1 — פוגשים את הבעיה</label><textarea id="flow1" class="short" placeholder="הבעיה מופיעה כאשר..."></textarea></div>
-          <div class="field"><label for="flow2">שלב 2 — ניגשים למוצר / נכנסים למערכת</label><textarea id="flow2" class="short" placeholder="לוקחים / פותחים / נכנסים / בוחרים..."></textarea></div>
-          <div class="field"><label for="flow3">שלב 3 — מבצעים פעולה</label><textarea id="flow3" class="short" placeholder="מה המשתמש עושה?"></textarea></div>
-          <div class="field"><label for="flow4">שלב 4 — המוצר / המערכת מגיבים</label><textarea id="flow4" class="short" placeholder="המוצר מסמן / שומר / מציג / מתריע..."></textarea></div>
-          <div class="field span-2"><label for="flow5">שלב 5 — מקבלים ערך</label><textarea id="flow5" class="short" placeholder="בסוף המשתמש מקבל..."></textarea></div>
-          <div class="field span-2"><label for="flowSentence">משפט זרימה מסכם</label><textarea id="flowSentence" class="short" placeholder="כאשר _____, משתמשים במוצר כך: _____. לאחר מכן _____. המוצר עוזר בכך שהוא _____. בסוף מקבלים _____."></textarea></div>
+      <section class="tool phase-flow requires-product" id="tool4" data-required="flow1,flow3,flow5">
+        <div class="tool-head"><div><div class="phase-label">זרימת שימוש | צעד אחר צעד</div><h3>4 — מה המשתמש עושה?</h3><p class="tool-subtitle">מוצר פיזי ומוצר דיגיטלי עובדים אחרת. בחרו את המסלול שמתאים למוצר שלכם.</p></div><div class="tool-num">4</div></div>
+
+        <div class="product-path" data-path="physical">
+          <div class="path-title physical">זרימת שימוש במוצר פיזי</div>
+          <div class="tool-grid">
+            <div class="field"><label for="flow1">שלב 1 — פוגשים את הבעיה</label><textarea id="flow1" class="short" placeholder="הבעיה מופיעה כאשר..."></textarea></div>
+            <div class="field"><label for="flow2">שלב 2 — ניגשים למוצר</label><textarea id="flow2" class="short" placeholder="לוקחים / מניחים / פותחים / מחברים..."></textarea></div>
+            <div class="field"><label for="flow3">שלב 3 — מבצעים פעולה פיזית</label><textarea id="flow3" class="short" placeholder="מה המשתמש עושה עם המוצר?"></textarea></div>
+            <div class="field"><label for="flow4">שלב 4 — המוצר עוזר</label><textarea id="flow4" class="short" placeholder="המוצר שומר / מסמן / מודד / מארגן..."></textarea></div>
+            <div class="field span-2"><label for="flow5">שלב 5 — מה קורה בסוף השימוש?</label><textarea id="flow5" class="short" placeholder="בסוף השימוש קורה ש..."></textarea></div>
+            <div class="field span-2"><label for="flowSentence">משפט זרימה מסכם</label><textarea id="flowSentence" class="short" placeholder="המשפט יתמלא אוטומטית לפי שלבי הזרימה שלכם"></textarea></div>
+          </div>
+        </div>
+
+        <div class="product-path" data-path="digital">
+          <div class="path-title digital">זרימת שימוש במוצר דיגיטלי</div>
+          <div class="tool-grid">
+            <div class="field"><label for="digitalFlow1">שלב 1 — פוגשים את הבעיה</label><textarea id="digitalFlow1" class="short" placeholder="הבעיה מופיעה כאשר..."></textarea></div>
+            <div class="field"><label for="digitalFlow2">שלב 2 — נכנסים למערכת</label><textarea id="digitalFlow2" class="short" placeholder="נכנסים לאפליקציה / אתר / שאלון / מסך מידע..."></textarea></div>
+            <div class="field"><label for="digitalFlow3">שלב 3 — מבצעים פעולה דיגיטלית</label><textarea id="digitalFlow3" class="short" placeholder="לוחצים / בוחרים / עונים / מזינים מידע..."></textarea></div>
+            <div class="field"><label for="digitalFlow4">שלב 4 — המערכת מגיבה</label><textarea id="digitalFlow4" class="short" placeholder="מציגה מידע / נותנת המלצה / שולחת התראה..."></textarea></div>
+            <div class="field span-2"><label for="digitalFlow5">שלב 5 — מה קורה בסוף השימוש?</label><textarea id="digitalFlow5" class="short" placeholder="בסוף השימוש קורה ש..."></textarea></div>
+            <div class="field span-2"><label for="digitalFlowSentence">משפט זרימה מסכם</label><textarea id="digitalFlowSentence" class="short" placeholder="המשפט יתמלא אוטומטית לפי שלבי הזרימה שלכם"></textarea></div>
+          </div>
         </div>
       </section>
 
-      <section class="phase-divider phase-friction" id="friction">
+      <section class="phase-divider phase-friction requires-product" id="friction">
         <h2>שלב 3 — חיכוך ושיפור</h2>
         <p>עכשיו בודקים איפה השימוש עלול להסתבך. למצוא חיכוך זה לא כישלון — זה סימן שאתם חושבים כמו מפתחי מוצר.</p>
       </section>
 
-      <section class="tool phase-friction" id="tool5" data-required="frictionPoint,frictionImprove">
+      <section class="tool phase-friction requires-product" id="tool5" data-required="frictionPoint,frictionImprove">
         <div class="tool-head"><div><div class="phase-label">חיכוך | מה צריך לשפר?</div><h3>5 — נקודת חיכוך אחת</h3><p class="tool-subtitle">בחרו נקודת חיכוך אחת שהכי חשוב לשפר לפני שמתקדמים לאבטיפוס או להמחשה ראשונית.</p></div><div class="tool-num">5</div></div>
-        <div class="method-row"><div class="method-box"><strong>במוצר פיזי</strong><p>בדקו נוחות, גודל, שבירה, פתיחה וסגירה, סימון לא ברור או יותר מדי פעולות.</p></div><div class="method-box"><strong>במוצר דיגיטלי</strong><p>בדקו מסך עמוס, יותר מדי שאלות, כפתור לא ברור, תוצאה כללית מדי או פעולה מסובכת.</p></div></div>
-        <div class="tool-grid">
-          <div class="field"><label for="frictionPoint">מתי השימוש מסתבך?</label><textarea id="frictionPoint" placeholder="השימוש עלול להסתבך כאשר..."></textarea></div>
-          <div class="field"><label for="frictionReason">למה זה בעייתי?</label><textarea id="frictionReason" placeholder="זה עלול להפריע כי..."></textarea></div>
-          <div class="field span-2"><label for="frictionImprove">מה נרצה לשפר?</label><textarea id="frictionImprove" class="short" placeholder="כדי לשפר, נרצה..."></textarea></div>
+
+        <div class="product-path" data-path="physical">
+          <div class="path-title physical">חיכוך במוצר פיזי</div>
+          <div class="method-row"><div class="method-box"><strong>בדקו</strong><p>נוחות, גודל, שבירה, פתיחה וסגירה, סימון לא ברור או יותר מדי פעולות.</p></div><div class="method-box"><strong>מטרה</strong><p>לזהות מה עלול להפריע למשתמש בזמן שימוש אמיתי במוצר.</p></div></div>
+          <div class="tool-grid">
+            <div class="field"><label for="frictionPoint">מתי השימוש מסתבך?</label><textarea id="frictionPoint" placeholder="השימוש עלול להסתבך כאשר..."></textarea></div>
+            <div class="field"><label for="frictionReason">למה זה בעייתי?</label><textarea id="frictionReason" placeholder="זה עלול להפריע כי..."></textarea></div>
+            <div class="field span-2"><label for="frictionImprove">מה נרצה לשפר?</label><textarea id="frictionImprove" class="short" placeholder="כדי לשפר, נרצה..."></textarea></div>
+          </div>
+        </div>
+
+        <div class="product-path" data-path="digital">
+          <div class="path-title digital">חיכוך במוצר דיגיטלי</div>
+          <div class="method-row"><div class="method-box"><strong>בדקו</strong><p>מסך עמוס, יותר מדי שאלות, כפתור לא ברור, תוצאה כללית מדי או פעולה מסובכת.</p></div><div class="method-box"><strong>מטרה</strong><p>לזהות איפה המשתמש עלול להתבלבל, להיתקע או לא להבין מה לעשות.</p></div></div>
+          <div class="tool-grid">
+            <div class="field"><label for="digitalFrictionPoint">מתי השימוש מסתבך?</label><textarea id="digitalFrictionPoint" placeholder="השימוש עלול להסתבך כאשר..."></textarea></div>
+            <div class="field"><label for="digitalFrictionReason">למה זה בעייתי?</label><textarea id="digitalFrictionReason" placeholder="זה עלול להפריע כי..."></textarea></div>
+            <div class="field span-2"><label for="digitalFrictionImprove">מה נרצה לשפר?</label><textarea id="digitalFrictionImprove" class="short" placeholder="כדי לשפר, נרצה..."></textarea></div>
+          </div>
         </div>
       </section>
     </main>
 
-    <section class="summary-panel">
+    <section class="summary-panel requires-product">
       <h2>סיכום האפיון</h2>
       <div class="summary-grid">
-        <div class="summary-box"><strong>כיוון מוצרי</strong><div id="sumDirection" class="mini-note">עדיין לא הושלם.</div></div>
-        <div class="summary-box"><strong>עץ מוצר</strong><div id="sumTree" class="mini-note">עדיין לא הושלם.</div></div>
-        <div class="summary-box"><strong>זרימה וחיכוך</strong><div id="sumFlow" class="mini-note">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>כיוון מוצרי</strong><div id="sumDirection" class="mini-note summary-value">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>עץ מוצר</strong><div id="sumTree" class="mini-note summary-value">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>זרימה וחיכוך</strong><div id="sumFlow" class="mini-note summary-value">עדיין לא הושלם.</div></div>
       </div>
-      <div class="print-summary" style="margin-top:8px;"><strong>משפט סיכום לצוות:</strong><div id="finalSummary" class="summary-text">לאחר מילוי הדף יופיע כאן סיכום קצר של האפיון.</div></div>
+      <div class="print-summary" style="margin-top:8px;"><strong>משפט סיכום לצוות:</strong><div id="finalSummary" class="summary-text summary-value">לאחר מילוי הדף יופיע כאן סיכום קצר של האפיון.</div></div>
     </section>
 
     <section class="action-panel">
@@ -716,63 +821,68 @@
         } catch (error) { console.error(error); }
       }
 
+      function getProductMode() {
+        const type = valueOf('productType');
+        if (type === 'מוצר פיזי') return 'physical';
+        if (type === 'מוצר דיגיטלי') return 'digital';
+        return '';
+      }
+
+      function activeValue(physicalId, digitalId, fallback) {
+        const mode = getProductMode();
+        if (mode === 'digital') return valueOf(digitalId) || fallback || '';
+        if (mode === 'physical') return valueOf(physicalId) || fallback || '';
+        return fallback || '';
+      }
+
+      function updateProductPaths() {
+        const mode = getProductMode();
+        const page = document.querySelector('.page');
+        const notice = byId('pathNotice');
+        if (page) page.classList.toggle('has-product-type', Boolean(mode));
+        document.querySelectorAll('.product-path').forEach((path) => {
+          const pathType = path.dataset.path;
+          path.classList.toggle('is-active', mode === pathType);
+        });
+        if (notice) notice.style.display = mode ? 'none' : 'block';
+      }
+
       function updateDerivedContent() {
-        const productName = valueOf('productName') || 'המוצר שלנו';
-        const productType = valueOf('productType') || 'סוג מוצר לא הוגדר';
-        const problemText = valueOf('problemText') || 'בעיה עדיין לא הוגדרה';
-        const targetAudience = valueOf('targetAudience') || 'קהל יעד עדיין לא הוגדר';
-        const coreAction = valueOf('coreAction') || 'פעולה מרכזית עדיין לא הוגדרה';
-        const treeCore = valueOf('treeCore') || 'גזע עדיין לא הוגדר';
-        const treeFruit = valueOf('treeFruit') || 'ערך עדיין לא הוגדר';
-        const flow1 = valueOf('flow1') || 'תחילת שימוש לא הוגדרה';
-        const flow5 = valueOf('flow5') || 'ערך סופי לא הוגדר';
-        const frictionPoint = valueOf('frictionPoint') || 'חיכוך עדיין לא הוגדר';
-        const frictionImprove = valueOf('frictionImprove') || 'שיפור עדיין לא הוגדר';
+        updateProductPaths();
+        const productName = valueOf('productName') || '__________';
+        const productType = valueOf('productType') || '__________';
+        const problemText = valueOf('problemText') || '__________';
+        const targetAudience = valueOf('targetAudience') || '__________';
+        const usePlace = valueOf('usePlace') || '__________';
+        const coreAction = activeValue('coreAction', 'digitalCoreAction', '__________');
+        const treeCore = activeValue('treeCore', 'digitalTreeCore', '__________');
+        const treeFruit = activeValue('treeFruit', 'digitalTreeFruit', '__________');
+        const flow1 = activeValue('flow1', 'digitalFlow1', '__________');
+        const flow2 = activeValue('flow2', 'digitalFlow2', '__________');
+        const flow3 = activeValue('flow3', 'digitalFlow3', '__________');
+        const flow4 = activeValue('flow4', 'digitalFlow4', '__________');
+        const flow5 = activeValue('flow5', 'digitalFlow5', '__________');
+        const frictionPoint = activeValue('frictionPoint', 'digitalFrictionPoint', '__________');
+        const frictionImprove = activeValue('frictionImprove', 'digitalFrictionImprove', '__________');
 
-        setText('sumDirection', `${productName} | ${productType}\n${problemText}\nקהל היעד: ${targetAudience}`);
-        setText('sumTree', `${treeCore}\n${treeFruit}`);
-        setText('sumFlow', `התחלה: ${flow1}\nסוף: ${flow5}\nחיכוך: ${frictionPoint}`);
+        const teamSentence = byId('teamSentence');
+        if (teamSentence && !teamSentence.matches(':focus')) {
+          teamSentence.value = `אנחנו מפתחים את ${productName} כדי לעזור ל־${targetAudience} במצב שבו ${problemText}.`;
+        }
 
-        setText('finalSummary', `אנחנו מאפיינים את ${productName}, ${productType}, שמיועד ל־${targetAudience}. הוא עוזר במצב שבו ${problemText}. הפעולה המרכזית שלו היא ${coreAction}. בעץ המוצר הגזע הוא: ${treeCore}. בזרימת השימוש המשתמש מתחיל מ־${flow1} ובסוף מקבל: ${flow5}. נקודת החיכוך המרכזית היא ${frictionPoint} ובהמשך נרצה לשפר את ${frictionImprove}.`);
-        updateNavCompletion();
-      }
+        const flowSentence = byId('flowSentence');
+        if (flowSentence && !flowSentence.matches(':focus')) {
+          flowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המוצר ${flow4}. בסוף ${flow5}.`;
+        }
 
-      function updateNavCompletion() {
-        const tools = Array.from(document.querySelectorAll('.tool[data-required]'));
-        const completion = [
-          ['productName', 'productType', 'problemText', 'targetAudience', 'productReason'],
-          ['treeCore', 'treeBranch1', 'treeFruit'],
-          ['flow1', 'flow3', 'flow5'],
-          ['frictionPoint', 'frictionImprove']
-        ];
-        completion.forEach((ids, index) => {
-          const complete = ids.every((id) => valueOf(id));
-          const nav = document.querySelector(`.nav-step[data-step="${index + 1}"]`);
-          if (nav) nav.classList.toggle('is-complete', complete);
-        });
-      }
+        const digitalFlowSentence = byId('digitalFlowSentence');
+        if (digitalFlowSentence && !digitalFlowSentence.matches(':focus')) {
+          digitalFlowSentence.value = `כאשר ${flow1}, המשתמש ${flow2}. לאחר מכן ${flow3}. המערכת ${flow4}. בסוף ${flow5}.`;
+        }
 
-      fields.forEach((field) => {
-        field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
-        field.addEventListener('change', () => { updateDerivedContent(); saveData(); });
-      });
-
-      byId('clearBtn').addEventListener('click', () => {
-        if (!confirm('לנקות את כל דף האפיון?')) return;
-        fields.forEach((field) => {
-          if (field.type === 'radio') field.checked = false;
-          else field.value = '';
-        });
-        localStorage.removeItem(STORAGE_KEY);
-        updateDerivedContent();
-        saveData('הדף נוקה.');
-      });
-
-      byId('printBtn').addEventListener('click', () => window.print());
-
-      loadData();
-      updateDerivedContent();
-    })();
-  </script>
-</body>
-</html>
+        setText('sumDirection', `${productName} | ${productType}
+בעיה: ${problemText}
+קהל יעד: ${targetAudience}
+הקשר שימוש: ${usePlace}`);
+        setText('sumTree', `${treeCore}
+${treeFr
