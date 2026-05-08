@@ -193,7 +193,6 @@
 
     .intro-card,
     .section-card,
-    .script-card,
     .summary-card,
     .action-panel {
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
@@ -208,7 +207,6 @@
 
     .intro-card::before,
     .section-card::before,
-    .script-card::before,
     .summary-card::before {
       content: "";
       position: absolute;
@@ -224,7 +222,6 @@
 
     .intro-card,
     .section-card,
-    .script-card,
     .summary-card { padding: 15px; }
 
     h2 {
@@ -323,8 +320,6 @@
 
     .type-option input { width: auto; accent-color: var(--primary-2); }
 
-    .ready-script,
-    .check-box,
     .summary-print-box {
       white-space: normal;
       border: 1px solid rgba(120, 170, 220, 0.34);
@@ -342,17 +337,19 @@
       font-weight: 500;
     }
 
-    .summary-spacer {
-      height: 8px;
-    }
+    .summary-spacer { height: 8px; }
 
     .summary-question {
+      font-family: "Assistant", Arial, sans-serif;
       font-weight: 900;
+      font-size: 1.06rem;
       color: #123b64;
     }
 
     .summary-answer {
+      font-family: "Assistant", Arial, sans-serif;
       font-weight: 500;
+      font-size: 0.96rem;
       color: #4f6078;
     }
 
@@ -372,23 +369,14 @@
 
     .product-path.is-active { display: block; }
 
-    .product-dependent {
-      display: none;
-    }
+    .product-dependent { display: none; }
+    .has-product-type .product-dependent { display: block; }
 
-    .has-product-type .product-dependent {
-      display: block;
-    }
-
-    .print-logo {
-      display: none;
-      text-align: center;
-      margin-bottom: 14px;
-    }
+    .print-logo { display: none; }
 
     .print-logo img {
-      width: 72px;
-      height: 72px;
+      width: 58px;
+      height: 58px;
       object-fit: contain;
     }
 
@@ -432,7 +420,7 @@
       .brand { flex-direction: column; }
       .nav { position: static; grid-template-columns: 1fr; }
       .team-grid, .two-grid, .three-grid { grid-template-columns: 1fr; }
-      .type-row { flex-direction: column; }
+      .type-row { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -450,7 +438,6 @@
       .nav,
       .intro-card,
       .section-card,
-      .script-card,
       .action-panel,
       .footer {
         display: none !important;
@@ -471,24 +458,34 @@
       }
 
       .page::before,
-      .summary-card::before {
-        display: none !important;
+      .summary-card::before { display: none !important; }
+
+      .summary-card {
+        position: relative !important;
       }
 
       .print-logo {
         display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        z-index: 2;
+      }
+
+      .print-logo img {
+        width: 52px;
+        height: 52px;
       }
 
       .summary-card h2 {
         color: #123b64;
         font-size: 1.6rem;
         margin-bottom: 10px;
-      }
-
-      .summary-card .subtext {
-        color: #333333;
-        font-size: 1rem;
-        line-height: 1.7;
+        padding-left: 66px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
       }
 
       #summaryPrintBox {
@@ -499,11 +496,15 @@
       }
 
       .summary-question {
+        font-family: "Assistant", Arial, sans-serif;
         font-weight: 900;
+        font-size: 1.08rem;
       }
 
       .summary-answer {
+        font-family: "Assistant", Arial, sans-serif;
         font-weight: 500;
+        font-size: 0.98rem;
       }
     }
   </style>
@@ -534,7 +535,7 @@
     <main class="content">
       <section class="intro-card">
         <h2>מטרת הדף</h2>
-        <p class="subtext">להכין את הקבוצה להצגה קצרה וברורה בפני אנשי מארוול. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, מה סוג המוצר, איך הוא אמור לעבוד ומה נרצה לדייק בעזרת המשוב.</p>
+        <p class="subtext">להכין את הקבוצה להצגה קצרה וברורה בפני אנשי מארוול. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, מה סוג המוצר ואיך הוא אמור לעבוד.</p>
         <div class="team-grid">
           <div>
             <label for="teamMembers">שמות חברי הקבוצה</label>
@@ -549,7 +550,7 @@
 
       <section class="section-card" id="partA">
         <h2>מה אנחנו צריכים להציג?</h2>
-        <p class="subtext">במפגש נציג בקצרה את הבעיה, הרעיון, סוג המוצר, דרך הפעולה ומה נרצה לבדוק מול אנשי מארוול.</p>
+        <p class="subtext">במפגש נציג בקצרה את הבעיה, הרעיון, סוג המוצר, דרך הפעולה והשלבים הבאים אחרי המנטורינג.</p>
       </section>
 
       <section class="section-card">
@@ -678,20 +679,6 @@
         <textarea id="result" class="short" placeholder="פחות טעויות, יותר סדר, תהליך מהיר יותר, החלטה ברורה יותר, בטיחות או יעילות..."></textarea>
       </section>
 
-      <section class="section-card phase-c product-dependent">
-        <h3>6. מה נרצה לבדוק במנטורינג?</h3>
-        <div class="two-grid">
-          <div>
-            <label for="frictionPoint">מה עדיין לא ברור או עלול להסתבך?</label>
-            <textarea id="frictionPoint" class="short" placeholder="נקודת החיכוך היא..."></textarea>
-          </div>
-          <div>
-            <label for="mentorQuestion">שאלה אחת לאנשי מארוול:</label>
-            <textarea id="mentorQuestion" class="short" placeholder="נשמח לקבל משוב על..."></textarea>
-          </div>
-        </div>
-      </section>
-
       <section class="summary-card product-dependent" id="summary">
         <div class="print-logo"><img src="../images/logo.png" alt="לוגו תעשיידע"></div>
         <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
@@ -711,8 +698,7 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'marvellPresentationPreparation_printSummaryLogo_v1';
-      var NEW_LINE = String.fromCharCode(10);
+      var STORAGE_KEY = 'marvellPresentationPreparation_fullCorrected_v1';
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'));
       var summaryPrintBox = document.getElementById('summaryPrintBox');
 
@@ -831,7 +817,6 @@
         var step2 = valueOf('step2') || '____________________________';
         var step3 = valueOf('step3') || '____________________________';
         var result = valueOf('result') || '____________________________';
-        var mentorQuestion = valueOf('mentorQuestion') || '____________________________';
 
         return [
           summaryLine('שמות התלמידים:', teamMembers),
@@ -865,16 +850,11 @@
             digitalMustWork: digitalMustWork
           }),
           summarySpacer(),
-          summaryLine('תרחיש השימוש הוא:', step1 + ' מבצע/ת ' + step2 + ', והמוצר מחזיר או מאפשר ' + step3 + '.'),
+          summaryLine('תרחיש השימוש הוא:', step1 + ' מבצע/ת ' + step2 + ' והמוצר מחזיר או מאפשר ' + step3 + '.'),
           summaryLine('בעקבות השימוש משתפר:', result),
           summarySpacer(),
-          
-          summaryLine('השלבים הבאים:', 'אחרי המנטורינג נשתמש במשוב שנקבל כדי לשפר את הרעיון, לדייק את האפיון, להבין מה עדיין חסר או לא ברור ולהתקדם לשלב הבא: בניית אבטיפוס והדמיה מציאותית של המוצר, המערכת או האפליקציה באמצעות AI.')
+          summaryLine('השלבים הבאים:', 'אחרי המנטורינג נשתמש במשוב שנקבל כדי לשפר את הרעיון, לדייק את האפיון, להבין מה עדיין חסר או לא ברור ולהתקדם לשלב הבא: בניית אבטיפוס והדמיה מציאותית של המוצר המערכת או האפליקציה באמצעות AI.')
         ].join('');
-      }
-
-      function buildSummary() {
-        return buildScript();
       }
 
       function getData() {
@@ -896,7 +876,7 @@
 
       function updateScript() {
         updateProductPaths();
-        if (summaryPrintBox) summaryPrintBox.innerHTML = buildSummary();
+        if (summaryPrintBox) summaryPrintBox.innerHTML = buildScript();
       }
 
       function saveData() {
@@ -922,11 +902,8 @@
           event.stopPropagation();
 
           fields.forEach(function (field) {
-            if (field.type === 'checkbox' || field.type === 'radio') {
-              field.checked = false;
-            } else {
-              field.value = '';
-            }
+            if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
+            else field.value = '';
           });
 
           var typeNone = byId('typeNone');
