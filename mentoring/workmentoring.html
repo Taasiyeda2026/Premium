@@ -281,7 +281,7 @@
     .choice-option input { width: auto; accent-color: var(--red); }
 
     .summary-print-box {
-      white-space: pre-wrap;
+      white-space: normal;
       border: 1px solid rgba(195, 32, 38, 0.15);
       border-radius: 14px;
       background: #ffffff;
@@ -291,6 +291,25 @@
       font-size: 0.96rem;
       font-weight: 500;
       min-height: 190px;
+    }
+
+    .summary-line {
+      margin: 0 0 7px;
+      font-weight: 500;
+    }
+
+    .summary-spacer {
+      height: 8px;
+    }
+
+    .summary-question {
+      font-weight: 900;
+      color: var(--red-dark);
+    }
+
+    .summary-answer {
+      font-weight: 500;
+      color: var(--text);
     }
 
     .print-logo {
@@ -388,8 +407,9 @@
       .summary-card::before { display: none !important; }
       .print-logo { display: block !important; }
       .summary-card h2 { color: var(--red); font-size: 1.6rem; margin-bottom: 10px; }
-      .summary-card .subtext { color: #333333; font-size: 1rem; line-height: 1.7; }
-      .summary-print-box {   border: 1px solid #d9cbc2;   box-shadow: none;   min-height: 0;   font-weight: 500; }
+      .summary-print-box { border: 1px solid #d9cbc2; box-shadow: none; min-height: 0; font-weight: 500; }
+      .summary-question { font-weight: 900; }
+      .summary-answer { font-weight: 500; }
     }
   </style>
 </head>
@@ -518,26 +538,46 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'osemPresentationPreparation_cleanFinal_v1';
-      var NEW_LINE = String.fromCharCode(10);
+      var STORAGE_KEY = 'osemPresentationPreparation_cleanFinal_v2';
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
       var summaryPrintBox = document.getElementById('summaryPrintBox');
 
       function byId(id) { return document.getElementById(id); }
+
       function valueOf(id) {
         var field = byId(id);
         return field ? String(field.value || '').trim() : '';
       }
+
       function checked(id) {
         var field = byId(id);
         return field ? field.checked : false;
       }
+
       function topicText() {
         if (checked('qualitySafety')) return 'איכות ובטיחות';
         if (checked('quality')) return 'איכות';
         if (checked('safety')) return 'בטיחות';
         return 'איכות / בטיחות';
       }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function summaryLine(question, answer) {
+        return '<p class="summary-line"><span class="summary-question">' + escapeHtml(question) + '</span> <span class="summary-answer">' + escapeHtml(answer) + '</span></p>';
+      }
+
+      function summarySpacer() {
+        return '<div class="summary-spacer"></div>';
+      }
+
       function buildScript() {
         var teamMembers = valueOf('teamMembers') || '____________________________';
         var ventureName = valueOf('ventureName') || '____________________________';
@@ -552,28 +592,29 @@
         var foundOut = valueOf('foundOut') || '____________________________';
         var builtFrom = valueOf('builtFrom') || '____________________________';
         var mustWork = valueOf('mustWork') || '____________________________';
+
         return [
-          'סיכום הצגה – מנטורינג תעשייתי אסם',
-          '',
-          'שמות התלמידים: ' + teamMembers,
-          'שם המיזם: ' + ventureName,
-          '',
-          'בחרנו לעסוק בבעיית ' + topicText() + ' שבה ' + problem + '.',
-          'הבעיה חשובה כי ' + problemWhy + '.',
-          '',
-          'הרעיון שלנו הוא ' + idea + '.',
-          'הרעיון מתמודד עם הבעיה בכך שהוא ' + ideaImpact + '.',
-          '',
-          'הדרך שבה הרעיון עובד היא: קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.',
-          '',
-          'בדקנו עד עכשיו ' + checkedAlready + ' וגילינו ש-' + foundOut + '.',
-          '',
-          'אנחנו מתכננים שהמוצר יהיה בנוי מ-' + builtFrom + '.',
-          'הדבר שהכי חשוב שיעבוד בו הוא ' + mustWork + '.',
-          '',
-          'נשמח לקבל מכם משוב מקצועי שיסייע לנו לדייק את הרעיון לקראת המשך הפיתוח.'
-        ].join(NEW_LINE);
+          summaryLine('שמות התלמידים:', teamMembers),
+          summaryLine('שם המיזם:', ventureName),
+          summarySpacer(),
+          summaryLine('בחרנו לעסוק בבעיית:', topicText() + ' שבה ' + problem),
+          summaryLine('הבעיה חשובה כי:', problemWhy),
+          summarySpacer(),
+          summaryLine('הרעיון שלנו הוא:', idea),
+          summaryLine('הרעיון מתמודד עם הבעיה בכך שהוא:', ideaImpact),
+          summarySpacer(),
+          summaryLine('הדרך שבה הרעיון עובד היא:', 'קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.'),
+          summarySpacer(),
+          summaryLine('בדקנו עד עכשיו:', checkedAlready),
+          summaryLine('גילינו ש:', foundOut),
+          summarySpacer(),
+          summaryLine('אנחנו מתכננים שהמוצר יהיה בנוי מ-', builtFrom),
+          summaryLine('הדבר שהכי חשוב שיעבוד בו הוא:', mustWork),
+          summarySpacer(),
+          summaryLine('נשמח לקבל מכם משוב מקצועי שיסייע לנו לדייק את הרעיון לקראת המשך הפיתוח.', '')
+        ].join('');
       }
+
       function getData() {
         var data = {};
         fields.forEach(function (field) {
@@ -582,6 +623,7 @@
         });
         return data;
       }
+
       function setData(data) {
         fields.forEach(function (field) {
           if (!field.id || !(field.id in data)) return;
@@ -589,22 +631,27 @@
           else field.value = data[field.id];
         });
       }
+
       function updateScript() {
-        if (summaryPrintBox) summaryPrintBox.textContent = buildScript();
+        if (summaryPrintBox) summaryPrintBox.innerHTML = buildScript();
       }
+
       function saveData() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getData())); } catch (error) {}
       }
+
       function loadData() {
         try {
           var raw = localStorage.getItem(STORAGE_KEY);
           if (raw) setData(JSON.parse(raw));
         } catch (error) {}
       }
+
       fields.forEach(function (field) {
         field.addEventListener('input', function () { updateScript(); saveData(); });
         field.addEventListener('change', function () { updateScript(); saveData(); });
       });
+
       var clearBtn = byId('clearBtn');
       if (clearBtn) {
         clearBtn.addEventListener('click', function () {
@@ -617,8 +664,10 @@
           updateScript();
         });
       }
+
       var printBtn = byId('printBtn');
       if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
       loadData();
       updateScript();
     })();
