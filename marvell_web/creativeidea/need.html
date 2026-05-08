@@ -8,42 +8,399 @@
   <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
   <link rel="stylesheet" href="../../styles/pwa.css" />
   <link rel="stylesheet" href="../marvell-theme.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Assistant:wght@700;800;900&display=swap" rel="stylesheet" />
   <title>דף עבודה: בעיה וצורך | פרימיום Marvell</title>
   <style>
-    .work { background:#f5f9ff; color:#12375f; border:1px solid #adcff0; border-radius:16px; padding:18px; }
-    h2 { margin:0 0 8px; font-size:1.08rem; color:#13406c; }
-    .section { margin-bottom:14px; }
-    textarea,input[type="text"] { width:100%; font:inherit; border:1px solid #b7d3ea; border-radius:10px; padding:10px; background:#fff; }
-    textarea { min-height:72px; }
-    .check-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px; }
-    .check-grid label { background:#ecf5ff; border:1px solid #c4ddf2; border-radius:10px; padding:8px; font-size:.9rem; }
-    .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    * { box-sizing: border-box; }
+
+    body {
+      zoom: 0.75;
+      margin: 0;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.20), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.14), transparent 28%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+      color: #12375f;
+      font-family: "Heebo", Arial, sans-serif;
+    }
+
+    .mv-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 14px 30px;
+    }
+
+    .mv-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(53,196,232,0.18), transparent 30%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.96), rgba(10, 48, 92, 0.88));
+      border: 1px solid rgba(131, 190, 255, 0.28);
+      box-shadow: 0 22px 50px rgba(0, 10, 32, 0.30);
+    }
+
+    .mv-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.26));
+    }
+
+    .mv-title-wrap { color: #fff; }
+
+    .mv-title {
+      margin: 0;
+      font-size: 2rem;
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .mv-subtitle {
+      margin: 6px 0 0;
+      color: #c8e9ff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .home-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      text-decoration: none;
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.9));
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+    }
+
+    .home-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #0d2045;
+    }
+
+    .work {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(238,246,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow: 0 24px 54px rgba(0, 10, 32, 0.26), inset 0 1px 0 rgba(255,255,255,0.82);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+    }
+
+    .intro {
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(53,196,232,0.10), rgba(255,255,255,0.90));
+      border: 1px solid rgba(120, 170, 220, 0.30);
+      color: #43546e;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-bottom: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff, #f3f8ff);
+      border: 1px solid rgba(120, 170, 220, 0.32);
+      box-shadow: 0 10px 20px rgba(13, 58, 118, 0.06);
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.04rem;
+      color: #13406c;
+      font-weight: 900;
+    }
+
+    .section-note {
+      margin: -2px 0 10px;
+      color: #5f708b;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      font: inherit;
+      font-size: 0.96rem;
+      border: 1px solid #b7d3ea;
+      border-radius: 12px;
+      padding: 9px 10px;
+      background: #fff;
+      color: #10213d;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 58px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus {
+      border-color: #1e66a8;
+      box-shadow: 0 0 0 4px rgba(30, 102, 168, 0.10);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .why-table {
+      display: grid;
+      gap: 8px;
+    }
+
+    .why-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .why-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 14px;
+      color: #ffffff;
+      font-weight: 900;
+      background: linear-gradient(180deg, #35c4e8, #0d3a76);
+      box-shadow: 0 10px 18px rgba(13, 58, 118, 0.18);
+    }
+
+    .why-row:nth-child(2) .why-label { background: linear-gradient(180deg, #1e66a8, #0d2045); }
+    .why-row:nth-child(3) .why-label { background: linear-gradient(180deg, #3cc58f, #187b66); }
+    .why-row:nth-child(4) .why-label { background: linear-gradient(180deg, #f6a742, #ba7d1e); }
+    .why-row:nth-child(5) .why-label { background: linear-gradient(180deg, #9cecff, #1e66a8); color: #061329; }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+    }
+
+    .check-grid label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecf5ff;
+      border: 1px solid #c4ddf2;
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #40546f;
+    }
+
+    .other-impact {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 14px;
+      background: #ecf5ff;
+      border: 1px solid #c4ddf2;
+    }
+
+    .other-impact label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #40546f;
+    }
+
+        .bottom-actions {
+      display: flex;
+      justify-content: center;
+      margin: 14px 0 0;
+    }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(53, 196, 232, 0.45);
+      color: #fff;
+      text-decoration: none;
+      font: inherit;
+      font-weight: 900;
+      background: linear-gradient(90deg, #0d3a76, #1e66a8);
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(0, 10, 32, 0.20);
+    }
+
+    .mv-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #b8d9f7;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 760px) {
+      body { zoom: 1; }
+      .mv-header { grid-template-columns: 1fr; text-align: center; }
+      .mv-logo { margin: 0 auto; }
+      .grid-2, .why-row, .other-impact { grid-template-columns: 1fr; }
+      .why-label { min-height: 42px; }
+    }
+
+    @media print {
+      body { zoom: 1; background: white; }
+      .home-icon, .bottom-actions { display: none; }
+      .mv-container { max-width: none; padding: 0; }
+      .mv-header, .work { box-shadow: none; border-radius: 0; }
+    }
   </style>
 </head>
 <body>
-  <style>
-    body { zoom: 75%; }
-  </style>
   <div class="mv-container">
     <header class="mv-header">
+      <a class="home-icon" href="../index-marvell.html" aria-label="בית" title="בית">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+      </a>
       <img class="mv-logo" src="../images/logo.png" alt="לוגו תעשיידע" />
-      <div class="mv-title-wrap"><h1 class="mv-title">פרימיום Marvell</h1><p class="mv-subtitle">דף עבודה 1: מחדדים בעיה, צורך ומטרה</p></div>
-      <div class="mv-actions"><a class="mv-btn" href="../index-marvell.html">בית</a><a class="mv-btn alt" href="./enter.html">חזרה</a><button class="mv-btn" onclick="window.print()" type="button">הדפסה / PDF</button></div>
+      <div class="mv-title-wrap">
+        <h1 class="mv-title">פרימיום Marvell</h1>
+        <p class="mv-subtitle">דף עבודה 1: מחדדים בעיה, צורך ומטרה</p>
+      </div>
     </header>
 
-    <main class="mv-main work">
-      <div class="section"><h2>פרטי קבוצה</h2><input type="text" placeholder="שם קבוצה / מספר" /></div>
-      <div class="section"><h2>הבעיה שבחרנו</h2><textarea placeholder="תיאור הבעיה"></textarea></div>
-      <div class="section"><h2>חמש פעמים למה?</h2><textarea placeholder="מה גילינו בכל שכבת ניתוח"></textarea></div>
-      <div class="section"><h2>מי מושפע ומתי?</h2><textarea placeholder="קהל יעד, סיטואציות, הקשר"></textarea></div>
-      <div class="section"><h2>השפעה של הבעיה</h2><div class="check-grid"><label><input type="checkbox" /> עומס מידע</label><label><input type="checkbox" /> בזבוז זמן</label><label><input type="checkbox" /> חוסר תיאום</label><label><input type="checkbox" /> קושי בזיהוי</label><label><input type="checkbox" /> חוסר סדר</label><label><input type="checkbox" /> צורך בהתראה</label></div></div>
-      <div class="section"><h2>בעיה במשפט אחד</h2><input type="text" /></div>
-      <div class="section"><h2>צורך במשפט אחד</h2><input type="text" /></div>
-      <div class="section"><h2>מטרה ראשונית</h2><input type="text" /></div>
-      <div class="actions"><a class="mv-btn alt" href="./enter.html">חזרה</a><a class="mv-btn" href="./creative.html">המשך לדף 2</a></div>
+    <main class="work">
+      <div class="intro">
+        בדף הזה לא ממהרים לפתרון. קודם מבררים את הבעיה לעומק: מה קורה, למי זה מפריע, למה זה קורה ומה הצורך האמיתי שעולה מתוך זה.
+      </div>
+
+      <section class="section">
+        <h2>פרטי קבוצה</h2>
+        <input type="text" placeholder="שם קבוצה / מספר" />
+      </section>
+
+      <section class="section">
+        <h2>הבעיה שבחרנו</h2>
+        <p class="section-note">כתבו במשפטים פשוטים מה הבעיה שבחרתם לבדוק. לא צריך עדיין להציע פתרון.</p>
+        <textarea placeholder="תיאור הבעיה"></textarea>
+      </section>
+
+      <section class="section">
+        <h2>חמש פעמים למה?</h2>
+        <p class="section-note">ענו על חמש שאלות “למה” ברצף. בכל שורה נסו להעמיק עוד שכבה אחת: לא להסתפק בתשובה הראשונה, אלא להבין מה באמת גורם לבעיה.</p>
+        <div class="why-table">
+          <div class="why-row">
+            <div class="why-label">למה 1?</div>
+            <textarea placeholder="למה הבעיה הזאת קורית? התשובה הראשונה שלנו..."></textarea>
+          </div>
+          <div class="why-row">
+            <div class="why-label">למה 2?</div>
+            <textarea placeholder="ולמה זה קורה? מה נמצא מתחת לתשובה הראשונה?"></textarea>
+          </div>
+          <div class="why-row">
+            <div class="why-label">למה 3?</div>
+            <textarea placeholder="ולמה זה קורה? מה הסיבה העמוקה יותר?"></textarea>
+          </div>
+          <div class="why-row">
+            <div class="why-label">למה 4?</div>
+            <textarea placeholder="ולמה זה ממשיך לקרות? איזה הרגל, מצב או חסם גורם לזה?"></textarea>
+          </div>
+          <div class="why-row">
+            <div class="why-label">למה 5?</div>
+            <textarea placeholder="מה כנראה שורש הבעיה או הצורך האמיתי שגילינו?"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>מה גילינו מתוך חמשת ה“למה”?</h2>
+        <p class="section-note">סכמו בקצרה את התובנה המרכזית שעלתה. זו יכולה להיות סיבה עמוקה יותר או צורך שלא ראינו בהתחלה או נקודה שכדאי לבדוק בהמשך.</p>
+        <textarea placeholder="מתוך חמשת הלמה גילינו ש..."></textarea>
+      </section>
+
+      <section class="section">
+        <h2>מי מושפע ומתי?</h2>
+        <div class="grid-2">
+          <textarea placeholder="מי מושפע מהבעיה? קהל יעד מרכזי"></textarea>
+          <textarea placeholder="מתי או איפה הבעיה מתרחשת? סיטואציות והקשר"></textarea>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>השפעה של הבעיה</h2>
+        <p class="section-note">סמנו אילו השפעות מתאימות לבעיה שבחרתם.</p>
+        <div class="check-grid">
+          <label><input type="checkbox" /> עומס מידע</label>
+          <label><input type="checkbox" /> בזבוז זמן</label>
+          <label><input type="checkbox" /> חוסר תיאום</label>
+          <label><input type="checkbox" /> קושי בזיהוי</label>
+          <label><input type="checkbox" /> חוסר סדר</label>
+          <label><input type="checkbox" /> צורך בהתראה</label>
+          <label><input type="checkbox" /> קושי בקבלת החלטה</label>
+          <label><input type="checkbox" /> חוסר ביטחון</label>
+        </div>
+        <div class="other-impact">
+          <label><input type="checkbox" /> אחר</label>
+          <input type="text" placeholder="כתבו השפעה נוספת של הבעיה" />
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>בעיה במשפט אחד</h2>
+        <input type="text" placeholder="הבעיה היא ש..." />
+      </section>
+
+      <section class="section">
+        <h2>צורך במשפט אחד</h2>
+        <input type="text" placeholder="אנחנו צריכים דרך ל..." />
+      </section>
+
+      <section class="section">
+        <h2>מטרה ראשונית</h2>
+        <input type="text" placeholder="המטרה הראשונית שלנו היא..." />
+      </section>
+      <div class="bottom-actions">
+        <button class="print-btn" onclick="window.print()" type="button">הדפסה / PDF</button>
+      </div>
     </main>
+
     <footer class="mv-footer">© פרימיום Marvell | תעשיידע</footer>
   </div>
   <script src="../../pwa-register.js" defer></script>
