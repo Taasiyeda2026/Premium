@@ -558,10 +558,14 @@
         <textarea id="problem" class="tall" placeholder="הבעיה שבחרנו היא..."></textarea>
         <div class="two-grid" style="margin-top:10px;">
           <div>
+            <label for="targetAudience">למי הבעיה מפריעה?</label>
+            <textarea id="targetAudience" class="short" placeholder="הבעיה מפריעה ל..."></textarea>
+          </div>
+          <div>
             <label for="problemWhere">הבעיה מתרחשת כאשר:</label>
             <textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea>
           </div>
-          <div>
+          <div class="span-all">
             <label for="problemWhy">הבעיה חשובה כי:</label>
             <textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea>
           </div>
@@ -574,6 +578,8 @@
         <textarea id="idea" class="tall" placeholder="הרעיון שלנו הוא..."></textarea>
         <label for="ideaHelps" style="margin-top:10px;">הרעיון מתמודד עם הבעיה בכך שהוא:</label>
         <textarea id="ideaHelps" class="short" placeholder="משפר / משדרג / פותר / מדייק / מונע / מאפשר..."></textarea>
+        <label for="valueText" style="margin-top:10px;">מה הערך למשתמש?</label>
+        <textarea id="valueText" class="short" placeholder="הערך למשתמש הוא חיסכון בזמן, פחות טעויות, פעולה פשוטה יותר, חוויה טובה יותר, סדר, בטיחות או יעילות..."></textarea>
       </section>
 
       <section class="section-card phase-b" id="productTypeSection">
@@ -624,11 +630,21 @@
 
           <div class="product-path" data-path="digital">
             <h3>אפיון מוצר דיגיטלי</h3>
-            <div class="two-grid">
+            <div class="three-grid">
               <div>
-                <label for="digitalScreens">מהם המסכים המרכזיים במוצר?</label>
-                <textarea id="digitalScreens" class="short" placeholder="מסך פתיחה, שאלון, לוח בקרה, תוצאה, התראה, המלצה..."></textarea>
+                <label for="digitalScreen1">מסך 1 – מסך פתיחה / כניסה</label>
+                <textarea id="digitalScreen1" class="short" placeholder="מה רואים במסך הראשון ומה המשתמש עושה בו?"></textarea>
               </div>
+              <div>
+                <label for="digitalScreen2">מסך 2 – פעולה מרכזית</label>
+                <textarea id="digitalScreen2" class="short" placeholder="שאלון, בחירה, העלאת מידע, בדיקה או פעולה מרכזית..."></textarea>
+              </div>
+              <div>
+                <label for="digitalScreen3">מסך 3 – תוצאה / המלצה</label>
+                <textarea id="digitalScreen3" class="short" placeholder="מה המשתמש מקבל בסוף: תוצאה, המלצה, התראה או סיכום?"></textarea>
+              </div>
+            </div>
+            <div class="two-grid" style="margin-top:10px;">
               <div>
                 <label for="digitalInput">איזה מידע המשתמש מזין או המערכת מקבלת?</label>
                 <textarea id="digitalInput" class="short" placeholder="בחירה, נתונים, תמונה, תשובה לשאלה, מדידה, מצב תקלה..."></textarea>
@@ -651,15 +667,15 @@
       </section>
 
       <section class="section-card phase-c product-dependent">
-        <h3>5. איך המוצר עובד?</h3>
-        <p class="subtext">כתבו את ההסבר בשלבים קצרים.</p>
+        <h3>5. תרחיש שימוש קצר – מה קורה ברגע האמת?</h3>
+        <p class="subtext">כאן לא מתארים שוב את המבנה של המוצר, אלא רגע שימוש אחד: מי משתמש, מה הוא עושה ומה משתנה בסוף.</p>
         <div class="three-grid">
-          <div><label for="step1">שלב 1 – קודם:</label><textarea id="step1" class="short"></textarea></div>
-          <div><label for="step2">שלב 2 – אחר כך:</label><textarea id="step2" class="short"></textarea></div>
-          <div><label for="step3">שלב 3 – בסוף:</label><textarea id="step3" class="short"></textarea></div>
+          <div><label for="step1">מי משתמש במוצר ובאיזה מצב?</label><textarea id="step1" class="short" placeholder="לדוגמה: עובד, תלמיד, משתמש, מנהל או לקוח שנתקל בבעיה..."></textarea></div>
+          <div><label for="step2">מה הפעולה הראשונה שהוא עושה?</label><textarea id="step2" class="short" placeholder="פותח, מניח, סורק, בוחר, מזין מידע, מפעיל או בודק..."></textarea></div>
+          <div><label for="step3">מה המוצר מחזיר או מאפשר?</label><textarea id="step3" class="short" placeholder="התראה, המלצה, תוצאה, סימון, פעולה ברורה או החלטה טובה יותר..."></textarea></div>
         </div>
-        <label for="result" style="margin-top:10px;">התוצאה היא:</label>
-        <textarea id="result" class="short"></textarea>
+        <label for="result" style="margin-top:10px;">מה משתפר בעקבות השימוש?</label>
+        <textarea id="result" class="short" placeholder="פחות טעויות, יותר סדר, תהליך מהיר יותר, החלטה ברורה יותר, בטיחות או יעילות..."></textarea>
       </section>
 
       <section class="section-card phase-c product-dependent">
@@ -762,7 +778,9 @@
 
         if (checked('typeDigital')) {
           return [
-            summaryLine('המסכים המרכזיים במוצר:', data.digitalScreens),
+            summaryLine('מסך 1 – פתיחה / כניסה:', data.digitalScreen1),
+            summaryLine('מסך 2 – פעולה מרכזית:', data.digitalScreen2),
+            summaryLine('מסך 3 – תוצאה / המלצה:', data.digitalScreen3),
             summaryLine('המידע שנכנס למערכת:', data.digitalInput),
             summaryLine('מה המערכת עושה עם המידע:', data.digitalAction),
             summaryLine('מה המשתמש מקבל בסוף:', data.digitalOutput),
@@ -774,7 +792,9 @@
           return [
             summaryLine('רכיבי המוצר הפיזי:', data.physicalParts),
             summaryLine('אופן השימוש בחלק הפיזי:', data.physicalUse),
-            summaryLine('המסכים המרכזיים במערכת הדיגיטלית:', data.digitalScreens),
+            summaryLine('מסך 1 – פתיחה / כניסה:', data.digitalScreen1),
+            summaryLine('מסך 2 – פעולה מרכזית:', data.digitalScreen2),
+            summaryLine('מסך 3 – תוצאה / המלצה:', data.digitalScreen3),
             summaryLine('מה המערכת הדיגיטלית עושה:', data.digitalAction),
             summaryLine('מה חייב לעבוד במוצר המשולב:', 'החלק הפיזי: ' + data.physicalMustWork + ' | החלק הדיגיטלי: ' + data.digitalMustWork)
           ].join('');
@@ -787,9 +807,12 @@
         var teamMembers = valueOf('teamMembers') || '____________________________';
         var ventureName = valueOf('ventureName') || '____________________________';
         var problem = valueOf('problem') || '____________________________';
+        var targetAudience = valueOf('targetAudience') || '____________________________';
+        var problemWhere = valueOf('problemWhere') || '____________________________';
         var problemWhy = valueOf('problemWhy') || '____________________________';
         var idea = valueOf('idea') || '____________________________';
         var ideaImpact = valueOf('ideaHelps') || '____________________________';
+        var valueText = valueOf('valueText') || '____________________________';
         var mainAction = valueOf('mainAction') || '____________________________';
         var developmentDirection = valueOf('developmentDirection') || '____________________________';
         var physicalSize = valueOf('physicalSize') || '____________________________';
@@ -797,7 +820,9 @@
         var physicalParts = valueOf('physicalParts') || '____________________________';
         var physicalUse = valueOf('physicalUse') || '____________________________';
         var physicalMustWork = valueOf('physicalMustWork') || '____________________________';
-        var digitalScreens = valueOf('digitalScreens') || '____________________________';
+        var digitalScreen1 = valueOf('digitalScreen1') || '____________________________';
+        var digitalScreen2 = valueOf('digitalScreen2') || '____________________________';
+        var digitalScreen3 = valueOf('digitalScreen3') || '____________________________';
         var digitalInput = valueOf('digitalInput') || '____________________________';
         var digitalAction = valueOf('digitalAction') || '____________________________';
         var digitalOutput = valueOf('digitalOutput') || '____________________________';
@@ -813,10 +838,13 @@
           summaryLine('שם המיזם:', ventureName),
           summarySpacer(),
           summaryLine('זיהינו בעיה שבה:', problem),
+          summaryLine('הבעיה מפריעה ל:', targetAudience),
+          summaryLine('הבעיה מתרחשת כאשר:', problemWhere),
           summaryLine('הבעיה חשובה כי:', problemWhy),
           summarySpacer(),
           summaryLine('הרעיון שלנו הוא:', idea),
           summaryLine('הרעיון מתמודד עם הבעיה בכך שהוא:', ideaImpact),
+          summaryLine('הערך למשתמש הוא:', valueText),
           summarySpacer(),
           summaryLine('המוצר שלנו הוא:', productTypeText()),
           summaryLine('הפעולה המרכזית שלו היא:', mainAction),
@@ -828,17 +856,20 @@
             physicalParts: physicalParts,
             physicalUse: physicalUse,
             physicalMustWork: physicalMustWork,
-            digitalScreens: digitalScreens,
+            digitalScreen1: digitalScreen1,
+            digitalScreen2: digitalScreen2,
+            digitalScreen3: digitalScreen3,
             digitalInput: digitalInput,
             digitalAction: digitalAction,
             digitalOutput: digitalOutput,
             digitalMustWork: digitalMustWork
           }),
           summarySpacer(),
-          summaryLine('דרך הפעולה היא:', 'קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.'),
-          summaryLine('התוצאה היא:', result),
+          summaryLine('תרחיש השימוש הוא:', step1 + ' מבצע/ת ' + step2 + ', והמוצר מחזיר או מאפשר ' + step3 + '.'),
+          summaryLine('בעקבות השימוש משתפר:', result),
           summarySpacer(),
-          summaryLine('נשמח לקבל מכם משוב מקצועי על:', mentorQuestion)
+          
+          summaryLine('השלבים הבאים:', 'אחרי המנטורינג נשתמש במשוב שנקבל כדי לשפר את הרעיון, לדייק את האפיון, להבין מה עדיין חסר או לא ברור ולהתקדם לשלב הבא: בניית אבטיפוס והדמיה מציאותית של המוצר, המערכת או האפליקציה באמצעות AI.')
         ].join('');
       }
 
@@ -886,16 +917,28 @@
 
       var clearBtn = byId('clearBtn');
       if (clearBtn) {
-        clearBtn.addEventListener('click', function () {
-          if (!confirm('לנקות את כל דף ההכנה?')) return;
+        clearBtn.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           fields.forEach(function (field) {
-            if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
-            else field.value = '';
+            if (field.type === 'checkbox' || field.type === 'radio') {
+              field.checked = false;
+            } else {
+              field.value = '';
+            }
           });
+
           var typeNone = byId('typeNone');
           if (typeNone) typeNone.checked = true;
+
           try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
+
           updateScript();
+          clearBtn.textContent = 'נוקה';
+          window.setTimeout(function () {
+            clearBtn.textContent = 'ניקוי העמוד';
+          }, 900);
         });
       }
 
