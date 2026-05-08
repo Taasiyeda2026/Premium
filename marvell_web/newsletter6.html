@@ -332,6 +332,16 @@
       object-fit: contain;
       display: block;
     }
+    .newsletter6-page .card-icon.card-icon-full {
+      padding: 0;
+      overflow: hidden;
+    }
+    .newsletter6-page .card-icon.card-icon-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .card-title {
       margin: 0 0 10px;
@@ -430,7 +440,7 @@
     }
   </style>
 </head>
-<body>
+<body class="newsletter6-page">
   <div class="newsletter">
     <section class="top-brand">
       <a class="home-link" href="index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
@@ -467,7 +477,7 @@
 
     <section class="cards-row">
       <article class="card card-1">
-        <div class="card-icon">
+        <div class="card-icon card-icon-full">
           <img src="prd-6/tree.png" alt="אייקון עץ מוצר" />
         </div>
         <h2 class="card-title">עץ מוצר</h2>
@@ -478,7 +488,7 @@
       </article>
 
       <article class="card card-2">
-        <div class="card-icon">
+        <div class="card-icon card-icon-full">
           <img src="prd-6/flow.png" alt="אייקון זרימת שימוש" />
         </div>
         <h2 class="card-title">זרימת שימוש</h2>
@@ -489,7 +499,7 @@
       </article>
 
       <article class="card card-3">
-        <div class="card-icon">
+        <div class="card-icon card-icon-full">
           <img src="prd-6/friction.png" alt="אייקון חיכוך ושיפור" />
         </div>
         <h2 class="card-title">חיכוך ושיפור</h2>
