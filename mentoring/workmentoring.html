@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>דף הכנה להצגה | מפגש עם אנשי אסם</title>
+  <title>דף הכנה להצגה | מנטורינג תעשייתי – אסם</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --red: #c32026;
-      --red-dark: #8f1d22;
+      --red-dark: #661a1d;
       --text: #4a3a35;
       --muted: #76675f;
       --line: #e1d2c8;
@@ -119,13 +119,6 @@
       font-weight: 900;
     }
 
-    .brand-copy p {
-      margin-top: 5px;
-      color: var(--red-dark);
-      font-size: 0.96rem;
-      font-weight: 700;
-    }
-
     .nav {
       position: sticky;
       top: 0;
@@ -168,7 +161,6 @@
     .intro-card,
     .section-card,
     .script-card,
-    .check-card,
     .summary-card,
     .action-panel {
       background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,245,239,0.94));
@@ -182,7 +174,6 @@
     .intro-card::before,
     .section-card::before,
     .script-card::before,
-    .check-card::before,
     .summary-card::before {
       content: "";
       position: absolute;
@@ -196,7 +187,6 @@
     .intro-card,
     .section-card,
     .script-card,
-    .check-card,
     .summary-card { padding: 16px 18px; }
 
     h2 {
@@ -267,30 +257,19 @@
       background: #fffefe;
     }
 
-    .choice-grid,
-    .check-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 8px;
-    }
-
     .choice-grid {
       display: flex;
       flex-wrap: nowrap;
       gap: 8px;
+      margin-top: 8px;
     }
 
     .choice-option {
       flex: 1 1 0;
-      justify-content: center;
       min-height: 42px;
-    }
-
-    .choice-option,
-    .check-option {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       padding: 9px 10px;
       border-radius: 12px;
@@ -302,13 +281,10 @@
       line-height: 1.3;
     }
 
-    .choice-option input,
-    .check-option input {
-      width: auto;
-      accent-color: var(--red);
-    }
+    .choice-option input { width: auto; accent-color: var(--red); }
 
-    .ready-script {
+    .ready-script,
+    .summary-print-box {
       white-space: pre-wrap;
       border: 1px solid rgba(195, 32, 38, 0.15);
       border-radius: 14px;
@@ -318,7 +294,7 @@
       line-height: 1.8;
       font-size: 0.96rem;
       font-weight: 700;
-      min-height: 220px;
+      min-height: 190px;
     }
 
     .action-panel {
@@ -370,17 +346,49 @@
       .brand { flex-direction: column; }
       .nav { position: static; grid-template-columns: 1fr; padding: 10px 14px; }
       .content { padding: 14px; }
-      .team-grid, .two-grid, .three-grid, .choice-grid, .check-grid { grid-template-columns: 1fr; }
+      .team-grid, .two-grid, .three-grid { grid-template-columns: 1fr; }
+      .choice-grid { flex-direction: column; }
       .action-panel { margin-left: 14px; margin-right: 14px; }
     }
 
     @media print {
-      body { zoom: 1; padding: 0; background: #ffffff; }
-      body::before, .topbar, .home-link, .nav, .buttons, .status { display: none !important; }
-      .page { width: 100%; border: none; border-radius: 0; box-shadow: none; background: #ffffff; }
-      .header, .content, .action-panel, .footer { padding: 10px 14px; margin: 0; border: none; background: #ffffff; box-shadow: none; }
-      .intro-card, .section-card, .script-card, .check-card, .summary-card { box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
-      input, textarea { border: 1px solid #d9cbc2; box-shadow: none; }
+      @page { margin: 12mm; }
+      body {
+        zoom: 1;
+        padding: 0;
+        background: #ffffff !important;
+      }
+
+      body::before,
+      .topbar,
+      .header,
+      .nav,
+      .intro-card,
+      .section-card,
+      .script-card,
+      .action-panel,
+      .footer {
+        display: none !important;
+      }
+
+      .page,
+      .content,
+      .summary-card {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+      }
+
+      .summary-card::before { display: none !important; }
+      .summary-card h2 { color: var(--red); font-size: 1.6rem; margin-bottom: 10px; }
+      .summary-card .subtext { color: #333333; font-size: 1rem; line-height: 1.7; }
+      .summary-print-box { border: 1px solid #d9cbc2; box-shadow: none; min-height: 0; }
     }
   </style>
 </head>
@@ -389,7 +397,7 @@
     <div class="topbar">דף הכנה להצגה בפני אנשי אסם</div>
 
     <header class="header">
-      <a class="home-link" href="../index_osem.html" aria-label="חזרה לעמוד המנטורינג" title="חזרה לעמוד המנטורינג">
+      <a class="home-link" href="../index_osem.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
       </a>
       <div class="brand">
@@ -401,15 +409,15 @@
     </header>
 
     <nav class="nav" aria-label="ניווט בדף">
-      <a href="#partA">חלק א<br>מה נציג</a>
-      <a href="#partC">טקסט ההצגה<br>מנטורינג תעשייתי</a>
+      <a href="#partA">מה נציג?</a>
+      <a href="#partC">טקסט ההצגה</a>
       <a href="#summary">סיכום</a>
     </nav>
 
     <main class="content">
       <section class="intro-card">
         <h2>מטרת הדף</h2>
-        <p class="subtext">להכין את הקבוצה להצגה קצרה, ברורה ומקצועית בפני אנשי אסם. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, איך הוא עובד ומה נרצה לבדוק בעזרת המשוב.</p>
+        <p class="subtext">להכין את הקבוצה להצגה קצרה, ברורה ומקצועית בפני אנשי אסם. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, איך הוא עובד ואיך נרצה לדייק אותו בעזרת המשוב.</p>
         <div class="team-grid">
           <div>
             <label for="teamMembers">שמות חברי הקבוצה</label>
@@ -465,8 +473,8 @@
         <h3>3. הרעיון שלנו</h3>
         <label for="idea">מה נגיד על הרעיון?</label>
         <textarea id="idea" class="tall" placeholder="הרעיון שלנו הוא..."></textarea>
-        <label for="ideaHelps" style="margin-top:10px;">הרעיון עוזר להתמודד עם הבעיה בכך שהוא:</label>
-        <textarea id="ideaHelps" class="short" placeholder="הרעיון עוזר בכך שהוא..."></textarea>
+        <label for="ideaImpact" style="margin-top:10px;">הרעיון מתמודד עם הבעיה בכך שהוא:</label>
+        <textarea id="ideaImpact" class="short" placeholder="משפר / משדרג / פותר / מדייק / מונע / מאפשר..."></textarea>
       </section>
 
       <section class="section-card">
@@ -508,6 +516,7 @@
         <label for="mustWork" style="margin-top:10px;">הדבר שחייב לעבוד כדי שהרעיון יצליח הוא:</label>
         <textarea id="mustWork" class="short"></textarea>
       </section>
+
       <section class="script-card" id="partC">
         <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
         <p class="subtext">השלימו את הטקסט. זה יהיה הבסיס למה שתגידו במפגש.</p>
@@ -517,6 +526,7 @@
       <section class="summary-card" id="summary">
         <h2>סיכום</h2>
         <p class="subtext">אנחנו מגיעים למפגש עם אנשי אסם כדי להציג את הרעיון שלנו בצורה ברורה, לקבל משוב מקצועי ולדייק את המיזם לפני המשך הפיתוח.</p>
+        <div class="summary-print-box" id="summaryPrintBox"></div>
       </section>
     </main>
 
@@ -532,10 +542,11 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'osemPresentationPreparation_v1';
+      var STORAGE_KEY = 'osemPresentationPreparation_pdfSummaryOnly_v1';
       var NEW_LINE = String.fromCharCode(10);
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea'));
       var autoScript = document.getElementById('autoScript');
+      var summaryPrintBox = document.getElementById('summaryPrintBox');
 
       function byId(id) { return document.getElementById(id); }
 
@@ -562,7 +573,7 @@
         var problem = valueOf('problem') || '____________________________';
         var problemWhy = valueOf('problemWhy') || '____________________________';
         var idea = valueOf('idea') || '____________________________';
-        var ideaHelps = valueOf('ideaHelps') || '____________________________';
+        var ideaImpact = valueOf('ideaImpact') || '____________________________';
         var step1 = valueOf('step1') || '____________________________';
         var step2 = valueOf('step2') || '____________________________';
         var step3 = valueOf('step3') || '____________________________';
@@ -579,16 +590,27 @@
           'הבעיה חשובה כי ' + problemWhy + '.',
           '',
           'הרעיון שלנו הוא ' + idea + '.',
-          'הוא אמור לעזור בכך שהוא ' + ideaHelps + '.',
+          'הרעיון מתמודד עם הבעיה בכך שהוא ' + ideaImpact + '.',
           '',
           'הדרך שבה הרעיון עובד היא: קודם ' + step1 + ', אחר כך ' + step2 + ' ובסוף ' + step3 + '.',
           '',
-          'בדקנו עד עכשיו ' + checkedAlready + ' וגילינו ש־' + foundOut + '.',
+          'בדקנו עד עכשיו ' + checkedAlready + ' וגילינו ש-' + foundOut + '.',
           '',
-          'אנחנו מתכננים שהמוצר יהיה בנוי מ־' + builtFrom + '.',
+          'אנחנו מתכננים שהמוצר יהיה בנוי מ-' + builtFrom + '.',
           'הדבר שהכי חשוב שיעבוד בו הוא ' + mustWork + '.',
           '',
           'נשמח לקבל מכם משוב מקצועי שיעזור לנו לדייק את הרעיון לקראת המשך הפיתוח.'
+        ].join(NEW_LINE);
+      }
+
+      function buildSummary() {
+        return [
+          'סיכום הצגה – מנטורינג תעשייתי אסם',
+          '',
+          buildScript(),
+          '',
+          'מטרת המפגש:',
+          'להציג את הרעיון בצורה ברורה, לקבל משוב מקצועי ולדייק את המיזם לפני המשך הפיתוח.'
         ].join(NEW_LINE);
       }
 
@@ -611,13 +633,11 @@
 
       function updateScript() {
         if (autoScript) autoScript.textContent = buildScript();
+        if (summaryPrintBox) summaryPrintBox.textContent = buildSummary();
       }
 
-      function saveData(message) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-        } catch (error) {
-        }
+      function saveData() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getData())); } catch (error) {}
       }
 
       function loadData() {
@@ -642,7 +662,6 @@
           });
           try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
           updateScript();
-          saveData('הדף נוקה.');
         });
       }
 
