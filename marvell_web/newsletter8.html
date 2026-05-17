@@ -338,6 +338,50 @@
       margin-top: 12px;
     }
 
+
+
+    .brief-questions {
+      margin: 14px 0 18px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .brief-questions li {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 11px 13px;
+      border-radius: 16px;
+      color: #27476b;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      font-weight: 800;
+      background: rgba(13, 58, 118, 0.07);
+      border: 1px solid rgba(120, 170, 220, 0.22);
+      box-shadow: 0 12px 24px rgba(0, 10, 32, 0.10);
+    }
+
+    .brief-questions li:nth-child(1) {
+      background: linear-gradient(135deg, rgba(53,196,232,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(2) {
+      background: linear-gradient(135deg, rgba(246,167,66,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(3) {
+      background: linear-gradient(135deg, rgba(30,102,168,0.18), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(4) {
+      background: linear-gradient(135deg, rgba(60,197,143,0.20), rgba(255,255,255,0.92));
+    }
+
     .brief-list {
       margin-top: 18px;
       display: grid;
@@ -540,6 +584,7 @@
       .hero-title { font-size: 2rem; }
       .prep-board { grid-template-columns: 1fr; }
       .brief-list { grid-template-columns: 1fr; }
+      .brief-questions { grid-template-columns: 1fr; }
       .cta-bar { flex-direction: column; }
       .cta-btn { width: 100%; }
     }
@@ -558,7 +603,7 @@
 
     <section class="mentor-stage">
       <div class="stage-grid">
-        <a class="visual-panel" href="./workaud-8.html">
+        <a class="visual-panel" href="./workaud-8.htm">
           <img class="hero-graphic" src="images/aud.png" alt="קהל יעד ומוצרים קיימים בשוק" />
         </a>
 
@@ -581,30 +626,45 @@
         <h2 class="brief-title">בדיקה קצרה לפני שבונים אב-טיפוס</h2>
 
         <p class="brief-text">
-          לפני שמתחילים לבנות אב-טיפוס, כל צוות עוצר לרגע ובודק את הרעיון שלו בצורה קצרה ומעשית.
-          בשלב הזה התלמידים שואלים למי המוצר מיועד, מה כבר קיים בשוק ואיך אפשר להפוך את הפתרון שלהם למדויק וברור יותר.
+          לפני שמתחילים לבנות אב-טיפוס, לא קופצים ישר לחומרים, למסכים או לעיצוב.
+          קודם עוצרים לרגע ובודקים את הרעיון שלכם בצורה קצרה ומעשית.
         </p>
 
         <p class="brief-text">
-          הבדיקה אינה נועדה לעצור את תהליך היצירה, אלא להפך - לחזק אותו.
-          התלמידים מחדדים את קהל היעד, מחפשים פתרונות דומים, בוחנים מה עובד בהם היטב ומזהים מה עדיין חסר, מסורבל או לא מספיק ברור עבור המשתמשים.
+          בשלב הזה אתם שואלים את עצמכם כמה שאלות חשובות:
+        </p>
+
+        <ul class="brief-questions">
+          <li>למי המוצר שלנו באמת מיועד?</li>
+          <li>איזו בעיה הוא פותר?</li>
+          <li>מה כבר קיים היום בשוק?</li>
+          <li>ומה אנחנו יכולים לעשות טוב יותר, פשוט יותר או ברור יותר?</li>
+        </ul>
+
+        <p class="brief-text">
+          המטרה של הבדיקה היא לא לעצור את היצירתיות שלכם — אלא להפוך אותה לחכמה יותר.
+          כשבודקים מוצרים דומים, אפשר לגלות מה כבר עובד טוב, מה פחות נוח למשתמשים ומה עדיין חסר.
+          לפעמים דווקא שם נמצאת ההזדמנות הכי טובה לשיפור.
         </p>
 
         <p class="brief-text">
-          המטרה אינה להעתיק רעיונות קיימים, אלא ללמוד מהם.
-          דרך ההשוואה למוצרים ולפתרונות אחרים, התלמידים מבינים מה אפשר לשפר, מה כדאי להבליט ואילו החלטות יעזרו לרעיון שלהם להפוך למוצר פשוט יותר, ברור יותר ומתאים יותר לצורך האמיתי של המשתמשים.
+          <strong>חשוב לזכור:</strong> לא מחפשים להעתיק רעיונות קיימים. מחפשים ללמוד מהם.
+          הרבה מוצרים מצליחים בעולם לא התחילו מהמצאה חדשה לגמרי, אלא משיפור של משהו שכבר היה קיים:
+          מוצר נוח יותר, ברור יותר, מהיר יותר, יפה יותר או מתאים יותר לקהל מסוים.
+        </p>
+
+        <p class="brief-text">
+          דרך ההשוואה למוצרים אחרים, תוכלו להבין מה כדאי לשפר, מה חשוב להבליט ואיך להפוך את הרעיון שלכם למוצר שאנשים באמת יבינו וירצו להשתמש בו.
         </p>
 
         <div class="brief-close">
-          כך הרעיון הראשוני אינו נשאר ככיוון כללי בלבד, אלא עובר תהליך של דיוק, בדיקה והעמקה.
-          הצוותים לומדים להבין טוב יותר מי המשתמשים שאליהם הם פונים, מהו הצורך האמיתי שהם מנסים לתת לו מענה, אילו פתרונות כבר קיימים בשוק ומה אפשר ללמוד מהם.
-          מתוך הבדיקה הזו מתחדד הערך של המוצר, מתבהרת דרך הפיתוח ונוצר בסיס חזק יותר להמשך העבודה על אב-טיפוס ממוקד, ברור ורלוונטי יותר.
+          כך הרעיון שלכם לא נשאר רק “רעיון מגניב”, אלא מתחיל להפוך למוצר אמיתי — עם קהל יעד ברור, צורך אמיתי וכיוון טוב יותר לבניית אב-טיפוס.
         </div>
       </article>
     </section>
 
     <div class="cta-bar">
-      <a class="cta-btn primary" href="./audience-market/workaudience.html">לדף הפעילות</a>
+      <a class="cta-btn primary" href="./workaud-8.htm">לדף הפעילות</a>
     </div>
 
     <div class="page-footer">© פרימיום | תעשיידע</div>
