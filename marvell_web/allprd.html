@@ -25,18 +25,6 @@
       gap: 1rem;
     }
 
-    #summary-modal {
-      overflow-y: auto;
-      align-items: flex-start;
-    }
-
-    #summary-modal .summary-modal-panel {
-      margin: 1rem auto;
-      max-height: calc(100vh - 2rem);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
     .summary-step {
       position: relative;
       display: block;
@@ -151,19 +139,6 @@
         padding: 0.875rem;
       }
     }
-
-    @media (min-width: 641px) {
-      #summary-modal {
-        align-items: center;
-      }
-
-      #summary-modal .summary-modal-panel {
-        margin: 0 auto;
-        max-height: 90vh;
-      }
-    }
-
-
 
     /* ── Marvell premium visual system ───────────────────── */
     :root {
@@ -282,6 +257,28 @@
     .marvell-header-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30);
+    }
+
+    .prototype-summary-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 24px;
+      border-radius: 22px;
+      color: #071a36;
+      font-size: 1.35rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 0%, #9cecff 45%, #f6a742 100%);
+      box-shadow: 0 24px 54px rgba(0, 10, 32, 0.30);
+      border: 1px solid rgba(255,255,255,0.72);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .prototype-summary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 30px 70px rgba(0, 10, 32, 0.38);
     }
 
     .marvell-home-link svg {
@@ -503,11 +500,6 @@
       background: linear-gradient(180deg, #ffffff, #f2f7fd) !important;
     }
 
-    #summary-modal .summary-modal-panel {
-      border: 1px solid rgba(131, 190, 255, 0.34);
-      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
-    }
-
 
 
     /* Poster image rules: cover only physical products; UI screens must remain complete. */
@@ -712,9 +704,6 @@
       .gradient-bg { background: white !important; }
       .sparkle { display: none !important; }
 
-      #summary-modal {
-        display: none !important;
-      }
 
       /* ── Compact print layout ─────────────────────────────── */
 
@@ -918,7 +907,7 @@
       <p id="subtitle" class="marvell-subtitle">30 דקות לתכנן איך המוצר ייראה, מה יופיע בו ואיך נציג אותו בהדמיה הדיגיטלית.</p>
      </section><!-- Prototype Tip Section -->
      <div class="max-w-3xl mx-auto mb-10 bg-white/40 backdrop-blur rounded-2xl p-6">
-      <p class="text-gray-700">בשלב הזה לא בונים מוצר אמיתי ולא יוצרים הדמיית AI. מתכננים גרסה ראשונה וברורה שאפשר יהיה להפוך בהמשך להדמיה דיגיטלית.</p>
+      <p class="text-gray-700">בשלב הזה לא בונים מוצר אמיתי ולא יוצרים הדמיה בפועל. מתכננים גרסה ראשונה וברורה שאפשר יהיה להפוך בהמשך להדמיה דיגיטלית.</p>
      </div><!-- Product Type Selection -->
      <div class="max-w-5xl mx-auto">
       <h2 class="marvell-section-title">🎯 איזה סוג אב־טיפוס נתכנן היום?</h2>
@@ -941,114 +930,6 @@
       </div>
      </div>
     </div>
-   </div><!-- Summary Modal (hidden/inactive) -->
-   <div id="summary-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" style="display:none!important;">
-    <div class="summary-modal-panel bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" dir="rtl">
-     <div class="bg-gradient-to-l from-blue-600 to-blue-800 rounded-t-3xl px-6 py-5 text-white">
-      <div class="flex items-center justify-between">
-       <div>
-        <h2 class="text-xl font-bold">⚙️ עצירת פיתוח - בדיקה לפני סבב שיפור</h2>
-        <p class="text-blue-200 text-sm mt-1">⏱ זמן: 6 דקות בלבד</p>
-       </div>
-       <button onclick="closeSummaryModal()" class="text-white/70 hover:text-white text-2xl font-light leading-none">✕</button>
-      </div>
-     </div>
-     <div class="px-6 py-5 summary-flow">
-      <!-- Goal -->
-      <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100">
-       <h3 class="font-bold text-gray-800 mb-2">🎯 המטרה</h3>
-       <p class="text-gray-700 text-sm">להחליט בצורה מדויקת מה אנחנו משפרים בשיעור הבא.</p>
-       <p class="text-gray-500 text-sm mt-2">לא בונים מחדש. לא מוסיפים רעיונות. <strong>מדייקים.</strong></p>
-      </div>
-      <!-- Step 1 -->
-      <section class="summary-step summary-step--1">
-       <h3 class="summary-step__title font-bold text-gray-800">שלב 1 - מצב המוצר כרגע <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
-       <div class="summary-step__body">
-        <p class="summary-step__intro text-gray-600 text-sm">סמנו את המשפט שהכי מדויק למוצר של הצוות:</p>
-        <div class="space-y-2" id="step1-options">
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step1" value="structure" class="accent-blue-600"> <span class="text-sm text-gray-700">יש לנו מבנה ברור אבל לא הכל זורם</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step1" value="value" class="accent-blue-600"> <span class="text-sm text-gray-700">הערך טוב אבל לא מספיק ברור</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step1" value="complex" class="accent-blue-600"> <span class="text-sm text-gray-700">יש שלב מסובך מדי</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step1" value="clarity" class="accent-blue-600"> <span class="text-sm text-gray-700">חסרה בהירות במה שהמערכת עושה</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step1" value="simplify" class="accent-blue-600"> <span class="text-sm text-gray-700">המוצר עובד אבל אפשר לפשט</span>
-        </label>
-        </div>
-        <p class="text-gray-400 text-xs mt-2">אם סימנתם יותר מאחד - בחרו רק אחד מרכזי.</p>
-       </div>
-      </section>
-      <!-- Step 2 -->
-      <section class="summary-step summary-step--2">
-       <h3 class="summary-step__title font-bold text-gray-800">שלב 2 - נקודת השיפור <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
-       <div class="summary-step__body">
-        <p class="text-gray-600 text-sm">באיזה שלב במוצר צריך להתמקד?</p>
-        <div class="summary-step__fields">
-         <div>
-         <label class="text-sm text-gray-600 block mb-1">שלב מספר / מסך:</label>
-         <input type="text" placeholder="לדוגמה: מסך 3 / שלב הרישום" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-gray-50">
-        </div>
-         <div>
-         <label class="text-sm text-gray-600 block mb-1">מה בדיוק הבעיה שם? <span class="text-gray-400">(במשפט קצר וברור)</span></label>
-         <textarea placeholder="לא לכתוב כללי. לכתוב מדויק." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-gray-50 resize-none" rows="2"></textarea>
-         </div>
-        </div>
-       </div>
-      </section>
-      <!-- Step 3 -->
-      <section class="summary-step summary-step--3">
-       <h3 class="summary-step__title font-bold text-gray-800">שלב 3 - החלטת צוות לשיעור הבא <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
-       <p class="text-gray-600 text-sm mb-3">בשיעור הבא אנחנו משפרים:</p>
-       <div class="space-y-2 mb-4">
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step3" value="shortcut" class="accent-blue-600"> <span class="text-sm text-gray-700">קיצור מסלול</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step3" value="screen" class="accent-blue-600"> <span class="text-sm text-gray-700">פישוט מסך</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step3" value="value" class="accent-blue-600"> <span class="text-sm text-gray-700">חידוד ערך</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step3" value="response" class="accent-blue-600"> <span class="text-sm text-gray-700">הבהרת תגובת מערכת</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
-         <input type="radio" name="step3" value="load" class="accent-blue-600"> <span class="text-sm text-gray-700">הפחתת עומס</span>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all" id="other-label">
-         <input type="radio" name="step3" value="other" class="accent-blue-600" onchange="toggleOtherInput()"> <span class="text-sm text-gray-700">אחר:</span>
-         <input type="text" id="other-input" placeholder="פרטי..." class="flex-1 px-3 py-1 rounded-lg border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-white hidden">
-        </label>
-       </div>
-       <div>
-        <label class="text-sm text-gray-600 block mb-1">מטרת השיפור שלנו במשפט אחד:</label>
-        <div class="flex items-center gap-2 flex-wrap bg-gray-50 rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-700">
-         <span>בשיעור הבא נהפוך את המוצר ליותר</span>
-         <input type="text" id="goal-word1" placeholder="________" class="w-28 px-2 py-1 rounded-lg border border-blue-200 focus:border-blue-400 focus:outline-none text-sm bg-white text-center">
-         <span>על ידי</span>
-         <input type="text" id="goal-word2" placeholder="________" class="w-36 px-2 py-1 rounded-lg border border-blue-200 focus:border-blue-400 focus:outline-none text-sm bg-white text-center">
-         <span>.</span>
-        </div>
-       </div>
-      </section>
-      <!-- Footer -->
-      <div class="bg-blue-700 rounded-2xl p-4 text-white text-center">
-       <p class="font-bold mb-1">אנחנו לא מתחילים מחדש.</p>
-       <p class="font-bold mb-2">אנחנו משפרים גרסה קיימת.</p>
-       <p class="text-blue-200 text-sm">פיתוח מוצר הוא תהליך של גרסאות - לא של רעיון מושלם בפעם הראשונה.</p>
-      </div>
-      <div class="flex justify-center gap-3 pb-2">
-       <button onclick="closeSummaryModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-full transition-all shadow-lg">סגור</button> <button onclick="printPage()" class="bg-white text-blue-700 font-bold px-8 py-3 rounded-full transition-all shadow-lg border border-blue-200 hover:bg-blue-50 flex items-center gap-2"> <span>🖨️</span> הדפסה </button>
-      </div>
-     </div>
-    </div>
    </div><!-- Physical Product Page -->
    <div id="physical-page" data-layout="physical" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
     <div class="container mx-auto px-4 py-8">
@@ -1063,78 +944,47 @@
      <div class="max-w-4xl mx-auto space-y-6"><!-- Product Name -->
       <div class="mb-8"><input type="text" placeholder="📦 שם המוצר של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-cyan-400 bg-white/60 text-gray-800 placeholder-gray-600 focus:border-cyan-500 focus:outline-none text-2xl text-center font-bold">
       </div><!-- אב-טיפוס Form -->
-      <div class="space-y-6"><!-- 1. מה חייבים לראות -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> 1. מה חייבים לראות באב־טיפוס?</h3>
-        <p class="text-gray-600 text-sm mb-3">מה הדבר הראשון שמי שרואה את האב־טיפוס חייב להבין?</p>
-        <textarea placeholder="לדוגמה: צורת המוצר, גודל, איך מחזיקים אותו..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
-       </div><!-- 2. רכיבים מרכזיים -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><span>🔧</span> 2. רכיבים מרכזיים שחייבים להופיע</h3>
-        <p class="text-gray-600 text-sm mb-3">רק מה שבלעדיו האב־טיפוס לא מובן</p>
-        <div class="space-y-3"><input type="text" placeholder="• רכיב 1" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50"> <input type="text" placeholder="• רכיב 2" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50"> <input type="text" placeholder="• רכיב 3" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50">
+      <div class="space-y-6 prototype-steps">
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+        <p class="text-gray-600 text-sm mb-3">מה מי שמסתכל על האב־טיפוס חייב להבין מיד?</p>
+        <textarea placeholder="לדוגמה: צורת המוצר, הגודל, איך מחזיקים אותו, החלק החשוב ביותר..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+        <div class="grid md:grid-cols-3 gap-3 mt-3">
+         <input type="text" placeholder="רכיב חובה 1" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
+         <input type="text" placeholder="רכיב חובה 2" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
+         <input type="text" placeholder="רכיב חובה 3" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
         </div>
-       </div><!-- 3. צבעים וחומרים -->
-       <div class="bg-white/20 backdrop-blur rounded-2xl p-6 border border-gray-400/30">
-        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><span>🎨</span> 3. צבעים וחומרים</h3>
-        <div class="mb-4">
-         <h4 class="text-gray-900 font-semibold mb-3">צבעים עיקריים:</h4>
-         <div class="grid md:grid-cols-6 gap-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אדום</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כחול</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">שחור</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">לבן</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">ירוק</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">צהוב</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כתום</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">סגול</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כחול כהה</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">טורקיז</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">זהב</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אחר</span> </label> <input type="text" placeholder="צבע אחר..." class="md:col-span-2 px-3 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 shadow-sm hidden">
-         </div>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+        <p class="text-gray-600 text-sm mb-4">זה הלב של הפעילות: מתארים את האב־טיפוס בשלושה רגעים קצרים.</p>
+        <div class="grid md:grid-cols-3 gap-3">
+         <textarea placeholder="בהתחלה רואים..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="המשתמש עושה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="בסוף קורה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
         </div>
-        <div>
-         <h4 class="text-gray-900 font-semibold mb-3">חומרים:</h4>
-         <div class="grid md:grid-cols-3 gap-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">פלסטיק</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">מתכת</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">עץ</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">בד</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">סיליקון</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">זכוכית</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אחר</span> </label> <input type="text" placeholder="חומר אחר..." class="md:col-span-2 px-3 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 shadow-sm hidden">
-         </div>
-        </div>
-       </div><!-- 4. סביבת שימוש -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-blue-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🌍</span> 4. סביבת שימוש ופגישה עם המשתמש</h3>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
         <div class="grid md:grid-cols-2 gap-4">
-         <div><label class="text-gray-700 text-sm font-semibold block mb-2">איפה משתמשים במוצר?</label><input type="text" placeholder="לדוגמה: בבית, בחוץ, בעבודה..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50"></div>
-         <div><label class="text-gray-700 text-sm font-semibold block mb-2">איך המשתמש פוגש את המוצר?</label><input type="text" placeholder="לדוגמה: לוחץ, מסובב, הולך עם..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50"></div>
-        </div>
-       </div><!-- 5. מה להבליט בהדמיה -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>⭐</span> 5. מה חשוב להבליט בהדמיה?</h3>
-        <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="2"></textarea>
-       </div><!-- 6. מה לא להעמיס -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-orange-400" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🚫</span> 6. מה לא להציג או לא להעמיס?</h3>
-        <p class="text-gray-600 text-sm mb-3">מה נשמור למאוחר יותר?</p>
-        <textarea placeholder="לדוגמה: צבעים מדויקים, כל הפרטים הקטנים, פונקציות נוספות..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
-       </div><!-- 7. קישור / תמונה -->
-       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-green-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
-        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>📎</span> 7. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
-        <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
-        <p class="text-gray-500 text-xs">או העלו תמונה / צילום מסך של הסקיצה שלכם</p>
-       </div><!-- Quality Check -->
-       <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
-        <h3 class="text-lg font-bold text-amber-800 mb-2 flex items-center gap-2"><span>⏱️</span> בדיקת אב־טיפוס ב־60 שניות</h3>
-        <p class="text-amber-700 text-sm mb-4">תנו למישהו להסתכל רגע על התכנון. האם הוא מבין מה אמורים לראות?</p>
-        <div class="space-y-3 mb-5">
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה רואים</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה המשתמש עושה</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה קורה בסוף</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אין עומס מיותר</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אפשר להסביר את זה בדקה</span></label>
-        </div>
-        <div>
-         <label class="text-amber-800 text-sm font-bold block mb-2">מה נרצה לבדוק במשוב הבא?</label>
-         <div class="space-y-2">
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-phys" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם מבינים את המסכים</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-phys" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם הפעולה המרכזית ברורה</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-phys" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם חסר שלב</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-phys" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם יש עומס</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-phys" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם צריך לפשט</span></label>
-         </div>
+         <textarea placeholder="צבעים, חומרים וצורה כללית..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
+         <textarea placeholder="סגנון: נקי, משחקי, מקצועי, עתידני, פשוט..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
         </div>
        </div>
-       <div class="bg-gradient-to-l from-cyan-600 to-blue-700 rounded-2xl p-6 text-center">
-        <div class="text-3xl mb-2">✅</div>
-        <h3 class="text-white font-bold text-xl mb-1">תכנון האב־טיפוס מוכן</h3>
-        <p class="text-cyan-100 text-sm">בשלב הבא נהפוך את התכנון להדמיה דיגיטלית מלאה.</p>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>✨</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <textarea placeholder="מה להבליט בהדמיה? מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="3"></textarea>
+         <textarea placeholder="מה לא להעמיס? אילו פרטים נשמור למאוחר יותר?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="3"></textarea>
+        </div>
        </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+        <p class="text-gray-600 text-sm mb-3">שמרו את תכנון האב־טיפוס כדי שיהיה אפשר להפוך אותו בהמשך להדמיה דיגיטלית.</p>
+        <input type="text" placeholder="אם הכנתם סקיצה, קישור או צילום מסך — אפשר לצרף כאן" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+        <textarea placeholder="הערת סיכום קצרה: מה התכנון הכי חשוב לזכור?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="2"></textarea>
+       </div>
+       <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
       </div>
      </div>
      <footer class="print-page-footer">© פרימיום | תעשיידע</footer>
@@ -1153,103 +1003,56 @@
      <div class="max-w-4xl mx-auto space-y-6"><!-- Product Name -->
       <div class="mb-8"><input type="text" placeholder="💻 שם הפלטפורמה של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-blue-400 bg-white/60 text-gray-800 placeholder-gray-500 focus:border-cyan-400 focus:outline-none text-2xl text-center font-bold shadow-lg">
       </div><!-- אב-טיפוס Form -->
-      <div class="space-y-6"><!-- 1. סוג ההמחשה -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-blue-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🖥️</span> 1. סוג ההמחשה</h3>
-        <p class="text-gray-600 text-sm mb-3">מה הכי מתאים למוצר שלכם?</p>
-        <div class="grid md:grid-cols-4 gap-3">
-         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">אתר</span></label>
-         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">מערכת</span></label>
-         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">דשבורד</span></label>
-         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">שירות דיגיטלי</span></label>
+      <div class="space-y-6 prototype-steps">
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+        <p class="text-gray-600 text-sm mb-3">מה חייב להופיע במסך הראשון כדי שמבינים את המוצר?</p>
+        <textarea placeholder="לדוגמה: כותרת, פעולה מרכזית, אזור מידע, כפתור התחלה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="3"></textarea>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+        <p class="text-gray-600 text-sm mb-4">זה הלב של הפעילות: מתארים את האב־טיפוס בשלושה רגעים קצרים.</p>
+        <div class="grid md:grid-cols-3 gap-3">
+         <textarea placeholder="בהתחלה רואים..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="המשתמש עושה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="בסוף קורה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
         </div>
-       </div><!-- 2. המסך הראשון -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-cyan-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🖼️</span> 2. מה רואים במסך הראשון?</h3>
-        <textarea placeholder="מה המשתמש רואה כשנכנס? כותרת, תמונה, כפתור ראשי..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
-       </div><!-- 3. הפעולה המרכזית -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-blue-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⚡</span> 3. מה המשתמש עושה? (הפעולה המרכזית)</h3>
-        <p class="text-gray-600 text-sm mb-3">אם זה לא עובד — אין מוצר. מה הפעולה הכי חשובה?</p>
-        <textarea placeholder="לדוגמה: ממלא טופס, לוחץ על כפתור, מחפש מוצר..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="2"></textarea>
-       </div><!-- 4. מה קורה אחרי -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-indigo-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>➡️</span> 4. מה רואים בסוף? (אחרי הפעולה)</h3>
-        <div class="space-y-3">
-         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
-          <label class="text-gray-700 text-xs font-semibold">מסך 1 - פתיחה</label> <input type="text" placeholder="תיאור מסך הפתיחה..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
-         </div>
-         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
-          <label class="text-gray-700 text-xs font-semibold">מסך 2 - פעולה מרכזית</label> <input type="text" placeholder="תיאור מסך הפעולה..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
-         </div>
-         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
-          <label class="text-gray-700 text-xs font-semibold">מסך 3 - תוצאה</label> <input type="text" placeholder="מה המשתמש מקבל בסוף..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
-         </div>
-        </div>
-       </div><!-- 5. מה חייב להיות ברור -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-green-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>💡</span> 5. מה חייב להיות ברור למשתמש?</h3>
-        <textarea placeholder="מה המשתמש חייב להבין בלי להסביר לו..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="2"></textarea>
-       </div><!-- 6. סגנון חזותי -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-cyan-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🎨</span> 6. סגנון חזותי</h3>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
         <div class="grid md:grid-cols-2 gap-4">
-         <div><label class="text-gray-700 text-sm font-semibold block mb-2">צבעים עיקריים</label>
-          <div class="grid grid-cols-3 gap-2">
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">כחול</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">כהה</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">בהיר</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">ירוק</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">סגול</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">אחר</span></label>
-           <input type="text" placeholder="צבע אחר..." class="col-span-3 px-3 py-1 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-xs hidden">
-          </div>
-         </div>
-         <div><label class="text-gray-700 text-sm font-semibold block mb-2">תחושה כללית</label>
-          <div class="grid grid-cols-2 gap-2">
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">נקי ומינימליסטי</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">צבעוני ומלא</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">מקצועי</span></label>
-           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">ידידותי ומשחקי</span></label>
-          </div>
-         </div>
+         <textarea placeholder="סגנון המסכים: נקי, מקצועי, צבעוני, דשבורד, אתר..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
+         <textarea placeholder="צבעים, אייקונים, כפתורים ותחושה כללית..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
         </div>
-       </div><!-- 7. מה להבליט -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-orange-400">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⭐</span> 7. מה חשוב להבליט בהדמיה?</h3>
-        <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
-       </div><!-- 8. קישור / תמונה -->
-       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-green-500">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>📎</span> 8. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
-        <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
-        <p class="text-gray-500 text-xs">או צרפו קישור ל-Figma, Canva, סקיצה סרוקה וכו'</p>
-       </div><!-- Quality Check -->
-       <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
-        <h3 class="text-lg font-bold text-amber-800 mb-2 flex items-center gap-2"><span>⏱️</span> בדיקת אב־טיפוס ב־60 שניות</h3>
-        <p class="text-amber-700 text-sm mb-4">תנו למישהו להסתכל רגע על התכנון. האם הוא מבין מה אמורים לראות?</p>
-        <div class="space-y-3 mb-5">
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה רואים</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה המשתמש עושה</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה קורה בסוף</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אין עומס מיותר</span></label>
-         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אפשר להסביר את זה בדקה</span></label>
-        </div>
-        <div>
-         <label class="text-amber-800 text-sm font-bold block mb-2">מה נרצה לבדוק במשוב הבא?</label>
-         <div class="space-y-2">
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם מבינים את המסכים</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם הפעולה המרכזית ברורה</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם חסר שלב</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם יש עומס</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם צריך לפשט</span></label>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🖥️</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+        <p class="text-gray-600 text-sm mb-4">תכננו 3 שרטוטים של מסכי מחשב: פתיחה, פעולה ותוצאה.</p>
+        <div class="grid md:grid-cols-3 gap-4">
+         <div class="rounded-2xl bg-slate-900 p-2 shadow-lg">
+          <div class="h-3 rounded-t-xl bg-slate-700"></div>
+          <textarea placeholder="מסך מחשב 1 — פתיחה: מה רואים?" class="w-full px-4 py-3 rounded-b-xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+          <div class="h-2 w-16 mx-auto mt-2 rounded-full bg-slate-700"></div>
+         </div>
+         <div class="rounded-2xl bg-slate-900 p-2 shadow-lg">
+          <div class="h-3 rounded-t-xl bg-slate-700"></div>
+          <textarea placeholder="מסך מחשב 2 — פעולה: מה המשתמש עושה?" class="w-full px-4 py-3 rounded-b-xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+          <div class="h-2 w-16 mx-auto mt-2 rounded-full bg-slate-700"></div>
+         </div>
+         <div class="rounded-2xl bg-slate-900 p-2 shadow-lg">
+          <div class="h-3 rounded-t-xl bg-slate-700"></div>
+          <textarea placeholder="מסך מחשב 3 — תוצאה: מה קורה בסוף?" class="w-full px-4 py-3 rounded-b-xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+          <div class="h-2 w-16 mx-auto mt-2 rounded-full bg-slate-700"></div>
          </div>
         </div>
        </div>
-       <div class="bg-gradient-to-l from-cyan-600 to-blue-700 rounded-2xl p-6 text-center">
-        <div class="text-3xl mb-2">✅</div>
-        <h3 class="text-white font-bold text-xl mb-1">תכנון האב־טיפוס מוכן</h3>
-        <p class="text-cyan-100 text-sm">בשלב הבא נהפוך את התכנון להדמיה דיגיטלית מלאה.</p>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+        <p class="text-gray-600 text-sm mb-3">שמרו את תכנון האב־טיפוס כדי שיהיה אפשר להפוך אותו בהמשך להדמיה דיגיטלית.</p>
+        <input type="text" placeholder="אם הכנתם סקיצה, קישור או צילום מסך — אפשר לצרף כאן" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+        <textarea placeholder="משפט סיכום למסך ההדמיה: מה המסר המרכזי?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="2"></textarea>
        </div>
+       <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
       </div>
      </div>
      <footer class="print-page-footer">© פרימיום | תעשיידע</footer>
@@ -1265,99 +1068,66 @@
       </div>
       <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
      </section>
-     <div class="max-w-4xl mx-auto mb-8 flex gap-2 flex-wrap justify-center"><button onclick="switchAppTab('mvp')" class="tab-btn-app bg-cyan-100 hover:bg-cyan-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all active" data-tab="mvp">📋 תכנון אב-טיפוס</button> <button onclick="switchAppTab('screens')" class="tab-btn-app bg-sky-100 hover:bg-sky-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all" data-tab="screens">📱 עיצוב המסכים</button>
+     <div class="max-w-4xl mx-auto mb-8 flex gap-2 flex-wrap justify-center"><button onclick="switchAppTab('plan')" class="tab-btn-app bg-cyan-100 hover:bg-cyan-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all active" data-tab="plan">📋 תכנון אב-טיפוס</button> <button onclick="switchAppTab('screens')" class="tab-btn-app bg-sky-100 hover:bg-sky-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all" data-tab="screens">📱 סיפור האפליקציה ב־3 מסכים</button>
      </div><!-- אב-טיפוס Planning Tab -->
-     <div id="app-mvp-tab" class="tab-content-app">
+     <div id="app-plan-tab" class="tab-content-app">
       <div class="max-w-4xl mx-auto">
        <div class="mb-8"><input type="text" id="app-name" placeholder="📱 שם האפליקציה של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-blue-400 bg-white/60 text-gray-900 placeholder-gray-600 focus:border-cyan-400 focus:outline-none text-2xl text-center font-bold">
        </div>
-       <div class="space-y-6"><!-- 1. מסך פתיחה -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-blue-500">
-         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🚀</span> 1. מסך פתיחה — מה רואים?</h3>
-         <p class="text-gray-600 text-sm mb-3">הרושם הראשון. מה המשתמש רואה כשפותחים את האפליקציה?</p>
-         <textarea placeholder="לדוגמה: לוגו גדול, שם האפליקציה, כפתור 'התחלה'..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="3"></textarea>
-        </div><!-- 2. מסך פעולה מרכזית -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-cyan-500">
-         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⚡</span> 2. מסך פעולה מרכזית — מה המשתמש עושה?</h3>
-         <p class="text-gray-600 text-sm mb-3">זה המסך הכי חשוב. פשוט, ברור, עד 3 פעולות ראשיות.</p>
-         <textarea placeholder="לדוגמה: מסך חיפוש עם שדה טקסט וכפתור, מסך בחירה מרשימה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
-         <div class="mt-3 space-y-2">
-          <label class="text-gray-700 text-sm font-semibold block">כפתורים מרכזיים בדף זה:</label>
-          <input type="text" placeholder="• כפתור 1" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
-          <input type="text" placeholder="• כפתור 2" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
-          <input type="text" placeholder="• כפתור 3 (אם יש)" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
-         </div>
-        </div><!-- 3. מסך תוצאה -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-green-500">
-         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>✅</span> 3. מסך תוצאה — מה רואים בסוף?</h3>
-         <p class="text-gray-600 text-sm mb-3">חגיגה! מה המשתמש מקבל? תוצאה ברורה + מה הלאה?</p>
-         <textarea placeholder="לדוגמה: הודעת הצלחה, תוצאות החיפוש, כפתור 'שמירה' או 'שיתוף'..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="3"></textarea>
-        </div><!-- 4. סגנון חזותי -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-indigo-500">
-         <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🎨</span> 4. סגנון חזותי</h3>
-         <div class="grid md:grid-cols-2 gap-4">
-          <div><label class="text-gray-700 text-sm font-semibold block mb-2">צבעים עיקריים</label>
-           <div class="grid grid-cols-3 gap-2">
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">כחול</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">כהה</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">בהיר</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">ירוק</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">סגול</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">אחר</span></label>
-            <input type="text" placeholder="צבע אחר..." class="col-span-3 px-3 py-1 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50 text-xs hidden">
-           </div>
-          </div>
-          <div><label class="text-gray-700 text-sm font-semibold block mb-2">תחושה כללית</label>
-           <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">נקי</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">מודרני</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">צבעוני</span></label>
-            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">משחקי</span></label>
-           </div>
-          </div>
-         </div>
-        </div><!-- 5. מה להבליט -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-orange-400">
-         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⭐</span> 5. מה חשוב להבליט בהדמיה?</h3>
-         <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
-        </div><!-- 6. קישור / תמונה -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-green-500">
-         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>📎</span> 6. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
-         <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
-         <p class="text-gray-500 text-xs">או צרפו קישור ל-Figma, Canva, סקיצה סרוקה וכו'</p>
-        </div><!-- Quality Check -->
-        <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
-         <h3 class="text-lg font-bold text-amber-800 mb-2 flex items-center gap-2"><span>⏱️</span> בדיקת אב־טיפוס ב־60 שניות</h3>
-         <p class="text-amber-700 text-sm mb-4">תנו למישהו להסתכל רגע על התכנון. האם הוא מבין מה אמורים לראות?</p>
-         <div class="space-y-3 mb-5">
-          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה רואים</span></label>
-          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה המשתמש עושה</span></label>
-          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">ברור מה קורה בסוף</span></label>
-          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אין עומס מיותר</span></label>
-          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">אפשר להסביר את זה בדקה</span></label>
-         </div>
-         <div>
-          <label class="text-amber-800 text-sm font-bold block mb-2">מה נרצה לבדוק במשוב הבא?</label>
-          <div class="space-y-2">
-           <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-app" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם מבינים את המסכים</span></label>
-           <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-app" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם הפעולה המרכזית ברורה</span></label>
-           <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-app" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם חסר שלב</span></label>
-           <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-app" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם יש עומס</span></label>
-           <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="qa-next-app" class="accent-amber-600"> <span class="text-gray-700 text-sm">האם צריך לפשט</span></label>
-          </div>
-         </div>
-        </div>
-        <div class="bg-gradient-to-l from-cyan-600 to-blue-700 rounded-2xl p-6 text-center">
-         <div class="text-3xl mb-2">✅</div>
-         <h3 class="text-white font-bold text-xl mb-1">תכנון האב־טיפוס מוכן</h3>
-         <p class="text-cyan-100 text-sm">בשלב הבא נהפוך את התכנון להדמיה דיגיטלית מלאה.</p>
+       <div class="space-y-6 prototype-steps">
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+        <p class="text-gray-600 text-sm mb-3">מה חייב להופיע כדי שמבינים מיד מה האפליקציה עושה?</p>
+        <textarea placeholder="לדוגמה: שם האפליקציה, פעולה ראשית, כפתור התחלה, מידע חשוב..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="3"></textarea>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+        <p class="text-gray-600 text-sm mb-4">זה הלב של הפעילות: מתארים את האב־טיפוס בשלושה רגעים קצרים.</p>
+        <div class="grid md:grid-cols-3 gap-3">
+         <textarea placeholder="בהתחלה רואים..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="המשתמש עושה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <textarea placeholder="בסוף קורה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
         </div>
        </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <textarea placeholder="סגנון האפליקציה: צעיר, מקצועי, רגוע, משחקי..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
+         <textarea placeholder="צבעים, אייקונים, כפתורים ותחושה כללית..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-indigo-50" rows="3"></textarea>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>📱</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+        <p class="text-gray-600 text-sm mb-4">תכננו 3 שרטוטים של מסכי טלפון: פתיחה, פעולה ותוצאה.</p>
+        <div class="grid md:grid-cols-3 gap-4">
+         <div class="rounded-[2rem] bg-slate-950 p-2 shadow-lg">
+          <div class="h-5 w-20 mx-auto rounded-b-xl bg-slate-950"></div>
+          <textarea placeholder="מסך טלפון 1 — פתיחה: מה רואים?" class="w-full aspect-[9/14] px-4 py-3 rounded-2xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+         </div>
+         <div class="rounded-[2rem] bg-slate-950 p-2 shadow-lg">
+          <div class="h-5 w-20 mx-auto rounded-b-xl bg-slate-950"></div>
+          <textarea placeholder="מסך טלפון 2 — פעולה: מה המשתמש עושה?" class="w-full aspect-[9/14] px-4 py-3 rounded-2xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+         </div>
+         <div class="rounded-[2rem] bg-slate-950 p-2 shadow-lg">
+          <div class="h-5 w-20 mx-auto rounded-b-xl bg-slate-950"></div>
+          <textarea placeholder="מסך טלפון 3 — תוצאה: מה קורה בסוף?" class="w-full aspect-[9/14] px-4 py-3 rounded-2xl text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 border border-cyan-200" rows="5"></textarea>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-l-4 border-cyan-500 prototype-step-card">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+        <p class="text-gray-600 text-sm mb-3">שמרו את תכנון האב־טיפוס כדי שיהיה אפשר להפוך אותו בהמשך להדמיה דיגיטלית.</p>
+        <input type="text" placeholder="אם הכנתם סקיצה, קישור או צילום מסך — אפשר לצרף כאן" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+        <textarea placeholder="משפט סיכום למסכי האפליקציה: מה הכי חשוב שיראו?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="2"></textarea>
+       </div>
+        <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
+       </div>
       </div>
-     </div><!-- Screens Design Tab -->
+     </div>
+     <!-- Screens Design Tab -->
      <div id="app-screens-tab" class="tab-content-app hidden">
       <div class="max-w-6xl mx-auto space-y-8">
-       <h2 class="text-2xl font-bold text-white text-center drop-shadow-lg">📱 עיצוב המסכים</h2>
+       <h2 class="text-2xl font-bold text-white text-center drop-shadow-lg">📱 סיפור האפליקציה ב־3 מסכים</h2>
        <p class="screens-subtitle text-cyan-100 text-center text-sm font-bold drop-shadow">3 תבניות מובייל - כל אחת מייצגת מסך אחר בזרימה</p><!-- Mobile Frames Grid -->
        <div class="grid md:grid-cols-3 gap-8"><!-- Screen 1: Opening -->
         <div class="flex flex-col items-center">
@@ -1557,19 +1327,12 @@
     }
 
     function printPage() {
-      const summaryModal = document.getElementById('summary-modal');
-      const wasSummaryOpen = summaryModal && !summaryModal.classList.contains('hidden');
-
-      if (wasSummaryOpen) {
-        closeSummaryModal();
-      }
-
       fitPosterToPage();
       window.print();
+    }
 
-      if (wasSummaryOpen) {
-        openSummaryModal();
-      }
+    function createPrototypeSummaryPdf() {
+      printPage();
     }
     
     window.addEventListener('beforeprint', fitPosterToPage);
@@ -1706,41 +1469,6 @@
     }
     setupOtherCheckboxes();
 
-    function openSummaryModal() {
-      const modal = document.getElementById('summary-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeSummaryModal() {
-      const modal = document.getElementById('summary-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function toggleOtherInput() {
-      const input = document.getElementById('other-input');
-      const radio = document.querySelector('input[name="step3"][value="other"]');
-      if (radio.checked) {
-        input.classList.remove('hidden');
-        input.focus();
-      } else {
-        input.classList.add('hidden');
-      }
-    }
-
-    document.getElementById('summary-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeSummaryModal();
-    });
-
-    document.querySelectorAll('input[name="step3"]').forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        if (this.value !== 'other') {
-          document.getElementById('other-input').classList.add('hidden');
-        }
-      });
-    });
   </script>
- </div>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d6cf01024e5c227',t:'MTc3MjU4NTk2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
