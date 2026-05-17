@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>דף עבודה | אסם - קהל יעד ומה קיים בשוק</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #fff6ec;
+      --bg-mid: #fffdf8;
+      --text: #252735;
+      --muted: #6f6f7a;
+      --line: rgba(214, 55, 64, 0.18);
+      --primary: #c8102e;
+      --primary-2: #e23b46;
+      --cyan: #e23b46;
+      --cyan-soft: #ffe6e3;
+      --orange: #fff0dc;
+      --green: #f37a82;
+      --shadow: 0 24px 58px rgba(148, 33, 45, 0.14);
+      --shadow-soft: 0 16px 36px rgba(148, 33, 45, 0.10);
+      --radius-lg: 24px;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      zoom: 0.75;
+      min-height: 100vh;
+      font-family: "Assistant", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 86% 6%, rgba(216, 28, 46, 0.10), transparent 26%),
+        radial-gradient(circle at 10% 16%, rgba(255, 238, 220, 0.92), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255, 225, 218, 0.62), transparent 32%),
+        linear-gradient(145deg, #ffffff 0%, #fff7ef 50%, #fff1e6 100%);
+      padding: 14px 10px 26px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(216,28,46,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(216,28,46,0.045) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.34;
+    }
+
+    button, input, textarea, select { font-family: inherit; }
+
+    .page {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      background:
+        radial-gradient(circle at top right, rgba(216,28,46,0.08), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 247, 238, 0.98));
+      border: 1px solid rgba(216, 28, 46, 0.18);
+      border-radius: 28px;
+      box-shadow:
+        0 28px 70px rgba(148, 33, 45, 0.14),
+        inset 0 1px 0 rgba(255,255,255,0.96);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(216,28,46,0.052) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(216,28,46,0.044) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 60%);
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      padding: 7px 14px;
+      color: #c8102e;
+      background: linear-gradient(90deg, #b80f26 0%, #d71930 50%, #b80f26 100%);
+      border-bottom: 1px solid rgba(216, 28, 46, 0.18);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      padding: 16px 20px 13px;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(216,28,46,0.08), transparent 30%),
+        linear-gradient(135deg, #fffdf8, #fff0e2);
+      border-bottom: 1px solid rgba(216, 28, 46, 0.18);
+    }
+
+    .home-link {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(216, 28, 46, 0.28);
+      background: linear-gradient(180deg, #ffffff, #fff1e8);
+      box-shadow: 0 10px 20px rgba(148, 33, 45, 0.12);
+    }
+
+    .home-link svg { width: 18px; height: 18px; fill: #c8102e; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .brand img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 22px rgba(148, 33, 45, 0.14));
+    }
+
+    .brand-copy h1 {
+      color: #c8102e;
+      font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      text-shadow: none;
+    }
+
+    .brand-copy p {
+      margin-top: 5px;
+      color: #6f6f7a;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .card,
+    .tool,
+    .action-panel,
+    .phase-divider {
+      background: linear-gradient(180deg, #ffffff, #fff8f0);
+      border: 1px solid rgba(216, 28, 46, 0.16);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 18px 40px rgba(148, 33, 45, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+      padding: 14px 20px 16px;
+      border-bottom: 1px solid rgba(216, 28, 46, 0.14);
+    }
+
+    .card::before,
+    .tool::before,
+    .phase-divider::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #d71930 0%, #ef5b63 52%, #fff0dc 100%);
+    }
+
+    .intro,
+    .meta { padding: 15px; }
+
+    .intro h2 {
+      color: #b80f26;
+      font-size: 1.18rem;
+      margin-bottom: 5px;
+      font-weight: 900;
+    }
+
+    .intro p {
+      color: #575764;
+      font-size: 0.9rem;
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field + .field { margin-top: 8px; }
+
+    label {
+      color: #b80f26;
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #f1d4d3;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    textarea { min-height: 58px; resize: vertical; line-height: 1.45; }
+    textarea.short { min-height: 46px; }
+    textarea.tall { min-height: 86px; }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(216, 28, 46, 0.54);
+      box-shadow: 0 0 0 4px rgba(216, 28, 46, 0.08);
+      background: #fffdf9;
+    }
+
+    .progress-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 8px 20px;
+      background: rgba(255, 250, 244, 0.92);
+      border-bottom: 1px solid rgba(216, 28, 46, 0.16);
+      backdrop-filter: blur(14px);
+    }
+
+    .progress-inner {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .nav-step {
+      text-decoration: none;
+      color: #b80f26;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(216, 28, 46, 0.16);
+      border-radius: 11px;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1.08;
+      box-shadow: 0 10px 22px rgba(148, 33, 45, 0.08);
+    }
+
+    .nav-step.is-complete {
+      color: #ffffff;
+      background: linear-gradient(180deg, #d71930, #ef5b63);
+      border-color: rgba(255,255,255,0.55);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 14px 20px 8px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .phase-divider {
+      padding: 14px 16px;
+      background:
+        radial-gradient(circle at top right, rgba(216,28,46,0.08), transparent 34%),
+        linear-gradient(180deg, #ffffff, #fff7ee);
+    }
+
+    .phase-divider.phase-audience::before { background: linear-gradient(90deg, #d71930, #ef5b63); }
+    .phase-divider.phase-market::before { background: linear-gradient(90deg, #ef5b63, #ffd7d1); }
+    .phase-divider.phase-different::before { background: linear-gradient(90deg, #d71930, #fff0dc); }
+    .phase-divider.phase-final::before { background: linear-gradient(90deg, #ef5b63, #fff0dc); }
+
+    .phase-divider h2 {
+      color: #b80f26;
+      font-size: 1.24rem;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .phase-divider p {
+      color: #666672;
+      font-size: 0.9rem;
+      line-height: 1.48;
+      font-weight: 600;
+    }
+
+    .tool { padding: 14px; }
+    .tool.phase-audience::before { background: linear-gradient(90deg, #d71930 0%, #ef5b63 100%); }
+    .tool.phase-market::before { background: linear-gradient(90deg, #ef5b63 0%, #ffd7d1 100%); }
+    .tool.phase-different::before { background: linear-gradient(90deg, #d71930 0%, #fff0dc 100%); }
+    .tool.phase-final::before { background: linear-gradient(90deg, #ef5b63 0%, #fff0dc 100%); }
+
+    .tool-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .phase-label,
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(216, 28, 46, 0.08);
+      color: #b80f26;
+      border: 1px solid rgba(216, 28, 46, 0.18);
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .tool h3 {
+      color: #b80f26;
+      font-size: 1.08rem;
+      font-weight: 900;
+      line-height: 1.18;
+      margin-bottom: 3px;
+    }
+
+    .tool-subtitle {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .tool-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #ef5b63, #c8102e);
+      box-shadow: 0 12px 24px rgba(148, 33, 45, 0.18);
+    }
+
+    .tool-grid,
+    .method-row,
+    .summary-grid,
+    .example-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .method-row,
+    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .example-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .span-2 { grid-column: 1 / -1; }
+
+    .method-box,
+    .preview,
+    .summary-box,
+    .print-summary,
+    .example-chip {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(216, 28, 46, 0.16);
+      background: linear-gradient(180deg, #ffffff, #fff8f0);
+      color: #5d5d68;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .method-box strong,
+    .preview strong,
+    .summary-box strong,
+    .print-summary strong {
+      display: block;
+      color: #b80f26;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .method-box p { color: #666672; font-size: 0.84rem; line-height: 1.42; font-weight: 600; }
+    .mini-note { color: #7d7d88; font-size: 0.78rem; line-height: 1.35; font-weight: 600; }
+
+    .summary-value {
+      color: #c8102e;
+      font-weight: 900;
+      background: rgba(216, 28, 46, 0.08);
+      border-radius: 6px;
+      padding: 0 4px;
+      white-space: pre-line;
+    }
+
+    .auto-box {
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 230, 227, 0.78), rgba(255,255,255,0.94));
+      border: 1px solid rgba(216, 28, 46, 0.16);
+      color: #4f4f5d;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .example-chip {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #b80f26;
+      font-size: 0.82rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #ffffff, #fff1e8);
+    }
+
+    .summary-panel {
+      position: relative;
+      z-index: 2;
+      margin: 6px 20px 0;
+      padding: 14px;
+      background:
+        radial-gradient(circle at top left, rgba(216,28,46,0.07), transparent 30%),
+        linear-gradient(180deg, #ffffff, #fff8f0);
+    }
+
+    .summary-panel h2 {
+      color: #b80f26;
+      font-size: 1.18rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .summary-text {
+      white-space: pre-wrap;
+      color: #5c5c68;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .action-panel {
+      position: relative;
+      z-index: 2;
+      margin: 6px 20px 0;
+      padding: 12px;
+    }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 8px 12px;
+      min-width: 118px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 900;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 9px 16px rgba(148,33,45,0.08);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { color: white; background: linear-gradient(90deg, #c8102e, #ef5b63); }
+    .btn.secondary { color: #5c5c68; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
+    .btn.accent { color: white; background: linear-gradient(90deg, #c8102e, #ef5b63); }
+    .status { color: #7d7d88; font-size: 0.82rem; font-weight: 800; }
+    .footer { position: relative; z-index: 2; padding: 12px 14px 18px; text-align: center; color: #b80f26; font-weight: 700; }
+    .print-only { display: none; }
+
+    @media (max-width: 920px) {
+      .hero, .method-row, .tool-grid, .summary-grid, .example-grid { grid-template-columns: 1fr; }
+      .progress-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .home-link { position: static; margin-bottom: 10px; }
+      .brand { flex-direction: column; }
+      .progress-nav { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      body { padding: 10px 8px 28px; }
+      .page { border-radius: 24px; }
+      .header, .hero, .content, .progress-nav, .action-panel, .summary-panel { padding-left: 14px; padding-right: 14px; }
+      .action-panel, .summary-panel { margin-left: 14px; margin-right: 14px; }
+      .progress-inner { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 7mm;
+      }
+
+      html,
+      body {
+        zoom: 0.72;
+        width: 100%;
+        min-height: auto;
+        padding: 0 !important;
+        margin: 0 !important;
+        background:
+        radial-gradient(circle at 86% 6%, rgba(216, 28, 46, 0.10), transparent 26%),
+        radial-gradient(circle at 10% 16%, rgba(255, 238, 220, 0.92), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255, 225, 218, 0.62), transparent 32%),
+        linear-gradient(145deg, #ffffff 0%, #fff7ef 50%, #fff1e6 100%);
+      padding: 6px !important;
+        margin: 0 0 4px !important;
+        overflow: visible !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+      }
+
+      .card::before,
+      .tool::before,
+      .phase-divider::before {
+        height: 2px !important;
+      }
+
+      .tool {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+      }
+
+      .tool-head {
+        grid-template-columns: 1fr auto !important;
+        gap: 6px !important;
+        margin-bottom: 5px !important;
+      }
+
+      .tool-num {
+        width: 25px !important;
+        height: 25px !important;
+        border-radius: 8px !important;
+        font-size: 0.78rem !important;
+        box-shadow: none !important;
+      }
+
+      .phase-label,
+      .kicker {
+        font-size: 0.62rem !important;
+        padding: 2px 7px !important;
+        margin-bottom: 3px !important;
+      }
+
+      .intro h2,
+      .phase-divider h2,
+      .summary-panel h2 {
+        font-size: 0.98rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 2px !important;
+      }
+
+      .tool h3 {
+        font-size: 0.92rem !important;
+        line-height: 1.08 !important;
+        margin-bottom: 2px !important;
+      }
+
+      .phase-divider p,
+      .tool-subtitle,
+      .intro p,
+      .method-box p {
+        font-size: 0.72rem !important;
+        line-height: 1.22 !important;
+      }
+
+      .field {
+        gap: 2px !important;
+      }
+
+      .field + .field {
+        margin-top: 3px !important;
+      }
+
+      label {
+        font-size: 0.68rem !important;
+        line-height: 1.1 !important;
+      }
+
+      input,
+      textarea,
+      select {
+        font-size: 0.72rem !important;
+        padding: 3px 5px !important;
+        border: 1px solid #f1d4d3 !important;
+        border-radius: 7px !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+      }
+
+      textarea,
+      textarea.short,
+      textarea.tall {
+        min-height: 24px !important;
+        line-height: 1.2 !important;
+        resize: none !important;
+        overflow: hidden !important;
+      }
+
+      .method-box,
+      .preview,
+      .summary-box,
+      .print-summary,
+      .example-chip {
+        padding: 5px 6px !important;
+        border-radius: 7px !important;
+        line-height: 1.2 !important;
+        box-shadow: none !important;
+      }
+
+      .method-box strong,
+      .preview strong,
+      .summary-box strong,
+      .print-summary strong {
+        margin-bottom: 2px !important;
+        font-size: 0.72rem !important;
+      }
+
+      .mini-note,
+      .summary-text,
+      .summary-value {
+        font-size: 0.68rem !important;
+        line-height: 1.18 !important;
+      }
+
+      .auto-box {
+        margin-top: 4px !important;
+        padding: 5px 7px !important;
+        border-radius: 7px !important;
+        font-size: 0.7rem !important;
+        line-height: 1.2 !important;
+      }
+
+      .example-chip {
+        min-height: 28px !important;
+        font-size: 0.66rem !important;
+      }
+
+      .print-only {
+        display: block !important;
+        color: #b80f26 !important;
+      }
+
+      .footer {
+        color: #777780 !important;
+        font-size: 0.68rem !important;
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+
+    <header class="header">
+      <a class="home-link" href="newsletter8.html" aria-label="חזרה לעמוד קהל יעד ומה קיים בשוק" title="חזרה לעמוד קהל יעד ומה קיים בשוק">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+      </a>
+      <div class="brand">
+        <img src="../images/logo.png" alt="לוגו תעשיידע">
+        <div class="brand-copy">
+          <h1>קהל יעד ומה קיים בשוק</h1>
+          <p>מדייקים למי המוצר מיועד, בודקים פתרונות קיימים ומנסחים מה נעשה אחרת.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card intro">
+        <h2>מטרת הפעילות</h2>
+        <p>בפעילות זו כל צוות מחדד את קהל היעד של המוצר, בודק בקצרה פתרונות שכבר קיימים ומנסח מה יכול להפוך את המוצר שלו למדויק, פשוט או ברור יותר. אין צורך בפסקאות ארוכות - מספיק משפטים קצרים שעוזרים להבין את הכיוון.</p>
+      </div>
+      <div class="card meta">
+        <div class="field"><label for="teamName">שם הצוות</label><input id="teamName" type="text" placeholder="שם הצוות"></div>
+        <div class="field"><label for="members">שמות חברי הצוות</label><textarea id="members" class="short" placeholder="כתבו את שמות חברי הצוות"></textarea></div>
+      </div>
+    </section>
+
+    <nav class="progress-nav" aria-label="ניווט בין שלבי דף העבודה">
+      <div class="progress-inner">
+        <a class="nav-step" href="#audience" data-step="1">משימה 1<br>קהל יעד</a>
+        <a class="nav-step" href="#market" data-step="2">משימה 2<br>מה קיים?</a>
+        <a class="nav-step" href="#different" data-step="3">משימה 3<br>מה שונה?</a>
+        <a class="nav-step" href="#final" data-step="4">סיכום<br>ייחוד המוצר</a>
+      </div>
+    </nav>
+
+    <main class="content">
+      <section class="phase-divider phase-audience" id="audience">
+        <h2>משימה 1: דיוק קהל היעד</h2>
+        <p>כתבו בצורה קצרה וברורה. המטרה היא להבין למי המוצר מיועד, מי משתמש בו בפועל, מתי משתמשים בו ומה הערך שלו.</p>
+      </section>
+
+      <section class="tool phase-audience" id="tool1" data-required="targetAudience,actualUser,useWhen,productValue">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label">חלק חובה | לכל הצוותים</div>
+            <h3>למי המוצר מיועד?</h3>
+            <p class="tool-subtitle">ענו במשפטים קצרים. בסוף ייווצר משפט קהל יעד מסכם.</p>
+          </div>
+          <div class="tool-num">1</div>
+        </div>
+        <div class="tool-grid">
+          <div class="field"><label for="targetAudience">המוצר שלנו מיועד ל-</label><textarea id="targetAudience" class="short" placeholder="לדוגמה: תלמידים בכיתה, הורים, מורים, משתמשים בתחבורה ציבורית..."></textarea></div>
+          <div class="field"><label for="actualUser">המשתמש בפועל הוא</label><textarea id="actualUser" class="short" placeholder="מי באמת מחזיק, מפעיל, לוחץ, משתמש או נעזר במוצר?"></textarea></div>
+          <div class="field"><label for="useWhen">הוא משתמש במוצר כאשר</label><textarea id="useWhen" class="short" placeholder="באיזה מצב, רגע, מקום או צורך המוצר נכנס לפעולה?"></textarea></div>
+          <div class="field"><label for="productValue">המוצר עוזר לו ל-</label><textarea id="productValue" class="short" placeholder="מה הערך המרכזי? להבין, לחסוך זמן, לפעול נכון, להרגיש בטוח..."></textarea></div>
+          <div class="field span-2"><label for="audienceSentence">משפט קהל יעד מסכם</label><textarea id="audienceSentence" class="short" placeholder="המוצר שלנו מיועד ל-__________. המשתמש בפועל הוא __________. הוא משתמש במוצר כאשר __________ והמוצר עוזר לו ל-__________."></textarea></div>
+        </div>
+      </section>
+
+      <section class="phase-divider phase-market" id="market">
+        <h2>משימה 2: מה קיים בשוק?</h2>
+        <p>לפני שממשיכים לפתח את המוצר, בודקים פתרון אחד או שניים שכבר קיימים. לא כדי להעתיק - אלא כדי ללמוד.</p>
+      </section>
+
+      <section class="tool phase-market" id="tool2" data-required="solution1Name,solution1Good,solution1Missing">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label">בדיקת פתרונות קיימים</div>
+            <h3>מה מצאנו?</h3>
+            <p class="tool-subtitle">בחרו פתרון אחד או שניים שמצאתם וענו בקצרה: מה הוא עושה טוב ומה חסר בו.</p>
+          </div>
+          <div class="tool-num">2</div>
+        </div>
+        <div class="method-row" style="margin-bottom:8px;">
+          <div class="method-box"><strong>פתרון 1 - חובה</strong><p>בחרו מוצר, אתר, אפליקציה, שירות או רעיון דומה שמצאתם.</p></div>
+          <div class="method-box"><strong>פתרון 2 - רשות</strong><p>אם מצאתם עוד פתרון מעניין, הוסיפו אותו להשוואה קצרה.</p></div>
+        </div>
+        <div class="tool-grid">
+          <div class="field"><label for="solution1Name">פתרון 1 - מה מצאנו?</label><textarea id="solution1Name" class="short" placeholder="שם המוצר / האתר / האפליקציה / הרעיון"></textarea></div>
+          <div class="field"><label for="solution1Good">מה הפתרון עושה טוב?</label><textarea id="solution1Good" class="short" placeholder="מה עובד בו טוב או ברור?"></textarea></div>
+          <div class="field span-2"><label for="solution1Missing">מה חסר בו?</label><textarea id="solution1Missing" class="short" placeholder="מה לא מספיק ברור, לא נוח, לא מדויק או לא מתאים לקהל היעד?"></textarea></div>
+          <div class="field"><label for="solution2Name">פתרון 2 - מה מצאנו? לא חובה</label><textarea id="solution2Name" class="short" placeholder="פתרון נוסף שמצאתם"></textarea></div>
+          <div class="field"><label for="solution2Good">מה הוא עושה טוב? לא חובה</label><textarea id="solution2Good" class="short" placeholder="מה אפשר ללמוד ממנו?"></textarea></div>
+          <div class="field span-2"><label for="solution2Missing">מה חסר בו? לא חובה</label><textarea id="solution2Missing" class="short" placeholder="מה עדיין לא נותן מענה מספיק טוב?"></textarea></div>
+        </div>
+      </section>
+
+      <section class="phase-divider phase-different" id="different">
+        <h2>משימה 3: מה נעשה שונה במוצר שלנו?</h2>
+        <p>אחרי שבדקנו מה כבר קיים, חושבים מה אפשר ללמוד מהפתרונות שמצאנו - ומה יהפוך את המוצר שלנו למדויק, פשוט או ברור יותר.</p>
+      </section>
+
+      <section class="tool phase-different" id="tool3" data-required="similarToUs,missingInSolutions,moreAccurate,moreSimple,moreClear">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label">השוואה והחלטות להמשך</div>
+            <h3>מה נלמד ומה נשפר?</h3>
+            <p class="tool-subtitle">ענו בקצרה. אין צורך להסביר הכול - רק לחדד מה חשוב לנו לקחת להמשך הפיתוח.</p>
+          </div>
+          <div class="tool-num">3</div>
+        </div>
+        <div class="tool-grid">
+          <div class="field"><label for="similarToUs">מה מתוך הפתרונות שמצאנו דומה לרעיון שלנו?</label><textarea id="similarToUs" class="short" placeholder="הרעיון שלנו דומה בכך ש..."></textarea></div>
+          <div class="field"><label for="missingInSolutions">מה עדיין חסר בהם?</label><textarea id="missingInSolutions" class="short" placeholder="עדיין חסר בהם..."></textarea></div>
+          <div class="field"><label for="moreAccurate">מה נרצה לעשות בצורה מדויקת יותר?</label><textarea id="moreAccurate" class="short" placeholder="נרצה לדייק את..."></textarea></div>
+          <div class="field"><label for="moreSimple">מה נרצה לעשות בצורה פשוטה יותר?</label><textarea id="moreSimple" class="short" placeholder="נרצה לפשט את..."></textarea></div>
+          <div class="field span-2"><label for="moreClear">מה נרצה לעשות בצורה ברורה יותר?</label><textarea id="moreClear" class="short" placeholder="נרצה להציג / להסביר / להפעיל בצורה ברורה יותר את..."></textarea></div>
+        </div>
+      </section>
+
+      <section class="phase-divider phase-final" id="final">
+        <h2>חשיבה לקראת המשך הפיתוח</h2>
+        <p>עכשיו מחליטים מה חשוב להבליט במוצר. יכול להיות שהוא קל יותר לשימוש, מתאים יותר לקהל היעד, מציג מידע ברור יותר או מחבר כמה רעיונות לפתרון אחד.</p>
+      </section>
+
+      <section class="tool phase-final" id="tool4" data-required="highlightChoice,uniqueSentence">
+        <div class="tool-head">
+          <div>
+            <div class="phase-label">סיכום קצר לקראת המשך עבודה</div>
+            <h3>מה מייחד את המוצר שלנו?</h3>
+            <p class="tool-subtitle">בחרו מה חשוב להבליט ואז נסחו משפט אחד שמסביר את הייחוד של המוצר.</p>
+          </div>
+          <div class="tool-num">4</div>
+        </div>
+        <div class="example-grid" style="margin-bottom:8px;">
+          <div class="example-chip">קל יותר לשימוש</div>
+          <div class="example-chip">מותאם יותר לקהל היעד</div>
+          <div class="example-chip">מציג מידע ברור יותר</div>
+          <div class="example-chip">מתמקד בבעיה שלא נפתרה מספיק</div>
+          <div class="example-chip">מחבר כמה רעיונות לפתרון אחד</div>
+        </div>
+        <div class="tool-grid">
+          <div class="field span-2"><label for="highlightChoice">מה חשוב להבליט במוצר שלנו?</label><textarea id="highlightChoice" class="short" placeholder="חשוב לנו להבליט ש..."></textarea></div>
+          <div class="field span-2"><label for="uniqueSentence">משפט ייחוד המוצר</label><textarea id="uniqueSentence" class="short" placeholder="הייחוד של המוצר שלנו הוא __________."></textarea></div>
+        </div>
+        <div class="auto-box" id="finalHint">בסיום, המשפט צריך להיות קצר וברור: הייחוד של המוצר שלנו הוא __________.</div>
+      </section>
+    </main>
+
+    <section class="summary-panel">
+      <h2>סיכום העבודה</h2>
+      <div class="summary-grid">
+        <div class="summary-box"><strong>קהל יעד</strong><div id="sumAudience" class="mini-note summary-value">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>מה קיים בשוק</strong><div id="sumMarket" class="mini-note summary-value">עדיין לא הושלם.</div></div>
+        <div class="summary-box"><strong>מה נעשה אחרת</strong><div id="sumDifferent" class="mini-note summary-value">עדיין לא הושלם.</div></div>
+      </div>
+      <div class="print-summary" style="margin-top:8px;"><strong>משפט סיכום לצוות:</strong><div id="finalSummary" class="summary-text summary-value">לאחר מילוי הדף יופיע כאן סיכום קצר של העבודה.</div></div>
+    </section>
+
+    <section class="action-panel">
+      <div class="buttons">
+        <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
+        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
+      </div>
+      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> קהל יעד ומה קיים בשוק</div>
+    </section>
+
+    <footer class="footer">© פרימיום | תעשיידע</footer>
+  </div>
+
+  <script>
+  (function () {
+    const STORAGE_KEY = 'osemAudienceMarket_work_v1';
+
+    function byId(id) {
+      return document.getElementById(id);
+    }
+
+    function getFields() {
+      return Array.from(document.querySelectorAll('input, textarea, select'));
+    }
+
+    function valueOf(id) {
+      const field = byId(id);
+      return field ? String(field.value || '').trim() : '';
+    }
+
+    function setText(id, text) {
+      const el = byId(id);
+      if (el) el.textContent = text;
+    }
+
+    function getData() {
+      const data = {};
+      getFields().forEach((field) => {
+        if (!field.id) return;
+        data[field.id] = field.type === 'radio' || field.type === 'checkbox' ? field.checked : field.value;
+      });
+      return data;
+    }
+
+    function setData(data) {
+      if (!data || typeof data !== 'object') return;
+      getFields().forEach((field) => {
+        if (!field.id || !(field.id in data)) return;
+        if (field.type === 'radio' || field.type === 'checkbox') {
+          field.checked = Boolean(data[field.id]);
+        } else {
+          field.value = data[field.id];
+        }
+      });
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
+      } catch (error) {
+        console.error('שמירת הנתונים נכשלה:', error);
+      }
+    }
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) setData(JSON.parse(raw));
+      } catch (error) {
+        console.error('טעינת הנתונים נכשלה:', error);
+      }
+    }
+
+    function updateAutoFields() {
+      const targetAudience = valueOf('targetAudience') || '__________';
+      const actualUser = valueOf('actualUser') || '__________';
+      const useWhen = valueOf('useWhen') || '__________';
+      const productValue = valueOf('productValue') || '__________';
+      const highlightChoice = valueOf('highlightChoice') || '__________';
+
+      const audienceSentence = byId('audienceSentence');
+      if (audienceSentence && !audienceSentence.matches(':focus')) {
+        audienceSentence.value = `המוצר שלנו מיועד ל-${targetAudience}. המשתמש בפועל הוא ${actualUser}. הוא משתמש במוצר כאשר ${useWhen} והמוצר עוזר לו ל-${productValue}.`;
+      }
+
+      const uniqueSentence = byId('uniqueSentence');
+      if (uniqueSentence && !uniqueSentence.matches(':focus')) {
+        uniqueSentence.value = `הייחוד של המוצר שלנו הוא ${highlightChoice}.`;
+      }
+    }
+
+    function updateSummary() {
+      const targetAudience = valueOf('targetAudience') || '__________';
+      const actualUser = valueOf('actualUser') || '__________';
+      const useWhen = valueOf('useWhen') || '__________';
+      const productValue = valueOf('productValue') || '__________';
+      const solution1Name = valueOf('solution1Name') || '__________';
+      const solution1Good = valueOf('solution1Good') || '__________';
+      const solution1Missing = valueOf('solution1Missing') || '__________';
+      const solution2Name = valueOf('solution2Name');
+      const solution2Good = valueOf('solution2Good');
+      const solution2Missing = valueOf('solution2Missing');
+      const similarToUs = valueOf('similarToUs') || '__________';
+      const missingInSolutions = valueOf('missingInSolutions') || '__________';
+      const moreAccurate = valueOf('moreAccurate') || '__________';
+      const moreSimple = valueOf('moreSimple') || '__________';
+      const moreClear = valueOf('moreClear') || '__________';
+      const uniqueSentence = valueOf('uniqueSentence') || 'הייחוד של המוצר שלנו הוא __________.';
+
+      const secondSolution = solution2Name
+        ? `\nפתרון נוסף: ${solution2Name}.\nעושה טוב: ${solution2Good || '__________'}.\nחסר בו: ${solution2Missing || '__________'}.`
+        : '';
+
+      setText('sumAudience', `מיועד ל-${targetAudience}.\nהמשתמש בפועל: ${actualUser}.\nמצב שימוש: ${useWhen}.\nהערך: ${productValue}.`);
+      setText('sumMarket', `פתרון שנמצא: ${solution1Name}.\nעושה טוב: ${solution1Good}.\nחסר בו: ${solution1Missing}.${secondSolution}`);
+      setText('sumDifferent', `דומה לרעיון שלנו: ${similarToUs}.\nעדיין חסר: ${missingInSolutions}.\nנדייק: ${moreAccurate}.\nנפשט: ${moreSimple}.\nנבהיר: ${moreClear}.`);
+      setText('finalSummary', `${uniqueSentence}\n\nהמוצר מיועד ל-${targetAudience}, עבור ${actualUser}, במצב שבו ${useWhen}. מתוך בדיקת השוק למדנו שחשוב לדייק את ${moreAccurate}, לפשט את ${moreSimple} ולהבהיר את ${moreClear}.`);
+    }
+
+    function updateProgress() {
+      document.querySelectorAll('.nav-step').forEach((step) => {
+        const number = Number(step.dataset.step);
+        let complete = false;
+
+        if (number === 1) {
+          complete = Boolean(valueOf('targetAudience') && valueOf('actualUser') && valueOf('useWhen') && valueOf('productValue'));
+        }
+
+        if (number === 2) {
+          complete = Boolean(valueOf('solution1Name') && valueOf('solution1Good') && valueOf('solution1Missing'));
+        }
+
+        if (number === 3) {
+          complete = Boolean(valueOf('similarToUs') && valueOf('missingInSolutions') && valueOf('moreAccurate') && valueOf('moreSimple') && valueOf('moreClear'));
+        }
+
+        if (number === 4) {
+          complete = Boolean(valueOf('highlightChoice') && valueOf('uniqueSentence'));
+        }
+
+        step.classList.toggle('is-complete', complete);
+      });
+    }
+
+    function updateAll() {
+      updateAutoFields();
+      updateSummary();
+      updateProgress();
+      saveData();
+    }
+
+    function clearWork() {
+      if (!confirm('לנקות את כל העבודה בדף?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      getFields().forEach((field) => {
+        if (field.type === 'radio' || field.type === 'checkbox') {
+          field.checked = false;
+        } else {
+          field.value = '';
+        }
+      });
+      updateAll();
+    }
+
+    function init() {
+      loadData();
+      updateAll();
+
+      getFields().forEach((field) => {
+        field.addEventListener('input', updateAll);
+        field.addEventListener('change', updateAll);
+      });
+
+      const clearBtn = byId('clearBtn');
+      if (clearBtn) clearBtn.addEventListener('click', clearWork);
+
+      const printBtn = byId('printBtn');
+      if (printBtn) printBtn.addEventListener('click', () => window.print());
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+</body>
+</html>
