@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="he" dir="rtl" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תכנון אב־טיפוס למוצר פיזי | אסם</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/print.css" media="print">
+  <style>
+    * { box-sizing: border-box; font-family: 'Heebo', sans-serif; }
+
+    :root {
+      --marvell-deep: #071a36;
+      --marvell-mid: #0d2045;
+      --marvell-blue: #1e66a8;
+      --marvell-cyan: #35c4e8;
+      --marvell-soft: #9cecff;
+      --marvell-orange: #f6a742;
+      --marvell-text: #10213d;
+      --marvell-muted: #53647d;
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      color: var(--marvell-text);
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, var(--marvell-deep) 0%, var(--marvell-mid) 48%, #061329 100%);
+      zoom: 0.75;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+      z-index: 0;
+    }
+
+    #app { position: relative; z-index: 1; }
+
+    .gradient-bg,
+    .prototype-page {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+    }
+
+    .marvell-top-brand,
+    .marvell-page-header {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto 22px;
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.24), transparent 30%),
+        radial-gradient(circle at 80% 86%, rgba(246,167,66,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.94), rgba(10, 48, 92, 0.88));
+      border: 1px solid rgba(131, 190, 255, 0.25);
+      box-shadow: 0 18px 42px rgba(0, 12, 38, 0.28), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .marvell-page-header { justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+
+    .marvell-top-brand::before,
+    .marvell-hero-card::before,
+    .marvell-page-header::before,
+    .prototype-summary-sheet::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--marvell-cyan) 0%, var(--marvell-blue) 52%, var(--marvell-orange) 100%);
+    }
+
+    .marvell-home-link,
+    .marvell-header-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.90));
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      color: #0d2045;
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .marvell-home-link { position: absolute; right: 18px; top: 16px; width: 42px; height: 42px; }
+    .marvell-header-btn { min-width: 112px; padding: 11px 16px; }
+    .marvell-home-link:hover, .marvell-header-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30); }
+    .marvell-home-link svg { width: 20px; height: 20px; fill: #0d2045; }
+
+    .marvell-brand-mark,
+    .marvell-page-logo,
+    .summary-logo {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 1;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+      filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.34));
+    }
+
+    .marvell-hero-card {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto 38px;
+      padding: 30px 30px 28px;
+      border-radius: 30px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(53,196,232,0.16), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(246,167,66,0.12), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(237,247,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow: 0 24px 54px rgba(0, 10, 32, 0.32), inset 0 1px 0 rgba(255,255,255,0.82);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marvell-hero-icon {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      color: #0d2045;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 14px 26px rgba(0, 18, 52, 0.14);
+      font-size: 2.4rem;
+    }
+
+    .marvell-main-title {
+      margin: 0 0 10px;
+      color: #123b64;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .marvell-subtitle {
+      margin: 0 auto;
+      max-width: 720px;
+      color: #4d5f79;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      line-height: 1.7;
+      font-weight: 700;
+    }
+
+    .marvell-section-title {
+      margin: 0 auto 28px;
+      color: #eaf7ff;
+      text-align: center;
+      font-size: 1.55rem;
+      font-weight: 900;
+      text-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    }
+
+    .route-card {
+      min-height: 260px;
+      background: radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%), linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      box-shadow: 0 24px 54px rgba(0, 10, 32, 0.32), inset 0 1px 0 rgba(255,255,255,0.82);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .route-card::before { content: ""; position: absolute; top: 0; right: 0; left: 0; height: 5px; background: linear-gradient(90deg, var(--marvell-cyan), var(--marvell-blue), var(--marvell-orange)); }
+    .route-card:hover { transform: translateY(-4px); box-shadow: 0 30px 64px rgba(0, 10, 32, 0.38), inset 0 1px 0 rgba(255,255,255,0.82); }
+    .route-icon { width: 120px; height: 120px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; border-radius: 32px; background: linear-gradient(180deg, #ffffff, #eef6ff); border: 1px solid rgba(120, 170, 220, 0.34); box-shadow: 0 14px 26px rgba(0, 18, 52, 0.12); font-size: 4.6rem; line-height: 1; }
+
+    .marvell-page-title {
+      color: #ffffff;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.18;
+      font-weight: 900;
+      text-align: center;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .marvell-page-center { display: flex; align-items: center; justify-content: center; gap: 14px; flex: 1; min-width: 0; }
+
+    .route-intro {
+      max-width: 880px;
+      margin: 0 auto 22px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      color: #d8f6ff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(156,236,255,0.22);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .prototype-workspace { background: rgba(255,255,255,0.03); border-radius: 28px; }
+    .prototype-step-card {
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      border: 1px solid rgba(140, 184, 230, 0.36);
+      border-right: 6px solid var(--marvell-cyan);
+      box-shadow: 0 20px 46px rgba(0, 10, 32, 0.22), inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .choice-card {
+      border: 1px solid rgba(30,102,168,0.20);
+      background: #eef8ff;
+      border-radius: 16px;
+      padding: 12px 10px;
+      color: #123b64;
+      font-weight: 900;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.16s ease;
+      user-select: none;
+    }
+    .choice-card:hover { transform: translateY(-1px); border-color: rgba(53,196,232,0.72); }
+    .choice-card.selected { color: #071a36; background: linear-gradient(135deg, #9cecff, #ffffff 62%, #ffe4b7); border-color: var(--marvell-orange); box-shadow: 0 12px 22px rgba(7,26,54,0.14); }
+    .choice-note { color: #6b7280; font-size: 0.9rem; font-weight: 800; }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(53,196,232,0.24);
+      background: #effbff;
+      color: #1f2937;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 700;
+    }
+    textarea { resize: none; min-height: 92px; }
+    input:focus, textarea:focus { outline: none; border-color: rgba(53,196,232,0.78); box-shadow: 0 0 0 4px rgba(53,196,232,0.12); }
+
+    .prototype-summary-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 24px;
+      border-radius: 22px;
+      color: #071a36;
+      font-size: 1.35rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 0%, #9cecff 45%, #f6a742 100%);
+      box-shadow: 0 24px 54px rgba(0, 10, 32, 0.30);
+      border: 1px solid rgba(255,255,255,0.72);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .prototype-summary-btn:hover { transform: translateY(-3px); box-shadow: 0 30px 70px rgba(0, 10, 32, 0.38); }
+
+    #prototype-summary-preview {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(4, 15, 35, 0.82);
+      backdrop-filter: blur(10px);
+      padding: 26px;
+      overflow: auto;
+    }
+    .preview-shell { max-width: 980px; margin: 0 auto; }
+    .preview-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 18px 0 0; }
+    .preview-actions button { border: 0; cursor: pointer; border-radius: 16px; padding: 13px 20px; font-weight: 900; box-shadow: 0 14px 28px rgba(0,0,0,0.22); }
+    .preview-print { background: linear-gradient(135deg, var(--marvell-cyan), #ffffff 58%, var(--marvell-orange)); color: #071a36; }
+    .preview-close { background: #ffffff; color: #0d2045; }
+
+    .prototype-summary-sheet {
+      width: 210mm;
+      height: 297mm;
+      min-height: 0;
+      margin: 0 auto;
+      padding: 10mm 11mm 9mm;
+      direction: rtl;
+      text-align: right;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(53,196,232,0.12), transparent 25%),
+        radial-gradient(circle at 92% 92%, rgba(246,167,66,0.10), transparent 28%),
+        linear-gradient(180deg, #ffffff, #f6fbff);
+      color: var(--marvell-text);
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.28);
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .summary-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
+    .summary-header h2 { margin: 0; color: #0d2045; font-size: 25px; line-height: 1.12; font-weight: 900; }
+    .summary-header p { margin: 5px 0 0; color: var(--marvell-muted); font-size: 14px; font-weight: 900; }
+    .summary-logo { width: 54px; height: 54px; flex: 0 0 auto; filter: drop-shadow(0 10px 18px rgba(7,26,54,0.18)); }
+    .summary-badge { display: inline-flex; align-items: center; gap: 7px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.34); border-radius: 999px; padding: 5px 10px; font-weight: 900; margin-bottom: 6px; font-size: 12px; }
+    .summary-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(30,102,168,0.14); border-radius: 16px; padding: 10px; box-shadow: 0 10px 20px rgba(7,26,54,0.06); page-break-inside: avoid; break-inside: avoid; }
+    .summary-card h3 { display: flex; align-items: center; gap: 7px; margin: 0 0 7px; color: #123b64; font-size: 15px; font-weight: 900; }
+    .summary-card p { margin: 0; color: #263a55; font-size: 12px; line-height: 1.35; font-weight: 700; }
+    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .summary-flow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 0; }
+    .soft-empty { color: #7b8798 !important; font-style: italic; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .summary-tag { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.28); font-weight: 900; font-size: 11px; }
+
+    .phone-row, .summary-phone-grid, .desktop-row, .summary-desktop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8mm; align-items: start; }
+    .phone-mockup, .summary-phone { background: #060b16; border-radius: 24px; padding: 7px; box-shadow: 0 12px 24px rgba(7,26,54,0.18); position: relative; height: 128mm; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
+    .phone-notch { width: 52px; height: 12px; border-radius: 0 0 10px 10px; background: #060b16; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .phone-screen { height: 100%; border-radius: 20px; padding: 22px 8px 8px; background: linear-gradient(180deg, #effbff, #ffffff); display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+    .screen-title { color: #0d2045; font-size: 13px; font-weight: 900; margin: 0 0 2px; }
+    .screen-chip { align-self: flex-start; border-radius: 999px; background: linear-gradient(135deg, var(--marvell-cyan), #ffffff); padding: 4px 8px; color: #0d2045; font-weight: 900; font-size: 10px; }
+    .screen-mini-card { background: #ffffff; border: 1px solid rgba(30,102,168,0.14); border-radius: 12px; padding: 7px; box-shadow: 0 6px 14px rgba(7,26,54,0.06); page-break-inside: avoid; break-inside: avoid; }
+    .screen-mini-card strong { display: block; color: #1e66a8; font-size: 10px; margin-bottom: 3px; }
+    .screen-mini-card span { display: block; color: #263a55; font-size: 10px; line-height: 1.3; font-weight: 700; }
+
+    .desktop-mockup, .summary-desktop { background: #101827; border-radius: 14px; padding: 6px; box-shadow: 0 12px 24px rgba(7,26,54,0.16); height: 70mm; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
+    .desktop-window { border-radius: 10px; overflow: hidden; background: #ffffff; height: 100%; border: 1px solid rgba(16,24,39,0.10); }
+    .desktop-bar { height: 22px; display: flex; align-items: center; gap: 5px; padding: 0 8px; background: linear-gradient(90deg, #dff8ff, #eef5ff); border-bottom: 1px solid rgba(30,102,168,0.12); direction: ltr; }
+    .window-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-orange { background: var(--marvell-orange); }
+    .dot-cyan { background: var(--marvell-cyan); }
+    .dot-blue { background: var(--marvell-blue); }
+    .desktop-content { padding: 8px; display: flex; flex-direction: column; gap: 7px; height: calc(100% - 22px); background: linear-gradient(180deg, #ffffff, #f4fbff); overflow: hidden; }
+
+    .summary-footer { margin-top: 8px; border-top: 1px solid rgba(13,32,69,0.12); padding-top: 7px; color: #53647d; text-align: center; font-weight: 900; font-size: 10px; }
+    .summary-physical .summary-card p, .summary-physical .screen-mini-card span { font-size: 11px; line-height: 1.28; }
+
+    @media (max-width: 760px) {
+      body { zoom: 1; }
+      .marvell-top-brand, .marvell-page-header { min-height: auto; padding: 16px 14px; flex-direction: column; }
+      .marvell-home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .marvell-brand-mark, .marvell-page-logo { width: 60px; height: 60px; }
+      .route-icon { width: 108px; height: 108px; font-size: 4rem; }
+      .marvell-page-title { font-size: 1.45rem; }
+      .marvell-page-center { flex-direction: column; }
+      .marvell-header-btn { width: 100%; }
+      .choice-grid, .summary-grid, .summary-flow-grid, .phone-row, .desktop-row { grid-template-columns: 1fr; }
+      .prototype-summary-sheet { width: 100%; min-height: auto; padding: 24px; }
+    }
+
+    @media print {
+      @page { size: A4 portrait; margin: 8mm; }
+      html, body { width: auto; min-height: 0; zoom: 1 !important; background: #ffffff !important; overflow: hidden !important; }
+      body { margin: 0 !important; }
+      body::before { display: none !important; }
+      body.summary-print-mode, body.summary-printing { background: #ffffff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      body.summary-print-mode #app, body.summary-printing #app { display: none !important; }
+      body.summary-print-mode #prototype-summary-preview, body.summary-printing #prototype-summary-preview { display: block !important; position: static !important; inset: auto !important; width: 100% !important; padding: 0 !important; background: #ffffff !important; backdrop-filter: none !important; overflow: hidden !important; }
+      body.summary-print-mode .preview-shell, body.summary-printing .preview-shell { max-width: none !important; width: 100% !important; margin: 0 !important; }
+      body.summary-print-mode .preview-actions, body.summary-printing .preview-actions { display: none !important; }
+      body.summary-print-mode button, body.summary-print-mode input, body.summary-print-mode textarea,
+      body.summary-printing button, body.summary-printing input, body.summary-printing textarea { display: none !important; }
+      body.summary-print-mode .prototype-summary-sheet, body.summary-printing .prototype-summary-sheet {
+        width: 194mm !important;
+        height: 281mm !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 6mm 7mm !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        break-after: avoid !important;
+        break-inside: avoid !important;
+        background: linear-gradient(180deg, #ffffff, #f7fbff) !important;
+      }
+      body.summary-print-mode .summary-header, body.summary-printing .summary-header { margin-bottom: 6px !important; }
+      body.summary-print-mode .summary-header h2, body.summary-printing .summary-header h2 { font-size: 20px !important; }
+      body.summary-print-mode .summary-header p, body.summary-printing .summary-header p { font-size: 11px !important; margin-top: 3px !important; }
+      body.summary-print-mode .summary-logo, body.summary-printing .summary-logo { width: 42px !important; height: 42px !important; }
+      body.summary-print-mode .summary-card, body.summary-printing .summary-card { padding: 6px !important; border-radius: 11px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .summary-card h3, body.summary-printing .summary-card h3 { font-size: 11px !important; margin-bottom: 4px !important; }
+      body.summary-print-mode .summary-card p, body.summary-printing .summary-card p { font-size: 9px !important; line-height: 1.22 !important; }
+      body.summary-print-mode .summary-grid, body.summary-printing .summary-grid,
+      body.summary-print-mode .summary-flow-grid, body.summary-printing .summary-flow-grid { gap: 5px !important; }
+      body.summary-print-mode .summary-tag, body.summary-printing .summary-tag { font-size: 8px !important; padding: 3px 6px !important; }
+      body.summary-print-mode .phone-row, body.summary-printing .phone-row,
+      body.summary-print-mode .summary-phone-grid, body.summary-printing .summary-phone-grid,
+      body.summary-print-mode .desktop-row, body.summary-printing .desktop-row,
+      body.summary-print-mode .summary-desktop-grid, body.summary-printing .summary-desktop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 5mm !important; }
+      body.summary-print-mode .phone-mockup, body.summary-printing .phone-mockup,
+      body.summary-print-mode .summary-phone, body.summary-printing .summary-phone { height: 116mm !important; padding: 5px !important; border-radius: 18px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .phone-screen, body.summary-printing .phone-screen { padding: 17px 6px 6px !important; border-radius: 15px !important; gap: 5px !important; }
+      body.summary-print-mode .phone-notch, body.summary-printing .phone-notch { width: 40px !important; height: 9px !important; top: 5px !important; }
+      body.summary-print-mode .desktop-mockup, body.summary-printing .desktop-mockup,
+      body.summary-print-mode .summary-desktop, body.summary-printing .summary-desktop { height: 57mm !important; padding: 5px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .screen-title, body.summary-printing .screen-title { font-size: 10px !important; }
+      body.summary-print-mode .screen-chip, body.summary-printing .screen-chip { font-size: 8px !important; padding: 2px 6px !important; }
+      body.summary-print-mode .screen-mini-card, body.summary-printing .screen-mini-card { padding: 5px !important; border-radius: 8px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .screen-mini-card strong, body.summary-printing .screen-mini-card strong,
+      body.summary-print-mode .screen-mini-card span, body.summary-printing .screen-mini-card span { font-size: 8px !important; line-height: 1.18 !important; }
+      body.summary-print-mode .summary-footer, body.summary-printing .summary-footer { font-size: 8px !important; margin-top: 5px !important; padding-top: 4px !important; }
+      body:not(.summary-print-mode):not(.summary-printing) #prototype-summary-preview { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) button, body:not(.summary-print-mode):not(.summary-printing) .marvell-home-link { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) .prototype-page.hidden, body:not(.summary-print-mode):not(.summary-printing) #landing-page.hidden { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) .prototype-page:not(.hidden), body:not(.summary-print-mode):not(.summary-printing) #landing-page:not(.hidden) { background: #ffffff !important; color: #111827 !important; }
+    }
+
+    /* Osem adaptation — light cream / red palette.
+       Variable names are preserved to avoid changing the existing logic. */
+    :root {
+      --marvell-deep: #fff7ed;
+      --marvell-mid: #fff1e6;
+      --marvell-blue: #b91c1c;
+      --marvell-cyan: #d71920;
+      --marvell-soft: #fff4e5;
+      --marvell-orange: #ef4444;
+      --marvell-text: #3f0f10;
+      --marvell-muted: #7b5b55;
+    }
+
+    body,
+    .gradient-bg,
+    .prototype-page {
+      color: var(--marvell-text) !important;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(215, 25, 32, 0.10), transparent 28%),
+        radial-gradient(circle at 12% 18%, rgba(255, 230, 205, 0.92), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(255, 244, 229, 0.92), transparent 34%),
+        linear-gradient(145deg, #fffaf2 0%, #fff3e2 48%, #ffe9dc 100%) !important;
+    }
+
+    body::before {
+      background:
+        linear-gradient(90deg, rgba(185, 28, 28, 0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(185, 28, 28, 0.045) 1px, transparent 1px) !important;
+      background-size: 52px 52px !important;
+      opacity: 0.72 !important;
+    }
+
+    .marvell-top-brand,
+    .marvell-page-header {
+      background:
+        radial-gradient(circle at 16% 22%, rgba(215,25,32,0.10), transparent 30%),
+        radial-gradient(circle at 86% 80%, rgba(255,236,210,0.96), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,242,222,0.96)) !important;
+      border: 1px solid rgba(215, 25, 32, 0.20) !important;
+      box-shadow:
+        0 18px 42px rgba(127, 29, 29, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.92) !important;
+    }
+
+    .marvell-top-brand::before,
+    .marvell-hero-card::before,
+    .marvell-page-header::before,
+    .prototype-summary-sheet::before,
+    .route-card::before {
+      background: linear-gradient(90deg, #d71920 0%, #ef4444 50%, #fff0d8 100%) !important;
+    }
+
+    .marvell-home-link,
+    .marvell-header-btn {
+      background: linear-gradient(180deg, #ffffff, #fff1e6) !important;
+      border: 1px solid rgba(215, 25, 32, 0.24) !important;
+      color: #8f111b !important;
+      box-shadow: 0 12px 22px rgba(127, 29, 29, 0.12) !important;
+    }
+
+    .marvell-home-link svg { fill: #8f111b !important; }
+
+    .marvell-brand-mark,
+    .marvell-page-logo,
+    .summary-logo {
+      background: rgba(255,255,255,0.96) !important;
+      border: 1px solid rgba(215, 25, 32, 0.14) !important;
+      border-radius: 18px !important;
+      padding: 7px !important;
+      filter: drop-shadow(0 10px 18px rgba(127, 29, 29, 0.14)) !important;
+    }
+
+    .marvell-hero-card,
+    .route-card,
+    .prototype-step-card,
+    .summary-card {
+      background:
+        radial-gradient(circle at top right, rgba(215,25,32,0.075), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,247,237,0.96)) !important;
+      border-color: rgba(215, 25, 32, 0.18) !important;
+      box-shadow:
+        0 22px 48px rgba(127, 29, 29, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.90) !important;
+    }
+
+    .marvell-hero-icon,
+    .route-icon {
+      color: #8f111b !important;
+      background: linear-gradient(180deg, #ffffff, #fff1e6) !important;
+      border: 1px solid rgba(215, 25, 32, 0.18) !important;
+      box-shadow: 0 14px 26px rgba(127, 29, 29, 0.10) !important;
+    }
+
+    .marvell-main-title,
+    .marvell-page-title,
+    .marvell-section-title {
+      color: #8f111b !important;
+      text-shadow: none !important;
+    }
+
+    .marvell-subtitle,
+    .route-intro,
+    .choice-note {
+      color: #6f3b35 !important;
+    }
+
+    .route-intro,
+    .prototype-workspace {
+      background: rgba(255,255,255,0.62) !important;
+      border: 1px solid rgba(215,25,32,0.14) !important;
+      box-shadow: 0 18px 42px rgba(127,29,29,0.08) !important;
+    }
+
+    .prototype-step-card {
+      border-right-color: #d71920 !important;
+    }
+
+    .choice-card {
+      background: #fff7ed !important;
+      border: 1px solid rgba(215, 25, 32, 0.18) !important;
+      color: #7f1d1d !important;
+    }
+
+    .choice-card:hover {
+      border-color: rgba(215,25,32,0.48) !important;
+      background: #fff1e6 !important;
+    }
+
+    .choice-card.selected {
+      color: #7f1d1d !important;
+      background: linear-gradient(135deg, #ffe9dc, #ffffff 62%, #ffd9d9) !important;
+      border-color: #d71920 !important;
+      box-shadow: 0 12px 22px rgba(127,29,29,0.12) !important;
+    }
+
+    input,
+    textarea {
+      border-color: rgba(215,25,32,0.18) !important;
+      background: #fffaf2 !important;
+      color: #3f0f10 !important;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(215,25,32,0.58) !important;
+      box-shadow: 0 0 0 4px rgba(215,25,32,0.10) !important;
+      background: #ffffff !important;
+    }
+
+    .prototype-summary-btn {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #b91c1c 0%, #d71920 46%, #ef4444 100%) !important;
+      box-shadow: 0 24px 54px rgba(127, 29, 29, 0.18) !important;
+      border: 1px solid rgba(255,255,255,0.72) !important;
+    }
+
+    #prototype-summary-preview {
+      background: rgba(63, 15, 16, 0.34) !important;
+      backdrop-filter: blur(10px) !important;
+    }
+
+    .preview-print {
+      background: linear-gradient(135deg, #b91c1c, #d71920 56%, #fff0d8) !important;
+      color: #ffffff !important;
+    }
+
+    .preview-close {
+      color: #8f111b !important;
+      background: #fffaf2 !important;
+    }
+
+    .prototype-summary-sheet {
+      background:
+        radial-gradient(circle at 10% 8%, rgba(215,25,32,0.08), transparent 25%),
+        radial-gradient(circle at 92% 92%, rgba(255,240,216,0.74), transparent 28%),
+        linear-gradient(180deg, #ffffff, #fff7ed) !important;
+      color: #3f0f10 !important;
+      box-shadow: 0 30px 70px rgba(127,29,29,0.18) !important;
+    }
+
+    .summary-header h2,
+    .summary-card h3,
+    .screen-title {
+      color: #8f111b !important;
+    }
+
+    .summary-header p,
+    .summary-footer,
+    .summary-card p,
+    .screen-mini-card span {
+      color: #5f3c38 !important;
+    }
+
+    .summary-badge,
+    .summary-tag,
+    .screen-chip {
+      background: #fff1e6 !important;
+      color: #8f111b !important;
+      border-color: rgba(215,25,32,0.18) !important;
+    }
+
+    .screen-mini-card {
+      border-color: rgba(215,25,32,0.14) !important;
+      background: #ffffff !important;
+      box-shadow: 0 6px 14px rgba(127,29,29,0.06) !important;
+    }
+
+    .screen-mini-card strong { color: #d71920 !important; }
+
+    .phone-screen,
+    .desktop-content {
+      background: linear-gradient(180deg, #fffaf2, #ffffff) !important;
+    }
+
+    .desktop-bar {
+      background: linear-gradient(90deg, #fff1e6, #ffffff) !important;
+      border-bottom-color: rgba(215,25,32,0.14) !important;
+    }
+
+    .dot-orange { background: #ef4444 !important; }
+    .dot-cyan { background: #d71920 !important; }
+    .dot-blue { background: #b91c1c !important; }
+
+    @media print {
+      body.summary-print-mode .prototype-summary-sheet,
+      body.summary-printing .prototype-summary-sheet {
+        background: linear-gradient(180deg, #ffffff, #fff7ed) !important;
+      }
+    }
+
+  
+
+    /* Final adjustment — cream-white palette: brighter, cleaner, almost white. */
+    :root {
+      --marvell-deep: #fffdf8;
+      --marvell-mid: #fffaf1;
+      --marvell-blue: #b91c1c;
+      --marvell-cyan: #d71920;
+      --marvell-soft: #fffdf8;
+      --marvell-orange: #ef4444;
+      --marvell-text: #321112;
+      --marvell-muted: #655251;
+    }
+
+    body,
+    .gradient-bg,
+    .prototype-page {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(215, 25, 32, 0.055), transparent 30%),
+        radial-gradient(circle at 12% 18%, rgba(255, 250, 241, 0.98), transparent 36%),
+        radial-gradient(circle at 50% 100%, rgba(255, 253, 248, 0.96), transparent 36%),
+        linear-gradient(145deg, #fffefa 0%, #fffdf7 45%, #fffaf0 100%) !important;
+      color: #321112 !important;
+    }
+
+    body::before {
+      background:
+        linear-gradient(90deg, rgba(185, 28, 28, 0.025) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(185, 28, 28, 0.020) 1px, transparent 1px) !important;
+      opacity: 0.42 !important;
+    }
+
+    .marvell-top-brand,
+    .marvell-page-header,
+    .marvell-hero-card,
+    .route-card,
+    .prototype-step-card,
+    .summary-card,
+    .route-intro,
+    .prototype-workspace,
+    .max-w-3xl.mx-auto.mb-10 {
+      background:
+        radial-gradient(circle at top right, rgba(215,25,32,0.035), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #fffefa 58%, #fffaf1 100%) !important;
+      border-color: rgba(215, 25, 32, 0.13) !important;
+      box-shadow:
+        0 18px 38px rgba(127, 29, 29, 0.075),
+        inset 0 1px 0 rgba(255,255,255,0.96) !important;
+    }
+
+    .marvell-top-brand::before,
+    .marvell-hero-card::before,
+    .marvell-page-header::before,
+    .prototype-summary-sheet::before,
+    .route-card::before {
+      background: linear-gradient(90deg, #d71920 0%, #ef4444 48%, #fff7e8 100%) !important;
+    }
+
+    .marvell-home-link,
+    .marvell-header-btn,
+    .marvell-hero-icon,
+    .route-icon {
+      background: linear-gradient(180deg, #ffffff, #fffdf7) !important;
+      border-color: rgba(215, 25, 32, 0.15) !important;
+      box-shadow: 0 10px 20px rgba(127, 29, 29, 0.075) !important;
+    }
+
+    .marvell-brand-mark,
+    .marvell-page-logo,
+    .summary-logo {
+      background: #ffffff !important;
+      border-color: rgba(215, 25, 32, 0.10) !important;
+      box-shadow: 0 8px 16px rgba(127,29,29,0.06) !important;
+      filter: drop-shadow(0 8px 16px rgba(127, 29, 29, 0.08)) !important;
+    }
+
+    .marvell-main-title,
+    .marvell-page-title,
+    .marvell-section-title,
+    .marvell-hero-icon,
+    .route-icon,
+    .route-card h3,
+    .prototype-step-card h3,
+    .summary-header h2,
+    .summary-card h3,
+    .screen-title {
+      color: #9f111a !important;
+      text-shadow: none !important;
+    }
+
+    .marvell-subtitle,
+    .route-intro,
+    .choice-note,
+    .route-card p,
+    .max-w-3xl.mx-auto.mb-10 p,
+    .summary-card p,
+    .screen-mini-card span,
+    .summary-footer {
+      color: #5b4b4a !important;
+    }
+
+    .choice-card,
+    input,
+    textarea {
+      background: #fffefa !important;
+      border-color: rgba(215,25,32,0.13) !important;
+      color: #321112 !important;
+    }
+
+    .choice-card:hover,
+    input:focus,
+    textarea:focus {
+      background: #ffffff !important;
+      border-color: rgba(215,25,32,0.42) !important;
+      box-shadow: 0 0 0 4px rgba(215,25,32,0.06) !important;
+    }
+
+    .choice-card.selected {
+      background: linear-gradient(135deg, #fff7e8, #ffffff 60%, #fff1f1) !important;
+      border-color: #d71920 !important;
+      color: #9f111a !important;
+      box-shadow: 0 10px 20px rgba(127,29,29,0.08) !important;
+    }
+
+    .prototype-step-card {
+      border-right-color: #d71920 !important;
+    }
+
+    .prototype-summary-btn,
+    .preview-print {
+      background: linear-gradient(135deg, #b91c1c 0%, #d71920 52%, #ef4444 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 18px 38px rgba(127,29,29,0.16) !important;
+    }
+
+    #prototype-summary-preview {
+      background: rgba(255, 253, 248, 0.86) !important;
+      backdrop-filter: blur(10px) !important;
+    }
+
+    .preview-close {
+      background: #ffffff !important;
+      color: #9f111a !important;
+      border: 1px solid rgba(215,25,32,0.12) !important;
+    }
+
+    .prototype-summary-sheet {
+      background:
+        radial-gradient(circle at 10% 8%, rgba(215,25,32,0.04), transparent 25%),
+        radial-gradient(circle at 92% 92%, rgba(255,247,232,0.82), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #fffefa 64%, #fffaf1 100%) !important;
+      color: #321112 !important;
+      box-shadow: 0 26px 60px rgba(127,29,29,0.12) !important;
+    }
+
+    .summary-badge,
+    .summary-tag,
+    .screen-chip {
+      background: #fff7e8 !important;
+      color: #9f111a !important;
+      border-color: rgba(215,25,32,0.13) !important;
+    }
+
+    .screen-mini-card,
+    .phone-screen,
+    .desktop-content,
+    .desktop-bar {
+      background: linear-gradient(180deg, #ffffff, #fffefa) !important;
+      border-color: rgba(215,25,32,0.10) !important;
+    }
+
+    @media print {
+      body.summary-print-mode .prototype-summary-sheet,
+      body.summary-printing .prototype-summary-sheet {
+        background: linear-gradient(180deg, #ffffff 0%, #fffefa 64%, #fffaf1 100%) !important;
+      }
+    }
+
+  </style>
+</head>
+<body class="h-full">
+  <div id="app" class="h-full overflow-auto">
+    <div id="landing-page" class="min-h-full gradient-bg relative overflow-hidden">
+      <div class="container mx-auto px-4 py-12 relative z-10">
+        <section class="marvell-top-brand">
+          <a class="marvell-home-link" href="index-marvell.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+          </a>
+          <img class="marvell-brand-mark" src="images/logo.png" alt="לוגו תעשיידע">
+        </section>
+
+        <section class="marvell-hero-card">
+          <div class="marvell-hero-icon">🛠️</div>
+          <h1 id="main-title" class="marvell-main-title">מתכננים אב־טיפוס למוצר פיזי</h1>
+          <p id="subtitle" class="marvell-subtitle">30 דקות לתכנן איך המוצר הפיזי ייראה, אילו חלקים יהיו בו ואיך נציג אותו בצורה ברורה.</p>
+        </section>
+
+        <div class="max-w-3xl mx-auto mb-10 bg-white/90 backdrop-blur rounded-2xl p-6 shadow-xl border border-cyan-100">
+          <p class="text-gray-700 font-bold leading-relaxed">בשלב הזה לא בונים מוצר סופי. מתכננים תצוגה קצרה וברורה שתעזור להבין איך המוצר הפיזי נראה, פועל ומוצג.</p>
+        </div>
+
+        <div class="max-w-xl mx-auto">
+          <h2 class="marvell-section-title">🎯 מתכננים אב־טיפוס למוצר פיזי</h2>
+          <div class="grid md:grid-cols-1 gap-8">
+            <button onclick="selectProduct('physical')" class="route-card rounded-3xl p-8 text-center">
+              <div class="route-icon">📦</div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-3">מוצר פיזי</h3>
+              <p class="text-gray-600 mb-4 font-bold">דף תכנון חזותי: צורה, חלקים, חומרים ומה צריך לקפוץ לעין.</p>
+              <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-black">30 דקות</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="physical-page" data-prototype-type="physical" class="prototype-page min-h-full hidden">
+      <div class="container mx-auto px-4 py-8">
+        <section class="marvell-page-header">
+          <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+          <div class="marvell-page-center"><img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע"><h1 class="marvell-page-title"><span>📦</span> תכנון אב־טיפוס למוצר פיזי</h1></div>
+          <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+        </section>
+        <p class="route-intro">פעילות קצרה: בוחרים מה חייבים לראות, מספרים את האב־טיפוס בשלושה רגעים, ואז מפיקים דף סיכום מעוצב.</p>
+        <div class="max-w-4xl mx-auto space-y-6 prototype-workspace p-3">
+          <input data-field="name" type="text" placeholder="📦 שם המוצר של הצוות" class="text-2xl text-center font-black bg-white">
+          <div class="space-y-6 prototype-steps">
+            <section class="prototype-step-card rounded-2xl p-6" data-step="1">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+              <p class="choice-note mb-3">בחרו עד 3 כרטיסיות, ואז כתבו משפט אחד קצר.</p>
+              <div class="choice-grid mb-4" data-choice-group="mustSee"></div>
+              <textarea data-field="mustSeeText" rows="2" placeholder="במשפט אחד: מה חייבים להבין מיד כשמסתכלים על האב־טיפוס?"></textarea>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="2">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+              <p class="text-gray-600 text-sm font-bold mb-4">זה החלק החשוב ביותר: שלושה רגעים קצרים וברורים.</p>
+              <div class="grid md:grid-cols-3 gap-3">
+                <textarea data-field="start" rows="3" placeholder="בהתחלה רואים..."></textarea>
+                <textarea data-field="action" rows="3" placeholder="המשתמש עושה..."></textarea>
+                <textarea data-field="end" rows="3" placeholder="בסוף קורה..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="3">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <textarea data-field="shape" rows="3" placeholder="צורה כללית..."></textarea>
+                <textarea data-field="components" rows="3" placeholder="רכיבים מרכזיים..."></textarea>
+                <textarea data-field="colors" rows="3" placeholder="צבעים..."></textarea>
+                <textarea data-field="materials" rows="3" placeholder="חומרים..."></textarea>
+                <textarea data-field="style" class="md:col-span-2" rows="2" placeholder="סגנון: נקי, משחקי, מקצועי, עתידני, פשוט..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="4">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>✨</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <textarea data-field="highlight" rows="3" placeholder="מה צריך לקפוץ לעין?"></textarea>
+                <textarea data-field="avoid" rows="3" placeholder="מה לא להעמיס?"></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="5">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+              <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <input data-field="asset" type="text" placeholder="קישור לסקיצה או צילום, אם יש">
+                <input data-field="nextQuestion" type="text" placeholder="מה עדיין לא סגור?">
+              </div>
+              <textarea data-field="nextCheck" rows="2" placeholder="מה נרצה לבדוק בהמשך?"></textarea>
+            </section>
+            <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main id="digital-page" data-prototype-type="digital" class="prototype-page min-h-full hidden">
+      <div class="container mx-auto px-4 py-8">
+        <section class="marvell-page-header">
+          <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+          <div class="marvell-page-center"><img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע"><h1 class="marvell-page-title"><span>💻</span> תכנון אב־טיפוס למוצר דיגיטלי</h1></div>
+          <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+        </section>
+        <p class="route-intro">מתכננים תצוגה חזותית קצרה של שלושה מסכי מחשב: התחלה, פעולה מרכזית ותוצאה.</p>
+        <div class="max-w-4xl mx-auto space-y-6 prototype-workspace p-3">
+          <input data-field="name" type="text" placeholder="💻 שם המוצר של הצוות" class="text-2xl text-center font-black bg-white">
+          <div class="space-y-6 prototype-steps">
+            <section class="prototype-step-card rounded-2xl p-6" data-step="1">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+              <p class="choice-note mb-3">בחרו עד 3 כרטיסיות, ואז כתבו משפט אחד קצר.</p>
+              <div class="choice-grid mb-4" data-choice-group="mustSee"></div>
+              <textarea data-field="mustSeeText" rows="2" placeholder="במשפט אחד: מה חייבים להבין מיד כשמסתכלים על האב־טיפוס?"></textarea>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="2">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+              <p class="text-gray-600 text-sm font-bold mb-4">זה החלק החשוב ביותר: שלושה רגעים קצרים וברורים.</p>
+              <div class="grid md:grid-cols-3 gap-3">
+                <textarea data-field="start" rows="3" placeholder="בהתחלה רואים..."></textarea>
+                <textarea data-field="action" rows="3" placeholder="המשתמש עושה..."></textarea>
+                <textarea data-field="end" rows="3" placeholder="בסוף קורה..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="3">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <textarea data-field="visualStyle" rows="3" placeholder="סגנון המסכים: נקי, צבעוני, מקצועי, משחקי..."></textarea>
+                <textarea data-field="layout" rows="3" placeholder="מבנה המסך: כותרת, כרטיסים, תפריט, אזור פעולה..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="4">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🖥️</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+              <div class="grid md:grid-cols-3 gap-4">
+                <textarea data-field="screen1" rows="3" placeholder="מסך 1 — התחלה: מה רואים ומה מבינים?"></textarea>
+                <textarea data-field="screen2" rows="3" placeholder="מסך 2 — פעולה מרכזית: מה עושים ומה המערכת מציגה?"></textarea>
+                <textarea data-field="screen3" rows="3" placeholder="מסך 3 — תוצאה: מה קורה ומה ברור בסוף?"></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="5">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+              <input data-field="asset" type="text" placeholder="קישור לסקיצה או צילום, אם יש" class="mb-4">
+              <textarea data-field="summary" rows="2" placeholder="משפט סיכום: מה הכי חשוב שיראו במסכים?"></textarea>
+            </section>
+            <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main id="app-page" data-prototype-type="app" class="prototype-page min-h-full hidden">
+      <div class="container mx-auto px-4 py-8">
+        <section class="marvell-page-header">
+          <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+          <div class="marvell-page-center"><img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע"><h1 class="marvell-page-title"><span>📱</span> תכנון אב־טיפוס לאפליקציה</h1></div>
+          <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+        </section>
+        <p class="route-intro">מתכננים חוויה אחת קצרה: מסך פתיחה, מסך פעולה ומסך תוצאה. אין טאב נוסף ואין אזור עבודה כפול.</p>
+        <div class="max-w-4xl mx-auto space-y-6 prototype-workspace p-3">
+          <input data-field="name" type="text" placeholder="📱 שם האפליקציה של הצוות" class="text-2xl text-center font-black bg-white">
+          <div class="space-y-6 prototype-steps">
+            <section class="prototype-step-card rounded-2xl p-6" data-step="1">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
+              <p class="choice-note mb-3">בחרו עד 3 כרטיסיות, ואז כתבו משפט אחד קצר.</p>
+              <div class="choice-grid mb-4" data-choice-group="mustSee"></div>
+              <textarea data-field="mustSeeText" rows="2" placeholder="במשפט אחד: מה חייבים להבין מיד כשמסתכלים על האב־טיפוס?"></textarea>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="2">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
+              <p class="text-gray-600 text-sm font-bold mb-4">זה החלק החשוב ביותר: שלושה רגעים קצרים וברורים.</p>
+              <div class="grid md:grid-cols-3 gap-3">
+                <textarea data-field="start" rows="3" placeholder="בהתחלה רואים..."></textarea>
+                <textarea data-field="action" rows="3" placeholder="המשתמש עושה..."></textarea>
+                <textarea data-field="end" rows="3" placeholder="בסוף קורה..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="3">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <textarea data-field="visualStyle" rows="3" placeholder="סגנון האפליקציה: צעיר, מקצועי, רגוע, משחקי..."></textarea>
+                <textarea data-field="uiDetails" rows="3" placeholder="צבעים, אייקונים, כפתורים ותחושה כללית..."></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="4">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>📱</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
+              <div class="grid md:grid-cols-3 gap-4">
+                <textarea data-field="screen1" rows="3" placeholder="מסך 1 — פתיחה: שם המסך, מה רואים ומה המשתמש עושה?"></textarea>
+                <textarea data-field="screen2" rows="3" placeholder="מסך 2 — פעולה: מה רואים, מה עושים ומה קורה אחרי?"></textarea>
+                <textarea data-field="screen3" rows="3" placeholder="מסך 3 — תוצאה: מה רואים בסוף ומה חשוב להבין?"></textarea>
+              </div>
+            </section>
+            <section class="prototype-step-card rounded-2xl p-6" data-step="5">
+              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
+              <input data-field="asset" type="text" placeholder="קישור לסקיצה או צילום, אם יש" class="mb-4">
+              <textarea data-field="summary" rows="2" placeholder="משפט סיכום למסכי האפליקציה: מה הכי חשוב שיראו?"></textarea>
+            </section>
+            <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="prototype-summary-preview" class="hidden" aria-live="polite">
+    <div class="preview-shell">
+      <div id="prototype-summary-content"></div>
+      <div class="preview-actions">
+        <button class="preview-print" type="button" onclick="downloadPrototypeSummaryPdf()">🖨️ הדפסה או שמירה כ־PDF</button>
+        <button class="preview-close" type="button" onclick="closePrototypeSummaryPreview()">חזרה לעריכה</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const choiceOptions = [
+      'החלק המרכזי',
+      'פעולה ראשונה',
+      'לפני ואחרי',
+      'חיווי או סימון',
+      'רכיב חשוב',
+      'צורת המוצר',
+      'אופן שימוש',
+      'אריזה או מעטפת',
+      'אחר'
+    ];
+
+    function selectProduct(type) {
+      document.getElementById('landing-page').classList.add('hidden');
+      document.querySelectorAll('.prototype-page').forEach((page) => page.classList.add('hidden'));
+      const page = document.getElementById(`${type}-page`);
+      if (page) page.classList.remove('hidden');
+    }
+
+    function goBack() {
+      document.querySelectorAll('.prototype-page').forEach((page) => page.classList.add('hidden'));
+      document.getElementById('landing-page').classList.remove('hidden');
+      closePrototypeSummaryPreview();
+    }
+
+    function printPage() {
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
+      window.print();
+    }
+
+    function getActivePrototypeType() {
+      const activePage = document.querySelector('.prototype-page:not(.hidden)');
+      return activePage ? activePage.dataset.prototypeType : null;
+    }
+
+    function getActivePrototypePage(type) {
+      return document.querySelector(`[data-prototype-type="${type}"]`);
+    }
+
+    function readField(page, fieldName) {
+      const field = page.querySelector(`[data-field="${fieldName}"]`);
+      return field ? field.value.trim() : '';
+    }
+
+    function collectPrototypeData(type) {
+      const page = getActivePrototypePage(type);
+      if (!page) return {};
+      const selectedChoices = Array.from(page.querySelectorAll('[data-choice-group="mustSee"] .choice-card.selected')).map((card) => card.textContent.trim());
+      return {
+        name: readField(page, 'name'),
+        mustSeeChoices: selectedChoices,
+        mustSeeText: readField(page, 'mustSeeText'),
+        start: readField(page, 'start'),
+        action: readField(page, 'action'),
+        end: readField(page, 'end'),
+        shape: readField(page, 'shape'),
+        components: readField(page, 'components'),
+        colors: readField(page, 'colors'),
+        materials: readField(page, 'materials'),
+        style: readField(page, 'style'),
+        highlight: readField(page, 'highlight'),
+        avoid: readField(page, 'avoid'),
+        nextQuestion: readField(page, 'nextQuestion'),
+        nextCheck: readField(page, 'nextCheck'),
+        visualStyle: readField(page, 'visualStyle'),
+        layout: readField(page, 'layout'),
+        uiDetails: readField(page, 'uiDetails'),
+        screen1: readField(page, 'screen1'),
+        screen2: readField(page, 'screen2'),
+        screen3: readField(page, 'screen3'),
+        asset: readField(page, 'asset'),
+        summary: readField(page, 'summary')
+      };
+    }
+
+    function safeText(value) {
+      const text = value && value.trim() ? value.trim() : 'עדיין לא מולא';
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .replace(/\n/g, '<br>');
+    }
+
+    function valueClass(value) {
+      return value && value.trim() ? '' : ' soft-empty';
+    }
+
+    function summaryCard(icon, title, value) {
+      return `<section class="summary-card"><h3><span>${icon}</span>${title}</h3><p class="${valueClass(value)}">${safeText(value)}</p></section>`;
+    }
+
+    function summaryHeader(title, productName) {
+      return `
+        <header class="summary-header">
+          <div>
+            <span class="summary-badge">✨ תוצר ויזואלי להדפסה</span>
+            <h2>${title}</h2>
+            <p>${safeText(productName || 'שם המוצר עדיין לא מולא')}</p>
+          </div>
+          <img class="summary-logo" src="images/logo.png" alt="לוגו תעשיידע">
+        </header>`;
+    }
+
+    function selectedTags(data) {
+      if (!data.mustSeeChoices || data.mustSeeChoices.length === 0) {
+        return '<span class="summary-tag soft-empty">עדיין לא מולא</span>';
+      }
+      return data.mustSeeChoices.map((choice) => `<span class="summary-tag">${safeText(choice)}</span>`).join('');
+    }
+
+    function buildFlowCards(data) {
+      return `
+        <div class="summary-flow-grid">
+          ${summaryCard('1️⃣', 'בהתחלה רואים', data.start)}
+          ${summaryCard('2️⃣', 'המשתמש עושה', data.action)}
+          ${summaryCard('3️⃣', 'בסוף קורה', data.end)}
+        </div>`;
+    }
+
+    function buildPhoneMockups(data) {
+      const screens = [
+        { title: 'מסך 1 - פתיחה', chip: 'פתיחה', firstLabel: 'שם המסך או תיאור קצר', first: data.screen1 || data.start, secondLabel: 'מה רואים במסך', second: data.mustSeeText, thirdLabel: 'מה המשתמש עושה', third: data.action },
+        { title: 'מסך 2 - פעולה', chip: 'פעולה', firstLabel: 'מה רואים', first: data.screen2, secondLabel: 'מה המשתמש עושה', second: data.action, thirdLabel: 'מה קורה אחרי הפעולה', third: data.end },
+        { title: 'מסך 3 - תוצאה', chip: 'תוצאה', firstLabel: 'מה רואים בסוף', first: data.screen3 || data.end, secondLabel: 'מה התוצאה', second: data.summary, thirdLabel: 'מה חשוב להבין', third: data.mustSeeText }
+      ];
+      return `<div class="phone-row summary-phone-grid">${screens.map((screen) => `
+        <article class="phone-mockup summary-phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <span class="screen-chip">${screen.chip}</span>
+            <h3 class="screen-title">${screen.title}</h3>
+            <div class="screen-mini-card"><strong>${screen.firstLabel}</strong><span class="${valueClass(screen.first)}">${safeText(screen.first)}</span></div>
+            <div class="screen-mini-card"><strong>${screen.secondLabel}</strong><span class="${valueClass(screen.second)}">${safeText(screen.second)}</span></div>
+            <div class="screen-mini-card"><strong>${screen.thirdLabel}</strong><span class="${valueClass(screen.third)}">${safeText(screen.third)}</span></div>
+          </div>
+        </article>`).join('')}</div>`;
+    }
+
+    function buildDesktopMockups(data) {
+      const screens = [
+        { title: 'מסך 1 - התחלה', firstLabel: 'מה רואים בהתחלה', first: data.screen1 || data.start, secondLabel: 'מה המשתמש אמור להבין', second: data.mustSeeText },
+        { title: 'מסך 2 - פעולה מרכזית', firstLabel: 'מה המשתמש עושה', first: data.action, secondLabel: 'מה המערכת מציגה', second: data.screen2 },
+        { title: 'מסך 3 - תוצאה', firstLabel: 'מה קורה בסוף', first: data.end, secondLabel: 'מה צריך להיות ברור', second: data.screen3 || data.summary }
+      ];
+      return `<div class="desktop-row summary-desktop-grid">${screens.map((screen) => `
+        <article class="desktop-mockup summary-desktop">
+          <div class="desktop-window">
+            <div class="desktop-bar"><span class="window-dot dot-orange"></span><span class="window-dot dot-cyan"></span><span class="window-dot dot-blue"></span></div>
+            <div class="desktop-content">
+              <h3 class="screen-title">${screen.title}</h3>
+              <div class="screen-mini-card"><strong>${screen.firstLabel}</strong><span class="${valueClass(screen.first)}">${safeText(screen.first)}</span></div>
+              <div class="screen-mini-card"><strong>${screen.secondLabel}</strong><span class="${valueClass(screen.second)}">${safeText(screen.second)}</span></div>
+            </div>
+          </div>
+        </article>`).join('')}</div>`;
+    }
+
+    function buildPhysicalSummary(data) {
+      return `
+        <article class="prototype-summary-sheet summary-physical">
+          ${summaryHeader('סיכום אב־טיפוס למוצר פיזי', data.name)}
+          <section class="summary-card mb-3">
+            <h3><span>👀</span>מה חייבים לראות</h3>
+            <div class="tag-row mb-3">${selectedTags(data)}</div>
+            <p class="${valueClass(data.mustSeeText)}">${safeText(data.mustSeeText)}</p>
+          </section>
+          <section class="summary-card mb-3"><h3><span>🎬</span>סיפור האב־טיפוס</h3>${buildFlowCards(data)}</section>
+          <div class="summary-grid mb-3">
+            ${summaryCard('⬡', 'צורה כללית', data.shape)}
+            ${summaryCard('🧩', 'רכיבים מרכזיים', data.components)}
+            ${summaryCard('🎨', 'צבעים', data.colors)}
+            ${summaryCard('🧱', 'חומרים', data.materials)}
+            ${summaryCard('✨', 'סגנון', data.style)}
+            ${summaryCard('📎', 'סקיצה או קישור', data.asset)}
+          </div>
+          <div class="summary-grid mb-3">
+            ${summaryCard('🚀', 'מה צריך לקפוץ לעין', data.highlight)}
+            ${summaryCard('🫧', 'מה לא להעמיס', data.avoid)}
+          </div>
+          <div class="summary-grid">
+            ${summaryCard('❔', 'מה עדיין לא סגור', data.nextQuestion)}
+            ${summaryCard('🔎', 'מה נרצה לבדוק בהמשך', data.nextCheck)}
+          </div>
+          <footer class="summary-footer">© פרימיום | תעשיידע</footer>
+        </article>`;
+    }
+
+    function buildDigitalSummary(data) {
+      return `
+        <article class="prototype-summary-sheet summary-digital">
+          ${summaryHeader('סיכום אב־טיפוס למוצר דיגיטלי', data.name)}
+          <section class="summary-card mb-3">
+            <h3><span>👀</span>מה חייבים לראות</h3>
+            <div class="tag-row mb-3">${selectedTags(data)}</div>
+            <p class="${valueClass(data.mustSeeText)}">${safeText(data.mustSeeText)}</p>
+          </section>
+          <section class="summary-card mb-3"><h3><span>🎬</span>סיפור האב־טיפוס בשלושה רגעים</h3>${buildFlowCards(data)}</section>
+          ${buildDesktopMockups(data)}
+          <div class="summary-grid mt-3">
+            ${summaryCard('🎨', 'סגנון חזותי', data.visualStyle)}
+            ${summaryCard('🧭', 'מבנה המסכים', data.layout)}
+          </div>
+          <footer class="summary-footer">© פרימיום | תעשיידע</footer>
+        </article>`;
+    }
+
+    function buildAppSummary(data) {
+      return `
+        <article class="prototype-summary-sheet summary-app">
+          ${summaryHeader('סיכום אב־טיפוס לאפליקציה', data.name)}
+          <section class="summary-card mb-3">
+            <h3><span>👀</span>מה חייבים לראות</h3>
+            <div class="tag-row mb-3">${selectedTags(data)}</div>
+            <p class="${valueClass(data.mustSeeText)}">${safeText(data.mustSeeText)}</p>
+          </section>
+          <section class="summary-card mb-3"><h3><span>🎬</span>סיפור האב־טיפוס בשלושה רגעים</h3>${buildFlowCards(data)}</section>
+          ${buildPhoneMockups(data)}
+          <div class="summary-grid mt-3">
+            ${summaryCard('🎨', 'סגנון האפליקציה', data.visualStyle)}
+            ${summaryCard('🔘', 'צבעים, אייקונים וכפתורים', data.uiDetails)}
+          </div>
+          <footer class="summary-footer">© פרימיום | תעשיידע</footer>
+        </article>`;
+    }
+
+    function buildPrototypeSummary(type, data) {
+      if (type === 'app') return buildAppSummary(data);
+      if (type === 'digital') return buildDigitalSummary(data);
+      return buildPhysicalSummary(data);
+    }
+
+    function openPrototypeSummaryPreview(type, data) {
+      const preview = document.getElementById('prototype-summary-preview');
+      const content = document.getElementById('prototype-summary-content');
+      content.innerHTML = buildPrototypeSummary(type, data);
+      preview.classList.remove('hidden');
+      preview.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closePrototypeSummaryPreview() {
+      const preview = document.getElementById('prototype-summary-preview');
+      if (preview) preview.classList.add('hidden');
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
+    }
+
+    function downloadPrototypeSummaryPdf() {
+      document.body.classList.add('summary-printing', 'summary-print-mode');
+      window.print();
+    }
+
+    function createPrototypeSummaryPdf() {
+      const type = getActivePrototypeType();
+      if (!type) return;
+      const data = collectPrototypeData(type);
+      openPrototypeSummaryPreview(type, data);
+    }
+
+    function setupChoiceCards() {
+      document.querySelectorAll('[data-choice-group="mustSee"]').forEach((group) => {
+        group.innerHTML = choiceOptions.map((option) => `<button type="button" class="choice-card">${option}</button>`).join('');
+        group.addEventListener('click', (event) => {
+          const card = event.target.closest('.choice-card');
+          if (!card) return;
+          const selected = Array.from(group.querySelectorAll('.choice-card.selected'));
+          if (!card.classList.contains('selected') && selected.length >= 3) return;
+          card.classList.toggle('selected');
+        });
+      });
+    }
+
+    const defaultConfig = {
+      main_title: 'מתכננים אב־טיפוס למוצר פיזי',
+      subtitle: '30 דקות לתכנן איך המוצר הפיזי ייראה, אילו חלקים יהיו בו ואיך נציג אותו בצורה ברורה.',
+      background_color: '#fff7ed',
+      text_color: '#7f1d1d',
+      accent_color: '#d71920',
+      font_family: 'Heebo'
+    };
+
+    let config = { ...defaultConfig };
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          updateUI();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            { get: () => cfg.background_color || defaultConfig.background_color, set: (value) => { cfg.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+            { get: () => cfg.text_color || defaultConfig.text_color, set: (value) => { cfg.text_color = value; window.elementSdk.setConfig({ text_color: value }); } },
+            { get: () => cfg.accent_color || defaultConfig.accent_color, set: (value) => { cfg.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); } }
+          ],
+          borderables: [],
+          fontEditable: { get: () => cfg.font_family || defaultConfig.font_family, set: (value) => { cfg.font_family = value; window.elementSdk.setConfig({ font_family: value }); } },
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+
+    function updateUI() {
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      if (mainTitle) {
+        mainTitle.textContent = config.main_title || defaultConfig.main_title;
+        mainTitle.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+      }
+      if (subtitle) {
+        subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+        subtitle.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+      }
+    }
+
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
+    });
+
+    setupChoiceCards();
+    updateUI();
+  </script>
+</body>
+</html>
