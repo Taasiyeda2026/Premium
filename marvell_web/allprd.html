@@ -508,6 +508,106 @@
       box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
     }
 
+
+
+    /* Poster image rules: cover only physical products; UI screens must remain complete. */
+    [data-layout="physical"] .ph-img-frame {
+      overflow: hidden;
+      background: linear-gradient(135deg, #eef6ff, #ffffff);
+    }
+
+    [data-layout="physical"] .ph-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    [data-layout="app"] .ph-img-frame {
+      aspect-ratio: 9 / 16;
+      min-height: min(78vh, 560px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(53,196,232,0.12), transparent 34%),
+        linear-gradient(180deg, #f8fbff, #eef6ff);
+    }
+
+    [data-layout="website"] .ph-img-frame,
+    [data-layout="digital"] .ph-img-frame {
+      aspect-ratio: 16 / 9;
+      min-height: min(42vh, 330px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(53,196,232,0.10), transparent 30%),
+        linear-gradient(180deg, #f8fbff, #eef6ff);
+    }
+
+    [data-layout="app"] .ph-img-frame img,
+    [data-layout="website"] .ph-img-frame img,
+    [data-layout="digital"] .ph-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    #poster-html {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    #poster-inner {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #ph-main {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    #ph-footer,
+    .print-page-footer {
+      flex: 0 0 auto;
+      flex-shrink: 0;
+    }
+
+    .print-page-footer {
+      display: none;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-top: 1px solid rgba(13, 32, 69, 0.16);
+      color: #53647d;
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .poster-fit-1 #poster-inner,
+    .poster-fit-1 .print-active-page {
+      --poster-scale: 0.96;
+    }
+
+    .poster-fit-2 #poster-inner,
+    .poster-fit-2 .print-active-page {
+      --poster-scale: 0.92;
+    }
+
+    .poster-fit-3 #poster-inner,
+    .poster-fit-3 .print-active-page {
+      --poster-scale: 0.88;
+    }
+
+
     @media (max-width: 760px) {
       .marvell-top-brand,
       .marvell-page-header {
@@ -741,6 +841,54 @@
       /* Canvas area - keep small or hide */
       canvas { max-height: 180px !important; }
       .tab-btn-app, [class*="tab-btn"] { display: none !important; }
+
+      @page { size: A4 portrait; margin: 0; }
+      html, body { width: 210mm !important; min-height: 297mm !important; }
+      .print-page-footer { display: block !important; }
+      #poster-html { width: 210mm !important; height: 297mm !important; max-height: 297mm !important; overflow: hidden !important; }
+      #poster-inner { height: 100% !important; display: flex !important; flex-direction: column !important; min-height: 0 !important; }
+      #ph-main { flex: 1 1 auto !important; min-height: 0 !important; overflow: hidden !important; }
+      #ph-footer { flex: 0 0 auto !important; flex-shrink: 0 !important; }
+      #physical-page:not(.hidden),
+      #digital-page:not(.hidden),
+      #app-page:not(.hidden) {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        max-height: 297mm !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: #ffffff !important;
+        page-break-after: avoid !important;
+        break-after: avoid-page !important;
+      }
+      #physical-page:not(.hidden) > .container,
+      #digital-page:not(.hidden) > .container,
+      #app-page:not(.hidden) > .container {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        transform: scale(var(--poster-scale, 1));
+        transform-origin: top center;
+      }
+      .poster-fit-1 #physical-page:not(.hidden) > .container,
+      .poster-fit-1 #digital-page:not(.hidden) > .container,
+      .poster-fit-1 #app-page:not(.hidden) > .container { gap: 5px !important; }
+      .poster-fit-2 #physical-page:not(.hidden) > .container,
+      .poster-fit-2 #digital-page:not(.hidden) > .container,
+      .poster-fit-2 #app-page:not(.hidden) > .container { gap: 3px !important; padding: 4px !important; }
+      .poster-fit-3 #physical-page:not(.hidden) > .container,
+      .poster-fit-3 #digital-page:not(.hidden) > .container,
+      .poster-fit-3 #app-page:not(.hidden) > .container { gap: 2px !important; padding: 3px !important; font-size: 0.94em !important; }
+      [data-layout="physical"] .ph-img-frame img { object-fit: cover !important; object-position: center !important; }
+      [data-layout="app"] .ph-img-frame { aspect-ratio: 9 / 16 !important; min-height: 0 !important; }
+      [data-layout="website"] .ph-img-frame,
+      [data-layout="digital"] .ph-img-frame { aspect-ratio: 16 / 9 !important; min-height: 0 !important; }
+      [data-layout="app"] .ph-img-frame img,
+      [data-layout="website"] .ph-img-frame img,
+      [data-layout="digital"] .ph-img-frame img { object-fit: contain !important; object-position: center !important; }
     }
   </style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -902,7 +1050,7 @@
      </div>
     </div>
    </div><!-- Physical Product Page -->
-   <div id="physical-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+   <div id="physical-page" data-layout="physical" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
     <div class="container mx-auto px-4 py-8">
      <section class="marvell-page-header">
       <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
@@ -989,9 +1137,10 @@
        </div>
       </div>
      </div>
+     <footer class="print-page-footer">© פרימיום | תעשיידע</footer>
     </div>
    </div><!-- Digital Product Page -->
-   <div id="digital-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+   <div id="digital-page" data-layout="digital" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
     <div class="container mx-auto px-4 py-8">
      <section class="marvell-page-header">
       <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
@@ -1103,9 +1252,10 @@
        </div>
       </div>
      </div>
+     <footer class="print-page-footer">© פרימיום | תעשיידע</footer>
     </div>
    </div><!-- App Product Page - אב-טיפוס Planning -->
-   <div id="app-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+   <div id="app-page" data-layout="app" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
     <div class="container mx-auto px-4 py-8">
      <section class="marvell-page-header">
       <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
@@ -1334,6 +1484,7 @@
        </div>
       </div>
      </div>
+     <footer class="print-page-footer">© פרימיום | תעשיידע</footer>
     </div>
    </div>
 </div>
@@ -1370,6 +1521,41 @@
       return document.getElementById('landing-page');
     }
 
+    function getPosterRoot() {
+      return document.getElementById('poster-html') || getActiveMainPage();
+    }
+
+    function isFooterInsidePoster(root) {
+      if (!root) return true;
+      const footer = root.querySelector('#ph-footer, .print-page-footer');
+      if (!footer) return true;
+      const rootRect = root.getBoundingClientRect();
+      const footerRect = footer.getBoundingClientRect();
+      return footerRect.bottom <= rootRect.bottom && footerRect.top >= rootRect.top;
+    }
+
+    function hasPosterVerticalOverflow(root) {
+      if (!root) return false;
+      return root.scrollHeight > root.clientHeight + 1 || !isFooterInsidePoster(root);
+    }
+
+    function fitPosterToPage() {
+      document.body.classList.remove('poster-fit-1', 'poster-fit-2', 'poster-fit-3');
+
+      const root = getPosterRoot();
+      if (!root) return;
+
+      const activePage = getActiveMainPage();
+      document.querySelectorAll('.print-active-page').forEach((page) => page.classList.remove('print-active-page'));
+      if (activePage) activePage.classList.add('print-active-page');
+
+      for (let level = 1; level <= 3; level += 1) {
+        if (!hasPosterVerticalOverflow(root)) break;
+        document.body.classList.remove('poster-fit-1', 'poster-fit-2', 'poster-fit-3');
+        document.body.classList.add(`poster-fit-${level}`);
+      }
+    }
+
     function printPage() {
       const summaryModal = document.getElementById('summary-modal');
       const wasSummaryOpen = summaryModal && !summaryModal.classList.contains('hidden');
@@ -1378,6 +1564,7 @@
         closeSummaryModal();
       }
 
+      fitPosterToPage();
       window.print();
 
       if (wasSummaryOpen) {
@@ -1385,6 +1572,11 @@
       }
     }
     
+    window.addEventListener('beforeprint', fitPosterToPage);
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('poster-fit-1', 'poster-fit-2', 'poster-fit-3');
+    });
+
     // App page tab switching
     function switchAppTab(tabName) {
       const tabs = document.querySelectorAll('.tab-content-app');
