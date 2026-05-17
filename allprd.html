@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/print.css" media="print">
   <style>
     * { box-sizing: border-box; font-family: 'Heebo', sans-serif; }
 
@@ -846,7 +845,7 @@
     <div id="landing-page" class="min-h-full gradient-bg relative overflow-hidden">
       <div class="container mx-auto px-4 py-12 relative z-10">
         <section class="marvell-top-brand">
-          <a class="marvell-home-link" href="index-marvell.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
+          <a class="marvell-home-link" href="newsletter9.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
           </a>
           <img class="marvell-brand-mark" src="images/logo.png" alt="לוגו תעשיידע">
@@ -932,110 +931,6 @@
         </div>
       </div>
     </main>
-
-    <main id="digital-page" data-prototype-type="digital" class="prototype-page min-h-full hidden">
-      <div class="container mx-auto px-4 py-8">
-        <section class="marvell-page-header">
-          <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
-          <div class="marvell-page-center"><img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע"><h1 class="marvell-page-title"><span>💻</span> תכנון אב־טיפוס למוצר דיגיטלי</h1></div>
-          <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
-        </section>
-        <p class="route-intro">מתכננים תצוגה חזותית קצרה של שלושה מסכי מחשב: התחלה, פעולה מרכזית ותוצאה.</p>
-        <div class="max-w-4xl mx-auto space-y-6 prototype-workspace p-3">
-          <input data-field="name" type="text" placeholder="💻 שם המוצר של הצוות" class="text-2xl text-center font-black bg-white">
-          <div class="space-y-6 prototype-steps">
-            <section class="prototype-step-card rounded-2xl p-6" data-step="1">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
-              <p class="choice-note mb-3">בחרו עד 3 כרטיסיות, ואז כתבו משפט אחד קצר.</p>
-              <div class="choice-grid mb-4" data-choice-group="mustSee"></div>
-              <textarea data-field="mustSeeText" rows="2" placeholder="במשפט אחד: מה חייבים להבין מיד כשמסתכלים על האב־טיפוס?"></textarea>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="2">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
-              <p class="text-gray-600 text-sm font-bold mb-4">זה החלק החשוב ביותר: שלושה רגעים קצרים וברורים.</p>
-              <div class="grid md:grid-cols-3 gap-3">
-                <textarea data-field="start" rows="3" placeholder="בהתחלה רואים..."></textarea>
-                <textarea data-field="action" rows="3" placeholder="המשתמש עושה..."></textarea>
-                <textarea data-field="end" rows="3" placeholder="בסוף קורה..."></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="3">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
-              <div class="grid md:grid-cols-2 gap-4">
-                <textarea data-field="visualStyle" rows="3" placeholder="סגנון המסכים: נקי, צבעוני, מקצועי, משחקי..."></textarea>
-                <textarea data-field="layout" rows="3" placeholder="מבנה המסך: כותרת, כרטיסים, תפריט, אזור פעולה..."></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="4">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🖥️</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
-              <div class="grid md:grid-cols-3 gap-4">
-                <textarea data-field="screen1" rows="3" placeholder="מסך 1 — התחלה: מה רואים ומה מבינים?"></textarea>
-                <textarea data-field="screen2" rows="3" placeholder="מסך 2 — פעולה מרכזית: מה עושים ומה המערכת מציגה?"></textarea>
-                <textarea data-field="screen3" rows="3" placeholder="מסך 3 — תוצאה: מה קורה ומה ברור בסוף?"></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="5">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
-              <input data-field="asset" type="text" placeholder="קישור לסקיצה או צילום, אם יש" class="mb-4">
-              <textarea data-field="summary" rows="2" placeholder="משפט סיכום: מה הכי חשוב שיראו במסכים?"></textarea>
-            </section>
-            <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <main id="app-page" data-prototype-type="app" class="prototype-page min-h-full hidden">
-      <div class="container mx-auto px-4 py-8">
-        <section class="marvell-page-header">
-          <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
-          <div class="marvell-page-center"><img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע"><h1 class="marvell-page-title"><span>📱</span> תכנון אב־טיפוס לאפליקציה</h1></div>
-          <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
-        </section>
-        <p class="route-intro">מתכננים חוויה אחת קצרה: מסך פתיחה, מסך פעולה ומסך תוצאה. אין טאב נוסף ואין אזור עבודה כפול.</p>
-        <div class="max-w-4xl mx-auto space-y-6 prototype-workspace p-3">
-          <input data-field="name" type="text" placeholder="📱 שם האפליקציה של הצוות" class="text-2xl text-center font-black bg-white">
-          <div class="space-y-6 prototype-steps">
-            <section class="prototype-step-card rounded-2xl p-6" data-step="1">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> שלב 1 מתוך 5 — מה חייבים לראות?</h3>
-              <p class="choice-note mb-3">בחרו עד 3 כרטיסיות, ואז כתבו משפט אחד קצר.</p>
-              <div class="choice-grid mb-4" data-choice-group="mustSee"></div>
-              <textarea data-field="mustSeeText" rows="2" placeholder="במשפט אחד: מה חייבים להבין מיד כשמסתכלים על האב־טיפוס?"></textarea>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="2">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎬</span> שלב 2 מתוך 5 — סיפור האב־טיפוס בשלושה רגעים</h3>
-              <p class="text-gray-600 text-sm font-bold mb-4">זה החלק החשוב ביותר: שלושה רגעים קצרים וברורים.</p>
-              <div class="grid md:grid-cols-3 gap-3">
-                <textarea data-field="start" rows="3" placeholder="בהתחלה רואים..."></textarea>
-                <textarea data-field="action" rows="3" placeholder="המשתמש עושה..."></textarea>
-                <textarea data-field="end" rows="3" placeholder="בסוף קורה..."></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="3">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>🎨</span> שלב 3 מתוך 5 — איך זה צריך להיראות?</h3>
-              <div class="grid md:grid-cols-2 gap-4">
-                <textarea data-field="visualStyle" rows="3" placeholder="סגנון האפליקציה: צעיר, מקצועי, רגוע, משחקי..."></textarea>
-                <textarea data-field="uiDetails" rows="3" placeholder="צבעים, אייקונים, כפתורים ותחושה כללית..."></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="4">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>📱</span> שלב 4 מתוך 5 — מה נרצה שיופיע בהדמיה הדיגיטלית?</h3>
-              <div class="grid md:grid-cols-3 gap-4">
-                <textarea data-field="screen1" rows="3" placeholder="מסך 1 — פתיחה: שם המסך, מה רואים ומה המשתמש עושה?"></textarea>
-                <textarea data-field="screen2" rows="3" placeholder="מסך 2 — פעולה: מה רואים, מה עושים ומה קורה אחרי?"></textarea>
-                <textarea data-field="screen3" rows="3" placeholder="מסך 3 — תוצאה: מה רואים בסוף ומה חשוב להבין?"></textarea>
-              </div>
-            </section>
-            <section class="prototype-step-card rounded-2xl p-6" data-step="5">
-              <h3 class="text-xl font-black text-gray-900 mb-3 flex items-center gap-2"><span>💾</span> שלב 5 מתוך 5 — שומרים את תכנון האב־טיפוס</h3>
-              <input data-field="asset" type="text" placeholder="קישור לסקיצה או צילום, אם יש" class="mb-4">
-              <textarea data-field="summary" rows="2" placeholder="משפט סיכום למסכי האפליקציה: מה הכי חשוב שיראו?"></textarea>
-            </section>
-            <button type="button" onclick="createPrototypeSummaryPdf()" class="prototype-summary-btn"><span>✨</span> סיכום אב־טיפוס</button>
-          </div>
-        </div>
-      </div>
-    </main>
   </div>
 
   <div id="prototype-summary-preview" class="hidden" aria-live="polite">
@@ -1069,9 +964,7 @@
     }
 
     function goBack() {
-      document.querySelectorAll('.prototype-page').forEach((page) => page.classList.add('hidden'));
-      document.getElementById('landing-page').classList.remove('hidden');
-      closePrototypeSummaryPreview();
+      window.location.href = 'newsletter9.html';
     }
 
     function printPage() {
