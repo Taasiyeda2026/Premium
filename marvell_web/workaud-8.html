@@ -3,43 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>דף עבודה | קהל יעד ומה קיים בשוק</title>
+  <title>תעשיידע | פרימיום מארוול – קהל יעד ומוצרים קיימים</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-deep: #071a36;
-      --bg-mid: #0d2045;
-      --text: #10213d;
-      --muted: #5f708b;
-      --line: rgba(140, 184, 230, 0.34);
-      --primary: #0d2045;
-      --primary-2: #1e66a8;
-      --cyan: #35c4e8;
-      --cyan-soft: #9cecff;
-      --orange: #f6a742;
-      --green: #3cc58f;
-      --shadow: 0 28px 70px rgba(0, 7, 22, 0.42);
-      --shadow-soft: 0 18px 42px rgba(0, 16, 45, 0.22);
-      --radius-lg: 24px;
-      --radius: 16px;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
 
     body {
       zoom: 0.75;
       min-height: 100vh;
-      font-family: "Assistant", Arial, sans-serif;
-      color: var(--text);
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      color: #10213d;
       background:
-        radial-gradient(circle at 85% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
         radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
-        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.10), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
         linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
-      padding: 14px 10px 26px;
+      padding: 28px 18px 42px;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -54,826 +37,637 @@
       opacity: 0.65;
     }
 
-    button, input, textarea, select { font-family: inherit; }
-
-    .page {
-      width: min(1080px, 100%);
+    .newsletter {
+      width: 100%;
+      max-width: 900px;
       margin: 0 auto;
+      padding: 20px;
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
       background:
         radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
-        linear-gradient(180deg, rgba(10, 33, 69, 0.94), rgba(6, 19, 41, 0.96));
+        linear-gradient(180deg, rgba(10, 33, 69, 0.95), rgba(6, 19, 41, 0.97));
       border: 1px solid rgba(131, 190, 255, 0.30);
-      border-radius: 28px;
       box-shadow:
         0 34px 90px rgba(0, 0, 0, 0.44),
         inset 0 1px 0 rgba(255,255,255,0.12);
-      overflow: hidden;
-      position: relative;
     }
 
-    .page::before {
+    .newsletter::before {
       content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(90deg, rgba(53,196,232,0.09) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(53,196,232,0.07) 1px, transparent 1px);
+        linear-gradient(90deg, rgba(53,196,232,0.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(53,196,232,0.06) 1px, transparent 1px);
       background-size: 44px 44px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 60%);
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.72), transparent 62%);
+      z-index: -1;
     }
 
-    .topbar {
-      position: relative;
-      z-index: 2;
-      padding: 7px 14px;
-      color: #eaf7ff;
-      background: linear-gradient(90deg, #061329 0%, #0d3a76 50%, #061329 100%);
-      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
-      font-size: 0.84rem;
-      font-weight: 800;
-      text-align: center;
+    .newsletter::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .header {
+    .top-brand {
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      z-index: 2;
-      padding: 16px 20px 13px;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.18), transparent 28%),
-        linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
-      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
+        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.24), transparent 30%),
+        radial-gradient(circle at 80% 86%, rgba(246,167,66,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.94), rgba(10, 48, 92, 0.88));
+      border: 1px solid rgba(131, 190, 255, 0.25);
+      box-shadow:
+        0 18px 42px rgba(0, 12, 38, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+      z-index: 1;
     }
 
     .home-link {
       position: absolute;
+      right: 18px;
       top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
       text-decoration: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.90));
       border: 1px solid rgba(160, 210, 255, 0.55);
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.9));
       box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
-    }
-
-    .home-link svg { width: 18px; height: 18px; fill: #0d2045; }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      text-align: center;
-    }
-
-    .brand img {
-      width: 58px;
-      height: 58px;
-      object-fit: contain;
-      flex: 0 0 auto;
-      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
-    }
-
-    .brand-copy h1 {
-      color: #ffffff;
-      font-size: clamp(1.55rem, 3.2vw, 2.45rem);
-      line-height: 1.05;
-      font-weight: 900;
-      letter-spacing: 0.01em;
-      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
-    }
-
-    .brand-copy p {
-      margin-top: 5px;
-      color: #c8e9ff;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .card,
-    .tool,
-    .action-panel,
-    .phase-divider {
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
-      border: 1px solid rgba(140, 184, 230, 0.40);
-      border-radius: var(--radius-lg);
-      box-shadow:
-        0 20px 46px rgba(0, 10, 32, 0.28),
-        inset 0 1px 0 rgba(255,255,255,0.82);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero {
-      position: relative;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
       z-index: 2;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 12px;
-      padding: 14px 20px 16px;
-      border-bottom: 1px solid rgba(131, 190, 255, 0.22);
     }
 
-    .card::before,
-    .tool::before,
-    .phase-divider::before {
+    .home-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #0d2045;
+    }
+
+    .brand-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      padding: 7px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.62);
+      filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.34));
+    }
+
+    .mentor-stage {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(237,247,255,0.93));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .mentor-stage::before {
       content: "";
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-      height: 4px;
+      height: 6px;
       background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+      z-index: 2;
     }
 
-    .intro,
-    .meta { padding: 15px; }
+    .mentor-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(53,196,232,0.16), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(246,167,66,0.12), transparent 26%);
+      pointer-events: none;
+    }
 
-    .intro h2 {
-      color: #163b63;
-      font-size: 1.18rem;
-      margin-bottom: 5px;
+    .stage-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .visual-panel {
+      min-height: 315px;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-panel::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, rgba(30,102,168,0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(30,102,168,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      display: none;
+    }
+
+    .hero-graphic {
+      width: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: none;
+    }
+
+    .copy-panel {
+      padding: 8px 4px 6px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .lesson-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 7px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      background: rgba(53, 196, 232, 0.12);
+      border: 1px solid rgba(53, 196, 232, 0.32);
+      color: #0b5f83;
+      font-size: 0.82rem;
       font-weight: 900;
     }
 
-    .intro p {
-      color: #485872;
-      font-size: 0.9rem;
-      line-height: 1.62;
+    .hero-title {
+      margin: 0 0 12px;
+      font-size: clamp(2.05rem, 4.3vw, 3.35rem);
+      line-height: 1.05;
+      color: #123b64;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-text {
+      margin: 0;
+      font-size: 1.04rem;
+      line-height: 1.9;
+      color: #4d5f79;
       font-weight: 500;
     }
 
-    .field { display: flex; flex-direction: column; gap: 4px; }
-    .field + .field { margin-top: 8px; }
-
-    label {
-      color: #18385c;
-      font-size: 0.84rem;
-      font-weight: 900;
+    .mentor-note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      color: #213a59;
+      font-size: 1rem;
+      line-height: 1.85;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(246,167,66,0.16), rgba(255,255,255,0.82));
+      border: 1px solid rgba(246, 167, 66, 0.28);
     }
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid #d6e2f0;
-      border-radius: 12px;
-      background: #fff;
-      color: var(--text);
-      font-size: 0.9rem;
-      padding: 8px 10px;
-      outline: none;
-      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    .prep-board {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
     }
 
-    textarea { min-height: 58px; resize: vertical; line-height: 1.45; }
-    textarea.short { min-height: 46px; }
-    textarea.tall { min-height: 86px; }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: rgba(40, 120, 184, 0.74);
-      box-shadow: 0 0 0 4px rgba(40, 120, 184, 0.10);
-      background: #fbfdff;
+    .wide-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 128px;
+      padding: 15px 16px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      box-shadow:
+        0 20px 42px rgba(0, 10, 32, 0.22),
+        inset 0 1px 0 rgba(255,255,255,0.82);
     }
 
-    .progress-nav {
-      position: sticky;
+    .wide-card::before {
+      content: "";
+      position: absolute;
       top: 0;
-      z-index: 10;
-      padding: 8px 20px;
-      background: rgba(6, 19, 41, 0.84);
-      border-bottom: 1px solid rgba(131, 190, 255, 0.26);
-      backdrop-filter: blur(14px);
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #35c4e8, #1e66a8, #f6a742);
     }
 
-    .progress-inner {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 6px;
-    }
-
-    .nav-step {
-      text-decoration: none;
-      color: #d7ecff;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(131, 190, 255, 0.22);
-      border-radius: 11px;
-      min-height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 5px;
-      font-size: 0.72rem;
-      font-weight: 900;
-      line-height: 1.08;
-      box-shadow: 0 10px 22px rgba(0, 5, 18, 0.22);
-    }
-
-    .nav-step.is-complete {
-      color: #061329;
-      background: linear-gradient(180deg, #35c4e8, #9cecff);
-      border-color: rgba(255,255,255,0.55);
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      padding: 14px 20px 8px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .phase-divider {
-      padding: 14px 16px;
+    .brief-card {
+      padding: 26px 28px;
+      min-height: auto;
       background:
-        radial-gradient(circle at top right, rgba(53,196,232,0.15), transparent 34%),
-        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(233,245,255,0.94));
-    }
-
-    .phase-divider.phase-audience::before { background: linear-gradient(90deg, #35c4e8, #1e66a8); }
-    .phase-divider.phase-market::before { background: linear-gradient(90deg, #3cc58f, #35c4e8); }
-    .phase-divider.phase-different::before { background: linear-gradient(90deg, #1e66a8, #9cecff); }
-    .phase-divider.phase-final::before { background: linear-gradient(90deg, #f6a742, #35c4e8); }
-
-    .phase-divider h2 {
-      color: #123b64;
-      font-size: 1.24rem;
-      font-weight: 900;
-      margin-bottom: 3px;
-    }
-
-    .phase-divider p {
-      color: #53647d;
-      font-size: 0.9rem;
-      line-height: 1.48;
-      font-weight: 600;
-    }
-
-    .tool { padding: 14px; }
-    .tool.phase-audience::before { background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 100%); }
-    .tool.phase-market::before { background: linear-gradient(90deg, #3cc58f 0%, #35c4e8 100%); }
-    .tool.phase-different::before { background: linear-gradient(90deg, #1e66a8 0%, #9cecff 100%); }
-    .tool.phase-final::before { background: linear-gradient(90deg, #f6a742 0%, #35c4e8 100%); }
-
-    .tool-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: start;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .phase-label,
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: rgba(53, 196, 232, 0.12);
-      color: #0b5f83;
-      border: 1px solid rgba(53, 196, 232, 0.32);
-      padding: 4px 10px;
-      font-size: 0.72rem;
-      font-weight: 900;
-      margin-bottom: 6px;
-    }
-
-    .tool h3 {
-      color: #123b64;
-      font-size: 1.08rem;
-      font-weight: 900;
-      line-height: 1.18;
-      margin-bottom: 3px;
-    }
-
-    .tool-subtitle {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
-      font-weight: 600;
-    }
-
-    .tool-num {
-      width: 38px;
-      height: 38px;
-      border-radius: 13px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.05rem;
-      font-weight: 900;
-      background: linear-gradient(180deg, #35c4e8, #0d3a76);
-      box-shadow: 0 14px 26px rgba(13, 58, 118, 0.34);
-    }
-
-    .tool-grid,
-    .method-row,
-    .summary-grid,
-    .example-grid {
-      display: grid;
-      gap: 8px;
-    }
-
-    .method-row,
-    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .example-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-    .span-2 { grid-column: 1 / -1; }
-
-    .method-box,
-    .preview,
-    .summary-box,
-    .print-summary,
-    .example-chip {
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(120, 170, 220, 0.34);
-      background: linear-gradient(180deg, #ffffff, #f2f7fd);
-      color: #4f6078;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-
-    .method-box strong,
-    .preview strong,
-    .summary-box strong,
-    .print-summary strong {
-      display: block;
-      color: #17395e;
-      font-weight: 900;
-      margin-bottom: 3px;
-    }
-
-    .method-box p { color: #52627a; font-size: 0.84rem; line-height: 1.42; font-weight: 600; }
-    .mini-note { color: #65758e; font-size: 0.78rem; line-height: 1.35; font-weight: 600; }
-
-    .summary-value {
-      color: #0d3a76;
-      font-weight: 900;
-      background: rgba(53, 196, 232, 0.10);
-      border-radius: 6px;
-      padding: 0 4px;
-      white-space: pre-line;
-    }
-
-    .auto-box {
-      margin-top: 8px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(246,167,66,0.16), rgba(255,255,255,0.86));
-      border: 1px solid rgba(246, 167, 66, 0.30);
-      color: #5c4720;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      font-weight: 800;
-    }
-
-    .example-chip {
-      min-height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #17395e;
-      font-size: 0.82rem;
-      font-weight: 900;
-      background: linear-gradient(180deg, #ffffff, #eef6ff);
-    }
-
-    .summary-panel {
-      position: relative;
-      z-index: 2;
-      margin: 6px 20px 0;
-      padding: 14px;
-      background:
-        radial-gradient(circle at top left, rgba(53,196,232,0.14), transparent 30%),
+        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(246,167,66,0.13), transparent 32%),
         linear-gradient(180deg, rgba(255,255,255,0.98), rgba(235,246,255,0.94));
     }
 
-    .summary-panel h2 {
+    .brief-title {
+      margin: 0 0 14px;
       color: #123b64;
-      font-size: 1.18rem;
+      font-size: 1.45rem;
+      line-height: 1.2;
       font-weight: 900;
-      margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
 
-    .summary-text {
-      white-space: pre-wrap;
-      color: #40546f;
-      font-size: 0.9rem;
-      line-height: 1.55;
+    .brief-text {
+      margin: 0;
+      color: #4d5f79;
+      font-size: 1rem;
+      line-height: 1.85;
       font-weight: 600;
     }
 
-    .action-panel {
-      position: relative;
-      z-index: 2;
-      margin: 6px 20px 0;
-      padding: 12px;
+    .brief-text + .brief-text {
+      margin-top: 12px;
     }
 
-    .buttons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
-    .btn {
-      border: 1px solid transparent;
-      border-radius: 12px;
-      padding: 8px 12px;
-      min-width: 118px;
+
+    .brief-questions {
+      margin: 14px 0 18px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .brief-questions li {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 11px 13px;
+      border-radius: 16px;
+      color: #27476b;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      font-weight: 800;
+      background: rgba(13, 58, 118, 0.07);
+      border: 1px solid rgba(120, 170, 220, 0.22);
+      box-shadow: 0 12px 24px rgba(0, 10, 32, 0.10);
+    }
+
+    .brief-questions li:nth-child(1) {
+      background: linear-gradient(135deg, rgba(53,196,232,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(2) {
+      background: linear-gradient(135deg, rgba(246,167,66,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(3) {
+      background: linear-gradient(135deg, rgba(30,102,168,0.18), rgba(255,255,255,0.92));
+    }
+
+    .brief-questions li:nth-child(4) {
+      background: linear-gradient(135deg, rgba(60,197,143,0.20), rgba(255,255,255,0.92));
+    }
+
+    .brief-list {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .brief-list .list-line {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.35;
+      border: 1px solid rgba(255,255,255,0.62);
+      box-shadow: 0 14px 28px rgba(0, 10, 32, 0.12);
+    }
+
+    .brief-list .list-line:nth-child(1) {
+      background: linear-gradient(135deg, rgba(53,196,232,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-list .list-line:nth-child(2) {
+      background: linear-gradient(135deg, rgba(246,167,66,0.22), rgba(255,255,255,0.92));
+    }
+
+    .brief-list .list-line:nth-child(3) {
+      background: linear-gradient(135deg, rgba(30,102,168,0.18), rgba(255,255,255,0.92));
+    }
+
+    .brief-list .list-line:nth-child(4) {
+      background: linear-gradient(135deg, rgba(60,197,143,0.20), rgba(255,255,255,0.92));
+    }
+
+    .brief-close {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      color: #17395e;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      font-weight: 800;
+      background:
+        radial-gradient(circle at top right, rgba(60,197,143,0.18), transparent 34%),
+        linear-gradient(135deg, rgba(156,236,255,0.38), rgba(255,244,224,0.92));
+      border: 1px solid rgba(53, 196, 232, 0.34);
+      box-shadow:
+        0 16px 32px rgba(0, 10, 32, 0.14),
+        inset 0 1px 0 rgba(255,255,255,0.68);
+    }
+
+    .wide-card.highlight {
+      grid-row: span 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94));
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      font-size: 0.82rem;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 12px 22px rgba(0, 18, 52, 0.12);
+    }
+
+    .card-icon img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.05rem;
       font-weight: 900;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 9px 16px rgba(22,38,67,0.08);
+      color: #123b64;
     }
 
-    .btn:hover { transform: translateY(-1px); }
-    .btn.primary { color: white; background: linear-gradient(90deg, #0d3a76, #1e66a8); }
-    .btn.secondary { color: #40546f; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
-    .btn.accent { color: white; background: linear-gradient(90deg, #f08a24, #f6a742); }
-    .status { color: #65758e; font-size: 0.82rem; font-weight: 800; }
-    .footer { position: relative; z-index: 2; padding: 12px 14px 18px; text-align: center; color: #b8d9f7; font-weight: 700; }
-    .print-only { display: none; }
-
-    @media (max-width: 920px) {
-      .hero, .method-row, .tool-grid, .summary-grid, .example-grid { grid-template-columns: 1fr; }
-      .progress-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .home-link { position: static; margin-bottom: 10px; }
-      .brand { flex-direction: column; }
-      .progress-nav { position: static; }
+    .card-text {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #53647d;
+      font-weight: 500;
     }
 
-    @media (max-width: 620px) {
-      body { padding: 10px 8px 28px; }
-      .page { border-radius: 24px; }
-      .header, .hero, .content, .progress-nav, .action-panel, .summary-panel { padding-left: 14px; padding-right: 14px; }
-      .action-panel, .summary-panel { margin-left: 14px; margin-right: 14px; }
-      .progress-inner { grid-template-columns: 1fr; }
+    .highlight-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
     }
 
-    @media print {
-      body { zoom: 1; padding: 0; background: white; }
-      body::before { display: none; }
-      .page { width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; background: white; }
-      .page::before, .topbar, .home-link, .progress-nav, .buttons, .status { display: none !important; }
-      .header, .hero, .content, .action-panel, .summary-panel, .footer { padding: 10px 14px; margin: 0; border: none; box-shadow: none; background: white; }
-      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; letter-spacing: 0.01em; }
-      .brand-copy p { color: #52627a; }
-      .brand img { width: 52px; height: 52px; filter: none; }
-      .intro, .meta, .tool, .action-panel, .card, .phase-divider { box-shadow: none; break-inside: avoid; }
-      .tool { page-break-inside: avoid; margin-bottom: 10px; padding: 12px; }
-      input, textarea, select { border: 1px solid #ccd7e5; box-shadow: none; }
-      .print-only { display: block; color: #123b64; }
-      .footer { color: #65758e; }
+    .list-line {
+      padding: 11px 13px;
+      border-radius: 15px;
+      background: rgba(13, 58, 118, 0.07);
+      border: 1px solid rgba(120, 170, 220, 0.22);
+      color: #27476b;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    .cta-bar {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 260px;
+      padding: 14px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 9px 18px rgba(0, 10, 32, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .cta-btn.primary {
+      color: white;
+      background: linear-gradient(90deg, #0d3a76, #1e66a8);
+      border: 1px solid rgba(53,196,232,0.48);
+    }
+
+    .cta-btn:hover { transform: translateY(-2px); }
+
+    .compact-summary {
+      min-height: 72px;
+      background: linear-gradient(90deg, #9cecff 0%, #eaf7ff 48%, #ffca73 100%);
+      border: 1px solid rgba(255,255,255,0.46);
+      color: #061329;
+      box-shadow:
+        0 18px 36px rgba(0, 10, 32, 0.20),
+        inset 0 1px 0 rgba(255,255,255,0.58);
+    }
+
+    .compact-summary::before {
+      background: linear-gradient(90deg, #35c4e8, #f6a742);
+    }
+
+    .compact-summary .card-text {
+      color: #17395e;
+      font-weight: 800;
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .page-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #b8d9f7;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .newsletter { padding: 12px; border-radius: 24px; }
+      .top-brand { min-height: 82px; }
+      .brand-mark { width: 60px; height: 60px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .mentor-stage { padding: 16px; }
+      .stage-grid { grid-template-columns: 1fr; }
+      .visual-panel { min-height: 220px; }
+      .hero-graphic { max-height: 165px; }
+      .hero-title { font-size: 2rem; }
+      .prep-board { grid-template-columns: 1fr; }
+      .brief-list { grid-template-columns: 1fr; }
+      .brief-questions { grid-template-columns: 1fr; }
+      .cta-bar { flex-direction: column; }
+      .cta-btn { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-
-
-    <header class="header">
-      <a class="home-link" href="../newsletter-audience-market.html" aria-label="חזרה לעמוד קהל יעד ומה קיים בשוק" title="חזרה לעמוד קהל יעד ומה קיים בשוק">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+  <div class="newsletter">
+    <section class="top-brand">
+      <a class="home-link" href="index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
       </a>
-      <div class="brand">
-        <img src="../images/logo.png" alt="לוגו תעשיידע">
-        <div class="brand-copy">
-          <h1>קהל יעד ומה קיים בשוק</h1>
-          <p>מדייקים למי המוצר מיועד, בודקים פתרונות קיימים ומנסחים מה נעשה אחרת.</p>
-        </div>
-      </div>
-    </header>
+      <img class="brand-mark" src="images/logo.png" alt="לוגו תעשיידע" />
+    </section>
 
-    <section class="hero">
-      <div class="card intro">
-        <h2>מטרת הפעילות</h2>
-        <p>בפעילות זו כל צוות מחדד את קהל היעד של המוצר, בודק בקצרה פתרונות שכבר קיימים ומנסח מה יכול להפוך את המוצר שלו למדויק, פשוט או ברור יותר. אין צורך בפסקאות ארוכות - מספיק משפטים קצרים שעוזרים להבין את הכיוון.</p>
-      </div>
-      <div class="card meta">
-        <div class="field"><label for="teamName">שם הצוות</label><input id="teamName" type="text" placeholder="שם הצוות"></div>
-        <div class="field"><label for="members">שמות חברי הצוות</label><textarea id="members" class="short" placeholder="כתבו את שמות חברי הצוות"></textarea></div>
+    <section class="mentor-stage">
+      <div class="stage-grid">
+        <a class="visual-panel" href="./workaud-8.htm">
+          <img class="hero-graphic" src="images/aud.png" alt="קהל יעד ומוצרים קיימים בשוק" />
+        </a>
+
+        <div class="copy-panel">
+          <div class="lesson-chip">שלב בתהליך | קהל יעד ומוצרים קיימים</div>
+          <h1 class="hero-title">קהל יעד ומה כבר קיים</h1>
+          <p class="hero-text">
+            לפני שמפתחים מוצר, בודקים למי הוא באמת מיועד ומה כבר קיים סביבו.
+            לא כדי להעתיק, אלא כדי להבין מה אנשים צריכים, אילו פתרונות כבר יש ומה אפשר לעשות פשוט, ברור או מתאים יותר.
+          </p>
+          <div class="mentor-note">
+            כשמבינים מי המשתמש ומה קיים בשוק, קל יותר לבנות מוצר שמרגיש מדויק — ולא רק רעיון יפה על הנייר.
+          </div>
+        </div>
       </div>
     </section>
 
-    <nav class="progress-nav" aria-label="ניווט בין שלבי דף העבודה">
-      <div class="progress-inner">
-        <a class="nav-step" href="#audience" data-step="1">משימה 1<br>קהל יעד</a>
-        <a class="nav-step" href="#market" data-step="2">משימה 2<br>מה קיים?</a>
-        <a class="nav-step" href="#different" data-step="3">משימה 3<br>מה שונה?</a>
-        <a class="nav-step" href="#final" data-step="4">סיכום<br>ייחוד המוצר</a>
-      </div>
-    </nav>
+    <section class="prep-board">
+      <article class="wide-card brief-card">
+        <h2 class="brief-title">בדיקה קצרה לפני שבונים אב-טיפוס</h2>
 
-    <main class="content">
-      <section class="phase-divider phase-audience" id="audience">
-        <h2>משימה 1: דיוק קהל היעד</h2>
-        <p>כתבו בצורה קצרה וברורה. המטרה היא להבין למי המוצר מיועד, מי משתמש בו בפועל, מתי משתמשים בו ומה הערך שלו.</p>
-      </section>
+        <p class="brief-text">
+          לפני שמתחילים לבנות אב-טיפוס, לא קופצים ישר לחומרים, למסכים או לעיצוב.
+          קודם עוצרים לרגע ובודקים את הרעיון שלכם בצורה קצרה ומעשית.
+        </p>
 
-      <section class="tool phase-audience" id="tool1" data-required="targetAudience,actualUser,useWhen,productValue">
-        <div class="tool-head">
-          <div>
-            <div class="phase-label">חלק חובה | לכל הצוותים</div>
-            <h3>למי המוצר מיועד?</h3>
-            <p class="tool-subtitle">ענו במשפטים קצרים. בסוף ייווצר משפט קהל יעד מסכם.</p>
-          </div>
-          <div class="tool-num">1</div>
-        </div>
-        <div class="tool-grid">
-          <div class="field"><label for="targetAudience">המוצר שלנו מיועד ל-</label><textarea id="targetAudience" class="short" placeholder="לדוגמה: תלמידים בכיתה, הורים, מורים, משתמשים בתחבורה ציבורית..."></textarea></div>
-          <div class="field"><label for="actualUser">המשתמש בפועל הוא</label><textarea id="actualUser" class="short" placeholder="מי באמת מחזיק, מפעיל, לוחץ, משתמש או נעזר במוצר?"></textarea></div>
-          <div class="field"><label for="useWhen">הוא משתמש במוצר כאשר</label><textarea id="useWhen" class="short" placeholder="באיזה מצב, רגע, מקום או צורך המוצר נכנס לפעולה?"></textarea></div>
-          <div class="field"><label for="productValue">המוצר עוזר לו ל-</label><textarea id="productValue" class="short" placeholder="מה הערך המרכזי? להבין, לחסוך זמן, לפעול נכון, להרגיש בטוח..."></textarea></div>
-          <div class="field span-2"><label for="audienceSentence">משפט קהל יעד מסכם</label><textarea id="audienceSentence" class="short" placeholder="המוצר שלנו מיועד ל-__________. המשתמש בפועל הוא __________. הוא משתמש במוצר כאשר __________ והמוצר עוזר לו ל-__________."></textarea></div>
-        </div>
-      </section>
+        <p class="brief-text">
+          בשלב הזה אתם שואלים את עצמכם כמה שאלות חשובות:
+        </p>
 
-      <section class="phase-divider phase-market" id="market">
-        <h2>משימה 2: מה קיים בשוק?</h2>
-        <p>לפני שממשיכים לפתח את המוצר, בודקים פתרון אחד או שניים שכבר קיימים. לא כדי להעתיק - אלא כדי ללמוד.</p>
-      </section>
+        <ul class="brief-questions">
+          <li>למי המוצר שלנו באמת מיועד?</li>
+          <li>איזו בעיה הוא פותר?</li>
+          <li>מה כבר קיים היום בשוק?</li>
+          <li>ומה אנחנו יכולים לעשות טוב יותר, פשוט יותר או ברור יותר?</li>
+        </ul>
 
-      <section class="tool phase-market" id="tool2" data-required="solution1Name,solution1Good,solution1Missing">
-        <div class="tool-head">
-          <div>
-            <div class="phase-label">בדיקת פתרונות קיימים</div>
-            <h3>מה מצאנו?</h3>
-            <p class="tool-subtitle">בחרו פתרון אחד או שניים שמצאתם וענו בקצרה: מה הוא עושה טוב ומה חסר בו.</p>
-          </div>
-          <div class="tool-num">2</div>
-        </div>
-        <div class="method-row" style="margin-bottom:8px;">
-          <div class="method-box"><strong>פתרון 1 - חובה</strong><p>בחרו מוצר, אתר, אפליקציה, שירות או רעיון דומה שמצאתם.</p></div>
-          <div class="method-box"><strong>פתרון 2 - רשות</strong><p>אם מצאתם עוד פתרון מעניין, הוסיפו אותו להשוואה קצרה.</p></div>
-        </div>
-        <div class="tool-grid">
-          <div class="field"><label for="solution1Name">פתרון 1 - מה מצאנו?</label><textarea id="solution1Name" class="short" placeholder="שם המוצר / האתר / האפליקציה / הרעיון"></textarea></div>
-          <div class="field"><label for="solution1Good">מה הפתרון עושה טוב?</label><textarea id="solution1Good" class="short" placeholder="מה עובד בו טוב או ברור?"></textarea></div>
-          <div class="field span-2"><label for="solution1Missing">מה חסר בו?</label><textarea id="solution1Missing" class="short" placeholder="מה לא מספיק ברור, לא נוח, לא מדויק או לא מתאים לקהל היעד?"></textarea></div>
-          <div class="field"><label for="solution2Name">פתרון 2 - מה מצאנו? לא חובה</label><textarea id="solution2Name" class="short" placeholder="פתרון נוסף שמצאתם"></textarea></div>
-          <div class="field"><label for="solution2Good">מה הוא עושה טוב? לא חובה</label><textarea id="solution2Good" class="short" placeholder="מה אפשר ללמוד ממנו?"></textarea></div>
-          <div class="field span-2"><label for="solution2Missing">מה חסר בו? לא חובה</label><textarea id="solution2Missing" class="short" placeholder="מה עדיין לא נותן מענה מספיק טוב?"></textarea></div>
-        </div>
-      </section>
+        <p class="brief-text">
+          המטרה של הבדיקה היא לא לעצור את היצירתיות שלכם — אלא להפוך אותה לחכמה יותר.
+          כשבודקים מוצרים דומים, אפשר לגלות מה כבר עובד טוב, מה פחות נוח למשתמשים ומה עדיין חסר.
+          לפעמים דווקא שם נמצאת ההזדמנות הכי טובה לשיפור.
+        </p>
 
-      <section class="phase-divider phase-different" id="different">
-        <h2>משימה 3: מה נעשה שונה במוצר שלנו?</h2>
-        <p>אחרי שבדקנו מה כבר קיים, חושבים מה אפשר ללמוד מהפתרונות שמצאנו - ומה יהפוך את המוצר שלנו למדויק, פשוט או ברור יותר.</p>
-      </section>
+        <p class="brief-text">
+          <strong>חשוב לזכור:</strong> לא מחפשים להעתיק רעיונות קיימים. מחפשים ללמוד מהם.
+          הרבה מוצרים מצליחים בעולם לא התחילו מהמצאה חדשה לגמרי, אלא משיפור של משהו שכבר היה קיים:
+          מוצר נוח יותר, ברור יותר, מהיר יותר, יפה יותר או מתאים יותר לקהל מסוים.
+        </p>
 
-      <section class="tool phase-different" id="tool3" data-required="similarToUs,missingInSolutions,moreAccurate,moreSimple,moreClear">
-        <div class="tool-head">
-          <div>
-            <div class="phase-label">השוואה והחלטות להמשך</div>
-            <h3>מה נלמד ומה נשפר?</h3>
-            <p class="tool-subtitle">ענו בקצרה. אין צורך להסביר הכול - רק לחדד מה חשוב לנו לקחת להמשך הפיתוח.</p>
-          </div>
-          <div class="tool-num">3</div>
-        </div>
-        <div class="tool-grid">
-          <div class="field"><label for="similarToUs">מה מתוך הפתרונות שמצאנו דומה לרעיון שלנו?</label><textarea id="similarToUs" class="short" placeholder="הרעיון שלנו דומה בכך ש..."></textarea></div>
-          <div class="field"><label for="missingInSolutions">מה עדיין חסר בהם?</label><textarea id="missingInSolutions" class="short" placeholder="עדיין חסר בהם..."></textarea></div>
-          <div class="field"><label for="moreAccurate">מה נרצה לעשות בצורה מדויקת יותר?</label><textarea id="moreAccurate" class="short" placeholder="נרצה לדייק את..."></textarea></div>
-          <div class="field"><label for="moreSimple">מה נרצה לעשות בצורה פשוטה יותר?</label><textarea id="moreSimple" class="short" placeholder="נרצה לפשט את..."></textarea></div>
-          <div class="field span-2"><label for="moreClear">מה נרצה לעשות בצורה ברורה יותר?</label><textarea id="moreClear" class="short" placeholder="נרצה להציג / להסביר / להפעיל בצורה ברורה יותר את..."></textarea></div>
-        </div>
-      </section>
+        <p class="brief-text">
+          דרך ההשוואה למוצרים אחרים, תוכלו להבין מה כדאי לשפר, מה חשוב להבליט ואיך להפוך את הרעיון שלכם למוצר שאנשים באמת יבינו וירצו להשתמש בו.
+        </p>
 
-      <section class="phase-divider phase-final" id="final">
-        <h2>חשיבה לקראת המשך הפיתוח</h2>
-        <p>עכשיו מחליטים מה חשוב להבליט במוצר. יכול להיות שהוא קל יותר לשימוש, מתאים יותר לקהל היעד, מציג מידע ברור יותר או מחבר כמה רעיונות לפתרון אחד.</p>
-      </section>
-
-      <section class="tool phase-final" id="tool4" data-required="highlightChoice,uniqueSentence">
-        <div class="tool-head">
-          <div>
-            <div class="phase-label">סיכום קצר לקראת המשך עבודה</div>
-            <h3>מה מייחד את המוצר שלנו?</h3>
-            <p class="tool-subtitle">בחרו מה חשוב להבליט ואז נסחו משפט אחד שמסביר את הייחוד של המוצר.</p>
-          </div>
-          <div class="tool-num">4</div>
+        <div class="brief-close">
+          כך הרעיון שלכם לא נשאר רק “רעיון מגניב”, אלא מתחיל להפוך למוצר אמיתי — עם קהל יעד ברור, צורך אמיתי וכיוון טוב יותר לבניית אב-טיפוס.
         </div>
-        <div class="example-grid" style="margin-bottom:8px;">
-          <div class="example-chip">קל יותר לשימוש</div>
-          <div class="example-chip">מותאם יותר לקהל היעד</div>
-          <div class="example-chip">מציג מידע ברור יותר</div>
-          <div class="example-chip">מתמקד בבעיה שלא נפתרה מספיק</div>
-          <div class="example-chip">מחבר כמה רעיונות לפתרון אחד</div>
-        </div>
-        <div class="tool-grid">
-          <div class="field span-2"><label for="highlightChoice">מה חשוב להבליט במוצר שלנו?</label><textarea id="highlightChoice" class="short" placeholder="חשוב לנו להבליט ש..."></textarea></div>
-          <div class="field span-2"><label for="uniqueSentence">משפט ייחוד המוצר</label><textarea id="uniqueSentence" class="short" placeholder="הייחוד של המוצר שלנו הוא __________."></textarea></div>
-        </div>
-        <div class="auto-box" id="finalHint">בסיום, המשפט צריך להיות קצר וברור: הייחוד של המוצר שלנו הוא __________.</div>
-      </section>
-    </main>
-
-    <section class="summary-panel">
-      <h2>סיכום העבודה</h2>
-      <div class="summary-grid">
-        <div class="summary-box"><strong>קהל יעד</strong><div id="sumAudience" class="mini-note summary-value">עדיין לא הושלם.</div></div>
-        <div class="summary-box"><strong>מה קיים בשוק</strong><div id="sumMarket" class="mini-note summary-value">עדיין לא הושלם.</div></div>
-        <div class="summary-box"><strong>מה נעשה אחרת</strong><div id="sumDifferent" class="mini-note summary-value">עדיין לא הושלם.</div></div>
-      </div>
-      <div class="print-summary" style="margin-top:8px;"><strong>משפט סיכום לצוות:</strong><div id="finalSummary" class="summary-text summary-value">לאחר מילוי הדף יופיע כאן סיכום קצר של העבודה.</div></div>
+      </article>
     </section>
 
-    <section class="action-panel">
-      <div class="buttons">
-        <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
-        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
-      </div>
-      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> קהל יעד ומה קיים בשוק</div>
-    </section>
+    <div class="cta-bar">
+      <a class="cta-btn primary" href="./workaud-8.htm">לדף הפעילות</a>
+    </div>
 
-    <footer class="footer">© פרימיום | תעשיידע</footer>
+    <div class="page-footer">© פרימיום | תעשיידע</div>
   </div>
-
-  <script>
-  (function () {
-    const STORAGE_KEY = 'marvellAudienceMarket_work_v1';
-
-    function byId(id) {
-      return document.getElementById(id);
-    }
-
-    function getFields() {
-      return Array.from(document.querySelectorAll('input, textarea, select'));
-    }
-
-    function valueOf(id) {
-      const field = byId(id);
-      return field ? String(field.value || '').trim() : '';
-    }
-
-    function setText(id, text) {
-      const el = byId(id);
-      if (el) el.textContent = text;
-    }
-
-    function getData() {
-      const data = {};
-      getFields().forEach((field) => {
-        if (!field.id) return;
-        data[field.id] = field.type === 'radio' || field.type === 'checkbox' ? field.checked : field.value;
-      });
-      return data;
-    }
-
-    function setData(data) {
-      if (!data || typeof data !== 'object') return;
-      getFields().forEach((field) => {
-        if (!field.id || !(field.id in data)) return;
-        if (field.type === 'radio' || field.type === 'checkbox') {
-          field.checked = Boolean(data[field.id]);
-        } else {
-          field.value = data[field.id];
-        }
-      });
-    }
-
-    function saveData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-      } catch (error) {
-        console.error('שמירת הנתונים נכשלה:', error);
-      }
-    }
-
-    function loadData() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) setData(JSON.parse(raw));
-      } catch (error) {
-        console.error('טעינת הנתונים נכשלה:', error);
-      }
-    }
-
-    function updateAutoFields() {
-      const targetAudience = valueOf('targetAudience') || '__________';
-      const actualUser = valueOf('actualUser') || '__________';
-      const useWhen = valueOf('useWhen') || '__________';
-      const productValue = valueOf('productValue') || '__________';
-      const highlightChoice = valueOf('highlightChoice') || '__________';
-
-      const audienceSentence = byId('audienceSentence');
-      if (audienceSentence && !audienceSentence.matches(':focus')) {
-        audienceSentence.value = `המוצר שלנו מיועד ל-${targetAudience}. המשתמש בפועל הוא ${actualUser}. הוא משתמש במוצר כאשר ${useWhen} והמוצר עוזר לו ל-${productValue}.`;
-      }
-
-      const uniqueSentence = byId('uniqueSentence');
-      if (uniqueSentence && !uniqueSentence.matches(':focus')) {
-        uniqueSentence.value = `הייחוד של המוצר שלנו הוא ${highlightChoice}.`;
-      }
-    }
-
-    function updateSummary() {
-      const targetAudience = valueOf('targetAudience') || '__________';
-      const actualUser = valueOf('actualUser') || '__________';
-      const useWhen = valueOf('useWhen') || '__________';
-      const productValue = valueOf('productValue') || '__________';
-      const solution1Name = valueOf('solution1Name') || '__________';
-      const solution1Good = valueOf('solution1Good') || '__________';
-      const solution1Missing = valueOf('solution1Missing') || '__________';
-      const solution2Name = valueOf('solution2Name');
-      const solution2Good = valueOf('solution2Good');
-      const solution2Missing = valueOf('solution2Missing');
-      const similarToUs = valueOf('similarToUs') || '__________';
-      const missingInSolutions = valueOf('missingInSolutions') || '__________';
-      const moreAccurate = valueOf('moreAccurate') || '__________';
-      const moreSimple = valueOf('moreSimple') || '__________';
-      const moreClear = valueOf('moreClear') || '__________';
-      const uniqueSentence = valueOf('uniqueSentence') || 'הייחוד של המוצר שלנו הוא __________.';
-
-      const secondSolution = solution2Name
-        ? `\nפתרון נוסף: ${solution2Name}.\nעושה טוב: ${solution2Good || '__________'}.\nחסר בו: ${solution2Missing || '__________'}.`
-        : '';
-
-      setText('sumAudience', `מיועד ל-${targetAudience}.\nהמשתמש בפועל: ${actualUser}.\nמצב שימוש: ${useWhen}.\nהערך: ${productValue}.`);
-      setText('sumMarket', `פתרון שנמצא: ${solution1Name}.\nעושה טוב: ${solution1Good}.\nחסר בו: ${solution1Missing}.${secondSolution}`);
-      setText('sumDifferent', `דומה לרעיון שלנו: ${similarToUs}.\nעדיין חסר: ${missingInSolutions}.\nנדייק: ${moreAccurate}.\nנפשט: ${moreSimple}.\nנבהיר: ${moreClear}.`);
-      setText('finalSummary', `${uniqueSentence}\n\nהמוצר מיועד ל-${targetAudience}, עבור ${actualUser}, במצב שבו ${useWhen}. מתוך בדיקת השוק למדנו שחשוב לדייק את ${moreAccurate}, לפשט את ${moreSimple} ולהבהיר את ${moreClear}.`);
-    }
-
-    function updateProgress() {
-      document.querySelectorAll('.nav-step').forEach((step) => {
-        const number = Number(step.dataset.step);
-        let complete = false;
-
-        if (number === 1) {
-          complete = Boolean(valueOf('targetAudience') && valueOf('actualUser') && valueOf('useWhen') && valueOf('productValue'));
-        }
-
-        if (number === 2) {
-          complete = Boolean(valueOf('solution1Name') && valueOf('solution1Good') && valueOf('solution1Missing'));
-        }
-
-        if (number === 3) {
-          complete = Boolean(valueOf('similarToUs') && valueOf('missingInSolutions') && valueOf('moreAccurate') && valueOf('moreSimple') && valueOf('moreClear'));
-        }
-
-        if (number === 4) {
-          complete = Boolean(valueOf('highlightChoice') && valueOf('uniqueSentence'));
-        }
-
-        step.classList.toggle('is-complete', complete);
-      });
-    }
-
-    function updateAll() {
-      updateAutoFields();
-      updateSummary();
-      updateProgress();
-      saveData();
-    }
-
-    function clearWork() {
-      if (!confirm('לנקות את כל העבודה בדף?')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      getFields().forEach((field) => {
-        if (field.type === 'radio' || field.type === 'checkbox') {
-          field.checked = false;
-        } else {
-          field.value = '';
-        }
-      });
-      updateAll();
-    }
-
-    function init() {
-      loadData();
-      updateAll();
-
-      getFields().forEach((field) => {
-        field.addEventListener('input', updateAll);
-        field.addEventListener('change', updateAll);
-      });
-
-      const clearBtn = byId('clearBtn');
-      if (clearBtn) clearBtn.addEventListener('click', clearWork);
-
-      const printBtn = byId('printBtn');
-      if (printBtn) printBtn.addEventListener('click', () => window.print());
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  })();
-</script>
 </body>
 </html>
