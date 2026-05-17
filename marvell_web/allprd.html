@@ -305,55 +305,59 @@
 
     .prototype-summary-sheet {
       width: 210mm;
-      min-height: 297mm;
+      height: 297mm;
+      min-height: 0;
       margin: 0 auto;
-      padding: 16mm 14mm 13mm;
+      padding: 10mm 11mm 9mm;
       direction: rtl;
       text-align: right;
       background:
-        radial-gradient(circle at 10% 8%, rgba(53,196,232,0.16), transparent 25%),
-        radial-gradient(circle at 92% 92%, rgba(246,167,66,0.14), transparent 28%),
+        radial-gradient(circle at 10% 8%, rgba(53,196,232,0.12), transparent 25%),
+        radial-gradient(circle at 92% 92%, rgba(246,167,66,0.10), transparent 28%),
         linear-gradient(180deg, #ffffff, #f6fbff);
       color: var(--marvell-text);
       position: relative;
       overflow: hidden;
       border-radius: 18px;
       box-shadow: 0 30px 70px rgba(0,0,0,0.28);
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
-    .summary-header { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
-    .summary-header h2 { margin: 0; color: #0d2045; font-size: 30px; line-height: 1.15; font-weight: 900; }
-    .summary-header p { margin: 8px 0 0; color: var(--marvell-muted); font-size: 17px; font-weight: 900; }
-    .summary-logo { width: 68px; height: 68px; flex: 0 0 auto; filter: drop-shadow(0 10px 18px rgba(7,26,54,0.18)); }
-    .summary-badge { display: inline-flex; align-items: center; gap: 8px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.34); border-radius: 999px; padding: 7px 12px; font-weight: 900; margin-bottom: 8px; }
-    .summary-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(30,102,168,0.14); border-radius: 20px; padding: 15px; box-shadow: 0 14px 28px rgba(7,26,54,0.08); }
-    .summary-card h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 11px; color: #123b64; font-size: 18px; font-weight: 900; }
-    .summary-card p { margin: 0; color: #263a55; font-size: 14px; line-height: 1.45; font-weight: 700; }
-    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .summary-flow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+    .summary-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
+    .summary-header h2 { margin: 0; color: #0d2045; font-size: 25px; line-height: 1.12; font-weight: 900; }
+    .summary-header p { margin: 5px 0 0; color: var(--marvell-muted); font-size: 14px; font-weight: 900; }
+    .summary-logo { width: 54px; height: 54px; flex: 0 0 auto; filter: drop-shadow(0 10px 18px rgba(7,26,54,0.18)); }
+    .summary-badge { display: inline-flex; align-items: center; gap: 7px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.34); border-radius: 999px; padding: 5px 10px; font-weight: 900; margin-bottom: 6px; font-size: 12px; }
+    .summary-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(30,102,168,0.14); border-radius: 16px; padding: 10px; box-shadow: 0 10px 20px rgba(7,26,54,0.06); page-break-inside: avoid; break-inside: avoid; }
+    .summary-card h3 { display: flex; align-items: center; gap: 7px; margin: 0 0 7px; color: #123b64; font-size: 15px; font-weight: 900; }
+    .summary-card p { margin: 0; color: #263a55; font-size: 12px; line-height: 1.35; font-weight: 700; }
+    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .summary-flow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 0; }
     .soft-empty { color: #7b8798 !important; font-style: italic; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .summary-tag { display: inline-flex; border-radius: 999px; padding: 7px 11px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.28); font-weight: 900; font-size: 13px; }
+    .summary-tag { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #e8faff; color: #0d3a76; border: 1px solid rgba(53,196,232,0.28); font-weight: 900; font-size: 11px; }
 
-    .phone-row, .desktop-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; align-items: start; }
-    .phone-mockup { background: #060b16; border-radius: 34px; padding: 10px; box-shadow: 0 18px 32px rgba(7,26,54,0.22); position: relative; min-height: 430px; }
-    .phone-notch { width: 78px; height: 18px; border-radius: 0 0 14px 14px; background: #060b16; position: absolute; top: 9px; left: 50%; transform: translateX(-50%); z-index: 2; }
-    .phone-screen { min-height: 410px; border-radius: 26px; padding: 30px 14px 14px; background: linear-gradient(180deg, #effbff, #ffffff); display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
-    .screen-title { color: #0d2045; font-size: 16px; font-weight: 900; margin: 0 0 4px; }
-    .screen-chip { align-self: flex-start; border-radius: 999px; background: linear-gradient(135deg, var(--marvell-cyan), #ffffff); padding: 6px 10px; color: #0d2045; font-weight: 900; font-size: 12px; }
-    .screen-mini-card { background: #ffffff; border: 1px solid rgba(30,102,168,0.14); border-radius: 16px; padding: 10px; box-shadow: 0 8px 18px rgba(7,26,54,0.07); }
-    .screen-mini-card strong { display: block; color: #1e66a8; font-size: 12px; margin-bottom: 4px; }
-    .screen-mini-card span { display: block; color: #263a55; font-size: 12px; line-height: 1.45; font-weight: 700; }
+    .phone-row, .summary-phone-grid, .desktop-row, .summary-desktop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8mm; align-items: start; }
+    .phone-mockup, .summary-phone { background: #060b16; border-radius: 24px; padding: 7px; box-shadow: 0 12px 24px rgba(7,26,54,0.18); position: relative; height: 128mm; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
+    .phone-notch { width: 52px; height: 12px; border-radius: 0 0 10px 10px; background: #060b16; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .phone-screen { height: 100%; border-radius: 20px; padding: 22px 8px 8px; background: linear-gradient(180deg, #effbff, #ffffff); display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+    .screen-title { color: #0d2045; font-size: 13px; font-weight: 900; margin: 0 0 2px; }
+    .screen-chip { align-self: flex-start; border-radius: 999px; background: linear-gradient(135deg, var(--marvell-cyan), #ffffff); padding: 4px 8px; color: #0d2045; font-weight: 900; font-size: 10px; }
+    .screen-mini-card { background: #ffffff; border: 1px solid rgba(30,102,168,0.14); border-radius: 12px; padding: 7px; box-shadow: 0 6px 14px rgba(7,26,54,0.06); page-break-inside: avoid; break-inside: avoid; }
+    .screen-mini-card strong { display: block; color: #1e66a8; font-size: 10px; margin-bottom: 3px; }
+    .screen-mini-card span { display: block; color: #263a55; font-size: 10px; line-height: 1.3; font-weight: 700; }
 
-    .desktop-mockup { background: #101827; border-radius: 18px; padding: 8px; box-shadow: 0 18px 32px rgba(7,26,54,0.18); }
-    .desktop-window { border-radius: 13px; overflow: hidden; background: #ffffff; min-height: 260px; border: 1px solid rgba(16,24,39,0.10); }
-    .desktop-bar { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 10px; background: linear-gradient(90deg, #dff8ff, #eef5ff); border-bottom: 1px solid rgba(30,102,168,0.12); direction: ltr; }
+    .desktop-mockup, .summary-desktop { background: #101827; border-radius: 14px; padding: 6px; box-shadow: 0 12px 24px rgba(7,26,54,0.16); height: 70mm; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
+    .desktop-window { border-radius: 10px; overflow: hidden; background: #ffffff; height: 100%; border: 1px solid rgba(16,24,39,0.10); }
+    .desktop-bar { height: 22px; display: flex; align-items: center; gap: 5px; padding: 0 8px; background: linear-gradient(90deg, #dff8ff, #eef5ff); border-bottom: 1px solid rgba(30,102,168,0.12); direction: ltr; }
     .window-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .dot-orange { background: var(--marvell-orange); }
     .dot-cyan { background: var(--marvell-cyan); }
     .dot-blue { background: var(--marvell-blue); }
-    .desktop-content { padding: 12px; display: flex; flex-direction: column; gap: 10px; min-height: 230px; background: linear-gradient(180deg, #ffffff, #f4fbff); }
+    .desktop-content { padding: 8px; display: flex; flex-direction: column; gap: 7px; height: calc(100% - 22px); background: linear-gradient(180deg, #ffffff, #f4fbff); overflow: hidden; }
 
-    .summary-footer { margin-top: 12px; border-top: 1px solid rgba(13,32,69,0.12); padding-top: 10px; color: #53647d; text-align: center; font-weight: 900; font-size: 12px; }
+    .summary-footer { margin-top: 8px; border-top: 1px solid rgba(13,32,69,0.12); padding-top: 7px; color: #53647d; text-align: center; font-weight: 900; font-size: 10px; }
+    .summary-physical .summary-card p, .summary-physical .screen-mini-card span { font-size: 11px; line-height: 1.28; }
 
     @media (max-width: 760px) {
       body { zoom: 1; }
@@ -369,18 +373,62 @@
     }
 
     @media print {
-      @page { size: A4 portrait; margin: 0; }
-      html, body { width: 210mm; min-height: 297mm; zoom: 1 !important; background: #ffffff !important; overflow: visible !important; }
+      @page { size: A4 portrait; margin: 8mm; }
+      html, body { width: auto; min-height: 0; zoom: 1 !important; background: #ffffff !important; overflow: hidden !important; }
+      body { margin: 0 !important; }
       body::before { display: none !important; }
-      body.summary-printing #app { display: none !important; }
-      body.summary-printing #prototype-summary-preview { position: static !important; inset: auto !important; padding: 0 !important; background: #ffffff !important; backdrop-filter: none !important; overflow: visible !important; }
-      body.summary-printing .preview-shell { max-width: none !important; margin: 0 !important; }
-      body.summary-printing .preview-actions { display: none !important; }
-      body.summary-printing .prototype-summary-sheet { width: 210mm !important; min-height: 297mm !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; page-break-after: avoid; }
-      body:not(.summary-printing) #prototype-summary-preview { display: none !important; }
-      body:not(.summary-printing) button, body:not(.summary-printing) .marvell-home-link { display: none !important; }
-      body:not(.summary-printing) .prototype-page.hidden, body:not(.summary-printing) #landing-page.hidden { display: none !important; }
-      body:not(.summary-printing) .prototype-page:not(.hidden), body:not(.summary-printing) #landing-page:not(.hidden) { background: #ffffff !important; color: #111827 !important; }
+      body.summary-print-mode, body.summary-printing { background: #ffffff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      body.summary-print-mode #app, body.summary-printing #app { display: none !important; }
+      body.summary-print-mode #prototype-summary-preview, body.summary-printing #prototype-summary-preview { display: block !important; position: static !important; inset: auto !important; width: 100% !important; padding: 0 !important; background: #ffffff !important; backdrop-filter: none !important; overflow: hidden !important; }
+      body.summary-print-mode .preview-shell, body.summary-printing .preview-shell { max-width: none !important; width: 100% !important; margin: 0 !important; }
+      body.summary-print-mode .preview-actions, body.summary-printing .preview-actions { display: none !important; }
+      body.summary-print-mode button, body.summary-print-mode input, body.summary-print-mode textarea,
+      body.summary-printing button, body.summary-printing input, body.summary-printing textarea { display: none !important; }
+      body.summary-print-mode .prototype-summary-sheet, body.summary-printing .prototype-summary-sheet {
+        width: 194mm !important;
+        height: 281mm !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 6mm 7mm !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        break-after: avoid !important;
+        break-inside: avoid !important;
+        background: linear-gradient(180deg, #ffffff, #f7fbff) !important;
+      }
+      body.summary-print-mode .summary-header, body.summary-printing .summary-header { margin-bottom: 6px !important; }
+      body.summary-print-mode .summary-header h2, body.summary-printing .summary-header h2 { font-size: 20px !important; }
+      body.summary-print-mode .summary-header p, body.summary-printing .summary-header p { font-size: 11px !important; margin-top: 3px !important; }
+      body.summary-print-mode .summary-logo, body.summary-printing .summary-logo { width: 42px !important; height: 42px !important; }
+      body.summary-print-mode .summary-card, body.summary-printing .summary-card { padding: 6px !important; border-radius: 11px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .summary-card h3, body.summary-printing .summary-card h3 { font-size: 11px !important; margin-bottom: 4px !important; }
+      body.summary-print-mode .summary-card p, body.summary-printing .summary-card p { font-size: 9px !important; line-height: 1.22 !important; }
+      body.summary-print-mode .summary-grid, body.summary-printing .summary-grid,
+      body.summary-print-mode .summary-flow-grid, body.summary-printing .summary-flow-grid { gap: 5px !important; }
+      body.summary-print-mode .summary-tag, body.summary-printing .summary-tag { font-size: 8px !important; padding: 3px 6px !important; }
+      body.summary-print-mode .phone-row, body.summary-printing .phone-row,
+      body.summary-print-mode .summary-phone-grid, body.summary-printing .summary-phone-grid,
+      body.summary-print-mode .desktop-row, body.summary-printing .desktop-row,
+      body.summary-print-mode .summary-desktop-grid, body.summary-printing .summary-desktop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 5mm !important; }
+      body.summary-print-mode .phone-mockup, body.summary-printing .phone-mockup,
+      body.summary-print-mode .summary-phone, body.summary-printing .summary-phone { height: 116mm !important; padding: 5px !important; border-radius: 18px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .phone-screen, body.summary-printing .phone-screen { padding: 17px 6px 6px !important; border-radius: 15px !important; gap: 5px !important; }
+      body.summary-print-mode .phone-notch, body.summary-printing .phone-notch { width: 40px !important; height: 9px !important; top: 5px !important; }
+      body.summary-print-mode .desktop-mockup, body.summary-printing .desktop-mockup,
+      body.summary-print-mode .summary-desktop, body.summary-printing .summary-desktop { height: 57mm !important; padding: 5px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .screen-title, body.summary-printing .screen-title { font-size: 10px !important; }
+      body.summary-print-mode .screen-chip, body.summary-printing .screen-chip { font-size: 8px !important; padding: 2px 6px !important; }
+      body.summary-print-mode .screen-mini-card, body.summary-printing .screen-mini-card { padding: 5px !important; border-radius: 8px !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+      body.summary-print-mode .screen-mini-card strong, body.summary-printing .screen-mini-card strong,
+      body.summary-print-mode .screen-mini-card span, body.summary-printing .screen-mini-card span { font-size: 8px !important; line-height: 1.18 !important; }
+      body.summary-print-mode .summary-footer, body.summary-printing .summary-footer { font-size: 8px !important; margin-top: 5px !important; padding-top: 4px !important; }
+      body:not(.summary-print-mode):not(.summary-printing) #prototype-summary-preview { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) button, body:not(.summary-print-mode):not(.summary-printing) .marvell-home-link { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) .prototype-page.hidden, body:not(.summary-print-mode):not(.summary-printing) #landing-page.hidden { display: none !important; }
+      body:not(.summary-print-mode):not(.summary-printing) .prototype-page:not(.hidden), body:not(.summary-print-mode):not(.summary-printing) #landing-page:not(.hidden) { background: #ffffff !important; color: #111827 !important; }
     }
   </style>
 </head>
@@ -630,7 +678,7 @@
     }
 
     function printPage() {
-      document.body.classList.remove('summary-printing');
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
       window.print();
     }
 
@@ -732,8 +780,8 @@
         { title: 'מסך 2 - פעולה', chip: 'פעולה', firstLabel: 'מה רואים', first: data.screen2, secondLabel: 'מה המשתמש עושה', second: data.action, thirdLabel: 'מה קורה אחרי הפעולה', third: data.end },
         { title: 'מסך 3 - תוצאה', chip: 'תוצאה', firstLabel: 'מה רואים בסוף', first: data.screen3 || data.end, secondLabel: 'מה התוצאה', second: data.summary, thirdLabel: 'מה חשוב להבין', third: data.mustSeeText }
       ];
-      return `<div class="phone-row">${screens.map((screen) => `
-        <article class="phone-mockup">
+      return `<div class="phone-row summary-phone-grid">${screens.map((screen) => `
+        <article class="phone-mockup summary-phone">
           <div class="phone-notch"></div>
           <div class="phone-screen">
             <span class="screen-chip">${screen.chip}</span>
@@ -751,8 +799,8 @@
         { title: 'מסך 2 - פעולה מרכזית', firstLabel: 'מה המשתמש עושה', first: data.action, secondLabel: 'מה המערכת מציגה', second: data.screen2 },
         { title: 'מסך 3 - תוצאה', firstLabel: 'מה קורה בסוף', first: data.end, secondLabel: 'מה צריך להיות ברור', second: data.screen3 || data.summary }
       ];
-      return `<div class="desktop-row">${screens.map((screen) => `
-        <article class="desktop-mockup">
+      return `<div class="desktop-row summary-desktop-grid">${screens.map((screen) => `
+        <article class="desktop-mockup summary-desktop">
           <div class="desktop-window">
             <div class="desktop-bar"><span class="window-dot dot-orange"></span><span class="window-dot dot-cyan"></span><span class="window-dot dot-blue"></span></div>
             <div class="desktop-content">
@@ -766,7 +814,7 @@
 
     function buildPhysicalSummary(data) {
       return `
-        <article class="prototype-summary-sheet">
+        <article class="prototype-summary-sheet summary-physical">
           ${summaryHeader('סיכום אב־טיפוס למוצר פיזי', data.name)}
           <section class="summary-card mb-3">
             <h3><span>👀</span>מה חייבים לראות</h3>
@@ -796,7 +844,7 @@
 
     function buildDigitalSummary(data) {
       return `
-        <article class="prototype-summary-sheet">
+        <article class="prototype-summary-sheet summary-digital">
           ${summaryHeader('סיכום אב־טיפוס למוצר דיגיטלי', data.name)}
           <section class="summary-card mb-3">
             <h3><span>👀</span>מה חייבים לראות</h3>
@@ -815,7 +863,7 @@
 
     function buildAppSummary(data) {
       return `
-        <article class="prototype-summary-sheet">
+        <article class="prototype-summary-sheet summary-app">
           ${summaryHeader('סיכום אב־טיפוס לאפליקציה', data.name)}
           <section class="summary-card mb-3">
             <h3><span>👀</span>מה חייבים לראות</h3>
@@ -849,11 +897,11 @@
     function closePrototypeSummaryPreview() {
       const preview = document.getElementById('prototype-summary-preview');
       if (preview) preview.classList.add('hidden');
-      document.body.classList.remove('summary-printing');
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
     }
 
     function downloadPrototypeSummaryPdf() {
-      document.body.classList.add('summary-printing');
+      document.body.classList.add('summary-printing', 'summary-print-mode');
       window.print();
     }
 
@@ -926,7 +974,7 @@
     }
 
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('summary-printing');
+      document.body.classList.remove('summary-printing', 'summary-print-mode');
     });
 
     setupChoiceCards();
