@@ -299,10 +299,10 @@
       display: block;
       position: relative;
       z-index: 1;
-      padding: 7px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(255,255,255,0.62);
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
       filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.34));
     }
 
@@ -410,16 +410,18 @@
     }
 
     #landing-page .text-6xl {
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 16px;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 28px;
+      border-radius: 32px;
       background: linear-gradient(180deg, #ffffff, #eef6ff);
       border: 1px solid rgba(120, 170, 220, 0.34);
       box-shadow: 0 14px 26px rgba(0, 18, 52, 0.12);
+      font-size: 4.6rem;
+      line-height: 1;
     }
 
     #landing-page .bg-white\/40,
@@ -523,6 +525,11 @@
       .marvell-page-logo {
         width: 60px;
         height: 60px;
+      }
+      #landing-page .text-6xl {
+        width: 108px;
+        height: 108px;
+        font-size: 4rem;
       }
       .marvell-page-title {
         font-size: 1.45rem;
@@ -749,7 +756,7 @@
     <div class="sparkle bottom-20 right-10" style="animation-delay: 0.8s;"></div>
     <div class="container mx-auto px-4 py-12 relative z-10"><!-- Marvell Header -->
      <section class="marvell-top-brand">
-      <a class="marvell-home-link" href="entrepreneurship-steps.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
+      <a class="marvell-home-link" href="index-marvell.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
        <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
        </svg>
