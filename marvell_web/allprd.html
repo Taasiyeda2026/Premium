@@ -1,0 +1,1508 @@
+<!doctype html>
+<html lang="he" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תכנון אב-טיפוס</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/print.css" media="print">
+  <style>
+    * { font-family: 'Heebo', sans-serif; }
+
+    .gradient-bg {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+    }
+
+    .summary-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #summary-modal {
+      overflow-y: auto;
+      align-items: flex-start;
+    }
+
+    #summary-modal .summary-modal-panel {
+      margin: 1rem auto;
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .summary-step {
+      position: relative;
+      display: block;
+      margin: 0;
+      padding: 1rem;
+      border: 1px solid #e9d5ff;
+      border-radius: 1rem;
+      background: #ffffff;
+      min-height: 0;
+      overflow: visible;
+    }
+
+    .summary-step + .summary-step {
+      margin-top: 0.5rem;
+    }
+
+    .summary-step__title {
+      margin-bottom: 0.75rem;
+    }
+
+    .summary-step__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-height: 0;
+    }
+
+    .summary-step--1 .summary-step__intro {
+      margin-bottom: 0.75rem;
+    }
+
+    .summary-step--2 .summary-step__fields {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+
+    /* Marvell / Premium neutral theme overrides */
+    :root {
+      --marvell-deep: #071a36;
+      --marvell-mid: #0d2045;
+      --marvell-blue: #1e66a8;
+      --marvell-cyan: #35c4e8;
+      --marvell-soft: #9cecff;
+      --marvell-orange: #f6a742;
+      --marvell-text: #10213d;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.20), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.13), transparent 28%),
+        linear-gradient(145deg, var(--marvell-deep) 0%, var(--marvell-mid) 48%, #061329 100%);
+    }
+
+    #main-title {
+      color: #ffffff !important;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.38), 0 0 28px rgba(53,196,232,0.28) !important;
+    }
+
+    #subtitle {
+      color: var(--marvell-soft) !important;
+      text-shadow: 0 4px 14px rgba(53,196,232,0.25) !important;
+    }
+
+    .summary-step {
+      border-color: rgba(53, 196, 232, 0.22);
+      box-shadow: 0 10px 24px rgba(7, 26, 54, 0.08);
+    }
+
+    .pulse-glow {
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.30),
+        inset 0 1px 0 rgba(255,255,255,0.82) !important;
+    }
+
+    .card-hover {
+      border: 1px solid rgba(131, 190, 255, 0.34);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(53,196,232,0.62);
+      box-shadow:
+        0 30px 70px rgba(0, 10, 32, 0.38),
+        0 0 0 1px rgba(53,196,232,0.16) inset !important;
+    }
+
+    .sparkle {
+      background: rgba(156, 236, 255, 0.45) !important;
+      box-shadow: 0 0 22px rgba(53,196,232,0.36) !important;
+    }
+
+    .bg-white\/40,
+    .bg-white\/20,
+    .bg-white\/15 {
+      border: 1px solid rgba(131, 190, 255, 0.30);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+    }
+
+
+    @media (max-width: 640px) {
+      .summary-step {
+        padding: 0.875rem;
+      }
+    }
+
+    @media (min-width: 641px) {
+      #summary-modal {
+        align-items: center;
+      }
+
+      #summary-modal .summary-modal-panel {
+        margin: 0 auto;
+        max-height: 90vh;
+      }
+    }
+
+
+
+    /* ── Marvell premium visual system ───────────────────── */
+    :root {
+      --marvell-navy: #061329;
+      --marvell-blue: #0d2045;
+      --marvell-blue-2: #0d3a76;
+      --marvell-cyan: #35c4e8;
+      --marvell-cyan-soft: #9cecff;
+      --marvell-orange: #f6a742;
+      --marvell-card: rgba(255,255,255,0.96);
+      --marvell-text: #10213d;
+      --marvell-muted: #53647d;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+      z-index: 0;
+    }
+
+    #app { position: relative; z-index: 1; }
+
+    .gradient-bg,
+    #physical-page,
+    #digital-page,
+    #app-page {
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%) !important;
+    }
+
+    #landing-page .container,
+    #physical-page .container,
+    #digital-page .container,
+    #app-page .container {
+      max-width: 1120px;
+    }
+
+    .marvell-top-brand,
+    .marvell-page-header {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto 22px;
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.24), transparent 30%),
+        radial-gradient(circle at 80% 86%, rgba(246,167,66,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.94), rgba(10, 48, 92, 0.88));
+      border: 1px solid rgba(131, 190, 255, 0.25);
+      box-shadow:
+        0 18px 42px rgba(0, 12, 38, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .marvell-page-header {
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .marvell-home-link,
+    .marvell-header-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.90));
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      color: #0d2045;
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      font-weight: 900;
+    }
+
+    .marvell-home-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+    }
+
+    .marvell-header-btn {
+      min-width: 112px;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+
+    .marvell-home-link:hover,
+    .marvell-header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30);
+    }
+
+    .marvell-home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #0d2045;
+      stroke: none;
+    }
+
+    .marvell-brand-mark,
+    .marvell-page-logo {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 1;
+      padding: 7px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.62);
+      filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.34));
+    }
+
+    .marvell-hero-card {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto 38px;
+      padding: 30px 30px 28px;
+      border-radius: 30px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(53,196,232,0.16), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(246,167,66,0.12), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(237,247,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marvell-hero-card::before,
+    .marvell-page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+    }
+
+    .marvell-hero-icon {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      color: #0d2045;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 14px 26px rgba(0, 18, 52, 0.14);
+      font-size: 2.4rem;
+    }
+
+    .marvell-main-title {
+      margin: 0 0 10px;
+      color: #123b64;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .marvell-subtitle {
+      margin: 0 auto;
+      max-width: 720px;
+      color: #4d5f79;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      line-height: 1.7;
+      font-weight: 700;
+    }
+
+    .marvell-section-title {
+      margin: 0 auto 28px;
+      color: #eaf7ff;
+      text-align: center;
+      font-size: 1.55rem;
+      font-weight: 900;
+      text-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    }
+
+    #landing-page button.card-hover {
+      min-height: 260px;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94)) !important;
+      border: 1px solid rgba(140, 184, 230, 0.40) !important;
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82) !important;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #landing-page button.card-hover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #35c4e8, #1e66a8, #f6a742);
+    }
+
+    #landing-page button.card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 30px 64px rgba(0, 10, 32, 0.38),
+        inset 0 1px 0 rgba(255,255,255,0.82) !important;
+    }
+
+    #landing-page .text-6xl {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 14px 26px rgba(0, 18, 52, 0.12);
+    }
+
+    #landing-page .bg-white\/40,
+    #landing-page .bg-white\/15 {
+      background: rgba(255,255,255,0.92) !important;
+      border: 1px solid rgba(140, 184, 230, 0.36) !important;
+      box-shadow: 0 18px 36px rgba(0, 10, 32, 0.20);
+    }
+
+    #landing-page .bg-white\/15 {
+      color: #123b64 !important;
+    }
+
+    .marvell-page-title {
+      color: #ffffff;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.18;
+      font-weight: 900;
+      text-align: center;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .marvell-page-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    #physical-page .max-w-4xl,
+    #digital-page .max-w-4xl,
+    #app-page .max-w-4xl,
+    #app-page .max-w-6xl {
+      background: rgba(255,255,255,0.03);
+      border-radius: 28px;
+    }
+
+    #physical-page .bg-white,
+    #digital-page .bg-white,
+    #app-page .bg-white,
+    #physical-page .bg-white\/10,
+    #physical-page .bg-white\/20,
+    #digital-page .bg-white\/10,
+    #app-page .bg-white\/10 {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(238,246,255,0.94)) !important;
+      border-color: rgba(140, 184, 230, 0.40) !important;
+      box-shadow:
+        0 20px 46px rgba(0, 10, 32, 0.22),
+        inset 0 1px 0 rgba(255,255,255,0.82) !important;
+    }
+
+    #physical-page [class*="border-l-4"],
+    #digital-page [class*="border-l-4"],
+    #app-page [class*="border-l-4"] {
+      border-left-color: #35c4e8 !important;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(53, 196, 232, 0.78) !important;
+      box-shadow: 0 0 0 4px rgba(53, 196, 232, 0.12) !important;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: #1e66a8;
+    }
+
+    .summary-step {
+      border-color: rgba(140, 184, 230, 0.36) !important;
+      background: linear-gradient(180deg, #ffffff, #f2f7fd) !important;
+    }
+
+    #summary-modal .summary-modal-panel {
+      border: 1px solid rgba(131, 190, 255, 0.34);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
+    }
+
+    @media (max-width: 760px) {
+      .marvell-top-brand,
+      .marvell-page-header {
+        min-height: auto;
+        padding: 16px 14px;
+        flex-direction: column;
+      }
+      .marvell-home-link {
+        right: 12px;
+        top: 12px;
+        width: 38px;
+        height: 38px;
+      }
+      .marvell-brand-mark,
+      .marvell-page-logo {
+        width: 60px;
+        height: 60px;
+      }
+      .marvell-page-title {
+        font-size: 1.45rem;
+      }
+      .marvell-page-header {
+        gap: 12px;
+      }
+      .marvell-page-center {
+        flex-direction: column;
+      }
+      .marvell-header-btn {
+        width: 100%;
+      }
+    }
+
+
+    /* Zoom requested for all working pages */
+    body {
+      zoom: 0.75;
+    }
+
+
+
+    /* App screens design readability */
+    #app-screens-tab h2 {
+      color: #ffffff !important;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.36);
+    }
+
+    #app-screens-tab > div > p,
+    #app-screens-tab .screens-subtitle {
+      color: #d8f6ff !important;
+      font-weight: 800 !important;
+      text-shadow: 0 6px 16px rgba(0,0,0,0.34);
+    }
+
+    #app-screens-tab h4,
+    #app-screens-tab p.text-xs {
+      color: #10213d !important;
+      text-shadow: none !important;
+    }
+
+    @media print {
+      body {
+        zoom: 1 !important;
+      }
+    }
+
+
+
+    /* App screens design readability */
+    #app-screens-tab h2 {
+      color: #ffffff !important;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.36);
+    }
+
+    #app-screens-tab > div > p,
+    #app-screens-tab .screens-subtitle {
+      color: #d8f6ff !important;
+      font-weight: 800 !important;
+      text-shadow: 0 6px 16px rgba(0,0,0,0.34);
+    }
+
+    #app-screens-tab h4,
+    #app-screens-tab p.text-xs {
+      color: #10213d !important;
+      text-shadow: none !important;
+    }
+
+    @media print {
+      html, body {
+        height: auto !important;
+        overflow: visible !important;
+      }
+      body { background: white !important; }
+      #app {
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .gradient-bg { background: white !important; }
+      .sparkle { display: none !important; }
+
+      #summary-modal {
+        display: none !important;
+      }
+
+      /* ── Compact print layout ─────────────────────────────── */
+
+      /* Hide navigation / action buttons */
+      button,
+      .flex.justify-end.mb-4,
+      .flex.items-center.justify-between.mb-8,
+      .float-animation,
+      .text-center.mb-16,
+      #landing-page {
+        display: none !important;
+      }
+
+      /* Show product pages regardless of .hidden */
+      #physical-page,
+      #digital-page,
+      #app-page {
+        display: block !important;
+      }
+
+      /* Only show the one that was active (not hidden via inline style) */
+      #physical-page.hidden,
+      #digital-page.hidden,
+      #app-page.hidden {
+        display: none !important;
+      }
+
+      /* Container: remove outer padding */
+      .container { padding: 0 !important; }
+      .px-4 { padding-right: 0 !important; padding-left: 0 !important; }
+
+      /* Page heading */
+      .text-3xl { font-size: 15px !important; line-height: 1.3 !important; }
+      .text-2xl { font-size: 13px !important; }
+      .text-xl  { font-size: 12px !important; }
+      .text-lg  { font-size: 12px !important; }
+      .text-sm  { font-size: 11px !important; }
+      .text-xs  { font-size: 10px !important; }
+
+      /* Cards - reduce padding and border-radius */
+      .rounded-2xl, .rounded-3xl {
+        border-radius: 8px !important;
+        padding: 7px 10px !important;
+        box-shadow: none !important;
+      }
+      /* Card inner padding overrides (Tailwind p-6, p-8) */
+      [class*="p-6"], [class*="p-8"] {
+        padding: 7px 10px !important;
+      }
+      [class*="p-4"] { padding: 6px 8px !important; }
+      [class*="p-3"] { padding: 5px 7px !important; }
+
+      /* Vertical spacing between cards */
+      .space-y-6 > * + * { margin-top: 7px !important; }
+      .space-y-4 > * + * { margin-top: 5px !important; }
+      .space-y-3 > * + * { margin-top: 4px !important; }
+      .space-y-2 > * + * { margin-top: 3px !important; }
+
+      /* Bottom margins */
+      .mb-8 { margin-bottom: 7px !important; }
+      .mb-6 { margin-bottom: 6px !important; }
+      .mb-4 { margin-bottom: 4px !important; }
+      .mb-3 { margin-bottom: 3px !important; }
+      .mb-2 { margin-bottom: 2px !important; }
+
+      /* Top padding on pages */
+      .py-8 { padding-top: 6px !important; padding-bottom: 6px !important; }
+      .py-6 { padding-top: 5px !important; padding-bottom: 5px !important; }
+      .py-4 { padding-top: 4px !important; padding-bottom: 4px !important; }
+      .py-3 { padding-top: 3px !important; padding-bottom: 3px !important; }
+
+      /* Grid / flex gaps */
+      .gap-8 { gap: 8px !important; }
+      .gap-6 { gap: 7px !important; }
+      .gap-4 { gap: 6px !important; }
+      .gap-3 { gap: 5px !important; }
+      .gap-2 { gap: 4px !important; }
+
+      /* Inputs and textareas - compact */
+      input[type="text"],
+      input[type="number"],
+      input[type="email"] {
+        min-height: 26px !important;
+        padding: 3px 7px !important;
+        font-size: 11px !important;
+        border-radius: 5px !important;
+      }
+      textarea {
+        min-height: 54px !important;
+        padding: 4px 7px !important;
+        font-size: 11px !important;
+        border-radius: 5px !important;
+        resize: none !important;
+      }
+      /* Product name input */
+      input.text-2xl {
+        font-size: 14px !important;
+        padding: 4px 10px !important;
+        min-height: 32px !important;
+      }
+
+      /* Checkbox / radio labels - tighter */
+      label { padding: 3px 6px !important; }
+
+      /* Fix responsive grids that require md: breakpoint */
+      .grid { display: grid !important; }
+      [class*="md:grid-cols-6"] { grid-template-columns: repeat(6, 1fr) !important; }
+      [class*="md:grid-cols-3"] { grid-template-columns: repeat(3, 1fr) !important; }
+      [class*="md:grid-cols-2"] { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* Checkbox/label lists - convert to 3-column grid instead of long column */
+      .space-y-2:has(> label),
+      .space-y-3:has(> label) {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 3px 6px !important;
+      }
+      .space-y-2:has(> label) > label,
+      .space-y-3:has(> label) > label {
+        margin-top: 0 !important;
+        padding: 2px 5px !important;
+      }
+
+      /* Canvas area - keep small or hide */
+      canvas { max-height: 180px !important; }
+      .tab-btn-app, [class*="tab-btn"] { display: none !important; }
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full overflow-auto"><!-- Landing Page -->
+   <div id="landing-page" class="min-h-full gradient-bg relative overflow-hidden"><!-- Decorative sparkles -->
+    <div class="sparkle top-20 left-10" style="animation-delay: 0s;"></div>
+    <div class="sparkle top-40 right-20" style="animation-delay: 0.5s;"></div>
+    <div class="sparkle bottom-32 left-1/4" style="animation-delay: 1s;"></div>
+    <div class="sparkle top-1/3 right-1/3" style="animation-delay: 0.3s;"></div>
+    <div class="sparkle bottom-20 right-10" style="animation-delay: 0.8s;"></div>
+    <div class="container mx-auto px-4 py-12 relative z-10"><!-- Marvell Header -->
+     <section class="marvell-top-brand">
+      <a class="marvell-home-link" href="entrepreneurship-steps.html" aria-label="חזרה לדף הבית" title="חזרה לדף הבית">
+       <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+       </svg>
+      </a>
+      <img class="marvell-brand-mark" src="images/logo.png" alt="לוגו תעשיידע">
+     </section>
+
+     <section class="marvell-hero-card">
+      <div class="marvell-hero-icon">🛠️</div>
+      <h1 id="main-title" class="marvell-main-title">מתכננים אב־טיפוס ראשון</h1>
+      <p id="subtitle" class="marvell-subtitle">בוחרים איך להמחיש את המוצר, מתכננים מה חשוב לראות ובונים בסיס ברור לקראת הדמיית AI.</p>
+     </section><!-- Product Type Selection -->
+     <div class="max-w-5xl mx-auto">
+      <h2 class="marvell-section-title">🎯 איזה סוג אב־טיפוס מתאים למוצר שלכם?</h2>
+      <div class="grid md:grid-cols-3 gap-8"><!-- Physical Product Card --> <button onclick="selectProduct('physical')" class="card-hover bg-white/95 backdrop-blur rounded-3xl p-8 text-center pulse-glow" style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;">
+        <div class="text-6xl mb-4">
+         📦
+        </div><h3 class="text-2xl font-bold text-gray-800 mb-3">מוצר פיזי</h3><p class="text-gray-600 mb-4">דגם או מוצר מוחשי שאפשר להחזיק, להזיז או להפעיל.</p>
+        <div class="flex flex-wrap justify-center gap-2"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🔧 מנגנון</span> <span class="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm">✏️ סקיצה</span>
+        </div></button> <!-- Digital Product Card --> <button onclick="selectProduct('digital')" class="card-hover bg-white/95 backdrop-blur rounded-3xl p-8 text-center pulse-glow" style="animation-delay: 0.2s; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;">
+        <div class="text-6xl mb-4">
+         💻
+        </div><h3 class="text-2xl font-bold text-gray-800 mb-3">מוצר דיגיטלי</h3><p class="text-gray-600 mb-4">אתר, פלטפורמה או שירות אונליין</p>
+        <div class="flex flex-wrap justify-center gap-2"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🔄 תרשים זרימה</span> <span class="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm">📱 מסכים</span>
+        </div></button> <!-- App Product Card --> <button onclick="selectProduct('app')" class="card-hover bg-white/95 backdrop-blur rounded-3xl p-8 text-center pulse-glow" style="animation-delay: 0.4s; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;">
+        <div class="text-6xl mb-4">
+         📱
+        </div><h3 class="text-2xl font-bold text-gray-800 mb-3">אפליקציה</h3><p class="text-gray-600 mb-4">חוויית שימוש בטלפון הנייד</p>
+        <div class="flex flex-wrap justify-center gap-2"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">📲 מסכים</span> <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">🎯 UI/UX</span>
+        </div></button>
+      </div>
+     </div><!-- Prototype Tip Section -->
+     <div class="max-w-3xl mx-auto mt-12 bg-white/40 backdrop-blur rounded-2xl p-6">
+      <h3 class="text-gray-800 font-bold text-lg mb-3 flex items-center gap-2"><span>💡</span> מה זה אב־טיפוס?</h3>
+      <p class="text-gray-700">אב־טיפוס הוא המחשה ראשונית של המוצר. הוא לא מוצר עובד ולא חייב להיות מושלם. המטרה שלו היא להראות מה רואים, איך משתמשים ומה חשוב להבין לקראת ההדמיה.</p>
+     </div>
+    </div>
+   </div><!-- Summary Modal (hidden/inactive) -->
+   <div id="summary-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" style="display:none!important;">
+    <div class="summary-modal-panel bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" dir="rtl">
+     <div class="bg-gradient-to-l from-blue-600 to-blue-800 rounded-t-3xl px-6 py-5 text-white">
+      <div class="flex items-center justify-between">
+       <div>
+        <h2 class="text-xl font-bold">⚙️ עצירת פיתוח - בדיקה לפני סבב שיפור</h2>
+        <p class="text-blue-200 text-sm mt-1">⏱ זמן: 6 דקות בלבד</p>
+       </div>
+       <button onclick="closeSummaryModal()" class="text-white/70 hover:text-white text-2xl font-light leading-none">✕</button>
+      </div>
+     </div>
+     <div class="px-6 py-5 summary-flow">
+      <!-- Goal -->
+      <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+       <h3 class="font-bold text-gray-800 mb-2">🎯 המטרה</h3>
+       <p class="text-gray-700 text-sm">להחליט בצורה מדויקת מה אנחנו משפרים בשיעור הבא.</p>
+       <p class="text-gray-500 text-sm mt-2">לא בונים מחדש. לא מוסיפים רעיונות. <strong>מדייקים.</strong></p>
+      </div>
+      <!-- Step 1 -->
+      <section class="summary-step summary-step--1">
+       <h3 class="summary-step__title font-bold text-gray-800">שלב 1 - מצב המוצר כרגע <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
+       <div class="summary-step__body">
+        <p class="summary-step__intro text-gray-600 text-sm">סמנו את המשפט שהכי מדויק למוצר של הצוות:</p>
+        <div class="space-y-2" id="step1-options">
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step1" value="structure" class="accent-blue-600"> <span class="text-sm text-gray-700">יש לנו מבנה ברור אבל לא הכל זורם</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step1" value="value" class="accent-blue-600"> <span class="text-sm text-gray-700">הערך טוב אבל לא מספיק ברור</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step1" value="complex" class="accent-blue-600"> <span class="text-sm text-gray-700">יש שלב מסובך מדי</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step1" value="clarity" class="accent-blue-600"> <span class="text-sm text-gray-700">חסרה בהירות במה שהמערכת עושה</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step1" value="simplify" class="accent-blue-600"> <span class="text-sm text-gray-700">המוצר עובד אבל אפשר לפשט</span>
+        </label>
+        </div>
+        <p class="text-gray-400 text-xs mt-2">אם סימנתם יותר מאחד - בחרו רק אחד מרכזי.</p>
+       </div>
+      </section>
+      <!-- Step 2 -->
+      <section class="summary-step summary-step--2">
+       <h3 class="summary-step__title font-bold text-gray-800">שלב 2 - נקודת השיפור <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
+       <div class="summary-step__body">
+        <p class="text-gray-600 text-sm">באיזה שלב במוצר צריך להתמקד?</p>
+        <div class="summary-step__fields">
+         <div>
+         <label class="text-sm text-gray-600 block mb-1">שלב מספר / מסך:</label>
+         <input type="text" placeholder="לדוגמה: מסך 3 / שלב הרישום" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-gray-50">
+        </div>
+         <div>
+         <label class="text-sm text-gray-600 block mb-1">מה בדיוק הבעיה שם? <span class="text-gray-400">(במשפט קצר וברור)</span></label>
+         <textarea placeholder="לא לכתוב כללי. לכתוב מדויק." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-gray-50 resize-none" rows="2"></textarea>
+         </div>
+        </div>
+       </div>
+      </section>
+      <!-- Step 3 -->
+      <section class="summary-step summary-step--3">
+       <h3 class="summary-step__title font-bold text-gray-800">שלב 3 - החלטת צוות לשיעור הבא <span class="text-gray-400 font-normal text-sm">(2 דקות)</span></h3>
+       <p class="text-gray-600 text-sm mb-3">בשיעור הבא אנחנו משפרים:</p>
+       <div class="space-y-2 mb-4">
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step3" value="shortcut" class="accent-blue-600"> <span class="text-sm text-gray-700">קיצור מסלול</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step3" value="screen" class="accent-blue-600"> <span class="text-sm text-gray-700">פישוט מסך</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step3" value="value" class="accent-blue-600"> <span class="text-sm text-gray-700">חידוד ערך</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step3" value="response" class="accent-blue-600"> <span class="text-sm text-gray-700">הבהרת תגובת מערכת</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all">
+         <input type="radio" name="step3" value="load" class="accent-blue-600"> <span class="text-sm text-gray-700">הפחתת עומס</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all" id="other-label">
+         <input type="radio" name="step3" value="other" class="accent-blue-600" onchange="toggleOtherInput()"> <span class="text-sm text-gray-700">אחר:</span>
+         <input type="text" id="other-input" placeholder="פרטי..." class="flex-1 px-3 py-1 rounded-lg border border-gray-200 focus:border-blue-400 focus:outline-none text-sm bg-white hidden">
+        </label>
+       </div>
+       <div>
+        <label class="text-sm text-gray-600 block mb-1">מטרת השיפור שלנו במשפט אחד:</label>
+        <div class="flex items-center gap-2 flex-wrap bg-gray-50 rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-700">
+         <span>בשיעור הבא נהפוך את המוצר ליותר</span>
+         <input type="text" id="goal-word1" placeholder="________" class="w-28 px-2 py-1 rounded-lg border border-blue-200 focus:border-blue-400 focus:outline-none text-sm bg-white text-center">
+         <span>על ידי</span>
+         <input type="text" id="goal-word2" placeholder="________" class="w-36 px-2 py-1 rounded-lg border border-blue-200 focus:border-blue-400 focus:outline-none text-sm bg-white text-center">
+         <span>.</span>
+        </div>
+       </div>
+      </section>
+      <!-- Footer -->
+      <div class="bg-blue-700 rounded-2xl p-4 text-white text-center">
+       <p class="font-bold mb-1">אנחנו לא מתחילים מחדש.</p>
+       <p class="font-bold mb-2">אנחנו משפרים גרסה קיימת.</p>
+       <p class="text-blue-200 text-sm">פיתוח מוצר הוא תהליך של גרסאות - לא של רעיון מושלם בפעם הראשונה.</p>
+      </div>
+      <div class="flex justify-center gap-3 pb-2">
+       <button onclick="closeSummaryModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-full transition-all shadow-lg">סגור</button> <button onclick="printPage()" class="bg-white text-blue-700 font-bold px-8 py-3 rounded-full transition-all shadow-lg border border-blue-200 hover:bg-blue-50 flex items-center gap-2"> <span>🖨️</span> הדפסה </button>
+      </div>
+     </div>
+    </div>
+   </div><!-- Physical Product Page -->
+   <div id="physical-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+    <div class="container mx-auto px-4 py-8">
+     <section class="marvell-page-header">
+      <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+      <div class="marvell-page-center">
+       <img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע">
+       <h1 class="marvell-page-title"><span>📦</span> תכנון אב-טיפוס למוצר פיזי</h1>
+      </div>
+      <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+     </section>
+     <div class="max-w-4xl mx-auto space-y-6"><!-- Product Name -->
+      <div class="mb-8"><input type="text" placeholder="📦 שם המוצר של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-cyan-400 bg-white/60 text-gray-800 placeholder-gray-600 focus:border-cyan-500 focus:outline-none text-2xl text-center font-bold">
+      </div><!-- אב-טיפוס Form -->
+      <div class="space-y-6"><!-- 1. מה חייבים לראות -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>👀</span> 1. מה חייבים לראות באב־טיפוס?</h3>
+        <p class="text-gray-600 text-sm mb-3">מה הדבר הראשון שמי שרואה את האב־טיפוס חייב להבין?</p>
+        <textarea placeholder="לדוגמה: צורת המוצר, גודל, איך מחזיקים אותו..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+       </div><!-- 2. רכיבים מרכזיים -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><span>🔧</span> 2. רכיבים מרכזיים שחייבים להופיע</h3>
+        <p class="text-gray-600 text-sm mb-3">רק מה שבלעדיו האב־טיפוס לא מובן</p>
+        <div class="space-y-3"><input type="text" placeholder="• רכיב 1" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50"> <input type="text" placeholder="• רכיב 2" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50"> <input type="text" placeholder="• רכיב 3" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50">
+        </div>
+       </div><!-- 3. צבעים וחומרים -->
+       <div class="bg-white/20 backdrop-blur rounded-2xl p-6 border border-gray-400/30">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><span>🎨</span> 3. צבעים וחומרים</h3>
+        <div class="mb-4">
+         <h4 class="text-gray-900 font-semibold mb-3">צבעים עיקריים:</h4>
+         <div class="grid md:grid-cols-6 gap-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אדום</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כחול</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">שחור</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">לבן</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">ירוק</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">צהוב</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כתום</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">סגול</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">כחול כהה</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">טורקיז</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">זהב</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אחר</span> </label> <input type="text" placeholder="צבע אחר..." class="md:col-span-2 px-3 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 shadow-sm">
+         </div>
+        </div>
+        <div>
+         <h4 class="text-gray-900 font-semibold mb-3">חומרים:</h4>
+         <div class="grid md:grid-cols-3 gap-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">פלסטיק</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">מתכת</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">עץ</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">בד</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">סיליקון</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">זכוכית</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-sm">אחר</span> </label> <input type="text" placeholder="חומר אחר..." class="md:col-span-2 px-3 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 shadow-sm">
+         </div>
+        </div>
+       </div><!-- 4. סביבת שימוש -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-blue-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🌍</span> 4. סביבת שימוש ופגישה עם המשתמש</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div><label class="text-gray-700 text-sm font-semibold block mb-2">איפה משתמשים במוצר?</label><input type="text" placeholder="לדוגמה: בבית, בחוץ, בעבודה..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50"></div>
+         <div><label class="text-gray-700 text-sm font-semibold block mb-2">איך המשתמש פוגש את המוצר?</label><input type="text" placeholder="לדוגמה: לוחץ, מסובב, הולך עם..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50"></div>
+        </div>
+       </div><!-- 5. מה להבליט בהדמיה -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-cyan-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>⭐</span> 5. מה חשוב להבליט בהדמיה?</h3>
+        <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="2"></textarea>
+       </div><!-- 6. מה לא להעמיס -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-orange-400" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>🚫</span> 6. מה לא להציג או לא להעמיס?</h3>
+        <p class="text-gray-600 text-sm mb-3">מה נשמור למאוחר יותר?</p>
+        <textarea placeholder="לדוגמה: צבעים מדויקים, כל הפרטים הקטנים, פונקציות נוספות..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
+       </div><!-- 7. קישור / תמונה -->
+       <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all border-l-4 border-green-500" style="box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05);">
+        <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><span>📎</span> 7. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
+        <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+        <p class="text-gray-500 text-xs">או העלו תמונה / צילום מסך של הסקיצה שלכם</p>
+       </div><!-- Quality Check -->
+       <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
+        <h3 class="text-lg font-bold text-amber-800 mb-4 flex items-center gap-2"><span>✅</span> בדיקה לפני שמירה</h3>
+        <div class="space-y-3">
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה רואים באב־טיפוס?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה המשתמש עושה?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם אין עומס מיותר?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם האב־טיפוס מספיק ברור להצגה?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם שמרנו קישור, תמונה או צילום מסך?</span></label>
+        </div>
+       </div><!-- שמירה למפגש הבא -->
+       <div class="bg-blue-900/40 backdrop-blur rounded-2xl p-6 border border-blue-400/40">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><span>💾</span> שמירה למפגש הבא</h3>
+        <div class="space-y-4">
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">קישור לאב־טיפוס</label><input type="text" placeholder="הדביקו קישור כאן..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">במשפט קצר — מה רואים באב־טיפוס?</label><input type="text" placeholder="לדוגמה: מוצר ביד, לחצן גדול, תצוגת תוצאה..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה עדיין לא גמור?</label><input type="text" placeholder="מה נדרש להשלים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה נרצה לבדוק במשוב הבא?</label><input type="text" placeholder="מה חשוב לנו לשמוע מהמשתמשים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+        </div>
+        <div class="mt-4 bg-blue-700/50 rounded-xl p-3 text-center">
+         <p class="text-blue-100 text-sm font-semibold">✨ בשיעור הבא נהפוך את התכנון הזה להדמיית AI מלאה.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Digital Product Page -->
+   <div id="digital-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+    <div class="container mx-auto px-4 py-8">
+     <section class="marvell-page-header">
+      <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+      <div class="marvell-page-center">
+       <img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע">
+       <h1 class="marvell-page-title"><span>💻</span> תכנון אב-טיפוס למוצר דיגיטלי</h1>
+      </div>
+      <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+     </section>
+     <div class="max-w-4xl mx-auto space-y-6"><!-- Product Name -->
+      <div class="mb-8"><input type="text" placeholder="💻 שם הפלטפורמה של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-blue-400 bg-white text-gray-800 placeholder-gray-500 focus:border-cyan-400 focus:outline-none text-2xl text-center font-bold shadow-lg">
+      </div><!-- אב-טיפוס Form -->
+      <div class="space-y-6"><!-- 1. סוג ההמחשה -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-blue-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🖥️</span> 1. סוג ההמחשה</h3>
+        <p class="text-gray-600 text-sm mb-3">מה הכי מתאים למוצר שלכם?</p>
+        <div class="grid md:grid-cols-4 gap-3">
+         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">אתר</span></label>
+         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">מערכת</span></label>
+         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">דשבורד</span></label>
+         <label class="flex items-center gap-2 p-3 rounded-xl border border-blue-200 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"><input type="radio" name="digital-type" class="accent-blue-600"> <span class="text-gray-800 text-sm font-medium">שירות דיגיטלי</span></label>
+        </div>
+       </div><!-- 2. המסך הראשון -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-cyan-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🖼️</span> 2. מה רואים במסך הראשון?</h3>
+        <textarea placeholder="מה המשתמש רואה כשנכנס? כותרת, תמונה, כפתור ראשי..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+       </div><!-- 3. הפעולה המרכזית -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-blue-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⚡</span> 3. מה המשתמש עושה? (הפעולה המרכזית)</h3>
+        <p class="text-gray-600 text-sm mb-3">אם זה לא עובד — אין מוצר. מה הפעולה הכי חשובה?</p>
+        <textarea placeholder="לדוגמה: ממלא טופס, לוחץ על כפתור, מחפש מוצר..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="2"></textarea>
+       </div><!-- 4. מה קורה אחרי -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-indigo-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>➡️</span> 4. מה רואים בסוף? (אחרי הפעולה)</h3>
+        <div class="space-y-3">
+         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
+          <label class="text-gray-700 text-xs font-semibold">מסך 1 - פתיחה</label> <input type="text" placeholder="תיאור מסך הפתיחה..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
+         </div>
+         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
+          <label class="text-gray-700 text-xs font-semibold">מסך 2 - פעולה מרכזית</label> <input type="text" placeholder="תיאור מסך הפעולה..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
+         </div>
+         <div class="bg-indigo-50 rounded-lg p-4 border-l-2 border-indigo-400 shadow-sm">
+          <label class="text-gray-700 text-xs font-semibold">מסך 3 - תוצאה</label> <input type="text" placeholder="מה המשתמש מקבל בסוף..." class="w-full px-3 py-2 rounded text-gray-800 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 mt-2 bg-white shadow-sm">
+         </div>
+        </div>
+       </div><!-- 5. מה חייב להיות ברור -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-green-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>💡</span> 5. מה חייב להיות ברור למשתמש?</h3>
+        <textarea placeholder="מה המשתמש חייב להבין בלי להסביר לו..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="2"></textarea>
+       </div><!-- 6. סגנון חזותי -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-cyan-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🎨</span> 6. סגנון חזותי</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div><label class="text-gray-700 text-sm font-semibold block mb-2">צבעים עיקריים</label>
+          <div class="grid grid-cols-3 gap-2">
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">כחול</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">כהה</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">בהיר</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">ירוק</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">סגול</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">אחר</span></label>
+          </div>
+         </div>
+         <div><label class="text-gray-700 text-sm font-semibold block mb-2">תחושה כללית</label>
+          <div class="grid grid-cols-2 gap-2">
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">נקי ומינימליסטי</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">צבעוני ומלא</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">מקצועי</span></label>
+           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-cyan-500"> <span class="text-gray-800 text-xs">ידידותי ומשחקי</span></label>
+          </div>
+         </div>
+        </div>
+       </div><!-- 7. מה להבליט -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-orange-400">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⭐</span> 7. מה חשוב להבליט בהדמיה?</h3>
+        <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
+       </div><!-- 8. קישור / תמונה -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border-l-4 border-green-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>📎</span> 8. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
+        <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+        <p class="text-gray-500 text-xs">או צרפו קישור ל-Figma, Canva, סקיצה סרוקה וכו'</p>
+       </div><!-- Quality Check -->
+       <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
+        <h3 class="text-lg font-bold text-amber-800 mb-4 flex items-center gap-2"><span>✅</span> בדיקה לפני שמירה</h3>
+        <div class="space-y-3">
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה רואים באב־טיפוס?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה המשתמש עושה?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם אין עומס מיותר?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם האב־טיפוס מספיק ברור להצגה?</span></label>
+         <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם שמרנו קישור, תמונה או צילום מסך?</span></label>
+        </div>
+       </div><!-- שמירה למפגש הבא -->
+       <div class="bg-blue-900/40 backdrop-blur rounded-2xl p-6 border border-blue-400/40">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><span>💾</span> שמירה למפגש הבא</h3>
+        <div class="space-y-4">
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">קישור לאב־טיפוס</label><input type="text" placeholder="הדביקו קישור כאן..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">במשפט קצר — מה רואים באב־טיפוס?</label><input type="text" placeholder="לדוגמה: דף בית עם כפתור חיפוש, תוצאות בצד ימין..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה עדיין לא גמור?</label><input type="text" placeholder="מה נדרש להשלים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה נרצה לבדוק במשוב הבא?</label><input type="text" placeholder="מה חשוב לנו לשמוע מהמשתמשים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+        </div>
+        <div class="mt-4 bg-blue-700/50 rounded-xl p-3 text-center">
+         <p class="text-blue-100 text-sm font-semibold">✨ בשיעור הבא נהפוך את התכנון הזה להדמיית AI מלאה.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- App Product Page - אב-טיפוס Planning -->
+   <div id="app-page" class="min-h-full hidden" style="background: linear-gradient(135deg, #071a36 0%, #0d2045 48%, #061329 100%);">
+    <div class="container mx-auto px-4 py-8">
+     <section class="marvell-page-header">
+      <button onclick="goBack()" class="marvell-header-btn"><span>→</span> חזרה</button>
+      <div class="marvell-page-center">
+       <img class="marvell-page-logo" src="images/logo.png" alt="לוגו תעשיידע">
+       <h1 class="marvell-page-title"><span>📱</span> תכנון אב-טיפוס לאפליקציה</h1>
+      </div>
+      <button onclick="printPage()" class="marvell-header-btn"><span>🖨️</span> הדפס</button>
+     </section>
+     <div class="max-w-4xl mx-auto mb-8 flex gap-2 flex-wrap justify-center"><button onclick="switchAppTab('mvp')" class="tab-btn-app bg-cyan-100 hover:bg-cyan-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all active" data-tab="mvp">📋 תכנון אב-טיפוס</button> <button onclick="switchAppTab('screens')" class="tab-btn-app bg-sky-100 hover:bg-sky-200 text-gray-800 px-6 py-2 rounded-full font-semibold transition-all" data-tab="screens">📱 עיצוב המסכים</button>
+     </div><!-- אב-טיפוס Planning Tab -->
+     <div id="app-mvp-tab" class="tab-content-app">
+      <div class="max-w-4xl mx-auto">
+       <div class="mb-8"><input type="text" id="app-name" placeholder="📱 שם האפליקציה של הצוות" class="w-full px-6 py-4 rounded-2xl border-2 border-blue-400 bg-white/60 text-gray-900 placeholder-gray-600 focus:border-cyan-400 focus:outline-none text-2xl text-center font-bold">
+       </div>
+       <div class="space-y-6"><!-- 1. מסך פתיחה -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-blue-500">
+         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>🚀</span> 1. מסך פתיחה — מה רואים?</h3>
+         <p class="text-gray-600 text-sm mb-3">הרושם הראשון. מה המשתמש רואה כשפותחים את האפליקציה?</p>
+         <textarea placeholder="לדוגמה: לוגו גדול, שם האפליקציה, כפתור 'התחלה'..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50" rows="3"></textarea>
+        </div><!-- 2. מסך פעולה מרכזית -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-cyan-500">
+         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⚡</span> 2. מסך פעולה מרכזית — מה המשתמש עושה?</h3>
+         <p class="text-gray-600 text-sm mb-3">זה המסך הכי חשוב. פשוט, ברור, עד 3 פעולות ראשיות.</p>
+         <textarea placeholder="לדוגמה: מסך חיפוש עם שדה טקסט וכפתור, מסך בחירה מרשימה..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50" rows="3"></textarea>
+         <div class="mt-3 space-y-2">
+          <label class="text-gray-700 text-sm font-semibold block">כפתורים מרכזיים בדף זה:</label>
+          <input type="text" placeholder="• כפתור 1" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
+          <input type="text" placeholder="• כפתור 2" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
+          <input type="text" placeholder="• כפתור 3 (אם יש)" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 bg-cyan-50 text-sm">
+         </div>
+        </div><!-- 3. מסך תוצאה -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-green-500">
+         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>✅</span> 3. מסך תוצאה — מה רואים בסוף?</h3>
+         <p class="text-gray-600 text-sm mb-3">חגיגה! מה המשתמש מקבל? תוצאה ברורה + מה הלאה?</p>
+         <textarea placeholder="לדוגמה: הודעת הצלחה, תוצאות החיפוש, כפתור 'שמירה' או 'שיתוף'..." class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50" rows="3"></textarea>
+        </div><!-- 4. סגנון חזותי -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-indigo-500">
+         <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🎨</span> 4. סגנון חזותי</h3>
+         <div class="grid md:grid-cols-2 gap-4">
+          <div><label class="text-gray-700 text-sm font-semibold block mb-2">צבעים עיקריים</label>
+           <div class="grid grid-cols-3 gap-2">
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">כחול</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">כהה</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">בהיר</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">ירוק</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">סגול</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">אחר</span></label>
+           </div>
+          </div>
+          <div><label class="text-gray-700 text-sm font-semibold block mb-2">תחושה כללית</label>
+           <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">נקי</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">מודרני</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">צבעוני</span></label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-indigo-500"> <span class="text-gray-800 text-xs">משחקי</span></label>
+           </div>
+          </div>
+         </div>
+        </div><!-- 5. מה להבליט -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-orange-400">
+         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>⭐</span> 5. מה חשוב להבליט בהדמיה?</h3>
+         <textarea placeholder="מה הדבר הכי חשוב שרואים — מה צריך לקפוץ לעין?" class="w-full px-4 py-3 rounded-lg text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-300 bg-orange-50" rows="2"></textarea>
+        </div><!-- 6. קישור / תמונה -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border-l-4 border-green-500">
+         <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2"><span>📎</span> 6. קישור / תמונה / צילום מסך של האב־טיפוס</h3>
+         <input type="text" placeholder="הכניסו קישור לאב־טיפוס..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400 bg-green-50 mb-3">
+         <p class="text-gray-500 text-xs">או צרפו קישור ל-Figma, Canva, סקיצה סרוקה וכו'</p>
+        </div><!-- Quality Check -->
+        <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300">
+         <h3 class="text-lg font-bold text-amber-800 mb-4 flex items-center gap-2"><span>✅</span> בדיקה לפני שמירה</h3>
+         <div class="space-y-3">
+          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה רואים באב־טיפוס?</span></label>
+          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם ברור מה המשתמש עושה?</span></label>
+          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם אין עומס מיותר?</span></label>
+          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם האב־טיפוס מספיק ברור להצגה?</span></label>
+          <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" class="w-5 h-5 rounded accent-amber-600"> <span class="text-gray-800 text-sm font-medium">האם שמרנו קישור, תמונה או צילום מסך?</span></label>
+         </div>
+        </div><!-- שמירה למפגש הבא -->
+        <div class="bg-blue-900/40 backdrop-blur rounded-2xl p-6 border border-blue-400/40">
+         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><span>💾</span> שמירה למפגש הבא</h3>
+         <div class="space-y-4">
+          <div><label class="text-blue-200 text-sm font-semibold block mb-2">קישור לאב־טיפוס</label><input type="text" placeholder="הדביקו קישור כאן..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+          <div><label class="text-blue-200 text-sm font-semibold block mb-2">במשפט קצר — מה רואים באב־טיפוס?</label><input type="text" placeholder="לדוגמה: 3 מסכים, כפתור ראשי כחול, תפריט תחתון..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+          <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה עדיין לא גמור?</label><input type="text" placeholder="מה נדרש להשלים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+          <div><label class="text-blue-200 text-sm font-semibold block mb-2">מה נרצה לבדוק במשוב הבא?</label><input type="text" placeholder="מה חשוב לנו לשמוע מהמשתמשים..." class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"></div>
+         </div>
+         <div class="mt-4 bg-blue-700/50 rounded-xl p-3 text-center">
+          <p class="text-blue-100 text-sm font-semibold">✨ בשיעור הבא נהפוך את התכנון הזה להדמיית AI מלאה.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Screens Design Tab -->
+     <div id="app-screens-tab" class="tab-content-app hidden">
+      <div class="max-w-6xl mx-auto space-y-8">
+       <h2 class="text-2xl font-bold text-white text-center drop-shadow-lg">📱 עיצוב המסכים</h2>
+       <p class="screens-subtitle text-cyan-100 text-center text-sm font-bold drop-shadow">3 תבניות מובייל - כל אחת מייצגת מסך אחר בזרימה</p><!-- Mobile Frames Grid -->
+       <div class="grid md:grid-cols-3 gap-8"><!-- Screen 1: Opening -->
+        <div class="flex flex-col items-center">
+         <!-- Phone Frame -->
+         <div class="relative w-full max-w-xs">
+          <!-- Phone Bezel/Frame -->
+          <div class="bg-black rounded-3xl p-2 shadow-2xl">
+           <!-- Notch -->
+           <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10 flex items-center justify-center border border-gray-900">
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+           </div><!-- Screen -->
+           <div class="bg-gradient-to-b from-blue-400 to-blue-600 rounded-2xl overflow-hidden">
+            <!-- Status Bar -->
+            <div class="bg-blue-600 h-7 px-4 flex items-center justify-between text-white text-xs">
+             <span>9:41</span>
+             <div class="flex gap-1">
+              <span>📶</span><span>📡</span><span>🔋</span>
+             </div>
+            </div><!-- Screen Content -->
+            <div class="aspect-[9/16] bg-white p-6 flex flex-col items-center justify-center text-center">
+             <div class="text-4xl mb-2">
+              📱
+             </div><input type="text" placeholder="כותרת המסך (למשל: ברוכים הבאים)" class="w-full text-sm font-bold text-gray-800 text-center bg-blue-50 rounded-lg px-2 py-1 border border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder-gray-400 mb-3">
+             <div class="bg-blue-50 rounded-lg p-3 mb-3 border border-blue-200 text-left"><label class="text-xs font-semibold text-gray-700 block mb-1">🖼️ בלוק מרכזי</label> <textarea placeholder="תארו את התוכן הראשי שהמשתמש רואה..." class="w-full text-xs px-2 py-2 rounded bg-white border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-400 resize-none" rows="4"></textarea>
+             </div><button class="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 font-semibold text-sm">🚀 התחלה</button>
+            </div>
+           </div>
+          </div><!-- Phone Bottom Bezel -->
+          <div class="h-8 bg-black rounded-b-3xl"></div>
+         </div>
+         <h4 class="font-semibold mt-6" style="color: #35c4e8;">מסך 1 - פתיחה</h4>
+         <p class="text-xs mt-1" style="color: #9ca3af;">הרושם הראשון</p>
+        </div><!-- Screen 2: Main Action -->
+        <div class="flex flex-col items-center">
+         <!-- Phone Frame -->
+         <div class="relative w-full max-w-xs">
+          <!-- Phone Bezel/Frame -->
+          <div class="bg-black rounded-3xl p-2 shadow-2xl">
+           <!-- Notch -->
+           <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10 flex items-center justify-center border border-gray-900">
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+           </div><!-- Screen -->
+           <div class="bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-2xl overflow-hidden">
+            <!-- Status Bar -->
+            <div class="bg-cyan-600 h-7 px-4 flex items-center justify-between text-white text-xs">
+             <span>9:41</span>
+             <div class="flex gap-1">
+              <span>📶</span><span>📡</span><span>🔋</span>
+             </div>
+            </div><!-- Screen Content -->
+            <div class="aspect-[9/16] bg-white p-4 flex flex-col overflow-y-auto"><!-- Header Section -->
+             <div class="mb-4"><input type="text" placeholder="כותרת / שאלה (לדוגמה: חיפוש מוצר)" class="w-full text-sm font-bold text-gray-800 text-center bg-cyan-50 rounded-lg px-2 py-1 border border-cyan-300 focus:outline-none focus:ring-1 focus:ring-cyan-500 placeholder-gray-400">
+             </div><!-- Main Content Area -->
+             <div class="bg-cyan-50 rounded-lg p-3 mb-3 border border-cyan-200"><label class="text-xs font-semibold text-gray-700 block mb-1">💡 תוכן מרכזי</label> <textarea placeholder="תארו את האזור המרכזי - רשימה, טופס, תוכן..." class="w-full text-xs px-2 py-2 rounded bg-white border border-cyan-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 resize-none" rows="3"></textarea>
+             </div><!-- Three Main Actions -->
+             <div class="space-y-2 flex-1"><label class="text-xs font-semibold text-gray-700 block">🎯 3 אפשרויות עיקריות:</label> <button class="w-full bg-cyan-400 hover:bg-cyan-500 text-white rounded-lg py-2 px-2 font-semibold text-xs">1️⃣</button> <input type="text" placeholder="תיאור פעולה ראשונה" class="w-full text-xs px-2 py-1 rounded bg-cyan-50 border border-cyan-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"> <button class="w-full bg-cyan-400 hover:bg-cyan-500 text-white rounded-lg py-2 px-2 font-semibold text-xs">2️⃣</button> <input type="text" placeholder="תיאור פעולה שנייה" class="w-full text-xs px-2 py-1 rounded bg-cyan-50 border border-cyan-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"> <button class="w-full bg-cyan-400 hover:bg-cyan-500 text-white rounded-lg py-2 px-2 font-semibold text-xs">3️⃣</button> <input type="text" placeholder="תיאור פעולה שלישית" class="w-full text-xs px-2 py-1 rounded bg-cyan-50 border border-cyan-200 focus:outline-none focus:ring-1 focus:ring-cyan-400">
+             </div>
+            </div>
+           </div>
+          </div><!-- Phone Bottom Bezel -->
+          <div class="h-8 bg-black rounded-b-3xl"></div>
+         </div>
+         <h4 class="font-semibold mt-6" style="color: #1e40af;">מסך 2 - פעולה</h4>
+         <p class="text-xs mt-1" style="color: #9ca3af;">הפונקציה המרכזית</p>
+        </div><!-- Screen 3: Results -->
+        <div class="flex flex-col items-center">
+         <!-- Phone Frame -->
+         <div class="relative w-full max-w-xs">
+          <!-- Phone Bezel/Frame -->
+          <div class="bg-black rounded-3xl p-2 shadow-2xl">
+           <!-- Notch -->
+           <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10 flex items-center justify-center border border-gray-900">
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+            <div class="w-1 h-1 bg-gray-700 rounded-full mx-0.5"></div>
+           </div><!-- Screen -->
+           <div class="bg-gradient-to-b from-green-400 to-green-600 rounded-2xl overflow-hidden">
+            <!-- Status Bar -->
+            <div class="bg-green-600 h-7 px-4 flex items-center justify-between text-white text-xs">
+             <span>9:41</span>
+             <div class="flex gap-1">
+              <span>📶</span><span>📡</span><span>🔋</span>
+             </div>
+            </div><!-- Screen Content -->
+            <div class="aspect-[9/16] bg-white p-4 flex flex-col overflow-y-auto"><!-- Result Header -->
+             <div class="text-center mb-4">
+              <div class="text-5xl mb-2">
+               ✅
+              </div>
+              <h3 class="text-lg font-bold text-green-700 mb-1">תוצאה!</h3><input type="text" placeholder="כותרת התוצאה (מ.ל. התוצאה של הצוות מוכנה)" class="w-full text-sm font-semibold text-gray-800 text-center bg-green-50 rounded-lg px-2 py-1 border border-green-300 focus:outline-none focus:ring-1 focus:ring-green-500 placeholder-gray-400">
+             </div><!-- Result Details -->
+             <div class="bg-green-50 rounded-lg p-3 mb-3 border border-green-200"><label class="text-xs font-semibold text-gray-700 block mb-1">📊 מה התוצאה?</label> <textarea placeholder="תארו את התוצאה שהמשתמש מקבל..." class="w-full text-xs px-2 py-2 rounded bg-white border border-green-200 focus:outline-none focus:ring-1 focus:ring-green-400 resize-none" rows="3"></textarea>
+             </div><!-- What's Next -->
+             <div class="bg-amber-50 rounded-lg p-3 mb-3 border border-amber-200"><label class="text-xs font-semibold text-gray-700 block mb-1">➡️ מה בהמשך?</label> <input type="text" placeholder="כפתור הבא או פעולה נוספת..." class="w-full text-xs px-2 py-1 rounded bg-white border border-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-400">
+             </div><!-- Action Buttons -->
+             <div class="space-y-2 mt-auto"><button class="w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 font-semibold text-sm">✨ שוב!</button> <button class="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 font-semibold text-sm">📤 שתפי</button>
+             </div>
+            </div>
+           </div>
+          </div><!-- Phone Bottom Bezel -->
+          <div class="h-8 bg-black rounded-b-3xl"></div>
+         </div>
+         <h4 class="font-semibold mt-6" style="color: #6b21a8;">מסך 3 - תוצאה</h4>
+         <p class="text-xs mt-1" style="color: #9ca3af;">הסיכום והצלחה</p>
+        </div>
+       </div><!-- Design Tips -->
+       <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">💡 טיפים לעיצוב</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white rounded-lg p-4 border border-blue-200 shadow-sm">
+           <h4 class="text-blue-700 font-bold text-sm mb-2">✨ מסך 1</h4>
+           <p class="text-slate-700 text-xs font-semibold leading-relaxed">הרושם הראשון חשוב! לוגו, כותרת, כפתור התחלה ברור</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-cyan-200 shadow-sm">
+           <h4 class="text-cyan-700 font-bold text-sm mb-2">⚡ מסך 2</h4>
+           <p class="text-slate-700 text-xs font-semibold leading-relaxed">זה המרכזי - פשוט, ברור, לא יותר מ-3 כפתורים ראשיים</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-green-200 shadow-sm">
+           <h4 class="text-green-700 font-bold text-sm mb-2">✅ מסך 3</h4>
+           <p class="text-slate-700 text-xs font-semibold leading-relaxed">חגיגה! תוצאה ברורה, כפתור למה הלאה</p>
+          </div>
+         </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+</div>
+  <script>
+// Page navigation
+    function selectProduct(type) {
+      document.getElementById('landing-page').classList.add('hidden');
+      
+      if (type === 'physical') {
+        document.getElementById('physical-page').classList.remove('hidden');
+      } else if (type === 'digital') {
+        document.getElementById('digital-page').classList.remove('hidden');
+      } else if (type === 'app') {
+        document.getElementById('app-page').classList.remove('hidden');
+      }
+    }
+    
+    function goBack() {
+      document.getElementById('physical-page').classList.add('hidden');
+      document.getElementById('digital-page').classList.add('hidden');
+      document.getElementById('app-page').classList.add('hidden');
+      document.getElementById('landing-page').classList.remove('hidden');
+    }
+    
+    function getActiveMainPage() {
+      const pageIds = ['physical-page', 'digital-page', 'app-page', 'landing-page'];
+      for (const id of pageIds) {
+        const page = document.getElementById(id);
+        if (!page) continue;
+        if (!page.classList.contains('hidden')) {
+          return page;
+        }
+      }
+      return document.getElementById('landing-page');
+    }
+
+    function printPage() {
+      const summaryModal = document.getElementById('summary-modal');
+      const wasSummaryOpen = summaryModal && !summaryModal.classList.contains('hidden');
+
+      if (wasSummaryOpen) {
+        closeSummaryModal();
+      }
+
+      window.print();
+
+      if (wasSummaryOpen) {
+        openSummaryModal();
+      }
+    }
+    
+    // App page tab switching
+    function switchAppTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content-app');
+      const buttons = document.querySelectorAll('.tab-btn-app');
+      
+      tabs.forEach(tab => tab.classList.add('hidden'));
+      buttons.forEach(btn => btn.classList.remove('active', 'bg-white/50'));
+      buttons.forEach(btn => btn.classList.add('bg-white/20'));
+      
+      document.getElementById(`app-${tabName}-tab`).classList.remove('hidden');
+      event.target.classList.add('active', 'bg-white/50');
+      event.target.classList.remove('bg-white/20');
+      
+      if (tabName === 'screens') {
+        setTimeout(initSketchCanvas, 100);
+      }
+    }
+    
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'מתכננים אב־טיפוס ראשון',
+      subtitle: 'בוחרים איך להמחיש את המוצר, מתכננים מה חשוב לראות ובונים בסיס ברור לקראת הדמיית AI.',
+      background_color: '#071a36',
+      text_color: '#ffffff',
+      accent_color: '#1e66a8',
+      font_family: 'Heebo'
+    };
+    
+    let config = { ...defaultConfig };
+    
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          updateUI();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (value) => {
+                cfg.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (value) => {
+                cfg.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => cfg.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                cfg.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => cfg.font_family || defaultConfig.font_family,
+            set: (value) => {
+              cfg.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['main_title', cfg.main_title || defaultConfig.main_title],
+          ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+    
+    function updateUI() {
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      const landingPage = document.getElementById('landing-page');
+      
+      if (mainTitle) {
+        mainTitle.textContent = config.main_title || defaultConfig.main_title;
+        mainTitle.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+      }
+      if (subtitle) {
+        subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+        subtitle.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+      }
+      
+      // Update gradient background
+      if (landingPage) {
+        const bgColor = config.background_color || defaultConfig.background_color;
+        const accentColor = config.accent_color || defaultConfig.accent_color;
+        landingPage.style.background = `linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%)`;
+      }
+    }
+    
+    // Initial UI update
+    updateUI();
+
+    function openSummaryModal() {
+      const modal = document.getElementById('summary-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSummaryModal() {
+      const modal = document.getElementById('summary-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function toggleOtherInput() {
+      const input = document.getElementById('other-input');
+      const radio = document.querySelector('input[name="step3"][value="other"]');
+      if (radio.checked) {
+        input.classList.remove('hidden');
+        input.focus();
+      } else {
+        input.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('summary-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeSummaryModal();
+    });
+
+    document.querySelectorAll('input[name="step3"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        if (this.value !== 'other') {
+          document.getElementById('other-input').classList.add('hidden');
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d6cf01024e5c227',t:'MTc3MjU4NTk2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
