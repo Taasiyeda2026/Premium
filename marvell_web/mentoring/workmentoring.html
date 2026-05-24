@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>דף הכנה להצגה | מנטורינג תעשייתי – מארוול</title>
+  <title>דף משוב בין קבוצות | מארוול</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -217,8 +217,9 @@
       background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
     }
 
-    .section-card.phase-b::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
-    .section-card.phase-c::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
+    .section-card.receiver::before { background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 100%); }
+    .section-card.giver::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
+    .section-card.next::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
 
     .intro-card,
     .section-card,
@@ -260,6 +261,35 @@
     .three-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .span-all { grid-column: 1 / -1; }
 
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .role-box {
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      padding: 12px;
+    }
+
+    .role-box strong {
+      display: block;
+      color: #123b64;
+      font-size: 1rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .role-box p {
+      color: #4f6078;
+      line-height: 1.55;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
     label {
       display: block;
       color: #18385c;
@@ -294,31 +324,17 @@
       background: #fbfdff;
     }
 
-    .type-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 8px;
+    .hint-box {
+      border: 1px solid rgba(53, 196, 232, 0.30);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(232, 248, 255, 0.92), rgba(246, 251, 255, 0.96));
+      padding: 10px 12px;
+      color: #31506f;
+      line-height: 1.55;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin: 8px 0 10px;
     }
-
-    .type-option {
-      flex: 1 1 0;
-      min-height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(120, 170, 220, 0.35);
-      background: linear-gradient(180deg, #ffffff, #eef6ff);
-      color: #40546f;
-      font-size: 0.84rem;
-      font-weight: 900;
-    }
-
-    .type-option input { width: auto; accent-color: var(--primary-2); }
 
     .summary-print-box {
       white-space: normal;
@@ -339,6 +355,19 @@
 
     .summary-spacer { height: 8px; }
 
+    .summary-title {
+      margin: 11px 0 6px;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: #ffffff;
+      background: linear-gradient(90deg, #123b64, #1e66a8);
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .summary-title.orange { background: linear-gradient(90deg, #c46b12, #f6a742); }
+    .summary-title.green { background: linear-gradient(90deg, #14724f, #3cc58f); }
+
     .summary-question {
       font-family: "Assistant", Arial, sans-serif;
       font-weight: 900;
@@ -352,25 +381,6 @@
       font-size: 0.96rem;
       color: #4f6078;
     }
-
-    .product-paths {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .product-path {
-      display: none;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(120, 170, 220, 0.34);
-      background: linear-gradient(180deg, #ffffff, #f2f7fd);
-    }
-
-    .product-path.is-active { display: block; }
-
-    .product-dependent { display: none; }
-    .has-product-type .product-dependent { display: block; }
 
     .print-logo { display: none; }
 
@@ -419,8 +429,7 @@
       .home-link { position: static; margin-bottom: 10px; }
       .brand { flex-direction: column; }
       .nav { position: static; grid-template-columns: 1fr; }
-      .team-grid, .two-grid, .three-grid { grid-template-columns: 1fr; }
-      .type-row { grid-template-columns: 1fr; }
+      .team-grid, .two-grid, .three-grid, .role-grid { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -511,7 +520,7 @@
 </head>
 <body>
   <div class="page">
-    <div class="topbar">דף הכנה להצגה בפני אנשי מארוול</div>
+    <div class="topbar">דף משוב בין קבוצות | פרימיום מארוול</div>
 
     <header class="header">
       <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
@@ -520,22 +529,22 @@
       <div class="brand">
         <img src="../images/logo.png" alt="לוגו תעשיידע">
         <div class="brand-copy">
-          <h1>מנטורינג תעשייתי - מארוול</h1>
-          <p>מנסחים הצגה קצרה, ברורה ומקצועית של הרעיון, סוג המוצר והאפיון הראשוני.</p>
+          <h1>משוב קצר בין קבוצות</h1>
+          <p>מציגים רעיון, מקבלים תגובה קצרה, ובוחרים שיפור אחד להמשך.</p>
         </div>
       </div>
     </header>
 
     <nav class="nav" aria-label="ניווט בדף">
-      <a href="#partA">מה נציג?</a>
-      <a href="#productTypeSection">סוג מוצר</a>
-      <a href="#summary">טקסט ההצגה</a>
+      <a href="#receivingFeedback">מקבלים משוב</a>
+      <a href="#givingFeedback">נותנים משוב</a>
+      <a href="#summary">סיכום להמשך</a>
     </nav>
 
     <main class="content">
       <section class="intro-card">
         <h2>מטרת הדף</h2>
-        <p class="subtext">להכין את הקבוצה להצגה קצרה וברורה בפני אנשי מארוול. בעזרת הדף ננסח מה להגיד במפגש: מה הבעיה, מה הרעיון שלנו, מה סוג המוצר ואיך הוא אמור לעבוד.</p>
+        <p class="subtext">הדף נועד למשוב קצר, פשוט ונעים בין קבוצות. הקבוצה המציגה נערכת עם תשובות קצרות על הבעיה, הפתרון והאב־טיפוס. הקבוצה המקשיבה בודקת מה הבינה, מה ברור ומה כדאי לחזק.</p>
         <div class="team-grid">
           <div>
             <label for="teamMembers">שמות חברי הקבוצה</label>
@@ -545,143 +554,102 @@
             <label for="ventureName">שם המיזם</label>
             <input id="ventureName" type="text" placeholder="כתבו את שם המיזם">
           </div>
+          <div class="span-all">
+            <label for="partnerGroup">שם הקבוצה שנותנת / מקבלת משוב</label>
+            <input id="partnerGroup" type="text" placeholder="כתבו את שם הקבוצה השנייה, אם יש">
+          </div>
         </div>
       </section>
 
-      <section class="section-card" id="partA">
-        <h2>מה אנחנו צריכים להציג?</h2>
-        <p class="subtext">במפגש נציג בקצרה את הבעיה, הרעיון, סוג המוצר, דרך הפעולה והשלבים הבאים אחרי המנטורינג.</p>
+      <section class="section-card">
+        <h2>איך המשוב עובד?</h2>
+        <p class="subtext">בכל סבב יש שני צדדים: קבוצה אחת מציגה ומקבלת משוב, וקבוצה שנייה מקשיבה ונותנת משוב. לאחר מכן אפשר להחליף תפקידים.</p>
+        <div class="role-grid">
+          <div class="role-box">
+            <strong>צד 1 — הקבוצה שמקבלת משוב</strong>
+            <p>מציגה בקצרה את הבעיה, הפתרון, קהל היעד ומה חשוב לה לבדוק עכשיו. הקבוצה לא מגנה על הרעיון, אלא מקשיבה כדי להבין מה אפשר לשפר.</p>
+          </div>
+          <div class="role-box">
+            <strong>צד 2 — הקבוצה שנותנת משוב</strong>
+            <p>מקשיבה להצגה, כותבת מה הבינה, מה אהבה, מה לא היה ברור, ומהי הצעה אחת לשיפור. המשוב צריך להיות ענייני, קצר ומכבד.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="section-card">
-        <h3>1. הבעיה שבחרנו</h3>
-        <label for="problem">מה נגיד על הבעיה?</label>
-        <textarea id="problem" class="tall" placeholder="הבעיה שבחרנו היא..."></textarea>
-        <div class="two-grid" style="margin-top:10px;">
+      <section class="section-card receiver" id="receivingFeedback">
+        <h2>צד 1 — אנחנו מציגים ומקבלים משוב</h2>
+        <p class="subtext">הכינו הצגה קצרה וברורה של המיזם. המטרה היא שהקבוצה השנייה תבין מה אתם מפתחים, למי זה מיועד ומה כבר אפשר לראות באב־טיפוס.</p>
+        <div class="hint-box">הצגה מומלצת: דקה עד שתי דקות. ענו בקצרה על כל שאלה, בלי להיכנס להסברים ארוכים.</div>
+
+        <div class="two-grid">
           <div>
-            <label for="targetAudience">למי הבעיה מפריעה?</label>
-            <textarea id="targetAudience" class="short" placeholder="הבעיה מפריעה ל..."></textarea>
+            <label for="presenterProblem">מה הבעיה?</label>
+            <textarea id="presenterProblem" class="short" placeholder="כתבו בקצרה איזו בעיה או צורך זיהיתם"></textarea>
           </div>
           <div>
-            <label for="problemWhere">הבעיה מתרחשת כאשר:</label>
-            <textarea id="problemWhere" class="short" placeholder="הבעיה מתרחשת כאשר..."></textarea>
+            <label for="presenterAudience">למי זה מיועד?</label>
+            <textarea id="presenterAudience" class="short" placeholder="כתבו מי המשתמשים או קהל היעד"></textarea>
+          </div>
+          <div>
+            <label for="presenterSolution">מה הפתרון?</label>
+            <textarea id="presenterSolution" class="short" placeholder="כתבו מה המוצר או הרעיון שלכם מציע"></textarea>
+          </div>
+          <div>
+            <label for="presenterHow">איך זה עובד?</label>
+            <textarea id="presenterHow" class="short" placeholder="כתבו בקצרה מה המשתמש עושה ומה המוצר עושה"></textarea>
+          </div>
+          <div>
+            <label for="presenterValue">מה הערך למשתמש?</label>
+            <textarea id="presenterValue" class="short" placeholder="כתבו מה המשתמש מרוויח: חיסכון בזמן, סדר, נוחות, בטיחות, דיוק או חוויה טובה יותר"></textarea>
+          </div>
+          <div>
+            <label for="presenterPrototype">מה רואים באב־טיפוס?</label>
+            <textarea id="presenterPrototype" class="short" placeholder="כתבו מה כבר אפשר לראות: מסכים, כפתורים, תהליך, דגם, המחשה או פעולה מרכזית"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card giver" id="givingFeedback">
+        <h2>צד 2 — אנחנו מקשיבים ונותנים משוב</h2>
+        <p class="subtext">הקשיבו לקבוצה המציגה וכתבו משוב קצר שיעזור לה להבין מה עבר טוב ומה כדאי לחזק בהמשך.</p>
+        <div class="hint-box">כתבו פשוט וברור. המשוב לא צריך להיות ארוך — מספיק משפט אחד או שניים בכל שדה.</div>
+
+        <div class="two-grid">
+          <div>
+            <label for="listenerProduct">מהו המוצר?</label>
+            <textarea id="listenerProduct" class="short" placeholder="כתבו מה הבנתם שהמוצר עושה"></textarea>
+          </div>
+          <div>
+            <label for="listenerAudience">למי זה מיועד?</label>
+            <textarea id="listenerAudience" class="short" placeholder="כתבו למי הבנתם שהמוצר מיועד"></textarea>
+          </div>
+          <div>
+            <label for="listenerValue">מה הערך שלו?</label>
+            <textarea id="listenerValue" class="short" placeholder="כתבו מה הערך או היתרון של המוצר בעיניכם"></textarea>
+          </div>
+          <div>
+            <label for="listenerClear">מה היה ברור?</label>
+            <textarea id="listenerClear" class="short" placeholder="כתבו מה הוסבר טוב או עבר בצורה ברורה"></textarea>
           </div>
           <div class="span-all">
-            <label for="problemWhy">הבעיה חשובה כי:</label>
-            <textarea id="problemWhy" class="short" placeholder="הבעיה חשובה כי..."></textarea>
+            <label for="listenerStrengthen">מה צריך לחזק?</label>
+            <textarea id="listenerStrengthen" class="short" placeholder="כתבו מה כדאי להסביר, לשפר, להוסיף או לדייק"></textarea>
           </div>
         </div>
       </section>
 
-      <section class="section-card">
-        <h3>2. הרעיון שלנו</h3>
-        <label for="idea">מה נגיד על הרעיון?</label>
-        <textarea id="idea" class="tall" placeholder="הרעיון שלנו הוא..."></textarea>
-        <label for="ideaHelps" style="margin-top:10px;">הרעיון מתמודד עם הבעיה בכך שהוא:</label>
-        <textarea id="ideaHelps" class="short" placeholder="משפר / משדרג / פותר / מדייק / מונע / מאפשר..."></textarea>
-        <label for="valueText" style="margin-top:10px;">מה הערך למשתמש?</label>
-        <textarea id="valueText" class="short" placeholder="הערך למשתמש הוא חיסכון בזמן, פחות טעויות, פעולה פשוטה יותר, חוויה טובה יותר, סדר, בטיחות או יעילות..."></textarea>
-      </section>
-
-      <section class="section-card phase-b" id="productTypeSection">
-        <h3>3. סוג המוצר וכיוון הפיתוח</h3>
-        <label>המוצר שלנו הוא:</label>
-        <div class="type-row">
-          <label class="type-option"><input type="radio" name="productType" id="typeNone" value="" checked> ללא בחירה</label>
-          <label class="type-option"><input type="radio" name="productType" id="typePhysical" value="מוצר פיזי"> מוצר פיזי</label>
-          <label class="type-option"><input type="radio" name="productType" id="typeDigital" value="מוצר דיגיטלי"> מוצר דיגיטלי</label>
-          <label class="type-option"><input type="radio" name="productType" id="typeHybrid" value="מוצר משולב"> מוצר משולב</label>
-        </div>
-        <label for="mainAction" style="margin-top:10px;">הפעולה המרכזית של המוצר:</label>
-        <textarea id="mainAction" class="short" placeholder="המוצר אמור לזהות / להתריע / למדוד / להציג / לעבד מידע / לחבר בין פעולות..."></textarea>
-        <label for="developmentDirection" style="margin-top:10px;">כיוון הפיתוח שלנו:</label>
-        <textarea id="developmentDirection" class="short" placeholder="כיוון הפיתוח שלנו הוא..."></textarea>
-      </section>
-
-      <section class="section-card phase-b product-dependent">
-        <h3>4. איך המוצר אמור להיות בנוי?</h3>
-        <p class="subtext">לאחר בחירת סוג המוצר ייפתחו השאלות המתאימות לאפיון שלו.</p>
-
-        <div class="product-paths">
-          <div class="product-path" data-path="physical">
-            <h3>אפיון מוצר פיזי</h3>
-            <div class="two-grid">
-              <div>
-                <label for="physicalSize">מה הגודל המשוער של המוצר?</label>
-                <textarea id="physicalSize" class="short" placeholder="קטן / בינוני / גדול, מתאים ליד / לשולחן / לסביבת עבודה..."></textarea>
-              </div>
-              <div>
-                <label for="physicalShape">מה הצורה או המבנה החיצוני שלו?</label>
-                <textarea id="physicalShape" class="short" placeholder="קופסה, מתקן, ידית, חיישן, עמדת בדיקה, רכיב שמתחבר למשהו..."></textarea>
-              </div>
-              <div>
-                <label for="physicalParts">מאילו חלקים או רכיבים הוא יהיה בנוי?</label>
-                <textarea id="physicalParts" class="short" placeholder="חיישן, כפתור, נורה, מסך קטן, מארז, מחבר, מנגנון..."></textarea>
-              </div>
-              <div>
-                <label for="physicalUse">איך משתמשים בו בפועל?</label>
-                <textarea id="physicalUse" class="short" placeholder="מחזיקים / מניחים / מחברים / מפעילים / בודקים / מקבלים סימון..."></textarea>
-              </div>
-              <div class="span-all">
-                <label for="physicalMustWork">מה חייב לעבוד במוצר הפיזי כדי שהוא יצליח?</label>
-                <textarea id="physicalMustWork" class="short" placeholder="החיישן, המנגנון, החיבור, ההתראה, הקריאה או התגובה של המוצר..."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-path" data-path="digital">
-            <h3>אפיון מוצר דיגיטלי</h3>
-            <div class="three-grid">
-              <div>
-                <label for="digitalScreen1">מסך 1 – מסך פתיחה / כניסה</label>
-                <textarea id="digitalScreen1" class="short" placeholder="מה רואים במסך הראשון ומה המשתמש עושה בו?"></textarea>
-              </div>
-              <div>
-                <label for="digitalScreen2">מסך 2 – פעולה מרכזית</label>
-                <textarea id="digitalScreen2" class="short" placeholder="שאלון, בחירה, העלאת מידע, בדיקה או פעולה מרכזית..."></textarea>
-              </div>
-              <div>
-                <label for="digitalScreen3">מסך 3 – תוצאה / המלצה</label>
-                <textarea id="digitalScreen3" class="short" placeholder="מה המשתמש מקבל בסוף: תוצאה, המלצה, התראה או סיכום?"></textarea>
-              </div>
-            </div>
-            <div class="two-grid" style="margin-top:10px;">
-              <div>
-                <label for="digitalInput">איזה מידע המשתמש מזין או המערכת מקבלת?</label>
-                <textarea id="digitalInput" class="short" placeholder="בחירה, נתונים, תמונה, תשובה לשאלה, מדידה, מצב תקלה..."></textarea>
-              </div>
-              <div>
-                <label for="digitalAction">מה המערכת עושה עם המידע?</label>
-                <textarea id="digitalAction" class="short" placeholder="בודקת, משווה, מדרגת, מזהה, מחשבת, מסווגת, שולחת התראה..."></textarea>
-              </div>
-              <div>
-                <label for="digitalOutput">מה המשתמש מקבל בסוף?</label>
-                <textarea id="digitalOutput" class="short" placeholder="תוצאה, המלצה, התראה, הוראה לפעולה, סיכום, אישור או דוח קצר..."></textarea>
-              </div>
-              <div class="span-all">
-                <label for="digitalMustWork">מה חייב לעבוד במוצר הדיגיטלי כדי שהוא יצליח?</label>
-                <textarea id="digitalMustWork" class="short" placeholder="המסך המרכזי, הזנת המידע, עיבוד הנתונים, ההמלצה או ההתראה..."></textarea>
-              </div>
-            </div>
-          </div>
+      <section class="section-card next">
+        <h2>מה עושים עם המשוב?</h2>
+        <p class="subtext">לא משנים הכול. בוחרים שיפור אחד ברור שאפשר לבצע בהמשך העבודה.</p>
+        <div>
+          <label for="nextStep">השיפור שנבחר להמשך</label>
+          <textarea id="nextStep" class="short" placeholder="בעקבות המשוב, נרצה לשפר את..."></textarea>
         </div>
       </section>
 
-      <section class="section-card phase-c product-dependent">
-        <h3>5. תרחיש שימוש קצר – מה קורה ברגע האמת?</h3>
-        <p class="subtext">כאן לא מתארים שוב את המבנה של המוצר, אלא רגע שימוש אחד: מי משתמש, מה הוא עושה ומה משתנה בסוף.</p>
-        <div class="three-grid">
-          <div><label for="step1">מי משתמש במוצר ובאיזה מצב?</label><textarea id="step1" class="short" placeholder="לדוגמה: עובד, תלמיד, משתמש, מנהל או לקוח שנתקל בבעיה..."></textarea></div>
-          <div><label for="step2">מה הפעולה הראשונה שהוא עושה?</label><textarea id="step2" class="short" placeholder="פותח, מניח, סורק, בוחר, מזין מידע, מפעיל או בודק..."></textarea></div>
-          <div><label for="step3">מה המוצר מחזיר או מאפשר?</label><textarea id="step3" class="short" placeholder="התראה, המלצה, תוצאה, סימון, פעולה ברורה או החלטה טובה יותר..."></textarea></div>
-        </div>
-        <label for="result" style="margin-top:10px;">מה משתפר בעקבות השימוש?</label>
-        <textarea id="result" class="short" placeholder="פחות טעויות, יותר סדר, תהליך מהיר יותר, החלטה ברורה יותר, בטיחות או יעילות..."></textarea>
-      </section>
-
-      <section class="summary-card product-dependent" id="summary">
+      <section class="summary-card" id="summary">
         <div class="print-logo"><img src="../images/logo.png" alt="לוגו תעשיידע"></div>
-        <h2>טקסט ההצגה – מנטורינג תעשייתי</h2>
+        <h2>סיכום המשוב להמשך עבודה</h2>
         <div class="summary-print-box" id="summaryPrintBox"></div>
       </section>
     </main>
@@ -698,7 +666,7 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'marvellPresentationPreparation_fullCorrected_v1';
+      var STORAGE_KEY = 'marvellPeerFeedback_v1';
       var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'));
       var summaryPrintBox = document.getElementById('summaryPrintBox');
 
@@ -707,18 +675,6 @@
       function valueOf(id) {
         var field = byId(id);
         return field ? String(field.value || '').trim() : '';
-      }
-
-      function checked(id) {
-        var field = byId(id);
-        return field ? field.checked : false;
-      }
-
-      function productTypeText() {
-        if (checked('typeHybrid')) return 'מוצר משולב';
-        if (checked('typePhysical')) return 'מוצר פיזי';
-        if (checked('typeDigital')) return 'מוצר דיגיטלי';
-        return '____________________________';
       }
 
       function escapeHtml(text) {
@@ -730,130 +686,68 @@
           .replace(/'/g, '&#039;');
       }
 
+      function fallback(value) {
+        return value || '____________________________';
+      }
+
       function summaryLine(question, answer) {
-        return '<p class="summary-line"><span class="summary-question">' + escapeHtml(question) + '</span> <span class="summary-answer">' + escapeHtml(answer) + '</span></p>';
+        return '<p class="summary-line"><span class="summary-question">' + escapeHtml(question) + '</span> <span class="summary-answer">' + escapeHtml(fallback(answer)) + '</span></p>';
       }
 
       function summarySpacer() {
         return '<div class="summary-spacer"></div>';
       }
 
-      function updateProductPaths() {
-        var mode = checked('typePhysical') ? 'physical' : checked('typeDigital') ? 'digital' : checked('typeHybrid') ? 'hybrid' : '';
-        var page = document.querySelector('.page');
-        if (page) {
-          page.classList.toggle('has-product-type', mode === 'physical' || mode === 'digital' || mode === 'hybrid');
-        }
-        document.querySelectorAll('.product-path').forEach(function (path) {
-          var pathType = path.getAttribute('data-path');
-          var active = pathType === mode || mode === 'hybrid';
-          path.classList.toggle('is-active', active);
-        });
-      }
-
-      function productTypeSummaryLines(data) {
-        if (checked('typePhysical')) {
-          return [
-            summaryLine('גודל משוער של המוצר:', data.physicalSize),
-            summaryLine('צורה או מבנה חיצוני:', data.physicalShape),
-            summaryLine('חלקים או רכיבים מרכזיים:', data.physicalParts),
-            summaryLine('אופן השימוש במוצר:', data.physicalUse),
-            summaryLine('מה חייב לעבוד במוצר הפיזי:', data.physicalMustWork)
-          ].join('');
-        }
-
-        if (checked('typeDigital')) {
-          return [
-            summaryLine('מסך 1 – פתיחה / כניסה:', data.digitalScreen1),
-            summaryLine('מסך 2 – פעולה מרכזית:', data.digitalScreen2),
-            summaryLine('מסך 3 – תוצאה / המלצה:', data.digitalScreen3),
-            summaryLine('המידע שנכנס למערכת:', data.digitalInput),
-            summaryLine('מה המערכת עושה עם המידע:', data.digitalAction),
-            summaryLine('מה המשתמש מקבל בסוף:', data.digitalOutput),
-            summaryLine('מה חייב לעבוד במוצר הדיגיטלי:', data.digitalMustWork)
-          ].join('');
-        }
-
-        if (checked('typeHybrid')) {
-          return [
-            summaryLine('רכיבי המוצר הפיזי:', data.physicalParts),
-            summaryLine('אופן השימוש בחלק הפיזי:', data.physicalUse),
-            summaryLine('מסך 1 – פתיחה / כניסה:', data.digitalScreen1),
-            summaryLine('מסך 2 – פעולה מרכזית:', data.digitalScreen2),
-            summaryLine('מסך 3 – תוצאה / המלצה:', data.digitalScreen3),
-            summaryLine('מה המערכת הדיגיטלית עושה:', data.digitalAction),
-            summaryLine('מה חייב לעבוד במוצר המשולב:', 'החלק הפיזי: ' + data.physicalMustWork + ' | החלק הדיגיטלי: ' + data.digitalMustWork)
-          ].join('');
-        }
-
-        return summaryLine('אפיון המוצר לפי סוג המוצר:', '____________________________');
+      function summaryTitle(text, className) {
+        var extraClass = className ? ' ' + className : '';
+        return '<div class="summary-title' + extraClass + '">' + escapeHtml(text) + '</div>';
       }
 
       function buildScript() {
-        var teamMembers = valueOf('teamMembers') || '____________________________';
-        var ventureName = valueOf('ventureName') || '____________________________';
-        var problem = valueOf('problem') || '____________________________';
-        var targetAudience = valueOf('targetAudience') || '____________________________';
-        var problemWhere = valueOf('problemWhere') || '____________________________';
-        var problemWhy = valueOf('problemWhy') || '____________________________';
-        var idea = valueOf('idea') || '____________________________';
-        var ideaImpact = valueOf('ideaHelps') || '____________________________';
-        var valueText = valueOf('valueText') || '____________________________';
-        var mainAction = valueOf('mainAction') || '____________________________';
-        var developmentDirection = valueOf('developmentDirection') || '____________________________';
-        var physicalSize = valueOf('physicalSize') || '____________________________';
-        var physicalShape = valueOf('physicalShape') || '____________________________';
-        var physicalParts = valueOf('physicalParts') || '____________________________';
-        var physicalUse = valueOf('physicalUse') || '____________________________';
-        var physicalMustWork = valueOf('physicalMustWork') || '____________________________';
-        var digitalScreen1 = valueOf('digitalScreen1') || '____________________________';
-        var digitalScreen2 = valueOf('digitalScreen2') || '____________________________';
-        var digitalScreen3 = valueOf('digitalScreen3') || '____________________________';
-        var digitalInput = valueOf('digitalInput') || '____________________________';
-        var digitalAction = valueOf('digitalAction') || '____________________________';
-        var digitalOutput = valueOf('digitalOutput') || '____________________________';
-        var digitalMustWork = valueOf('digitalMustWork') || '____________________________';
-        var step1 = valueOf('step1') || '____________________________';
-        var step2 = valueOf('step2') || '____________________________';
-        var step3 = valueOf('step3') || '____________________________';
-        var result = valueOf('result') || '____________________________';
+        var teamMembers = valueOf('teamMembers');
+        var ventureName = valueOf('ventureName');
+        var partnerGroup = valueOf('partnerGroup');
+
+        var presenterProblem = valueOf('presenterProblem');
+        var presenterAudience = valueOf('presenterAudience');
+        var presenterSolution = valueOf('presenterSolution');
+        var presenterHow = valueOf('presenterHow');
+        var presenterValue = valueOf('presenterValue');
+        var presenterPrototype = valueOf('presenterPrototype');
+
+        var listenerProduct = valueOf('listenerProduct');
+        var listenerAudience = valueOf('listenerAudience');
+        var listenerValue = valueOf('listenerValue');
+        var listenerClear = valueOf('listenerClear');
+        var listenerStrengthen = valueOf('listenerStrengthen');
+
+        var nextStep = valueOf('nextStep');
 
         return [
-          summaryLine('שמות התלמידים:', teamMembers),
+          summaryLine('שמות חברי הקבוצה:', teamMembers),
           summaryLine('שם המיזם:', ventureName),
+          summaryLine('הקבוצה השנייה:', partnerGroup),
           summarySpacer(),
-          summaryLine('זיהינו בעיה שבה:', problem),
-          summaryLine('הבעיה מפריעה ל:', targetAudience),
-          summaryLine('הבעיה מתרחשת כאשר:', problemWhere),
-          summaryLine('הבעיה חשובה כי:', problemWhy),
+
+          summaryTitle('המציגים נערכים לפי'),
+          summaryLine('מה הבעיה?', presenterProblem),
+          summaryLine('למי זה מיועד?', presenterAudience),
+          summaryLine('מה הפתרון?', presenterSolution),
+          summaryLine('איך זה עובד?', presenterHow),
+          summaryLine('מה הערך למשתמש?', presenterValue),
+          summaryLine('מה רואים באב־טיפוס?', presenterPrototype),
           summarySpacer(),
-          summaryLine('הרעיון שלנו הוא:', idea),
-          summaryLine('הרעיון מתמודד עם הבעיה בכך שהוא:', ideaImpact),
-          summaryLine('הערך למשתמש הוא:', valueText),
+
+          summaryTitle('המקשיבים נותנים משוב לפי', 'orange'),
+          summaryLine('מהו המוצר?', listenerProduct),
+          summaryLine('למי זה מיועד?', listenerAudience),
+          summaryLine('מה הערך שלו?', listenerValue),
+          summaryLine('מה היה ברור?', listenerClear),
+          summaryLine('מה צריך לחזק?', listenerStrengthen),
           summarySpacer(),
-          summaryLine('המוצר שלנו הוא:', productTypeText()),
-          summaryLine('הפעולה המרכזית שלו היא:', mainAction),
-          summaryLine('כיוון הפיתוח שלנו הוא:', developmentDirection),
-          summarySpacer(),
-          productTypeSummaryLines({
-            physicalSize: physicalSize,
-            physicalShape: physicalShape,
-            physicalParts: physicalParts,
-            physicalUse: physicalUse,
-            physicalMustWork: physicalMustWork,
-            digitalScreen1: digitalScreen1,
-            digitalScreen2: digitalScreen2,
-            digitalScreen3: digitalScreen3,
-            digitalInput: digitalInput,
-            digitalAction: digitalAction,
-            digitalOutput: digitalOutput,
-            digitalMustWork: digitalMustWork
-          }),
-          summarySpacer(),
-          summaryLine('תרחיש השימוש הוא:', step1 + ' מבצע/ת ' + step2 + ' והמוצר מחזיר או מאפשר ' + step3 + '.'),
-          summaryLine('בעקבות השימוש משתפר:', result),
-          summarySpacer(),
-          summaryLine('השלבים הבאים:', 'אחרי המנטורינג נשתמש במשוב שנקבל כדי לשפר את הרעיון, לדייק את האפיון, להבין מה עדיין חסר או לא ברור ולהתקדם לשלב הבא: בניית אבטיפוס והדמיה מציאותית של המוצר המערכת או האפליקציה באמצעות AI.')
+
+          summaryTitle('השיפור שנבחר להמשך', 'green'),
+          summaryLine('בעקבות המשוב נרצה לשפר את:', nextStep)
         ].join('');
       }
 
@@ -875,7 +769,6 @@
       }
 
       function updateScript() {
-        updateProductPaths();
         if (summaryPrintBox) summaryPrintBox.innerHTML = buildScript();
       }
 
@@ -905,9 +798,6 @@
             if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
             else field.value = '';
           });
-
-          var typeNone = byId('typeNone');
-          if (typeNone) typeNone.checked = true;
 
           try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
 
