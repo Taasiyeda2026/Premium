@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>דף משוב בין קבוצות | מארוול</title>
+  <title>משוב, SWOT ושיפור אב־טיפוס | מארוול</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-deep: #071a36;
-      --bg-mid: #0d2045;
       --text: #10213d;
       --muted: #5f708b;
-      --line: rgba(140, 184, 230, 0.34);
       --primary: #0d2045;
       --primary-2: #1e66a8;
       --cyan: #35c4e8;
-      --cyan-soft: #9cecff;
       --orange: #f6a742;
       --green: #3cc58f;
-      --shadow: 0 28px 70px rgba(0, 7, 22, 0.42);
-      --soft-shadow: 0 18px 42px rgba(0, 16, 45, 0.22);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,9 +57,7 @@
         linear-gradient(180deg, rgba(10, 33, 69, 0.94), rgba(6, 19, 41, 0.96));
       border: 1px solid rgba(131, 190, 255, 0.30);
       border-radius: 26px;
-      box-shadow:
-        0 34px 90px rgba(0, 0, 0, 0.44),
-        inset 0 1px 0 rgba(255,255,255,0.12);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255,255,255,0.12);
       overflow: hidden;
       position: relative;
     }
@@ -157,7 +150,7 @@
       top: 0;
       z-index: 10;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
       padding: 8px 20px;
       background: rgba(6, 19, 41, 0.84);
@@ -165,7 +158,8 @@
       backdrop-filter: blur(14px);
     }
 
-    .nav a {
+    .nav a,
+    .nav button {
       min-height: 38px;
       display: inline-flex;
       align-items: center;
@@ -181,6 +175,7 @@
       font-size: 0.76rem;
       font-weight: 900;
       line-height: 1.1;
+      cursor: pointer;
     }
 
     .content {
@@ -198,9 +193,7 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
       border: 1px solid rgba(140, 184, 230, 0.40);
       border-radius: 20px;
-      box-shadow:
-        0 20px 46px rgba(0, 10, 32, 0.28),
-        inset 0 1px 0 rgba(255,255,255,0.82);
+      box-shadow: 0 20px 46px rgba(0, 10, 32, 0.28), inset 0 1px 0 rgba(255,255,255,0.82);
       overflow: hidden;
       position: relative;
     }
@@ -217,9 +210,8 @@
       background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
     }
 
-    .section-card.receiver::before { background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 100%); }
-    .section-card.giver::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
-    .section-card.next::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
+    .section-card.swot::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
+    .section-card.feedback::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
 
     .intro-card,
     .section-card,
@@ -251,7 +243,8 @@
 
     .team-grid,
     .two-grid,
-    .three-grid {
+    .three-grid,
+    .swot-grid {
       display: grid;
       gap: 10px;
     }
@@ -259,36 +252,8 @@
     .team-grid,
     .two-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .three-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .swot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .span-all { grid-column: 1 / -1; }
-
-    .role-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .role-box {
-      border: 1px solid rgba(120, 170, 220, 0.34);
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffffff, #f2f7fd);
-      padding: 12px;
-    }
-
-    .role-box strong {
-      display: block;
-      color: #123b64;
-      font-size: 1rem;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-
-    .role-box p {
-      color: #4f6078;
-      line-height: 1.55;
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
 
     label {
       display: block;
@@ -324,7 +289,8 @@
       background: #fbfdff;
     }
 
-    .hint-box {
+    .hint-box,
+    .empty-state {
       border: 1px solid rgba(53, 196, 232, 0.30);
       border-radius: 14px;
       background: linear-gradient(180deg, rgba(232, 248, 255, 0.92), rgba(246, 251, 255, 0.96));
@@ -335,6 +301,174 @@
       font-weight: 700;
       margin: 8px 0 10px;
     }
+
+    .empty-state {
+      text-align: center;
+      padding: 18px 14px;
+      color: #40546f;
+    }
+
+    .compact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: end;
+      margin-top: 8px;
+    }
+
+    .compact-field { flex: 1 1 210px; }
+    .compact-select { max-width: 190px; }
+
+    .continue-row,
+    .compact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .compact-actions {
+      justify-content: flex-start;
+      margin: 0 0 12px;
+    }
+
+    .swot-section { display: none; }
+    .swot-section.is-visible { display: block; }
+
+    .feedback-form-section,
+    .feedback-print-card { display: none; }
+
+    body.feedback-mode .main-view,
+    body.feedback-mode .main-summary,
+    body.feedback-mode .action-panel {
+      display: none !important;
+    }
+
+    body.feedback-mode .feedback-form-section {
+      display: block !important;
+    }
+
+    .swot-intro {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .swot-title {
+      color: #123b64;
+      font-size: clamp(1.7rem, 3vw, 2.45rem);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-shadow: 0 3px 10px rgba(30, 102, 168, 0.18);
+    }
+
+    .swot-subtitle {
+      margin-top: 4px;
+      color: #31506f;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .swot-card {
+      position: relative;
+      min-height: 205px;
+      border: 1px solid rgba(53, 196, 232, 0.35);
+      border-radius: 18px;
+      background: radial-gradient(circle at 92% 6%, rgba(53, 196, 232, 0.18), transparent 32%), linear-gradient(180deg, #ffffff, #f2f7fd);
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.86), 0 14px 28px rgba(0, 25, 70, 0.12);
+      overflow: hidden;
+    }
+
+    .swot-card::after {
+      content: attr(data-letter);
+      position: absolute;
+      top: 6px;
+      left: 12px;
+      color: rgba(30, 102, 168, 0.13);
+      font-size: 4.8rem;
+      line-height: 1;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    .swot-card h3 { margin: 0 0 4px; color: #0d3a76; font-size: 1.12rem; }
+    .swot-card p { color: #5f708b; font-size: 0.84rem; line-height: 1.45; font-weight: 700; margin-bottom: 9px; max-width: 88%; }
+    .swot-card textarea { min-height: 92px; position: relative; z-index: 1; }
+
+    .feedback-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 10px 0 8px;
+    }
+
+    .feedback-tab {
+      border: 1px solid rgba(246, 167, 66, 0.45);
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7ed, #ffffff);
+      color: #8a4a0d;
+      padding: 6px 10px;
+      min-width: 74px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .feedback-tab.is-active {
+      color: #ffffff;
+      background: linear-gradient(90deg, #f08a24, #f6a742);
+      box-shadow: 0 8px 18px rgba(246, 167, 66, 0.22);
+    }
+
+    .feedback-card {
+      display: none;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      padding: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.86), 0 12px 24px rgba(0, 25, 70, 0.10);
+    }
+
+    .feedback-card.is-visible { display: block; }
+
+    .feedback-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .feedback-card-header h3 { margin: 0; }
+
+    .rating-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .rating-option {
+      flex: 1 1 38px;
+      min-width: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      border-radius: 10px;
+      padding: 6px;
+      background: #ffffff;
+      color: #31506f;
+      font-size: 0.82rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .rating-option input { width: auto; accent-color: var(--primary-2); }
 
     .summary-print-box {
       white-space: normal;
@@ -348,11 +482,7 @@
       font-weight: 500;
     }
 
-    .summary-line {
-      margin: 0 0 7px;
-      font-weight: 500;
-    }
-
+    .summary-line { margin: 0 0 7px; font-weight: 500; }
     .summary-spacer { height: 8px; }
 
     .summary-title {
@@ -368,27 +498,11 @@
     .summary-title.orange { background: linear-gradient(90deg, #c46b12, #f6a742); }
     .summary-title.green { background: linear-gradient(90deg, #14724f, #3cc58f); }
 
-    .summary-question {
-      font-family: "Assistant", Arial, sans-serif;
-      font-weight: 900;
-      font-size: 1.06rem;
-      color: #123b64;
-    }
-
-    .summary-answer {
-      font-family: "Assistant", Arial, sans-serif;
-      font-weight: 500;
-      font-size: 0.96rem;
-      color: #4f6078;
-    }
+    .summary-question { font-weight: 900; font-size: 1.06rem; color: #123b64; }
+    .summary-answer { font-weight: 500; font-size: 0.96rem; color: #4f6078; }
 
     .print-logo { display: none; }
-
-    .print-logo img {
-      width: 58px;
-      height: 58px;
-      object-fit: contain;
-    }
+    .print-logo img { width: 58px; height: 58px; object-fit: contain; }
 
     .action-panel {
       position: relative;
@@ -422,6 +536,9 @@
     .btn:hover { transform: translateY(-1px); }
     .btn.secondary { color: #40546f; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
     .btn.accent { color: white; background: linear-gradient(90deg, #f08a24, #f6a742); }
+    .btn.primary { color: white; background: linear-gradient(90deg, #123b64, #1e66a8); }
+    .btn.compact { min-width: 0; padding: 5px 9px; font-size: 0.72rem; }
+
     .footer { position: relative; z-index: 2; padding: 12px 14px 18px; text-align: center; color: #b8d9f7; font-weight: 700; }
 
     @media (max-width: 860px) {
@@ -429,18 +546,13 @@
       .home-link { position: static; margin-bottom: 10px; }
       .brand { flex-direction: column; }
       .nav { position: static; grid-template-columns: 1fr; }
-      .team-grid, .two-grid, .three-grid, .role-grid { grid-template-columns: 1fr; }
+      .team-grid, .two-grid, .three-grid, .swot-grid { grid-template-columns: 1fr; }
+      .compact-select { max-width: none; }
     }
 
     @media print {
       @page { margin: 12mm; }
-
-      body {
-        zoom: 1;
-        padding: 0;
-        background: #ffffff !important;
-      }
-
+      body { zoom: 1; padding: 0; background: #ffffff !important; }
       body::before,
       .topbar,
       .header,
@@ -448,9 +560,7 @@
       .intro-card,
       .section-card,
       .action-panel,
-      .footer {
-        display: none !important;
-      }
+      .footer { display: none !important; }
 
       .page,
       .content,
@@ -468,9 +578,24 @@
 
       .page::before,
       .summary-card::before { display: none !important; }
+      .summary-card { position: relative !important; }
 
-      .summary-card {
-        position: relative !important;
+      body:not(.print-feedback) .feedback-print-card { display: none !important; }
+
+      body.print-main .content > *:not(.main-summary) {
+        display: none !important;
+      }
+
+      body.print-main .main-summary {
+        display: block !important;
+      }
+
+      body.print-feedback .content > *:not(.feedback-print-card) {
+        display: none !important;
+      }
+
+      body.print-feedback .feedback-print-card {
+        display: block !important;
       }
 
       .print-logo {
@@ -482,10 +607,7 @@
         z-index: 2;
       }
 
-      .print-logo img {
-        width: 52px;
-        height: 52px;
-      }
+      .print-logo img { width: 52px; height: 52px; }
 
       .summary-card h2 {
         color: #123b64;
@@ -497,30 +619,18 @@
         align-items: center;
       }
 
-      #summaryPrintBox {
+      .summary-print-box {
         border: 1px solid #ccd7e5;
         box-shadow: none;
         min-height: 0;
         font-weight: 500;
-      }
-
-      .summary-question {
-        font-family: "Assistant", Arial, sans-serif;
-        font-weight: 900;
-        font-size: 1.08rem;
-      }
-
-      .summary-answer {
-        font-family: "Assistant", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 0.98rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="topbar">דף משוב בין קבוצות | פרימיום מארוול</div>
+    <div class="topbar">משוב, SWOT ושיפור אב־טיפוס | פרימיום מארוול</div>
 
     <header class="header">
       <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
@@ -529,58 +639,42 @@
       <div class="brand">
         <img src="../images/logo.png" alt="לוגו תעשיידע">
         <div class="brand-copy">
-          <h1>משוב קצר בין קבוצות</h1>
-          <p>מציגים רעיון, מקבלים תגובה קצרה, ובוחרים שיפור אחד להמשך.</p>
+          <h1>מציגים, מקבלים משוב ומשפרים</h1>
+          <p>דף הצגה לקבוצה + טופס משוב בלשונית נפרדת.</p>
         </div>
       </div>
     </header>
 
     <nav class="nav" aria-label="ניווט בדף">
-      <a href="#receivingFeedback">מקבלים משוב</a>
-      <a href="#givingFeedback">נותנים משוב</a>
-      <a href="#summary">סיכום להמשך</a>
+      <a href="#presentationSection">דף הקבוצה</a>
+      <a href="#swotSection">SWOT</a>
+      <button id="openFeedbackFormNav" type="button">טופס משוב</button>
+      <a href="#summary">PDF לקבוצה</a>
     </nav>
 
     <main class="content">
-      <section class="intro-card">
-        <h2>מטרת הדף</h2>
-        <p class="subtext">הדף נועד למשוב קצר, פשוט ונעים בין קבוצות. הקבוצה המציגה נערכת עם תשובות קצרות על הבעיה, הפתרון והאב־טיפוס. הקבוצה המקשיבה בודקת מה הבינה, מה ברור ומה כדאי לחזק.</p>
+      <section class="intro-card main-view" id="presentationSection">
+        <h2>דף הקבוצה שמציגה</h2>
+        <p class="subtext">החלק הזה מיועד לקבוצה שמציגה את המיזם שלה. כאן ממלאים את ההכנה להצגה, ממשיכים ל־SWOT, ואז כותבים מה התקבל במשוב ומה שופר בפועל. מילוי משוב על קבוצות אחרות נמצא בלשונית נפרדת.</p>
         <div class="team-grid">
           <div>
-            <label for="teamMembers">שמות חברי הקבוצה</label>
-            <textarea id="teamMembers" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea>
+            <label for="teamName">שם / מספר הקבוצה</label>
+            <input id="teamName" type="text" placeholder="לדוגמה: קבוצה 3 / צוות פתרונות חכמים">
           </div>
           <div>
             <label for="ventureName">שם המיזם</label>
-            <input id="ventureName" type="text" placeholder="כתבו את שם המיזם">
+            <input id="ventureName" type="text" placeholder="כתבו את שם המיזם שלכם">
           </div>
           <div class="span-all">
-            <label for="partnerGroup">שם הקבוצה שנותנת / מקבלת משוב</label>
-            <input id="partnerGroup" type="text" placeholder="כתבו את שם הקבוצה השנייה, אם יש">
+            <label for="teamMembers">שמות חברי הקבוצה</label>
+            <textarea id="teamMembers" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea>
           </div>
         </div>
       </section>
 
-      <section class="section-card">
-        <h2>איך המשוב עובד?</h2>
-        <p class="subtext">בכל סבב יש שני צדדים: קבוצה אחת מציגה ומקבלת משוב, וקבוצה שנייה מקשיבה ונותנת משוב. לאחר מכן אפשר להחליף תפקידים.</p>
-        <div class="role-grid">
-          <div class="role-box">
-            <strong>צד 1 — הקבוצה שמקבלת משוב</strong>
-            <p>מציגה בקצרה את הבעיה, הפתרון, קהל היעד ומה חשוב לה לבדוק עכשיו. הקבוצה לא מגנה על הרעיון, אלא מקשיבה כדי להבין מה אפשר לשפר.</p>
-          </div>
-          <div class="role-box">
-            <strong>צד 2 — הקבוצה שנותנת משוב</strong>
-            <p>מקשיבה להצגה, כותבת מה הבינה, מה אהבה, מה לא היה ברור, ומהי הצעה אחת לשיפור. המשוב צריך להיות ענייני, קצר ומכבד.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-card receiver" id="receivingFeedback">
-        <h2>צד 1 — אנחנו מציגים ומקבלים משוב</h2>
-        <p class="subtext">הכינו הצגה קצרה וברורה של המיזם. המטרה היא שהקבוצה השנייה תבין מה אתם מפתחים, למי זה מיועד ומה כבר אפשר לראות באב־טיפוס.</p>
-        <div class="hint-box">הצגה מומלצת: דקה עד שתי דקות. ענו בקצרה על כל שאלה, בלי להיכנס להסברים ארוכים.</div>
-
+      <section class="section-card main-view">
+        <h2>הכנה להצגה</h2>
+        <p class="subtext">ענו בקצרה. המטרה היא לא לכתוב נאום ארוך, אלא להכין הצגה ברורה של המיזם לפני קבלת המשוב.</p>
         <div class="two-grid">
           <div>
             <label for="presenterProblem">מה הבעיה?</label>
@@ -607,57 +701,109 @@
             <textarea id="presenterPrototype" class="short" placeholder="כתבו מה כבר אפשר לראות: מסכים, כפתורים, תהליך, דגם, המחשה או פעולה מרכזית"></textarea>
           </div>
         </div>
+        <div class="continue-row">
+          <button class="btn primary" id="showSwotBtn" type="button">המשך ל־SWOT</button>
+          <button class="btn accent" id="openFeedbackFormBtn" type="button">מעבר לטופס משוב</button>
+        </div>
       </section>
 
-      <section class="section-card giver" id="givingFeedback">
-        <h2>צד 2 — אנחנו מקשיבים ונותנים משוב</h2>
-        <p class="subtext">הקשיבו לקבוצה המציגה וכתבו משוב קצר שיעזור לה להבין מה עבר טוב ומה כדאי לחזק בהמשך.</p>
-        <div class="hint-box">כתבו פשוט וברור. המשוב לא צריך להיות ארוך — מספיק משפט אחד או שניים בכל שדה.</div>
+      <section class="section-card swot swot-section main-view" id="swotSection">
+        <div class="swot-intro">
+          <div class="swot-title">SWOT</div>
+          <div class="swot-subtitle">מבינים את המוצר מכל הכיוונים</div>
+        </div>
+        <p class="subtext">אחרי שקיבלנו משוב, מסדרים את המחשבות בארבעה כיוונים: מה חזק במוצר, מה עדיין צריך חיזוק, אילו הזדמנויות קיימות ומה יכול להפריע בהמשך.</p>
+        <div class="swot-grid">
+          <div class="swot-card" data-letter="S">
+            <h3>חוזקות</h3>
+            <p>מה ברור, עובד טוב או נותן למוצר יתרון?</p>
+            <label for="swotStrengths">החוזקות שלנו</label>
+            <textarea id="swotStrengths" placeholder="לדוגמה: הרעיון ברור, הערך למשתמש מובן, האב־טיפוס מציג פעולה מרכזית..."></textarea>
+          </div>
+          <div class="swot-card" data-letter="W">
+            <h3>חולשות</h3>
+            <p>מה עדיין לא מספיק ברור או דורש שיפור?</p>
+            <label for="swotWeaknesses">מה צריך לחזק</label>
+            <textarea id="swotWeaknesses" placeholder="לדוגמה: חסר שלב שימוש, ההסבר לא מספיק ברור, האב־טיפוס עדיין חלקי..."></textarea>
+          </div>
+          <div class="swot-card" data-letter="O">
+            <h3>הזדמנויות</h3>
+            <p>מה יכול לעזור למוצר להתפתח או להתאים לקהל היעד?</p>
+            <label for="swotOpportunities">הזדמנויות להמשך</label>
+            <textarea id="swotOpportunities" placeholder="לדוגמה: אפשר להתאים לעוד משתמשים, להוסיף פיצ׳ר, לשפר חוויית שימוש..."></textarea>
+          </div>
+          <div class="swot-card" data-letter="T">
+            <h3>איומים</h3>
+            <p>מה עלול להפריע למוצר להצליח או להיות ברור?</p>
+            <label for="swotThreats">מה עלול להפריע</label>
+            <textarea id="swotThreats" placeholder="לדוגמה: פתרונות דומים, קושי בשימוש, מגבלה טכנולוגית, חוסר מידע..."></textarea>
+          </div>
+        </div>
 
-        <div class="two-grid">
-          <div>
-            <label for="listenerProduct">מהו המוצר?</label>
-            <textarea id="listenerProduct" class="short" placeholder="כתבו מה הבנתם שהמוצר עושה"></textarea>
-          </div>
-          <div>
-            <label for="listenerAudience">למי זה מיועד?</label>
-            <textarea id="listenerAudience" class="short" placeholder="כתבו למי הבנתם שהמוצר מיועד"></textarea>
-          </div>
-          <div>
-            <label for="listenerValue">מה הערך שלו?</label>
-            <textarea id="listenerValue" class="short" placeholder="כתבו מה הערך או היתרון של המוצר בעיניכם"></textarea>
-          </div>
-          <div>
-            <label for="listenerClear">מה היה ברור?</label>
-            <textarea id="listenerClear" class="short" placeholder="כתבו מה הוסבר טוב או עבר בצורה ברורה"></textarea>
-          </div>
-          <div class="span-all">
-            <label for="listenerStrengthen">מה צריך לחזק?</label>
-            <textarea id="listenerStrengthen" class="short" placeholder="כתבו מה כדאי להסביר, לשפר, להוסיף או לדייק"></textarea>
+        <div class="hint-box" style="margin-top:12px;">
+          <h3>אחרי ה־SWOT — מה שיפרנו?</h3>
+          <p>כתבו בקצרה מה חזר מהמשוב ומה שיפרתם בפועל.</p>
+          <div class="two-grid" style="margin-top:10px;">
+            <div>
+              <label for="feedbackReceived">מה קיבלנו במשוב? מה אמרו לנו לשפר?</label>
+              <textarea id="feedbackReceived" class="short" placeholder="כתבו בקצרה מה נאמר לכם שכדאי לשפר"></textarea>
+            </div>
+            <div>
+              <label for="improvedAfterFeedback">מה שיפרנו?</label>
+              <textarea id="improvedAfterFeedback" class="short" placeholder="כתבו מה שיניתם, חידדתם או הוספתם בעקבות המשוב וה־SWOT"></textarea>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section-card next">
-        <h2>מה עושים עם המשוב?</h2>
-        <p class="subtext">לא משנים הכול. בוחרים שיפור אחד ברור שאפשר לבצע בהמשך העבודה.</p>
-        <div>
-          <label for="nextStep">השיפור שנבחר להמשך</label>
-          <textarea id="nextStep" class="short" placeholder="בעקבות המשוב, נרצה לשפר את..."></textarea>
+      <section class="section-card feedback feedback-form-section" id="feedbackFormSection">
+        <div class="compact-actions">
+          <button class="btn secondary compact" id="backFromFeedbackBtn" type="button">חזרה לדף הקבוצה</button>
         </div>
+        <h2>טופס משוב לקבוצות שמציגות</h2>
+        <p class="subtext">הלשונית הזו מיועדת לקבוצה שמקשיבה ונותנת משוב. את שם הקבוצה שנותנת משוב ממלאים פעם אחת בלבד. לאחר מכן בוחרים כמה קבוצות מציגות, ונפתח כפתור קומפקטי לכל קבוצה.</p>
+        <div class="compact-row">
+          <div class="compact-field">
+            <label for="reviewerGroupName">אנחנו הקבוצה שנותנת משוב</label>
+            <input id="reviewerGroupName" type="text" placeholder="כתבו פעם אחת את שם / מספר הקבוצה שלכם">
+          </div>
+          <div class="compact-field compact-select">
+            <label for="groupCount">כמה קבוצות מציגות?</label>
+            <select id="groupCount">
+              <option value="" selected>בחרו מספר</option>
+              <option value="3">3 קבוצות</option>
+              <option value="4">4 קבוצות</option>
+              <option value="5">5 קבוצות</option>
+              <option value="6">6 קבוצות</option>
+              <option value="7">7 קבוצות</option>
+              <option value="8">8 קבוצות</option>
+              <option value="9">9 קבוצות</option>
+              <option value="10">10 קבוצות</option>
+            </select>
+          </div>
+        </div>
+        <div class="hint-box">לא מוצגות קבוצות כברירת מחדל. בחרו מספר קבוצות, ואז פתחו בכל פעם את מספר הקבוצה שמציגה, מלאו את שם המיזם בזמן ההצגה, ומלאו משוב קצר.</div>
+        <div class="feedback-tabs" id="feedbackTabs"></div>
+        <div id="feedbackCards"><div class="empty-state">בחרו מספר קבוצות כדי לפתוח את טפסי המשוב.</div></div>
       </section>
 
-      <section class="summary-card" id="summary">
+      <section class="summary-card main-summary" id="summary">
         <div class="print-logo"><img src="../images/logo.png" alt="לוגו תעשיידע"></div>
-        <h2>סיכום המשוב להמשך עבודה</h2>
+        <h2>סיכום לקבוצה שלנו</h2>
         <div class="summary-print-box" id="summaryPrintBox"></div>
+      </section>
+
+      <section class="summary-card feedback-print-card" id="feedbackPrintCard">
+        <div class="print-logo"><img src="../images/logo.png" alt="לוגו תעשיידע"></div>
+        <h2>סיכום משוב לקבוצה</h2>
+        <div class="summary-print-box" id="singleFeedbackPrintBox"></div>
       </section>
     </main>
 
-    <section class="action-panel">
+    <section class="action-panel main-view">
       <div class="buttons">
         <button class="btn secondary" id="clearBtn" type="button">ניקוי העמוד</button>
-        <button class="btn accent" id="printBtn" type="button">PDF</button>
+        <button class="btn accent" id="printBtn" type="button">PDF לקבוצה שלנו</button>
       </div>
     </section>
 
@@ -666,15 +812,27 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = 'marvellPeerFeedback_v1';
-      var fields = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'));
+      var STORAGE_KEY = 'marvellPresentationAndPeerFeedback_v2';
       var summaryPrintBox = document.getElementById('summaryPrintBox');
+      var singleFeedbackPrintBox = document.getElementById('singleFeedbackPrintBox');
+      var feedbackTabs = document.getElementById('feedbackTabs');
+      var feedbackCards = document.getElementById('feedbackCards');
+      var groupCount = document.getElementById('groupCount');
 
       function byId(id) { return document.getElementById(id); }
+
+      function allFields() {
+        return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'));
+      }
 
       function valueOf(id) {
         var field = byId(id);
         return field ? String(field.value || '').trim() : '';
+      }
+
+      function ratingValue(name) {
+        var field = document.querySelector('input[name="' + name + '"]:checked');
+        return field ? field.value : '';
       }
 
       function escapeHtml(text) {
@@ -686,50 +844,135 @@
           .replace(/'/g, '&#039;');
       }
 
-      function fallback(value) {
-        return value || '____________________________';
-      }
+      function fallback(value) { return value || '____________________________'; }
 
       function summaryLine(question, answer) {
         return '<p class="summary-line"><span class="summary-question">' + escapeHtml(question) + '</span> <span class="summary-answer">' + escapeHtml(fallback(answer)) + '</span></p>';
       }
 
-      function summarySpacer() {
-        return '<div class="summary-spacer"></div>';
-      }
+      function summarySpacer() { return '<div class="summary-spacer"></div>'; }
 
       function summaryTitle(text, className) {
         var extraClass = className ? ' ' + className : '';
         return '<div class="summary-title' + extraClass + '">' + escapeHtml(text) + '</div>';
       }
 
-      function buildScript() {
+      function ratingMarkup(name) {
+        var html = '<div class="rating-row">';
+        for (var i = 1; i <= 5; i += 1) {
+          html += '<label class="rating-option"><input type="radio" name="' + name + '" value="' + i + '"> ' + i + '</label>';
+        }
+        html += '</div>';
+        return html;
+      }
+
+      function createFeedbackCard(index) {
+        return '<div class="feedback-card" id="feedbackCard' + index + '">' +
+          '<div class="feedback-card-header">' +
+            '<h3>משוב לקבוצה ' + index + '</h3>' +
+            '<button class="btn secondary compact" type="button" data-print-feedback="' + index + '">PDF למשוב זה</button>' +
+          '</div>' +
+          '<div class="two-grid">' +
+            '<div>' +
+              '<label for="presentingGroup' + index + '">מספר / שם הקבוצה שהציגה</label>' +
+              '<input id="presentingGroup' + index + '" type="text" placeholder="קבוצה ' + index + ' / שם הקבוצה המציגה">' +
+            '</div>' +
+            '<div>' +
+              '<label for="presentingVenture' + index + '">שם המיזם שהוצג</label>' +
+              '<input id="presentingVenture' + index + '" type="text" placeholder="מלאו בזמן ההצגה את שם המיזם">' +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackProduct' + index + '">מהו המוצר?</label>' +
+              '<textarea id="feedbackProduct' + index + '" class="short" placeholder="כתבו מה הבנתם שהמוצר עושה"></textarea>' +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackAudience' + index + '">למי זה מיועד?</label>' +
+              '<textarea id="feedbackAudience' + index + '" class="short" placeholder="כתבו למי הבנתם שהמוצר מיועד"></textarea>' +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackValue' + index + '">מה הערך שלו?</label>' +
+              '<textarea id="feedbackValue' + index + '" class="short" placeholder="כתבו מה הערך או היתרון של המוצר"></textarea>' +
+            '</div>' +
+            '<div>' +
+              '<label>עד כמה הרעיון היה ברור? 1–5</label>' + ratingMarkup('clarityRating' + index) +
+            '</div>' +
+            '<div>' +
+              '<label>עד כמה האב־טיפוס עזר להבין? 1–5</label>' + ratingMarkup('prototypeRating' + index) +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackClear' + index + '">מה היה ברור?</label>' +
+              '<textarea id="feedbackClear' + index + '" class="short" placeholder="כתבו מה הוסבר טוב או עבר בצורה ברורה"></textarea>' +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackStrengthen' + index + '">מה צריך לחזק?</label>' +
+              '<textarea id="feedbackStrengthen' + index + '" class="short" placeholder="כתבו מה כדאי להסביר, לשפר, להוסיף או לדייק"></textarea>' +
+            '</div>' +
+            '<div>' +
+              '<label for="feedbackSuggestion' + index + '">הצעה אחת לשיפור</label>' +
+              '<textarea id="feedbackSuggestion' + index + '" class="short" placeholder="כתבו רעיון אחד שיעזור לקבוצה להשתפר"></textarea>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderFeedbackForm(count, activeIndex, dataToRestore) {
+        var data = dataToRestore || getData();
+        var active = activeIndex || 1;
+
+        if (!count) {
+          feedbackTabs.innerHTML = '';
+          feedbackCards.innerHTML = '<div class="empty-state">בחרו מספר קבוצות כדי לפתוח את טפסי המשוב.</div>';
+          setData(data);
+          bindDynamicFields();
+          return;
+        }
+
+        var tabsHtml = '';
+        var cardsHtml = '';
+        for (var i = 1; i <= count; i += 1) {
+          tabsHtml += '<button class="feedback-tab' + (i === active ? ' is-active' : '') + '" type="button" data-feedback-tab="' + i + '">קבוצה ' + i + '</button>';
+          cardsHtml += createFeedbackCard(i);
+        }
+
+        feedbackTabs.innerHTML = tabsHtml;
+        feedbackCards.innerHTML = cardsHtml;
+        setData(data);
+        bindDynamicFields();
+        showFeedbackCard(active);
+      }
+
+      function showFeedbackCard(index) {
+        document.querySelectorAll('.feedback-tab').forEach(function (tab) {
+          tab.classList.toggle('is-active', Number(tab.getAttribute('data-feedback-tab')) === index);
+        });
+        document.querySelectorAll('.feedback-card').forEach(function (card) {
+          card.classList.toggle('is-visible', card.id === 'feedbackCard' + index);
+        });
+      }
+
+      function buildMainSummary() {
+        var teamName = valueOf('teamName');
         var teamMembers = valueOf('teamMembers');
         var ventureName = valueOf('ventureName');
-        var partnerGroup = valueOf('partnerGroup');
-
         var presenterProblem = valueOf('presenterProblem');
         var presenterAudience = valueOf('presenterAudience');
         var presenterSolution = valueOf('presenterSolution');
         var presenterHow = valueOf('presenterHow');
         var presenterValue = valueOf('presenterValue');
         var presenterPrototype = valueOf('presenterPrototype');
-
-        var listenerProduct = valueOf('listenerProduct');
-        var listenerAudience = valueOf('listenerAudience');
-        var listenerValue = valueOf('listenerValue');
-        var listenerClear = valueOf('listenerClear');
-        var listenerStrengthen = valueOf('listenerStrengthen');
-
-        var nextStep = valueOf('nextStep');
+        var swotStrengths = valueOf('swotStrengths');
+        var swotWeaknesses = valueOf('swotWeaknesses');
+        var swotOpportunities = valueOf('swotOpportunities');
+        var swotThreats = valueOf('swotThreats');
+        var feedbackReceived = valueOf('feedbackReceived');
+        var improvedAfterFeedback = valueOf('improvedAfterFeedback');
 
         return [
-          summaryLine('שמות חברי הקבוצה:', teamMembers),
+          summaryLine('שם / מספר הקבוצה:', teamName),
           summaryLine('שם המיזם:', ventureName),
-          summaryLine('הקבוצה השנייה:', partnerGroup),
+          summaryLine('שמות חברי הקבוצה:', teamMembers),
           summarySpacer(),
-
-          summaryTitle('המציגים נערכים לפי'),
+          summaryTitle('הצגת המיזם שלנו'),
           summaryLine('מה הבעיה?', presenterProblem),
           summaryLine('למי זה מיועד?', presenterAudience),
           summaryLine('מה הפתרון?', presenterSolution),
@@ -737,83 +980,180 @@
           summaryLine('מה הערך למשתמש?', presenterValue),
           summaryLine('מה רואים באב־טיפוס?', presenterPrototype),
           summarySpacer(),
-
-          summaryTitle('המקשיבים נותנים משוב לפי', 'orange'),
-          summaryLine('מהו המוצר?', listenerProduct),
-          summaryLine('למי זה מיועד?', listenerAudience),
-          summaryLine('מה הערך שלו?', listenerValue),
-          summaryLine('מה היה ברור?', listenerClear),
-          summaryLine('מה צריך לחזק?', listenerStrengthen),
+          summaryTitle('SWOT — ניתוח המוצר שלנו'),
+          summaryLine('חוזקות:', swotStrengths),
+          summaryLine('חולשות:', swotWeaknesses),
+          summaryLine('הזדמנויות:', swotOpportunities),
+          summaryLine('איומים:', swotThreats),
           summarySpacer(),
+          summaryTitle('אחרי ה־SWOT — מה שיפרנו?', 'green'),
+          summaryLine('מה קיבלנו במשוב? מה אמרו לנו לשפר?', feedbackReceived),
+          summaryLine('מה שיפרנו?', improvedAfterFeedback)
+        ].join('');
+      }
 
-          summaryTitle('השיפור שנבחר להמשך', 'green'),
-          summaryLine('בעקבות המשוב נרצה לשפר את:', nextStep)
+      function buildFeedbackSummary(index) {
+        return [
+          summaryLine('הקבוצה שנותנת משוב:', valueOf('reviewerGroupName')),
+          summaryLine('הקבוצה שהציגה:', valueOf('presentingGroup' + index) || 'קבוצה ' + index),
+          summaryLine('שם המיזם שהוצג:', valueOf('presentingVenture' + index)),
+          summarySpacer(),
+          summaryTitle('משוב על ההצגה', 'orange'),
+          summaryLine('מהו המוצר?', valueOf('feedbackProduct' + index)),
+          summaryLine('למי זה מיועד?', valueOf('feedbackAudience' + index)),
+          summaryLine('מה הערך שלו?', valueOf('feedbackValue' + index)),
+          summaryLine('עד כמה הרעיון היה ברור? 1–5:', ratingValue('clarityRating' + index)),
+          summaryLine('עד כמה האב־טיפוס עזר להבין? 1–5:', ratingValue('prototypeRating' + index)),
+          summaryLine('מה היה ברור?', valueOf('feedbackClear' + index)),
+          summaryLine('מה צריך לחזק?', valueOf('feedbackStrengthen' + index)),
+          summaryLine('הצעה אחת לשיפור:', valueOf('feedbackSuggestion' + index))
         ].join('');
       }
 
       function getData() {
         var data = {};
-        fields.forEach(function (field) {
-          if (!field.id) return;
-          data[field.id] = field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value;
+        allFields().forEach(function (field) {
+          if (!field.id && !field.name) return;
+          var key = field.id || field.name + ':' + field.value;
+          data[key] = field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value;
         });
         return data;
       }
 
       function setData(data) {
-        fields.forEach(function (field) {
-          if (!field.id || !(field.id in data)) return;
-          if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(data[field.id]);
-          else field.value = data[field.id];
+        allFields().forEach(function (field) {
+          if (!field.id && !field.name) return;
+          var key = field.id || field.name + ':' + field.value;
+          if (!(key in data)) return;
+          if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(data[key]);
+          else field.value = data[key];
         });
       }
 
-      function updateScript() {
-        if (summaryPrintBox) summaryPrintBox.innerHTML = buildScript();
+      function readStoredData() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          return {};
+        }
       }
 
       function saveData() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getData())); } catch (error) {}
       }
 
-      function loadData() {
-        try {
-          var raw = localStorage.getItem(STORAGE_KEY);
-          if (raw) setData(JSON.parse(raw));
-        } catch (error) {}
+      function updateScript() {
+        if (summaryPrintBox) summaryPrintBox.innerHTML = buildMainSummary();
       }
 
-      fields.forEach(function (field) {
-        field.addEventListener('input', function () { updateScript(); saveData(); });
-        field.addEventListener('change', function () { updateScript(); saveData(); });
+      function bindDynamicFields() {
+        allFields().forEach(function (field) {
+          if (field.dataset.bound === 'true') return;
+          field.dataset.bound = 'true';
+          field.addEventListener('input', function () { updateScript(); saveData(); });
+          field.addEventListener('change', function () { updateScript(); saveData(); });
+        });
+      }
+
+      function openFeedbackForm() {
+        document.body.classList.add('feedback-mode');
+        var section = byId('feedbackFormSection');
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function closeFeedbackForm() {
+        document.body.classList.remove('feedback-mode');
+        var section = byId('presentationSection');
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function printSingleFeedback(index) {
+        saveData();
+        updateScript();
+        if (singleFeedbackPrintBox) singleFeedbackPrintBox.innerHTML = buildFeedbackSummary(index);
+        document.body.classList.remove('print-main');
+        document.body.classList.add('print-feedback');
+        window.setTimeout(function () { window.print(); }, 150);
+      }
+
+      function cleanupPrintMode() {
+        document.body.classList.remove('print-feedback');
+        document.body.classList.remove('print-main');
+      }
+
+      function init() {
+        var storedData = readStoredData();
+        setData(storedData);
+        var savedCount = Number(storedData.groupCount || valueOf('groupCount') || 0);
+        renderFeedbackForm(savedCount, 1, storedData);
+        bindDynamicFields();
+        updateScript();
+      }
+
+      document.addEventListener('click', function (event) {
+        var tab = event.target.closest('[data-feedback-tab]');
+        if (tab) showFeedbackCard(Number(tab.getAttribute('data-feedback-tab')));
+
+        var printButton = event.target.closest('[data-print-feedback]');
+        if (printButton) printSingleFeedback(Number(printButton.getAttribute('data-print-feedback')));
       });
+
+      if (groupCount) {
+        groupCount.addEventListener('change', function () {
+          var data = getData();
+          renderFeedbackForm(Number(groupCount.value || 0), 1, data);
+          updateScript();
+          saveData();
+        });
+      }
+
+      var showSwotBtn = byId('showSwotBtn');
+      var swotSection = byId('swotSection');
+      if (showSwotBtn && swotSection) {
+        showSwotBtn.addEventListener('click', function () {
+          swotSection.classList.add('is-visible');
+          updateScript();
+          swotSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      var openFeedbackFormBtn = byId('openFeedbackFormBtn');
+      var openFeedbackFormNav = byId('openFeedbackFormNav');
+      var backFromFeedbackBtn = byId('backFromFeedbackBtn');
+      if (openFeedbackFormBtn) openFeedbackFormBtn.addEventListener('click', openFeedbackForm);
+      if (openFeedbackFormNav) openFeedbackFormNav.addEventListener('click', openFeedbackForm);
+      if (backFromFeedbackBtn) backFromFeedbackBtn.addEventListener('click', closeFeedbackForm);
 
       var clearBtn = byId('clearBtn');
       if (clearBtn) {
         clearBtn.addEventListener('click', function (event) {
           event.preventDefault();
-          event.stopPropagation();
-
-          fields.forEach(function (field) {
+          allFields().forEach(function (field) {
             if (field.type === 'checkbox' || field.type === 'radio') field.checked = false;
             else field.value = '';
           });
-
           try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
-
+          renderFeedbackForm(0, 1, {});
           updateScript();
           clearBtn.textContent = 'נוקה';
-          window.setTimeout(function () {
-            clearBtn.textContent = 'ניקוי העמוד';
-          }, 900);
+          window.setTimeout(function () { clearBtn.textContent = 'ניקוי העמוד'; }, 900);
         });
       }
 
       var printBtn = byId('printBtn');
-      if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+      if (printBtn) {
+        printBtn.addEventListener('click', function () {
+          updateScript();
+          document.body.classList.remove('print-feedback');
+          document.body.classList.add('print-main');
+          window.setTimeout(function () { window.print(); }, 150);
+        });
+      }
 
-      loadData();
-      updateScript();
+      window.addEventListener('afterprint', cleanupPrintMode);
+
+      init();
     })();
   </script>
 </body>
