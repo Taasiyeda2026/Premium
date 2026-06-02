@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תעשיידע | פרימיום מארוול – אב-טיפוס</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      zoom: 0.75;
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      color: #10213d;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.11), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+      padding: 28px 18px 42px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+    }
+
+    .newsletter {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
+        linear-gradient(180deg, rgba(10, 33, 69, 0.95), rgba(6, 19, 41, 0.97));
+      border: 1px solid rgba(131, 190, 255, 0.30);
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .newsletter::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(53,196,232,0.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(53,196,232,0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.72), transparent 62%);
+      z-index: -1;
+    }
+
+    .newsletter::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-brand {
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(53,196,232,0.18), transparent 30%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
+      border: 1px solid rgba(131, 190, 255, 0.25);
+      box-shadow:
+        0 18px 42px rgba(0, 12, 38, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+      z-index: 1;
+    }
+
+    .home-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.90));
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      z-index: 2;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #0d2045;
+    }
+
+    .brand-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.30));
+    }
+
+    .mentor-stage {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(237,247,255,0.93));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .mentor-stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+      z-index: 2;
+    }
+
+    .mentor-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(53,196,232,0.16), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(246,167,66,0.12), transparent 26%);
+      pointer-events: none;
+    }
+
+    .stage-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .visual-panel {
+      min-height: 315px;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-panel::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, rgba(30,102,168,0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(30,102,168,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      display: none;
+    }
+
+    .hero-graphic {
+      width: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: none;
+    }
+
+    .copy-panel {
+      padding: 8px 4px 6px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .lesson-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 7px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      background: rgba(53, 196, 232, 0.12);
+      border: 1px solid rgba(53, 196, 232, 0.32);
+      color: #0b5f83;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .hero-title {
+      margin: 0 0 12px;
+      font-size: clamp(2.05rem, 4.3vw, 3.35rem);
+      line-height: 1.05;
+      color: #123b64;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-text {
+      margin: 0;
+      font-size: 1.04rem;
+      line-height: 1.9;
+      color: #4d5f79;
+      font-weight: 500;
+    }
+
+    .mentor-note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      color: #213a59;
+      font-size: 1rem;
+      line-height: 1.85;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(246,167,66,0.16), rgba(255,255,255,0.82));
+      border: 1px solid rgba(246, 167, 66, 0.28);
+    }
+
+    .prep-board {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .wide-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 128px;
+      padding: 15px 16px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      box-shadow:
+        0 20px 42px rgba(0, 10, 32, 0.22),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .wide-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #35c4e8, #1e66a8, #f6a742);
+    }
+
+    .product-card {
+      min-height: 335px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card .card-head {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .product-card .card-icon {
+      width: 146px;
+      height: 146px;
+      min-width: 146px;
+      border-radius: 34px;
+    }
+
+    .product-card .card-icon img {
+      width: 110px;
+      height: 110px;
+    }
+
+    .product-card .card-title {
+      text-align: center;
+      font-size: 1.42rem;
+      line-height: 1.2;
+    }
+
+    .product-card .card-text {
+      text-align: center;
+      font-size: 1.04rem;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    .product-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      width: fit-content;
+      min-width: 150px;
+      margin: 18px auto 0;
+      padding: 9px 16px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(90deg, #0d3a76, #1e66a8);
+      border: 1px solid rgba(53, 196, 232, 0.48);
+      box-shadow:
+        0 9px 18px rgba(0, 10, 32, 0.20),
+        inset 0 1px 0 rgba(255,255,255,0.24);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .product-button:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 12px 22px rgba(0, 10, 32, 0.26),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .wide-card.highlight {
+      grid-row: span 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94));
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 12px 22px rgba(0, 18, 52, 0.12);
+    }
+
+    .card-icon img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #123b64;
+    }
+
+    .card-text {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #53647d;
+      font-weight: 500;
+    }
+
+    .highlight-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-line {
+      padding: 11px 13px;
+      border-radius: 15px;
+      background: rgba(13, 58, 118, 0.07);
+      border: 1px solid rgba(120, 170, 220, 0.22);
+      color: #27476b;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    .cta-bar {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 260px;
+      padding: 14px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 9px 18px rgba(0, 10, 32, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .cta-btn.primary {
+      color: white;
+      background: linear-gradient(90deg, #0d3a76, #1e66a8);
+      border: 1px solid rgba(53,196,232,0.48);
+    }
+
+    .cta-btn:hover { transform: translateY(-2px); }
+
+    .compact-summary {
+      min-height: 72px;
+      background: linear-gradient(90deg, #9cecff 0%, #eaf7ff 48%, #ffca73 100%);
+      border: 1px solid rgba(255,255,255,0.46);
+      color: #061329;
+      box-shadow:
+        0 18px 36px rgba(0, 10, 32, 0.20),
+        inset 0 1px 0 rgba(255,255,255,0.58);
+    }
+
+    .compact-summary::before {
+      background: linear-gradient(90deg, #35c4e8, #f6a742);
+    }
+
+    .compact-summary .card-text {
+      color: #17395e;
+      font-weight: 800;
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .page-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #b8d9f7;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .newsletter { padding: 12px; border-radius: 24px; }
+      .top-brand { min-height: 82px; }
+      .brand-mark { width: 60px; height: 60px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .mentor-stage { padding: 16px; }
+      .stage-grid { grid-template-columns: 1fr; }
+      .visual-panel { min-height: 220px; }
+      .hero-graphic { max-height: 165px; }
+      .hero-title { font-size: 2rem; }
+      .prep-board { grid-template-columns: 1fr; }
+      .wide-card.highlight { grid-row: auto; }
+      .cta-bar { flex-direction: column; }
+      .cta-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="newsletter">
+    <section class="top-brand">
+      <a class="home-link" href="index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+      <img class="brand-mark" src="images/logo.png" alt="לוגו תעשיידע" />
+    </section>
+
+    <section class="mentor-stage">
+      <div class="stage-grid">
+        <div class="copy-panel">
+          <div class="lesson-chip">שלב בתהליך | אב-טיפוס</div>
+          <h1 class="hero-title">בונים אב-טיפוס</h1>
+          <p class="hero-text">
+            אב-טיפוס הוא הדרך הראשונה להראות איך הרעיון שלנו יכול לעבוד במציאות.
+            בשלב הזה בוחרים איזה סוג מוצר מפתחים: מוצר פיזי, מוצר דיגיטלי או אפליקציה,
+            ובונים גרסה פשוטה שממחישה את הרעיון בצורה ברורה.
+          </p>
+          <div class="mentor-note">
+            המטרה היא לא לבנות מוצר מושלם, אלא ליצור משהו שאפשר לראות, להסביר, לבדוק ולשפר.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="prep-board">
+      <article class="wide-card product-card">
+        <div>
+          <div class="card-head">
+            <div class="card-icon">
+              <img src="images/physical.png" alt="אייקון מוצר פיזי" />
+            </div>
+            <h2 class="card-title">מוצר פיזי</h2>
+          </div>
+          <p class="card-text">
+            אב-טיפוס למוצר בעל צורה, חלקים או מנגנון - משהו שאפשר להחזיק, להזיז, להרכיב או להפעיל במרחב.
+          </p>
+        </div>
+        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
+      </article>
+
+      <article class="wide-card product-card">
+        <div>
+          <div class="card-head">
+            <div class="card-icon">
+              <img src="images/digitali.png" alt="אייקון מוצר דיגיטלי" />
+            </div>
+            <h2 class="card-title">מוצר דיגיטלי</h2>
+          </div>
+          <p class="card-text">
+            אב-טיפוס למסכים, אתר, מערכת או לוח בקרה - מתאים להצגת מידע, פעולות וזרימת שימוש.
+          </p>
+        </div>
+        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
+      </article>
+
+      <article class="wide-card product-card">
+        <div>
+          <div class="card-head">
+            <div class="card-icon">
+              <img src="images/app.png" alt="אייקון אפליקציה" />
+            </div>
+            <h2 class="card-title">אפליקציה</h2>
+          </div>
+          <p class="card-text">
+            אב-טיפוס לחוויית שימוש בטלפון - מעבר בין מסכים, לחיצות, בחירות וקבלת מידע או תוצאה.
+          </p>
+        </div>
+        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
+      </article>
+    </section>
+
+    <div class="page-footer">© פרימיום | תעשיידע</div>
+  </div>
+</body>
+</html>
