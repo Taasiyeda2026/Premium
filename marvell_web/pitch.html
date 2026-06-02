@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>בניית פיץ׳ | רוקחים עולם</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --teal: #0f766e;
+      --teal-dark: #115e59;
+      --teal-soft: #ccfbf1;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-soft: #dbeafe;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --red: #dc2626;
+      --ink: #102a43;
+      --text: #334155;
+      --muted: #64748b;
+      --line: rgba(15, 118, 110, 0.18);
+      --card: rgba(255, 255, 255, 0.94);
+      --bg: #f4fbfb;
+      --shadow: 0 18px 45px rgba(15, 76, 92, 0.10);
+      --radius: 24px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Rubik", Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.15), transparent 28rem),
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.13), transparent 25rem),
+        radial-gradient(circle at bottom left, rgba(22, 163, 74, 0.10), transparent 24rem),
+        linear-gradient(180deg, #f4fbfb 0%, #f8fbff 58%, #ffffff 100%);
+    }
+
+    @media screen {
+      body {
+        zoom: 0.7;
+      }
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem clamp(1rem, 4vw, 2.25rem);
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(15, 118, 110, 0.14);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--teal-dark);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 2.25rem;
+      height: 2.25rem;
+      object-fit: contain;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .home-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: #fff;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 18px rgba(15, 76, 92, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .home-icon:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(15, 76, 92, 0.14);
+    }
+
+    .back-link,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 2.5rem;
+      padding: 0.58rem 1.08rem;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .back-link:hover,
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(37, 99, 235, 0.24);
+    }
+
+    .btn.secondary {
+      color: var(--teal-dark);
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .btn.success {
+      background: linear-gradient(135deg, var(--green), var(--teal));
+    }
+
+    .page {
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: clamp(1rem, 4vw, 2.5rem) 1rem 4rem;
+    }
+
+    .hero {
+      margin-bottom: 1rem;
+      padding: clamp(1.2rem, 4vw, 2.2rem);
+      border: 1px solid rgba(15, 118, 110, 0.13);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(240,253,250,0.84)),
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 16rem);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 0.6rem;
+      padding: 0.28rem 0.8rem;
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: var(--teal-soft);
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 3.25rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--teal-dark), var(--blue-dark));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin: 0.75rem auto 0;
+      font-size: clamp(0.95rem, 2.4vw, 1.08rem);
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 0.85rem;
+      padding: clamp(1rem, 2.5vw, 1.5rem);
+      border: 1px solid rgba(15, 118, 110, 0.13);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 10px 28px rgba(15, 76, 92, 0.07);
+    }
+
+    .section-title {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      margin-bottom: 0.9rem;
+    }
+
+    .step-number {
+      display: inline-grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.8rem;
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+    }
+
+    .section-title p {
+      margin: 0.2rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .field.full,
+    .actions,
+    .output-block {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 0.48rem 0.75rem;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      font-size: 0.92rem;
+    }
+
+    input[type="text"],
+    select {
+      min-height: 2.25rem;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(15, 118, 110, 0.55);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.10);
+    }
+
+    textarea {
+      height: 4.1rem;
+      min-height: 4.1rem;
+      max-height: 4.1rem;
+      resize: none;
+      line-height: 1.45;
+    }
+
+    .field.full textarea {
+      height: 4.1rem;
+      min-height: 4.1rem;
+      max-height: 4.1rem;
+    }
+
+    .large-textarea {
+      height: 8rem;
+      min-height: 8rem;
+      max-height: 8rem;
+    }
+
+    .top-team-panel {
+      border-color: rgba(15, 118, 110, 0.18);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.10), transparent 18rem),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.10), transparent 18rem),
+        rgba(255, 255, 255, 0.94);
+    }
+
+    .student-count-field {
+      width: 15%;
+      min-width: 7.5rem;
+      max-width: 9rem;
+      justify-self: start;
+      grid-column: 1 / -1;
+    }
+
+    .student-count-field label {
+      margin-bottom: 0.18rem;
+      font-size: 0.74rem;
+      line-height: 1.15;
+    }
+
+    .student-count-field select {
+      min-height: 1.9rem;
+      padding: 0.24rem 0.55rem;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .student-names-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.8rem;
+      grid-column: 1 / -1;
+    }
+
+    .student-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.42rem 0.5rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(15, 118, 110, 0.13);
+    }
+
+    .student-row .student-label {
+      min-width: 5.3rem;
+      font-size: 0.88rem;
+      font-weight: 850;
+      color: var(--teal-dark);
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .student-row input {
+      flex: 1;
+      min-height: 2.15rem;
+      padding-top: 0.38rem;
+      padding-bottom: 0.38rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      margin-top: 0.3rem;
+    }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .status-message {
+      display: none;
+      flex-basis: 100%;
+      margin: 0.15rem 0 0;
+      font-size: 0.9rem;
+      font-weight: 750;
+      color: var(--green);
+    }
+
+    .ai-step {
+      padding: 1rem;
+      border: 1px solid rgba(15, 118, 110, 0.13);
+      border-radius: 16px;
+      background: rgba(240, 253, 250, 0.45);
+      margin-bottom: 0.75rem;
+    }
+
+    .ai-step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ai-step-num {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.24rem 0.8rem;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.8rem;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      white-space: nowrap;
+    }
+
+    .ai-step-label {
+      font-weight: 850;
+      color: var(--ink);
+      font-size: 0.97rem;
+    }
+
+    .ai-hint {
+      margin: 0.3rem 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .ai-flow-list {
+      margin: 0.2rem 0 0;
+      padding-right: 1.1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .ai-tool-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .ai-tool-btn {
+      width: auto;
+      min-width: 5.2rem;
+      justify-content: center;
+      min-height: 2rem;
+      padding: 0.38rem 0.7rem;
+      font-size: 0.86rem;
+      font-weight: 800;
+      border-radius: 14px;
+    }
+
+    .pitch-paste-textarea {
+      height: 8rem;
+      min-height: 8rem;
+      max-height: 8rem;
+      resize: none;
+      direction: rtl;
+      text-align: right;
+      line-height: 1.55;
+    }
+
+    .print-preview-shell {
+      margin-top: 0.8rem;
+      padding: 1rem;
+      border: 1px solid rgba(15, 118, 110, 0.14);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .preview-doc {
+      max-width: 860px;
+      margin: 0 auto;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .preview-doc h3 {
+      color: var(--teal-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-card {
+      margin-top: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 118, 110, 0.14);
+      background: #f8fffe;
+    }
+
+    .preview-card h4 {
+      margin: 0 0 0.45rem;
+      color: var(--blue-dark);
+      font-size: 1rem;
+    }
+
+    .preview-card p {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.85;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .checklist label {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid rgba(15, 118, 110, 0.12);
+      border-radius: 14px;
+      background: #fff;
+      font-weight: 650;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .checklist input {
+      width: 1.05rem;
+      height: 1.05rem;
+      margin-top: 0.22rem;
+      accent-color: var(--teal);
+      flex: 0 0 auto;
+    }
+
+    .page-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.15rem;
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .ai-tool-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ai-tool-btn {
+        width: 100%;
+      }
+
+      .site-header {
+        align-items: flex-start;
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .grid,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .section {
+        border-radius: 20px;
+      }
+
+      .back-link,
+      .btn {
+        width: 100%;
+      }
+
+      .site-header .back-link {
+        width: auto;
+      }
+
+      .student-count-field {
+        width: 100%;
+        max-width: 8.5rem;
+      }
+
+      .student-names-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .student-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .student-row .student-label {
+        min-width: unset;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 14mm 12mm;
+      }
+
+      html,
+      body {
+        width: auto;
+        min-height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+      }
+
+      body {
+        color: #111827;
+        font-size: 12pt;
+        font-family: "Rubik", Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      .site-header,
+      .hero,
+      .section,
+      .page-actions,
+      .no-print {
+        display: none !important;
+      }
+
+      .print-only {
+        display: block !important;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #printPitchDocument {
+        display: block !important;
+        width: 100%;
+        max-width: 186mm;
+        margin: 0;
+        padding: 0;
+        background: #ffffff !important;
+        direction: rtl;
+        text-align: right;
+      }
+
+      .print-doc {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccfbf1;
+        border-radius: 10px;
+        padding: 7mm;
+      }
+
+      .print-doc-header {
+        margin-bottom: 6mm;
+        padding: 5mm 6mm;
+        border: 1px solid #99f6e4;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 55%, #ffffff 100%);
+        text-align: right;
+        break-after: avoid;
+      }
+
+      .print-doc-brand {
+        display: inline-block;
+        color: #115e59;
+        font-size: 13pt;
+        font-weight: 850;
+        margin: 0 0 2mm;
+        padding: 1.2mm 3.2mm;
+        border-radius: 999px;
+        background: #ccfbf1;
+      }
+
+      .print-doc-header h1 {
+        margin: 0 0 2mm;
+        color: #0f172a;
+        font-size: 20pt;
+        line-height: 1.2;
+        background: none;
+        -webkit-text-fill-color: initial;
+      }
+
+      .print-doc-meta {
+        color: #334155;
+        font-size: 11pt;
+        margin: 0 0 1.5mm;
+      }
+
+      .print-doc-meta strong {
+        color: #115e59;
+        font-weight: 850;
+      }
+
+      .print-students-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5mm;
+        margin: 2mm 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .print-students-list li {
+        margin: 0;
+        padding: 1mm 2.5mm;
+        color: #0f172a;
+        font-size: 10.5pt;
+        font-weight: 700;
+        border: 1px solid #bae6fd;
+        border-radius: 999px;
+        background: #eff6ff;
+      }
+
+      .print-section {
+        margin-bottom: 4.5mm;
+        padding: 4mm 4.5mm;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        text-align: right;
+        border: 1px solid #dbeafe;
+        border-right: 4px solid #0f766e;
+        border-radius: 9px;
+        background: #ffffff;
+      }
+
+      .print-section:nth-of-type(even) {
+        background: #f8fbff;
+        border-right-color: #2563eb;
+      }
+
+      .print-section h2 {
+        display: inline-block;
+        margin: 0 0 2.5mm;
+        color: #115e59;
+        font-size: 13pt;
+        font-weight: 900;
+        break-after: avoid;
+        padding: 1mm 2.5mm;
+        border-radius: 999px;
+        background: #ccfbf1;
+      }
+
+      .print-section:nth-of-type(even) h2 {
+        color: #1d4ed8;
+        background: #dbeafe;
+      }
+
+      .print-speaker-text,
+      .print-single-pitch {
+        color: #111827;
+        font-size: 11.6pt;
+        line-height: 1.72;
+        text-align: right;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        margin: 0;
+      }
+
+      .print-single-pitch {
+        padding-top: 1mm;
+      }
+
+      .pd-empty {
+        color: #6b7280;
+        text-align: center;
+        padding: 8mm 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header no-print">
+    <a class="brand" href="index.html" aria-label="רוקחים עולם">
+      <img src="logo.png" alt="" />
+      <span>רוקחים עולם</span>
+    </a>
+    <a class="home-icon" href="index.html" aria-label="חזרה לעמוד הראשי" title="חזרה לעמוד הראשי">⌂</a>
+  </header>
+
+  <main class="page">
+    <div class="print-only" id="printPitchDocument" aria-hidden="true"></div>
+
+    <section class="hero">
+      <span class="eyebrow">פיץ׳ מסכם</span>
+      <h1>בונים את הפיץ׳ שלנו</h1>
+    </section>
+
+    <section class="section top-team-panel" aria-labelledby="team-details-title">
+      <div class="section-title">
+        <span class="step-number">1</span>
+        <div>
+          <h2 id="team-details-title">פרטי המיזם והמשתתפים</h2>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field full">
+          <label for="project_name">שם המיזם</label>
+          <input id="project_name" type="text" autocomplete="off" data-save placeholder="לדוגמה: SmartMed" />
+        </div>
+        <div class="field student-count-field">
+          <label for="studentCount">מספר חברי הצוות</label>
+          <select id="studentCount" data-save aria-label="מספר המשתתפים">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+        <div class="student-names-grid" id="studentNamesContainer" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="pitch-data-title">
+      <div class="section-title">
+        <span class="step-number">2</span>
+        <div>
+          <h2 id="pitch-data-title">שאלות קצרות לבניית הפיץ׳</h2>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field full">
+          <label for="problem">מה הבעיה או הצורך שבחרתם לפתור?</label>
+          <textarea id="problem" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="audience">למי הפתרון שלכם יכול לעזור?</label>
+          <textarea id="audience" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="situation">מתי או איפה הבעיה הזאת קורת?</label>
+          <textarea id="situation" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="difficulty">מה קשה במצב הזה?</label>
+          <textarea id="difficulty" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="main_need">איך הפתרון שלכם אמור לעזור?</label>
+          <textarea id="main_need" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="quality_1">מה חשוב שיהיה בפתרון שלכם?</label>
+          <input id="quality_1" type="text" autocomplete="off" data-save placeholder="לדוגמה: פשוט, נוח, בטוח, ברור, מהיר" />
+        </div>
+
+        <div class="field full">
+          <label for="idea">מה הרעיון שלכם לפתרון?</label>
+          <textarea id="idea" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="product_action">איך משתמשים בפתרון שלכם?</label>
+          <textarea id="product_action" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="prototype_description">איך השתמשתם ב־AI כדי להמחיש את המוצר?</label>
+          <textarea id="prototype_description" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="focus_1">מה ההדמיה מראה על המוצר שלכם?</label>
+          <textarea id="focus_1" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="improvement">מה שיפרתם או הייתם רוצים לשפר ברעיון?</label>
+          <textarea id="improvement" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="step_1">מה קורה בהתחלה כשמשתמשים במוצר?</label>
+          <textarea id="step_1" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="step_2">מה קורה אחר כך?</label>
+          <textarea id="step_2" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="step_3">מה התוצאה בסוף?</label>
+          <textarea id="step_3" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="unique_part">מה מיוחד ברעיון שלכם?</label>
+          <textarea id="unique_part" data-save></textarea>
+        </div>
+
+        <div class="field">
+          <label for="target_value">איך הרעיון שלכם עוזר למי שישתמש בו?</label>
+          <textarea id="target_value" data-save></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="main_value">למה הרעיון שלכם חשוב?</label>
+          <textarea id="main_value" data-save></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="ai-pitch-title">
+      <div class="section-title">
+        <span class="step-number">3</span>
+        <div>
+          <h2 id="ai-pitch-title">יצירת פרומפט ל־AI</h2>
+        </div>
+      </div>
+
+      <div class="ai-step">
+        <div class="actions">
+          <button class="btn" type="button" id="generateAIPrompt">יצירת פרומפט</button>
+          <p id="copyStatusMessage" class="status-message"></p>
+        </div>
+        <div id="aiToolsArea" style="display:none; margin-top:0.65rem">
+          <div class="ai-tool-grid">
+            <a class="btn secondary ai-tool-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+            <a class="btn secondary ai-tool-btn" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Claude</a>
+            <a class="btn secondary ai-tool-btn" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Gemini</a>
+            <a class="btn secondary ai-tool-btn" href="https://www.google.com/" target="_blank" rel="noopener noreferrer">Google</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-step">
+        <div class="ai-step-header">
+          <span class="ai-step-num">שלב ב׳</span>
+          <span class="ai-step-label">הדבקת הפיץ׳ שהתקבל מה־AI</span>
+        </div>
+        <textarea id="fullPitch" data-save style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; left:-9999px; top:auto;" tabindex="-1" aria-hidden="true"></textarea>
+        <div class="actions" style="margin-top:0.55rem">
+          <button class="btn" type="button" id="pastePitchData">הדבקת הנתונים</button>
+          <button class="btn success" type="button" id="renderAIPitch">יצירת מסמך פיץ׳</button>
+          <p id="pasteStatusMessage" class="status-message"></p>
+        </div>
+      </div>
+
+      <div id="aiPromptFallback" style="display:none; margin-top:0.75rem">
+        <div class="field">
+          <label for="aiPromptOutput">העתקה ידנית במקרה הצורך</label>
+          <textarea id="aiPromptOutput" class="large-textarea" readonly></textarea>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+    (function () {
+      "use strict";
+
+      var STORAGE_KEY = "rokchim-olam-pitch-activity-v1";
+      var BLANK = "________";
+
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function getValue(id) {
+        var el = $(id);
+        return el ? String(el.value || "").trim() : "";
+      }
+
+      function cleanText(text) {
+        return String(text || "")
+          .replace(/\r\n?/g, "\n")
+          .replace(/[ \t]+/g, " ")
+          .replace(/[ \t]*\n[ \t]*/g, "\n")
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/\s+([.,:!?])/g, "$1")
+          .trim();
+      }
+
+      function stripFinalPunctuation(text) {
+        return cleanText(text).replace(/[.,:;!?]+$/g, "").trim();
+      }
+
+      function fill(id) {
+        return stripFinalPunctuation(getValue(id)) || BLANK;
+      }
+
+      function esc(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function getStudentCount() {
+        return Number(getValue("studentCount")) || 1;
+      }
+
+      function getStudentName(index) {
+        var name = getValue("student_" + (index + 1));
+        return name || "משתתף " + (index + 1);
+      }
+
+      function getStudentNames() {
+        var count = getStudentCount();
+        var names = [];
+        for (var i = 0; i < count; i += 1) {
+          names.push(getStudentName(i));
+        }
+        return names;
+      }
+
+      function getSaveFields() {
+        return Array.prototype.slice.call(document.querySelectorAll("[data-save]"));
+      }
+
+      function saveAll() {
+        var data = {};
+        getSaveFields().forEach(function (field) {
+          if (!field.id) return;
+          data[field.id] = field.type === "checkbox" ? field.checked : field.value;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function readSavedData() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        } catch (error) {
+          localStorage.removeItem(STORAGE_KEY);
+          return {};
+        }
+      }
+
+      function applySavedData(data) {
+        getSaveFields().forEach(function (field) {
+          if (!field.id || !Object.prototype.hasOwnProperty.call(data, field.id)) return;
+          if (field.type === "checkbox") {
+            field.checked = Boolean(data[field.id]);
+          } else {
+            field.value = data[field.id];
+          }
+        });
+      }
+
+      function renderStudentInputs(savedData) {
+        var container = $("studentNamesContainer");
+        if (!container) return;
+
+        var count = getStudentCount();
+        var current = savedData || {};
+
+        for (var k = 1; k <= 6; k += 1) {
+          var existing = $("student_" + k);
+          if (existing && existing.value) current["student_" + k] = existing.value;
+        }
+
+        container.replaceChildren();
+
+        for (var i = 1; i <= count; i += 1) {
+          (function (num) {
+            var row = document.createElement("div");
+            row.className = "student-row";
+
+            var label = document.createElement("label");
+            label.className = "student-label";
+            label.setAttribute("for", "student_" + num);
+            label.textContent = "משתתף " + num + ":";
+
+            var input = document.createElement("input");
+            input.type = "text";
+            input.id = "student_" + num;
+            input.setAttribute("autocomplete", "off");
+            input.setAttribute("data-save", "");
+            input.setAttribute("placeholder", "שם המשתתף הִ־" + num);
+            input.value = current["student_" + num] || "";
+
+            input.addEventListener("input", function () {
+              saveAll();
+              buildPrintDocument();
+            });
+
+            row.append(label, input);
+            container.appendChild(row);
+          }(i));
+        }
+      }
+
+      function buildAIPrompt() {
+        var projectName = fill("project_name");
+        var names = getStudentNames();
+
+        var p = "";
+        p += 'להלן תשובות של קבוצת תלמידים בתוכנית "רוקחים עולם" לשאלות הכנה לפיץ׳.\n';
+        p += "על סמך התשובות בלבד, נסח פיץ׳ מקצועי, ברור וקולח להצגה בפני קהל.\n\n";
+
+        p += "הנחיות כלליות:\n";
+        p += "• הפיץ׳ צריך להיות מתאים לכלל התלמידים, בניסוח ניטרלי מגדרית.\n";
+        p += "• יש לכתוב בעברית תקינה, טבעית ומתאימה לדיבור של תלמידים.\n";
+        p += "• אין להוסיף מידע שלא מופיע בתשובות.\n";
+        p += "• אין לציין את השאלות עצמן או את תהליך הכתיבה.\n\n";
+
+        p += "משתתפים:\n";
+        names.forEach(function (name, index) {
+          p += (index + 1) + ". " + name + "\n";
+        });
+        p += "\n";
+
+p += "אופן הצגת הפלט (חובה):\n";
+p += "• הפלט חייב להיות מחולק לפי משתתפים.\n";
+p += "• עבור כל משתתף יש לציין את שמו.\n";
+p += "• מתחת לשם – הטקסט שהוא מציג, מחולק לשורות קצרות, ברורות וזכירות.\n";
+p += "• כל שורה צריכה להכיל משפט אחד קצר או רעיון אחד ברור.\n";
+p += "• הטקסט צריך להיות קל לקריאה בקול על ידי תלמידים.\n";
+p += "• לכל משתתף חייב להיות היקף טקסט דומה, כך שזמן הדיבור יהיה שווה בין כולם.\n";
+p += "• המעברים בין המשתתפים צריכים להיות טבעיים וברורים.\n\n";
+
+        p += "מבנה רעיוני כולל (על פני כלל המשתתפים, לפי הסדר):\n";
+        p += "פתיחה\n";
+        p += "בעיה או צורך\n";
+        p += "למי זה עוזר\n";
+        p += "רעיון הפתרון\n";
+        p += "הדמיית ה-AI\n";
+        p += "אופן השימוש\n";
+        p += "מה מיוחד ברעיון\n";
+        p += "למה הוא חשוב\n";
+        p += "סיום\n\n";
+
+        p += "תשובות התלמידים:\n";
+        p += "שם המיזם: " + projectName + "\n";
+        p += "מה הבעיה או הצורך שבחרתם לפתור: " + fill("problem") + "\n";
+        p += "למי הפתרון שלכם יכול לעזור: " + fill("audience") + "\n";
+        p += "מתי או איפה הבעיה קורית: " + fill("situation") + "\n";
+        p += "מה קשה במצב הזה: " + fill("difficulty") + "\n";
+        p += "איך הפתרון שלכם אמור לעזור: " + fill("main_need") + "\n";
+        p += "מה חשוב שיהיה בפתרון: " + fill("quality_1") + "\n";
+        p += "מה הרעיון שלכם לפתרון: " + fill("idea") + "\n";
+        p += "איך משתמשים בפתרון: " + fill("product_action") + "\n";
+        p += "איך השתמשתם ב-AI כדי להמחיש את המוצר: " + fill("prototype_description") + "\n";
+        p += "מה ההדמיה מראה על המוצר: " + fill("focus_1") + "\n";
+        p += "מה שיפרתם או הייתם רוצים לשפר ברעיון: " + fill("improvement") + "\n";
+        p += "מה קורה בהתחלה כשמשתמשים במוצר: " + fill("step_1") + "\n";
+        p += "מה קורה אחר כך: " + fill("step_2") + "\n";
+        p += "מה התוצאה בסוף: " + fill("step_3") + "\n";
+        p += "מה מיוחד ברעיון: " + fill("unique_part") + "\n";
+        p += "איך הרעיון עוזר למי שישתמש בו: " + fill("target_value") + "\n";
+        p += "למה הרעיון חשוב: " + fill("main_value") + "\n\n";
+
+        p += "בסוף החזר רק את הפיץ׳ הסופי להצגה, מחולק לפי משתתפים עם שמותיהם, ללא הסברים או הערות נוספות.";
+
+        return p;
+      }
+
+      function showStatus(id, message, isError) {
+        var el = $(id);
+        if (!el) return;
+        el.textContent = message;
+        el.style.display = "block";
+        el.style.color = isError ? "#dc2626" : "#16a34a";
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          var textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          try {
+            var ok = document.execCommand("copy");
+            document.body.removeChild(textarea);
+            ok ? resolve() : reject(new Error("copy failed"));
+          } catch (error) {
+            document.body.removeChild(textarea);
+            reject(error);
+          }
+        });
+      }
+
+      function pastePitchData() {
+        var target = $("fullPitch");
+        if (!target) return;
+
+        function setPastedText(text) {
+          var cleaned = cleanText(text);
+          if (!cleaned) {
+            showStatus("pasteStatusMessage", "לא זוהו נתונים להדבקה. יש להעתיק קודם את הפיץ׳ מה־אי.", true);
+            return;
+          }
+          target.value = cleaned;
+          saveAll();
+          buildPrintDocument();
+          showStatus("pasteStatusMessage", "הנתונים הודבקו ונשמרו. כעת אפשר ליצור מסמך פיץ׳.", false);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.readText && window.isSecureContext) {
+          navigator.clipboard.readText()
+            .then(setPastedText)
+            .catch(function () {
+              var pasted = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־אי:");
+              setPastedText(pasted || "");
+            });
+          return;
+        }
+
+        var pastedFallback = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־אי:");
+        setPastedText(pastedFallback || "");
+      }
+
+      function handleGeneratePrompt() {
+        var prompt = buildAIPrompt();
+        var fallback = $("aiPromptOutput");
+        var fallbackBox = $("aiPromptFallback");
+        var toolsArea = $("aiToolsArea");
+
+        if (fallback) fallback.value = prompt;
+
+        copyText(prompt)
+          .then(function () {
+            showStatus("copyStatusMessage", "הפרומפט הועתק. עכשיו אפשר לעבור לכלי AI ולהדביק.", false);
+            if (fallbackBox) fallbackBox.style.display = "none";
+          })
+          .catch(function () {
+            showStatus("copyStatusMessage", "לא הצלחנו להעתיק אוטומטית. אפשר להעתיק ידנית מהתיבה שנפתחה.", true);
+            if (fallbackBox) fallbackBox.style.display = "block";
+          });
+
+        if (toolsArea) toolsArea.style.display = "block";
+        saveAll();
+      }
+
+      function parsePitchOutput(text) {
+        var clean = cleanText(text);
+        var count = getStudentCount();
+        var names = getStudentNames();
+        if (!clean) return [];
+
+        var pattern = /(?:^|\n)\s*משתתף\s*(\d+)\s*[::\-]\s*([^\n]*)\n?/g;
+        var matches = [];
+        var match;
+
+        while ((match = pattern.exec(clean)) !== null) {
+          matches.push({
+            index: match.index,
+            end: pattern.lastIndex,
+            num: Number(match[1]),
+            name: cleanText(match[2])
+          });
+        }
+
+        if (!matches.length) {
+          return [{ num: 1, name: names[0] || "משתתף 1", text: clean }];
+        }
+
+        return matches.map(function (item, index) {
+          var next = matches[index + 1];
+          var body = clean.slice(item.end, next ? next.index : clean.length).trim();
+          var num = item.num || (index + 1);
+          return {
+            num: num,
+            name: item.name || names[num - 1] || "משתתף " + num,
+            text: body
+          };
+        }).filter(function (card) {
+          return card.text;
+        }).slice(0, Math.max(count, matches.length));
+      }
+
+      function renderPreview() {
+        var fullPitch = getValue("fullPitch");
+
+        if (!fullPitch) {
+          showStatus("pasteStatusMessage", "יש להדביק תחילה את הפיץ׳ שהתקבל מה-AI.", true);
+          return;
+        }
+
+        var cards = parsePitchOutput(fullPitch);
+        var projectName = getValue("project_name") || "—";
+        var names = getStudentNames();
+
+        var nameTagsHtml = names.map(function (n) {
+          return '<span style="display:inline-block;margin:2px 3px;padding:3px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:0.92em;font-weight:700;">' + esc(n) + '</span>';
+        }).join("");
+
+        var cardsHtml = "";
+        cards.forEach(function (card, i) {
+          var isLast = i === cards.length - 1;
+          var accentColor = i % 2 === 0 ? "#0f766e" : "#1d4ed8";
+          var nameBg    = i % 2 === 0 ? "#f0fdfa"  : "#eff6ff";
+          var nameBorder= i % 2 === 0 ? "#99f6e4"  : "#bfdbfe";
+
+          cardsHtml += '<div style="margin-bottom:' + (isLast ? "0" : "28px") + ';page-break-inside:avoid;break-inside:avoid;">';
+
+          cardsHtml += '<div style="'
+            + 'display:inline-block;'
+            + 'margin-bottom:11px;'
+            + 'padding:6px 18px 6px 14px;'
+            + 'background:' + nameBg + ';'
+            + 'border:1.5px solid ' + nameBorder + ';'
+            + 'border-right:5px solid ' + accentColor + ';'
+            + 'border-radius:8px;'
+            + 'font-size:1.18em;'
+            + 'font-weight:900;'
+            + 'color:' + accentColor + ';'
+            + 'letter-spacing:0.01em;'
+            + 'print-color-adjust:exact;'
+            + '-webkit-print-color-adjust:exact;'
+            + '">'
+            + esc(card.name || ("משתתף " + card.num))
+            + '</div>';
+
+          cardsHtml += '<p style="margin:0;white-space:pre-wrap;line-height:1.85;font-size:1em;color:#111827;padding-right:2px;">'
+            + esc(card.text) + '</p>';
+
+          if (!isLast) {
+            cardsHtml += '<hr style="margin:22px 0 0;border:none;border-top:1px solid #d1fae5;">';
+          }
+
+          cardsHtml += '</div>';
+        });
+
+        var popupHtml = '<!DOCTYPE html><html lang="he" dir="rtl"><head>'
+          + '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+          + '<title>פיץ׳ סופי — ' + esc(projectName) + '</title>'
+          + '<link rel="preconnect" href="https://fonts.googleapis.com">'
+          + '<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&display=swap" rel="stylesheet">'
+          + '<style>'
+          + '*{box-sizing:border-box;}'
+          + 'body{margin:0;font-family:"Rubik",Arial,sans-serif;background:#f4fbfb;color:#334155;direction:rtl;text-align:right;}'
+          + '.toolbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(255,255,255,0.95);border-bottom:1px solid rgba(15,118,110,0.18);backdrop-filter:blur(12px);}'
+          + '.toolbar-title{font-weight:900;font-size:1.05em;color:#115e59;}'
+          + '.print-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border:0;border-radius:999px;background:linear-gradient(135deg,#0f766e,#2563eb);color:#fff;font-family:inherit;font-size:0.95em;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(37,99,235,0.22);}'
+          + '.print-btn:hover{opacity:0.92;}'
+          + '.doc{max-width:800px;margin:0 auto;padding:24px 20px 48px;}'
+          + '.doc-header{margin-bottom:24px;padding:16px 20px;border:1px solid #99f6e4;border-radius:14px;background:linear-gradient(135deg,#ecfeff,#f0fdfa);print-color-adjust:exact;-webkit-print-color-adjust:exact;}'
+          + '.brand-tag{display:inline-block;padding:3px 12px;border-radius:999px;background:#ccfbf1;color:#115e59;font-weight:900;font-size:0.85em;margin-bottom:8px;}'
+          + '.doc-header h1{margin:0 0 8px;font-size:1.6em;font-weight:900;color:#0f172a;}'
+          + '.doc-header .meta{margin:0 0 4px;font-size:0.95em;color:#334155;}'
+          + '.doc-header .meta strong{color:#115e59;}'
+          + '.names-row{margin-top:8px;}'
+          + '@media print{'
+          + '@page{size:A4;margin:14mm;}'
+          + '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'
+          + 'body{background:#fff!important;font-size:14pt;line-height:1.6;direction:rtl;text-align:right;color:#111827;}'
+          + '.toolbar{display:none!important;}'
+          + '.doc{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;}'
+          + 'hr{border:none!important;border-top:1pt solid #ccc!important;}'
+          + '}'
+          + '</style></head><body>'
+          + '<div class="toolbar no-print">'
+          + '<span class="toolbar-title">פיץ׳ סופי להצגה — ' + esc(projectName) + '</span>'
+          + '<button class="print-btn" onclick="window.print()">🖨 הדפסה / שמירה ל-PDF</button>'
+          + '</div>'
+          + '<div class="doc">'
+          + '<div class="doc-header">'
+          + '<div class="brand-tag">רוקחים עולם</div>'
+          + '<h1>' + esc(projectName) + '</h1>'
+          + '<p class="meta"><strong>משתתפים:</strong></p>'
+          + '<div class="names-row">' + nameTagsHtml + '</div>'
+          + '</div>'
+          + cardsHtml
+          + '</div>'
+          + '</body></html>';
+
+        var popup = window.open("", "_blank", "width=860,height=720,scrollbars=yes,resizable=yes");
+        if (!popup) {
+          showStatus("pasteStatusMessage", "הדפדפן חסם את החלון. יש לאשר חלונות קופצים ולנסות שוב.", true);
+          return;
+        }
+        popup.document.write(popupHtml);
+        popup.document.close();
+        popup.focus();
+
+        showStatus("pasteStatusMessage", "מסמך הפיץ׳ נפתח בחלון חדש. לחצו הדפסה בחלון שנפתח.", false);
+        buildPrintDocument();
+        saveAll();
+      }
+
+      function buildPrintDocument() {
+        var doc = $("printPitchDocument");
+        if (!doc) return;
+
+        var pastedText = getValue("fullPitch");
+        if (!pastedText) {
+          doc.innerHTML = '<section class="print-doc"><div class="pd-empty">אין פיץ׳ להדפסה. יש להדביק תחילה את הפיץ׳ מה־אי.</div></section>';
+          return;
+        }
+
+        var projectName = getValue("project_name") || "—";
+        var names = getStudentNames();
+        var cards = parsePitchOutput(pastedText);
+        var html = "";
+
+        html += '<section class="print-doc">';
+        html += '<header class="print-doc-header">';
+        html += '<h1>פיץ׳ סופי להצגה</h1>';
+        html += '<p class="print-doc-brand">רוקחים עולם</p>';
+        html += '<p class="print-doc-meta"><strong>שם המיזם:</strong> ' + esc(projectName) + '</p>';
+        html += '<p class="print-doc-meta"><strong>משתתפים:</strong></p>';
+        html += '<ul class="print-students-list">';
+        for (var i = 0; i < names.length; i++) {
+          html += '<li>' + esc(names[i]) + '</li>';
+        }
+        html += '</ul>';
+        html += '</header>';
+
+        cards.forEach(function (card) {
+          html += '<section class="print-section">';
+          html += '<h2>משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h2>';
+          html += '<p class="' + (cards.length === 1 ? "print-single-pitch" : "print-speaker-text") + '">' + esc(card.text) + '</p>';
+          html += '</section>';
+        });
+
+        html += '</section>';
+        doc.innerHTML = html;
+      }
+
+      function init() {
+        var savedData = readSavedData();
+        var countEl = $("studentCount");
+        if (countEl && savedData.studentCount) {
+          countEl.value = savedData.studentCount;
+        }
+        renderStudentInputs(savedData);
+        applySavedData(savedData);
+        buildPrintDocument();
+
+        if (countEl) {
+          countEl.addEventListener("change", function () {
+            renderStudentInputs();
+            saveAll();
+          });
+        }
+
+        getSaveFields().forEach(function (field) {
+          field.addEventListener("input", saveAll);
+          field.addEventListener("change", saveAll);
+        });
+
+        var generateBtn = $("generateAIPrompt");
+        if (generateBtn) generateBtn.addEventListener("click", handleGeneratePrompt);
+
+        var pasteBtn = $("pastePitchData");
+        if (pasteBtn) pasteBtn.addEventListener("click", pastePitchData);
+
+        var renderBtn = $("renderAIPitch");
+        if (renderBtn) renderBtn.addEventListener("click", renderPreview);
+
+        var printDocBtn = $("printPitchDocumentBtn");
+        if (printDocBtn) printDocBtn.addEventListener("click", function () { window.print(); });
+
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    }());
+  </script>
+</body>
+</html>
