@@ -712,11 +712,56 @@
       grid-column:1 / -1;
     }
 
+
+    /* Compact home icon in header */
+    .top{
+      position:relative;
+      padding-left:54px;
+    }
+
+    .home-icon{
+      position:absolute;
+      top:14px;
+      left:14px;
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--brand);
+      text-decoration:none;
+      font-size:19px;
+      font-weight:900;
+      box-shadow:0 6px 16px rgba(22,45,70,.08);
+      transition:.15s;
+    }
+
+    .home-icon:hover{
+      background:var(--soft);
+      transform:translateY(-1px);
+    }
+
+    @media(max-width:720px){
+      .top{
+        padding-left:16px;
+        padding-top:58px;
+      }
+
+      .home-icon{
+        top:14px;
+        right:14px;
+        left:auto;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="app">
     <header class="top">
+      <a class="home-icon" href="/" title="חזרה לדף הבית" aria-label="חזרה לדף הבית">⌂</a>
       <h1>מחולל פרומפטים לתמונות למיזם</h1>
       <p class="lead">בוחרים סוג מוצר אחד, וכל מוצר מציג שאלות שונות ומותאמות: אפליקציה, אתר, מוצר דיגיטלי או מוצר פיזי. בסיום מעתיקים פרומפטים מוכנים לתמונות.</p>
 
