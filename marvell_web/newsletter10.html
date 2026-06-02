@@ -1,9 +1,10 @@
+```html id="marvell-story-page-updated"
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>תעשיידע | פרימיום מארוול – אב-טיפוס</title>
+  <title>תעשיידע | פרימיום מארוול – יצירת סיפור למוצר</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -182,44 +183,6 @@
       align-items: stretch;
     }
 
-    .visual-panel {
-      min-height: 315px;
-      border-radius: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .visual-panel::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 20px;
-      background:
-        linear-gradient(90deg, rgba(30,102,168,0.05) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(30,102,168,0.05) 1px, transparent 1px);
-      background-size: 24px 24px;
-      pointer-events: none;
-      display: none;
-    }
-
-    .hero-graphic {
-      width: 100%;
-      max-width: none;
-      max-height: none;
-      object-fit: cover;
-      display: block;
-      position: relative;
-      z-index: 1;
-      filter: none;
-    }
-
     .copy-panel {
       padding: 8px 4px 6px 0;
       display: flex;
@@ -276,7 +239,7 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
       align-items: stretch;
     }
@@ -305,8 +268,8 @@
     }
 
     .product-card {
-      min-height: 335px;
-      padding: 22px 18px 18px;
+      min-height: 380px;
+      padding: 24px 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -317,25 +280,30 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 14px;
+      margin-bottom: 16px;
     }
 
     .product-card .card-icon {
-      width: 146px;
-      height: 146px;
-      min-width: 146px;
-      border-radius: 34px;
+      width: 190px;
+      height: 190px;
+      min-width: 190px;
+      border-radius: 40px;
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 12px 22px rgba(0, 18, 52, 0.12);
     }
 
     .product-card .card-icon img {
-      width: 110px;
-      height: 110px;
+      width: 165px;
+      height: 165px;
+      object-fit: contain;
+      display: block;
     }
 
     .product-card .card-title {
       text-align: center;
-      font-size: 1.42rem;
+      font-size: 1.48rem;
       line-height: 1.2;
     }
 
@@ -354,7 +322,7 @@
       width: fit-content;
       min-width: 150px;
       margin: 18px auto 0;
-      padding: 9px 16px;
+      padding: 9px 18px;
       border-radius: 999px;
       color: #ffffff;
       background: linear-gradient(90deg, #0d3a76, #1e66a8);
@@ -363,7 +331,7 @@
         0 9px 18px rgba(0, 10, 32, 0.20),
         inset 0 1px 0 rgba(255,255,255,0.24);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       font-weight: 900;
       transition: transform 0.16s ease, box-shadow 0.16s ease;
     }
@@ -375,16 +343,6 @@
         inset 0 1px 0 rgba(255,255,255,0.28);
     }
 
-    .wide-card.highlight {
-      grid-row: span 3;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 34%),
-        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94));
-    }
-
     .card-head {
       display: flex;
       align-items: center;
@@ -393,25 +351,11 @@
     }
 
     .card-icon {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      border-radius: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(180deg, #ffffff, #eef6ff);
-      border: 1px solid rgba(120, 170, 220, 0.34);
-      box-shadow: 0 12px 22px rgba(0, 18, 52, 0.12);
-    }
-
-    .card-icon img {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      display: block;
     }
 
     .card-title {
@@ -427,80 +371,6 @@
       line-height: 1.55;
       color: #53647d;
       font-weight: 500;
-    }
-
-    .highlight-list {
-      margin-top: 16px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .list-line {
-      padding: 11px 13px;
-      border-radius: 15px;
-      background: rgba(13, 58, 118, 0.07);
-      border: 1px solid rgba(120, 170, 220, 0.22);
-      color: #27476b;
-      font-size: 0.94rem;
-      font-weight: 800;
-    }
-
-    .cta-bar {
-      margin-top: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 260px;
-      padding: 14px 24px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 900;
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        0 9px 18px rgba(0, 10, 32, 0.24),
-        inset 0 1px 0 rgba(255,255,255,0.28);
-    }
-
-    .cta-btn.primary {
-      color: white;
-      background: linear-gradient(90deg, #0d3a76, #1e66a8);
-      border: 1px solid rgba(53,196,232,0.48);
-    }
-
-    .cta-btn:hover { transform: translateY(-2px); }
-
-    .compact-summary {
-      min-height: 72px;
-      background: linear-gradient(90deg, #9cecff 0%, #eaf7ff 48%, #ffca73 100%);
-      border: 1px solid rgba(255,255,255,0.46);
-      color: #061329;
-      box-shadow:
-        0 18px 36px rgba(0, 10, 32, 0.20),
-        inset 0 1px 0 rgba(255,255,255,0.58);
-    }
-
-    .compact-summary::before {
-      background: linear-gradient(90deg, #35c4e8, #f6a742);
-    }
-
-    .compact-summary .card-text {
-      color: #17395e;
-      font-weight: 800;
-      font-size: 0.86rem;
-      line-height: 1.4;
     }
 
     .page-footer {
@@ -520,13 +390,21 @@
       .home-link svg { width: 18px; height: 18px; }
       .mentor-stage { padding: 16px; }
       .stage-grid { grid-template-columns: 1fr; }
-      .visual-panel { min-height: 220px; }
-      .hero-graphic { max-height: 165px; }
       .hero-title { font-size: 2rem; }
       .prep-board { grid-template-columns: 1fr; }
-      .wide-card.highlight { grid-row: auto; }
-      .cta-bar { flex-direction: column; }
-      .cta-btn { width: 100%; }
+      .product-card { min-height: 360px; }
+
+      .product-card .card-icon {
+        width: 170px;
+        height: 170px;
+        min-width: 170px;
+        border-radius: 36px;
+      }
+
+      .product-card .card-icon img {
+        width: 148px;
+        height: 148px;
+      }
     }
   </style>
 </head>
@@ -544,15 +422,14 @@
     <section class="mentor-stage">
       <div class="stage-grid">
         <div class="copy-panel">
-          <div class="lesson-chip">שלב בתהליך | אב-טיפוס</div>
-          <h1 class="hero-title">בונים אב-טיפוס</h1>
+          <div class="lesson-chip">שלב בתהליך | יצירת סיפור למוצר</div>
+          <h1 class="hero-title">יוצרים סיפור למוצר</h1>
           <p class="hero-text">
-            אב-טיפוס הוא הדרך הראשונה להראות איך הרעיון שלנו יכול לעבוד במציאות.
-            בשלב הזה בוחרים איזה סוג מוצר מפתחים: מוצר פיזי, מוצר דיגיטלי או אפליקציה,
-            ובונים גרסה פשוטה שממחישה את הרעיון בצורה ברורה.
+            אחרי שהרעיון מתחיל לקבל צורה, הגיע הזמן להפוך אותו לסיפור ברור שאפשר להציג לאחרים.
+            בשלב הזה מסבירים מה הבעיה, למי המוצר מיועד, מה הפתרון שלנו, ומה הערך שהוא נותן.
           </p>
           <div class="mentor-note">
-            המטרה היא לא לבנות מוצר מושלם, אלא ליצור משהו שאפשר לראות, להסביר, לבדוק ולשפר.
+            המטרה היא לא רק לתאר את המוצר, אלא לגרום למי שקורא או צופה להבין למה הוא חשוב, שימושי ומעניין.
           </div>
         </div>
       </div>
@@ -563,45 +440,30 @@
         <div>
           <div class="card-head">
             <div class="card-icon">
-              <img src="images/physical.png" alt="אייקון מוצר פיזי" />
+              <img src="./mentoring/postermarvell.png" alt="פוסטר" />
             </div>
-            <h2 class="card-title">מוצר פיזי</h2>
+            <h2 class="card-title">פוסטר</h2>
           </div>
           <p class="card-text">
-            אב-טיפוס למוצר בעל צורה, חלקים או מנגנון - משהו שאפשר להחזיק, להזיז, להרכיב או להפעיל במרחב.
+            יצירת פוסטר מסכם שמציג את הסיפור של המוצר בצורה חזותית: הבעיה, קהל היעד, הפתרון, הערך והתוצר.
           </p>
         </div>
-        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
+        <a class="product-button" href="Postermarvell.html">ליצירת פוסטר</a>
       </article>
 
       <article class="wide-card product-card">
         <div>
           <div class="card-head">
             <div class="card-icon">
-              <img src="images/digitali.png" alt="אייקון מוצר דיגיטלי" />
+              <img src="./mentoring/promptmarvell.png" alt="פרומפט" />
             </div>
-            <h2 class="card-title">מוצר דיגיטלי</h2>
+            <h2 class="card-title">פרומפט</h2>
           </div>
           <p class="card-text">
-            אב-טיפוס למסכים, אתר, מערכת או לוח בקרה - מתאים להצגת מידע, פעולות וזרימת שימוש.
+            ניסוח פרומפט מדויק שיעזור ליצור תמונה, המחשה או תיאור חזותי למוצר, בהתאם לרעיון ולמסר שרוצים להציג.
           </p>
         </div>
-        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
-      </article>
-
-      <article class="wide-card product-card">
-        <div>
-          <div class="card-head">
-            <div class="card-icon">
-              <img src="images/app.png" alt="אייקון אפליקציה" />
-            </div>
-            <h2 class="card-title">אפליקציה</h2>
-          </div>
-          <p class="card-text">
-            אב-טיפוס לחוויית שימוש בטלפון - מעבר בין מסכים, לחיצות, בחירות וקבלת מידע או תוצאה.
-          </p>
-        </div>
-        <a class="product-button" href="allprd.html">לבניית האב-טיפוס</a>
+        <a class="product-button" href="Promptmarvell.html">ליצירת פרומפט</a>
       </article>
     </section>
 
@@ -609,3 +471,4 @@
   </div>
 </body>
 </html>
+```
