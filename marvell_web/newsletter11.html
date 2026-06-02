@@ -1,0 +1,487 @@
+```html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תעשיידע | פרימיום מארוול – פיץ׳ היזם</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      zoom: 0.75;
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      color: #10213d;
+      background:
+        radial-gradient(circle at 84% 10%, rgba(53, 196, 232, 0.25), transparent 27%),
+        radial-gradient(circle at 13% 18%, rgba(70, 120, 255, 0.17), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.12), transparent 31%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+      padding: 28px 18px 42px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
+        linear-gradient(180deg, rgba(10, 33, 69, 0.95), rgba(6, 19, 41, 0.97));
+      border: 1px solid rgba(131, 190, 255, 0.30);
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(53,196,232,0.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(53,196,232,0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.72), transparent 62%);
+      z-index: -1;
+    }
+
+    .page::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-brand {
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(53,196,232,0.18), transparent 30%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
+      border: 1px solid rgba(131, 190, 255, 0.25);
+      box-shadow:
+        0 18px 42px rgba(0, 12, 38, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+      z-index: 1;
+    }
+
+    .home-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.90));
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      z-index: 2;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 26px rgba(0, 10, 30, 0.30);
+    }
+
+    .home-link svg {
+      width: 20px;
+      height: 20px;
+      fill: #0d2045;
+    }
+
+    .brand-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.30));
+    }
+
+    .pitch-hero {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 30px 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(237,247,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+      z-index: 2;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(53,196,232,0.16), transparent 29%),
+        radial-gradient(circle at 10% 88%, rgba(246,167,66,0.13), transparent 27%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lesson-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 7px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      background: rgba(53, 196, 232, 0.12);
+      border: 1px solid rgba(53, 196, 232, 0.32);
+      color: #0b5f83;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .hero-title {
+      margin: 0 0 12px;
+      font-size: clamp(2.05rem, 4.4vw, 3.35rem);
+      line-height: 1.05;
+      color: #123b64;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-text {
+      margin: 0;
+      font-size: 1.04rem;
+      line-height: 1.9;
+      color: #4d5f79;
+      font-weight: 500;
+    }
+
+    .mentor-note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      color: #213a59;
+      font-size: 1rem;
+      line-height: 1.85;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(246,167,66,0.16), rgba(255,255,255,0.82));
+      border: 1px solid rgba(246, 167, 66, 0.28);
+    }
+
+    .pitch-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 26px 24px;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.18), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(235,246,255,0.94));
+      border: 1px solid rgba(140, 184, 230, 0.42);
+      box-shadow:
+        0 24px 54px rgba(0, 10, 32, 0.32),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 360px;
+    }
+
+    .pitch-badge {
+      width: 154px;
+      height: 154px;
+      margin: 0 auto 18px;
+      border-radius: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(180deg, #ffffff, #eef6ff);
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      box-shadow: 0 16px 28px rgba(0, 18, 52, 0.14);
+      color: #0d3a76;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .pitch-card h2 {
+      margin: 0 0 10px;
+      text-align: center;
+      color: #123b64;
+      font-size: 1.44rem;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .pitch-card p {
+      margin: 0;
+      text-align: center;
+      color: #53647d;
+      font-size: 1.02rem;
+      line-height: 1.72;
+      font-weight: 600;
+    }
+
+    .pitch-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      width: fit-content;
+      min-width: 210px;
+      margin: 22px auto 0;
+      padding: 12px 24px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(90deg, #0d3a76, #1e66a8);
+      border: 1px solid rgba(53, 196, 232, 0.48);
+      box-shadow:
+        0 11px 22px rgba(0, 10, 32, 0.24),
+        inset 0 1px 0 rgba(255,255,255,0.24);
+      text-decoration: none;
+      font-size: 0.98rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .pitch-button:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 14px 26px rgba(0, 10, 32, 0.30),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .pitch-flow {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .flow-item {
+      position: relative;
+      overflow: hidden;
+      min-height: 118px;
+      padding: 16px 15px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      box-shadow:
+        0 18px 36px rgba(0, 10, 32, 0.20),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .flow-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #35c4e8, #1e66a8, #f6a742);
+    }
+
+    .flow-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0d3a76, #1e66a8);
+      font-size: 0.9rem;
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(0, 18, 52, 0.16);
+    }
+
+    .flow-title {
+      margin: 0 0 5px;
+      color: #123b64;
+      font-size: 1rem;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .flow-text {
+      margin: 0;
+      color: #53647d;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .page-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #b8d9f7;
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .page { padding: 12px; border-radius: 24px; }
+      .top-brand { min-height: 82px; }
+      .brand-mark { width: 60px; height: 60px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .pitch-hero { grid-template-columns: 1fr; }
+      .hero-main { padding: 22px 18px; }
+      .hero-title { font-size: 2rem; }
+      .pitch-card { min-height: auto; }
+      .pitch-flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <section class="top-brand">
+      <a class="home-link" href="index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+
+      <img class="brand-mark" src="images/logo.png" alt="לוגו תעשיידע" />
+    </section>
+
+    <section class="pitch-hero">
+
+      <div class="hero-main">
+        <div class="hero-content">
+          <div class="lesson-chip">שלב בתהליך | פיץ׳ היזם</div>
+
+          <h1 class="hero-title">מציגים את הרעיון כמו יזמים</h1>
+
+          <p class="hero-text">
+            פיץ׳ הוא הצגה קצרה וברורה של המיזם. בשלב הזה מסדרים את הסיפור של המוצר:
+            מה הבעיה, מי צריך את הפתרון, איך המוצר עובד, ומה הופך אותו לשימושי ומשכנע.
+          </p>
+
+          <div class="mentor-note">
+            המטרה היא להעביר מסר חד בזמן קצר — כך שהקהל יבין את הרעיון, יתחבר אליו וירצה לשמוע עוד.
+          </div>
+        </div>
+      </div>
+
+      <aside class="pitch-card">
+        <div>
+          <div class="pitch-badge">PITCH</div>
+
+          <h2>בונים פיץ׳ מסכם</h2>
+
+          <p>
+            כלי עבודה שמוביל את הצוותים צעד אחר צעד לבניית פיץ׳ ברור, מסודר ומשכנע להצגת המיזם.
+          </p>
+        </div>
+
+        <a class="pitch-button" href="pitch-activity.html">לעמוד הפיץ׳</a>
+      </aside>
+
+    </section>
+
+    <section class="pitch-flow">
+      <article class="flow-item">
+        <div class="flow-number">1</div>
+        <h3 class="flow-title">פותחים בבעיה</h3>
+        <p class="flow-text">מסבירים בקצרה איזה צורך או קושי המיזם בא לפתור.</p>
+      </article>
+
+      <article class="flow-item">
+        <div class="flow-number">2</div>
+        <h3 class="flow-title">מציגים פתרון</h3>
+        <p class="flow-text">מתארים את המוצר ואת הדרך שבה הוא נותן מענה לקהל היעד.</p>
+      </article>
+
+      <article class="flow-item">
+        <div class="flow-number">3</div>
+        <h3 class="flow-title">מדגישים ערך</h3>
+        <p class="flow-text">מראים מה היתרון, הייחודיות והתועלת של המיזם.</p>
+      </article>
+
+      <article class="flow-item">
+        <div class="flow-number">4</div>
+        <h3 class="flow-title">מסיימים חזק</h3>
+        <p class="flow-text">חותמים במשפט ברור שמזמין את הקהל לזכור את הרעיון.</p>
+      </article>
+    </section>
+
+    <div class="page-footer">© פרימיום | תעשיידע</div>
+
+  </div>
+</body>
+</html>
+```
