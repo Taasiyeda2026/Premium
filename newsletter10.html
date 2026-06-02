@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תעשיידע | פרימיום אסם – פוסטר ופרומפט</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      zoom: 0.75;
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Heebo", Arial, sans-serif;
+      color: #4a3a35;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(195, 32, 38, 0.10), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(143, 29, 34, 0.08), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(211, 154, 93, 0.12), transparent 30%),
+        linear-gradient(145deg, #f6f2ec 0%, #f8f5ef 48%, #eee7dc 100%);
+      padding: 28px 18px 42px;
+      overflow-x: hidden;
+      letter-spacing: 0.1px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.42), transparent 32%),
+        linear-gradient(135deg, rgba(255,255,255,0.18), transparent 42%);
+      opacity: 0.9;
+    }
+
+    .newsletter {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at top right, rgba(195, 32, 38, 0.08), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(211, 154, 93, 0.10), transparent 26%),
+        linear-gradient(180deg, #ffffff 0%, #f8f5ef 100%);
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow:
+        0 30px 70px rgba(80, 54, 46, 0.16),
+        0 12px 26px rgba(80, 54, 46, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .newsletter::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(255,255,255,0.42), transparent 34%);
+      z-index: -1;
+    }
+
+    .newsletter::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.36);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-brand {
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 18px 24px;
+      overflow: hidden;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(195, 32, 38, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(249,246,239,0.90) 100%);
+      border: 1px solid rgba(225, 214, 202, 0.95);
+      box-shadow:
+        0 14px 30px rgba(80, 54, 46, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.84);
+      z-index: 1;
+    }
+
+    .home-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f5eee8 100%);
+      border: 1px solid #e1d2c8;
+      box-shadow:
+        0 3px 0 rgba(143, 29, 34, 0.18),
+        0 9px 15px rgba(80, 54, 46, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      z-index: 2;
+    }
+
+    .home-link:hover {
+      transform: translateY(-2px);
+      border-color: #d4bdb2;
+      box-shadow:
+        0 5px 0 rgba(143, 29, 34, 0.16),
+        0 13px 20px rgba(80, 54, 46, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+    }
+
+    .home-link svg {
+      width: 19px;
+      height: 19px;
+      fill: #c32026;
+    }
+
+    .brand-mark {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 10px 18px rgba(80, 54, 46, 0.14));
+    }
+
+    .stage {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.70), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,245,239,0.94));
+      border: 1px solid rgba(225, 214, 202, 0.92);
+      box-shadow:
+        0 22px 48px rgba(80, 54, 46, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #8f1d22 0%, #c32026 58%, #d39a5d 100%);
+      z-index: 2;
+    }
+
+    .stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(195,32,38,0.10), transparent 28%),
+        radial-gradient(circle at 12% 86%, rgba(211,154,93,0.12), transparent 26%);
+      pointer-events: none;
+    }
+
+    .stage-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .lesson-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: rgba(195, 32, 38, 0.10);
+      border: 1px solid rgba(195, 32, 38, 0.24);
+      color: #8f1d22;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(2.05rem, 4.3vw, 3.35rem);
+      line-height: 1.05;
+      color: #c32026;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-text {
+      margin: 0;
+      max-width: 760px;
+      font-size: 1.04rem;
+      line-height: 1.9;
+      color: #4a3a35;
+      font-weight: 500;
+    }
+
+    .mentor-note {
+      margin-top: 4px;
+      padding: 15px 17px;
+      border-radius: 20px;
+      color: #8f1d22;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(195,32,38,0.10), rgba(255,255,255,0.84));
+      border: 1px solid rgba(195, 32, 38, 0.18);
+      box-shadow:
+        0 10px 22px rgba(80, 54, 46, 0.06),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .choice-board {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .choice-board.single {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 540px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .story-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 390px;
+      padding: 24px 18px 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(248,245,239,0.93));
+      border: 1px solid rgba(225, 214, 202, 0.88);
+      box-shadow:
+        0 18px 36px rgba(80, 54, 46, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .story-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #8f1d22, #c32026, #d39a5d);
+    }
+
+    .card-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 190px;
+      height: 190px;
+      min-width: 190px;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff, #f6eee8);
+      border: 1px solid rgba(195, 32, 38, 0.18);
+      box-shadow: 0 14px 24px rgba(80, 54, 46, 0.12);
+    }
+
+    .card-icon img {
+      width: 165px;
+      height: 165px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .card-title {
+      margin: 0;
+      text-align: center;
+      font-size: 1.48rem;
+      line-height: 1.2;
+      font-weight: 900;
+      color: #c32026;
+    }
+
+    .card-text {
+      margin: 0;
+      text-align: center;
+      font-size: 1.04rem;
+      line-height: 1.7;
+      color: #4a3a35;
+      font-weight: 600;
+    }
+
+    .story-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      width: fit-content;
+      min-width: 170px;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(90deg, #8f1d22, #c32026);
+      border: 1px solid rgba(195,32,38,0.36);
+      box-shadow:
+        0 9px 18px rgba(80, 54, 46, 0.14),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    .story-button:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 12px 22px rgba(80, 54, 46, 0.18),
+        inset 0 1px 0 rgba(255,255,255,0.26);
+      filter: brightness(1.02);
+    }
+
+    .story-flow {
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .flow-item {
+      position: relative;
+      overflow: hidden;
+      min-height: 112px;
+      padding: 15px 14px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(248,245,239,0.93));
+      border: 1px solid rgba(225, 214, 202, 0.88);
+      box-shadow:
+        0 14px 28px rgba(80, 54, 46, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+    }
+
+    .flow-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8f1d22, #c32026, #d39a5d);
+    }
+
+    .flow-title {
+      margin: 0 0 6px;
+      color: #c32026;
+      font-size: 1rem;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .flow-text {
+      margin: 0;
+      color: #4a3a35;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .page-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #8b766d;
+      font-size: 0.9rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px 10px 30px; }
+      .newsletter { padding: 12px; border-radius: 24px; }
+      .top-brand { min-height: 82px; }
+      .brand-mark { width: 60px; height: 60px; }
+      .home-link { right: 12px; top: 12px; width: 38px; height: 38px; }
+      .home-link svg { width: 18px; height: 18px; }
+      .stage { padding: 18px; }
+      .hero-title { font-size: 2rem; }
+      .choice-board,
+      .choice-board.single,
+      .story-flow { grid-template-columns: 1fr; max-width: none; }
+      .story-card { min-height: 360px; }
+      .card-icon {
+        width: 170px;
+        height: 170px;
+        min-width: 170px;
+        border-radius: 36px;
+      }
+      .card-icon img {
+        width: 148px;
+        height: 148px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="newsletter">
+
+    <section class="top-brand">
+
+      <a class="home-link" href="index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/>
+        </svg>
+      </a>
+
+      <img class="brand-mark" src="images/logo.png" alt="לוגו תעשיידע" />
+    </section>
+
+
+    <section class="stage">
+      <div class="stage-content">
+        <div class="lesson-chip">שלב בתהליך | סיפור מוצר</div>
+        <h1 class="hero-title">יוצרים פוסטר ופרומפט למוצר</h1>
+        <p class="hero-text">
+          אחרי שהרעיון קיבל צורה, בוחרים איך להציג אותו: פוסטר שמסדר את סיפור המוצר בצורה חזותית,
+          או פרומפט מדויק שמוביל ליצירת המחשה תמונתית ברורה.
+        </p>
+        <div class="mentor-note">
+          המטרה היא לתרגם את הרעיון למסרים ברורים: מה הבעיה, למי המוצר מיועד, מה הפתרון ומה הערך שהוא נותן.
+        </div>
+      </div>
+    </section>
+
+    <section class="choice-board">
+      <article class="story-card">
+        <div>
+          <div class="card-head">
+            <div class="card-icon">
+              <img src="./mentoring/posterosem.png" alt="פוסטר מוצר" />
+            </div>
+            <h2 class="card-title">פוסטר</h2>
+          </div>
+          <p class="card-text">
+            יצירת פוסטר מסכם שמציג את סיפור המוצר בצורה חזותית: הבעיה, קהל היעד, הפתרון, הערך, הייחודיות והתוצר.
+          </p>
+        </div>
+        <a class="story-button" href="Posterosem.html">ליצירת פוסטר</a>
+      </article>
+
+      <article class="story-card">
+        <div>
+          <div class="card-head">
+            <div class="card-icon">
+              <img src="./mentoring/promptosem.png" alt="פרומפט מוצר" />
+            </div>
+            <h2 class="card-title">פרומפט</h2>
+          </div>
+          <p class="card-text">
+            ניסוח פרומפט מדויק ליצירת תמונה או המחשה של המוצר, בהתאם לצורך, לקהל היעד, לערך ולמסר המרכזי.
+          </p>
+        </div>
+        <a class="story-button" href="Promptosem.html">ליצירת פרומפט</a>
+      </article>
+    </section>
+
+    <div class="page-footer">© פרימיום | תעשיידע</div>
+  </div>
+</body>
+</html>
