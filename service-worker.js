@@ -1,4 +1,4 @@
-const CACHE_NAME = 'premium-static-v9';
+const CACHE_NAME = 'premium-static-v10';
 const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
