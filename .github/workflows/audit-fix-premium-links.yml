@@ -51,14 +51,11 @@ jobs:
                   homeish = any(h in lower for h in HOME_HINTS) or any(w in tag for w in HOME_WORDS)
                   if not homeish:
                       return tag
-                  # Do not rewrite external/action links accidentally.
                   if href.startswith(('http://','https://','mailto:','tel:','javascript:','#')):
                       return tag
                   return tag[:m.start('href')-m.start()] + desired_home + tag[m.end('href')-m.start():]
 
               text = anchor_re.sub(fix_anchor, text)
-
-              # Also normalize JS home navigations only when the nearby code explicitly says home.
               lines = text.splitlines()
               for idx, line in enumerate(lines):
                   if ('window.location' in line or 'location.href' in line) and 'index.html' in line:
@@ -74,14 +71,15 @@ jobs:
                   path.write_text(text, encoding='utf-8')
                   changed.append(str(path.relative_to(repo)))
 
-          # Static internal-link audit across all Premium HTML pages.
           broken = []
           ref_re = re.compile(r'\b(?:href|src)=(?P<q>["\'])(?P<url>.*?)(?P=q)', re.I | re.S)
           js_re = re.compile(r'(?:window\.)?location(?:\.href)?\s*=\s*(?P<q>["\'])(?P<url>.*?)(?P=q)', re.I)
 
           def resolve_local(source: Path, raw: str):
               raw = raw.strip()
-              if not raw or raw.startswith(('#','data:','mailto:','tel:','javascript:','http://','https://','//')):
+              if not raw or '${' in raw or '{{' in raw:
+                  return None
+              if raw.startswith(('#','data:','mailto:','tel:','javascript:','http://','https://','//')):
                   return None
               u = urlsplit(raw)
               loc = unquote(u.path)
@@ -112,8 +110,8 @@ jobs:
                   if not target.exists():
                       broken.append((str(path.relative_to(repo)), raw, str(target.relative_to(repo))))
 
-          # Validate every explicit Home control resolves to Premium home, not repository root.
           wrong_home = []
+          home_controls = 0
           for path in html_files:
               text = path.read_text(encoding='utf-8')
               expected = home_rel(path)
@@ -121,23 +119,23 @@ jobs:
                   tag = m.group(0)
                   lower = tag.lower()
                   homeish = any(h in lower for h in HOME_HINTS) or any(w in tag for w in HOME_WORDS)
+                  if homeish:
+                      home_controls += 1
                   if homeish and not m.group('href').startswith(('http://','https://','#')) and m.group('href') != expected:
                       wrong_home.append((str(path.relative_to(repo)), m.group('href'), expected))
 
           print(f'PREMIUM_HTML_PAGES={len(html_files)}')
+          print(f'HOME_CONTROLS_CHECKED={home_controls}')
           print(f'FILES_WITH_HOME_LINK_FIXES={len(changed)}')
           for c in changed:
               print('FIXED_HOME:', c)
-
           print(f'BROKEN_INTERNAL_REFERENCES={len(broken)}')
           for source, raw, target in broken[:200]:
               print(f'BROKEN: {source} :: {raw} -> {target}')
-
           print(f'WRONG_HOME_LINKS={len(wrong_home)}')
           for item in wrong_home:
               print('WRONG_HOME:', item)
 
-          # Always bump cache when navigation changes.
           if changed:
               sw_path = repo / 'service-worker.js'
               sw = sw_path.read_text(encoding='utf-8')
@@ -163,9 +161,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git rm .github/workflows/audit-fix-premium-links.yml
           git add -A
-          if git diff --cached --quiet; then
-            echo 'No changes to commit'
-            exit 0
-          fi
-          git commit -m 'Repair Premium navigation links and verify internal routes'
+          git commit -m 'Verify Premium navigation links and remove audit workflow'
           git push origin HEAD:main
