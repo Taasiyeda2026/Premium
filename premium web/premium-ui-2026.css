@@ -102,8 +102,6 @@ body::before {
     linear-gradient(135deg, rgba(255,255,255,0.97), rgba(240,248,250,0.96)) !important;
 }
 
-.hero::before,
-.hero-banner::before,
 .wide-card::before,
 .card::before,
 .flow-item::before {
@@ -250,4 +248,62 @@ header {
   .wide-card,
   .pitch-card,
   .flow-item { box-shadow: none !important; }
+}
+
+/* Premium news landing: compact header + readable intro */
+.header-inner {
+  padding: 10px 16px 12px !important;
+}
+.site-logo {
+  max-width: 82px !important;
+  margin: 0 auto 2px !important;
+}
+.logo {
+  font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
+  margin-bottom: 0 !important;
+  line-height: 1.18 !important;
+}
+.top-bar {
+  padding: 7px 14px !important;
+  font-size: 0.82rem !important;
+}
+.header-inner .home-link {
+  width: 38px !important;
+  height: 38px !important;
+  top: 12px !important;
+  right: 16px !important;
+}
+main {
+  margin-top: 18px !important;
+}
+main > .hero {
+  padding: 18px 20px !important;
+  margin-bottom: 18px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f2f9fa 58%, #edf7f7 100%) !important;
+  border: 1px solid rgba(15,76,92,0.12) !important;
+  border-right: 5px solid var(--premium-teal) !important;
+  box-shadow: 0 12px 28px rgba(16,42,67,0.08) !important;
+}
+main > .hero::before {
+  background: radial-gradient(circle at 88% 18%, rgba(56,189,248,0.08), transparent 32%), radial-gradient(circle at 8% 88%, rgba(20,184,166,0.06), transparent 34%) !important;
+}
+main > .hero h1 {
+  color: var(--premium-navy) !important;
+  font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
+  margin-bottom: 6px !important;
+}
+main > .hero p {
+  color: #425b70 !important;
+  font-size: 0.96rem !important;
+  line-height: 1.75 !important;
+  font-weight: 500 !important;
+  max-width: 980px !important;
+}
+@media (max-width: 768px) {
+  .site-logo { max-width: 66px !important; }
+  .header-inner { padding: 9px 12px 10px !important; }
+  .logo { font-size: 1.35rem !important; }
+  .top-bar { padding: 6px 10px !important; font-size: 0.76rem !important; }
+  .header-inner .home-link { width: 34px !important; height: 34px !important; right: 12px !important; top: 10px !important; }
+  main > .hero { padding: 15px 14px !important; }
 }
