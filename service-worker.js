@@ -1,4 +1,4 @@
-const CACHE_NAME = 'premium-static-v13';
+const CACHE_NAME = 'premium-static-v14';
 const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
@@ -11,6 +11,16 @@ const CORE_ASSETS = [
   BASE + 'styles/pwa.css',
   BASE + 'premium web/index.html',
   BASE + 'premium web/images/web.png',
+  BASE + 'premium web/premium-ui-2026.css',
+  BASE + 'premium web/news/allnews.html',
+  BASE + 'premium web/newsletter4.html',
+  BASE + 'premium web/newsletter5.html',
+  BASE + 'premium web/newsletter6.html',
+  BASE + 'premium web/newsletter7.html',
+  BASE + 'premium web/newsletter8.html',
+  BASE + 'premium web/newsletter9.html',
+  BASE + 'premium web/newsletter10.html',
+  BASE + 'premium web/newsletter11.html',
 
   // Icons
   BASE + 'icons/icon-72x72.png',
