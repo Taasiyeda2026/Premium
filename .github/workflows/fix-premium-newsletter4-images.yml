@@ -1,0 +1,56 @@
+name: Repair Premium newsletter 4 image loading
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Repair image URLs and Premium cache
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          page = Path('premium web/newsletter4.html')
+          text = page.read_text(encoding='utf-8')
+          text = text.replace('src="./images/logo.png"', 'src="/Premium/premium%20web/images/logo.png?v=24"')
+          text = text.replace('src="./images/etgar.png"', 'src="/Premium/premium%20web/images/etgar.png?v=24"')
+          page.write_text(text, encoding='utf-8')
+
+          sw_path = Path('service-worker.js')
+          sw = sw_path.read_text(encoding='utf-8')
+          sw = re.sub(r"const CACHE_NAME = 'premium-static-v\d+';", "const CACHE_NAME = 'premium-static-v24';", sw, count=1)
+          marker = "  BASE + 'premium web/images/web.png',\n"
+          additions = "  BASE + 'premium web/images/logo.png',\n  BASE + 'premium web/images/etgar.png',\n"
+          if "premium web/images/logo.png" not in sw:
+              sw = sw.replace(marker, marker + additions)
+          sw_path.write_text(sw, encoding='utf-8')
+
+          assert '/Premium/premium%20web/images/logo.png?v=24' in page.read_text(encoding='utf-8')
+          assert '/Premium/premium%20web/images/etgar.png?v=24' in page.read_text(encoding='utf-8')
+          assert "premium web/images/logo.png" in sw
+          assert "premium web/images/etgar.png" in sw
+          print('newsletter4 image URLs repaired and precached')
+          PY
+
+      - name: Commit repair and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-premium-newsletter4-images.yml
+          git add 'premium web/newsletter4.html' service-worker.js
+          git commit -m 'Fix Premium newsletter 4 image paths and cache'
+          git push origin HEAD:main
