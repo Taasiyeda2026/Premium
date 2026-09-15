@@ -21,30 +21,21 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          p=Path('premium web/news/news4.html')
-          s=p.read_text(encoding='utf-8')
-          old=s
-          s=s.replace('''    .action-link.back {
-      color: var(--blue);
-      background: var(--conclusion-bg);
-      border-color: var(--kicker-border);
-    }''','''    .action-link.back {
-      color: #065f46;
-      background: var(--conclusion-bg);
-      border-color: var(--kicker-border);
-    }''')
-          if s==old:
+          p = Path('premium web/news/news4.html')
+          s = p.read_text(encoding='utf-8')
+          s2, count = re.subn(r'(\.action-link\.back\s*\{\s*color:\s*)var\(--blue\)', r'\1#065f46', s, count=1)
+          if count != 1:
               raise SystemExit('Expected news4 back-button CSS was not found')
-          p.write_text(s,encoding='utf-8')
-
-          swp=Path('service-worker.js')
-          sw=swp.read_text(encoding='utf-8')
-          m=re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';",sw)
-          if not m: raise SystemExit('Cache version missing')
-          v=int(m.group(1))+1
-          sw=sw[:m.start()]+f"const CACHE_NAME = 'premium-static-v{v}';"+sw[m.end():]
-          swp.write_text(sw,encoding='utf-8')
-          print('CACHE_VERSION=',v)
+          p.write_text(s2, encoding='utf-8')
+          swp = Path('service-worker.js')
+          sw = swp.read_text(encoding='utf-8')
+          m = re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';", sw)
+          if not m:
+              raise SystemExit('Cache version missing')
+          v = int(m.group(1)) + 1
+          sw = sw[:m.start()] + f"const CACHE_NAME = 'premium-static-v{v}';" + sw[m.end():]
+          swp.write_text(sw, encoding='utf-8')
+          print('CACHE_VERSION=', v)
           PY
       - name: Commit and remove temporary workflow
         shell: bash
