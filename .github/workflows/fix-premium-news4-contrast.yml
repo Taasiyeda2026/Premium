@@ -1,0 +1,57 @@
+name: Fix final Premium article contrast issue
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fix news4 back-button contrast
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('premium web/news/news4.html')
+          s=p.read_text(encoding='utf-8')
+          old=s
+          s=s.replace('''    .action-link.back {
+      color: var(--blue);
+      background: var(--conclusion-bg);
+      border-color: var(--kicker-border);
+    }''','''    .action-link.back {
+      color: #065f46;
+      background: var(--conclusion-bg);
+      border-color: var(--kicker-border);
+    }''')
+          if s==old:
+              raise SystemExit('Expected news4 back-button CSS was not found')
+          p.write_text(s,encoding='utf-8')
+
+          swp=Path('service-worker.js')
+          sw=swp.read_text(encoding='utf-8')
+          m=re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';",sw)
+          if not m: raise SystemExit('Cache version missing')
+          v=int(m.group(1))+1
+          sw=sw[:m.start()]+f"const CACHE_NAME = 'premium-static-v{v}';"+sw[m.end():]
+          swp.write_text(sw,encoding='utf-8')
+          print('CACHE_VERSION=',v)
+          PY
+      - name: Commit and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-premium-news4-contrast.yml
+          git add 'premium web/news/news4.html' service-worker.js
+          git commit -m 'Fix final Premium article contrast issue'
+          git push origin HEAD:main
