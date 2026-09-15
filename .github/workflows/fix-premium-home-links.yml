@@ -1,0 +1,115 @@
+name: Normalize Premium home links
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fix semantic home links inside Premium only
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, re
+
+          root = Path('premium web').resolve()
+          changed = []
+          found = []
+
+          anchor_re = re.compile(r'<a\b[^>]*>.*?</a>', re.I | re.S)
+          href_re = re.compile(r'href\s*=\s*(["\'])(.*?)\1', re.I | re.S)
+
+          def is_home_anchor(anchor: str) -> bool:
+              plain = re.sub(r'<[^>]+>', ' ', anchor)
+              return (
+                  re.search(r'class\s*=\s*["\'][^"\']*(?:home-link|home-icon)[^"\']*["\']', anchor, re.I)
+                  or any(s in anchor for s in ['עמוד הבית','דף הבית','חזרה לעמוד הבית','חזרה לדף הבית'])
+                  or any(s in plain for s in ['עמוד הבית','דף הבית','חזרה לעמוד הבית','חזרה לדף הבית'])
+              )
+
+          for p in sorted(root.rglob('*.html')):
+              text = p.read_text(encoding='utf-8')
+              original = text
+              rel_expected = os.path.relpath(root / 'index.html', p.parent).replace(os.sep, '/')
+
+              def repl(m):
+                  anchor = m.group(0)
+                  if not is_home_anchor(anchor):
+                      return anchor
+                  hm = href_re.search(anchor)
+                  if not hm:
+                      return anchor
+                  old = hm.group(2)
+                  found.append((str(p.relative_to(root)), old, rel_expected))
+                  if old == rel_expected:
+                      return anchor
+                  return anchor[:hm.start(2)] + rel_expected + anchor[hm.end(2):]
+
+              text = anchor_re.sub(repl, text)
+              if text != original:
+                  p.write_text(text, encoding='utf-8')
+                  changed.append(str(p.relative_to(root)))
+
+          print('HOME_LINKS_FOUND=', len(found))
+          for row in found:
+              print('HOME', *row, sep=' | ')
+          print('FILES_CHANGED=', len(changed))
+          for p in changed:
+              print('CHANGED', p)
+
+          # Validate every detected home link now resolves to premium web/index.html.
+          bad = []
+          for p in sorted(root.rglob('*.html')):
+              text = p.read_text(encoding='utf-8')
+              expected = os.path.relpath(root / 'index.html', p.parent).replace(os.sep, '/')
+              for m in anchor_re.finditer(text):
+                  a = m.group(0)
+                  if not is_home_anchor(a):
+                      continue
+                  hm = href_re.search(a)
+                  if hm and hm.group(2) != expected:
+                      bad.append((str(p.relative_to(root)), hm.group(2), expected))
+          if bad:
+              for row in bad:
+                  print('BAD HOME', *row, sep=' | ')
+              raise SystemExit('Premium home-link validation failed')
+
+          # Bump cache only if content changed.
+          if changed:
+              swp = Path('service-worker.js')
+              sw = swp.read_text(encoding='utf-8')
+              mm = re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';", sw)
+              if not mm:
+                  raise SystemExit('Cache version not found')
+              v = int(mm.group(1)) + 1
+              sw = sw[:mm.start()] + f"const CACHE_NAME = 'premium-static-v{v}';" + sw[mm.end():]
+              swp.write_text(sw, encoding='utf-8')
+              print('CACHE_VERSION=', v)
+          PY
+
+      - name: Commit fixes and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-premium-home-links.yml
+          git add 'premium web' service-worker.js
+          if git diff --cached --quiet; then
+            echo 'No Premium home-link changes were needed'
+            git commit -m 'Remove temporary Premium home-link workflow'
+          else
+            git commit -m 'Fix Premium home navigation links'
+          fi
+          git push origin HEAD:main
