@@ -1,4 +1,4 @@
-const CACHE_NAME = 'premium-static-v17';
+const CACHE_NAME = 'premium-static-v18';
 const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
@@ -214,6 +214,20 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => caches.match(event.request).then((cached) => cached || caches.match(BASE + 'index.html')))
+    );
+    return;
+  }
+
+  // Keep the registration/bootstrap script fresh so UI fixes are not held by an old cache.
+  if (requestUrl.pathname.endsWith('/pwa-register.js')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const cloned = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cloned));
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
