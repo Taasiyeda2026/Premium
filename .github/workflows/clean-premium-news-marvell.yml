@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Clean branding and scope news styles
+      - name: Clean Premium article branding and cache
         shell: bash
         run: |
           python3 - <<'PY'
@@ -25,9 +25,7 @@ jobs:
           import re
 
           news_dir = Path('premium web/news')
-
-          # Remove the old Marvell wording from every Premium article.
-          changed_articles = 0
+          changed = 0
           for path in sorted(news_dir.glob('news*.html')):
               text = path.read_text(encoding='utf-8')
               original = text
@@ -37,97 +35,22 @@ jobs:
               text = text.replace('מארוול', 'פרימיום')
               if text != original:
                   path.write_text(text, encoding='utf-8')
-                  changed_articles += 1
+                  changed += 1
 
-          # Scope the compact header/readability fix to the news landing page only.
-          landing = news_dir / 'allnews.html'
-          landing_text = landing.read_text(encoding='utf-8')
-          if '<body class="news-landing">' not in landing_text:
-              landing_text = landing_text.replace('<body>', '<body class="news-landing">', 1)
-          landing.write_text(landing_text, encoding='utf-8')
-
-          css_path = Path('premium web/premium-ui-2026.css')
-          css = css_path.read_text(encoding='utf-8')
-          marker = '/* Premium news landing: compact header + readable intro */'
-          if marker in css:
-              css = css.split(marker, 1)[0].rstrip() + '\n\n'
-
-          css += '''/* Premium news landing: compact header + readable intro */
-.news-landing .header-inner {
-  padding: 10px 16px 12px !important;
-}
-.news-landing .site-logo {
-  max-width: 82px !important;
-  margin: 0 auto 2px !important;
-}
-.news-landing .logo {
-  font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
-  margin-bottom: 0 !important;
-  line-height: 1.18 !important;
-}
-.news-landing .top-bar {
-  padding: 7px 14px !important;
-  font-size: 0.82rem !important;
-}
-.news-landing .header-inner .home-link {
-  width: 38px !important;
-  height: 38px !important;
-  top: 12px !important;
-  right: 16px !important;
-}
-.news-landing main {
-  margin-top: 18px !important;
-}
-.news-landing main > .hero {
-  padding: 18px 20px !important;
-  margin-bottom: 18px !important;
-  background: linear-gradient(135deg, #ffffff 0%, #f2f9fa 58%, #edf7f7 100%) !important;
-  border: 1px solid rgba(15,76,92,0.12) !important;
-  border-right: 5px solid var(--premium-teal) !important;
-  box-shadow: 0 12px 28px rgba(16,42,67,0.08) !important;
-}
-.news-landing main > .hero::before {
-  background: radial-gradient(circle at 88% 18%, rgba(56,189,248,0.08), transparent 32%), radial-gradient(circle at 8% 88%, rgba(20,184,166,0.06), transparent 34%) !important;
-}
-.news-landing main > .hero h1 {
-  color: var(--premium-navy) !important;
-  font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
-  margin-bottom: 6px !important;
-}
-.news-landing main > .hero p {
-  color: #425b70 !important;
-  font-size: 0.96rem !important;
-  line-height: 1.75 !important;
-  font-weight: 500 !important;
-  max-width: 980px !important;
-}
-@media (max-width: 768px) {
-  .news-landing .site-logo { max-width: 66px !important; }
-  .news-landing .header-inner { padding: 9px 12px 10px !important; }
-  .news-landing .logo { font-size: 1.35rem !important; }
-  .news-landing .top-bar { padding: 6px 10px !important; font-size: 0.76rem !important; }
-  .news-landing .header-inner .home-link { width: 34px !important; height: 34px !important; right: 12px !important; top: 10px !important; }
-  .news-landing main > .hero { padding: 15px 14px !important; }
-}
-'''
-          css_path.write_text(css, encoding='utf-8')
-
-          # Cache bump and precache all Premium article pages.
           sw_path = Path('service-worker.js')
           sw = sw_path.read_text(encoding='utf-8')
           sw, count = re.subn(r"const CACHE_NAME = 'premium-static-v\d+';", "const CACHE_NAME = 'premium-static-v16';", sw, count=1)
           if count != 1:
               raise SystemExit('Could not update cache version')
 
-          article_entries = ''.join(f"  BASE + 'premium web/news/news{i}.html',\n" for i in range(1, 13))
           anchor = "  BASE + 'premium web/news/allnews.html',\n"
           if "BASE + 'premium web/news/news1.html'" not in sw:
+              entries = ''.join("  BASE + 'premium web/news/news%d.html',\n" % i for i in range(1, 13))
               if anchor not in sw:
-                  raise SystemExit('Could not find allnews precache anchor')
-              sw = sw.replace(anchor, anchor + article_entries, 1)
+                  raise SystemExit('Could not find allnews cache anchor')
+              sw = sw.replace(anchor, anchor + entries, 1)
           sw_path.write_text(sw, encoding='utf-8')
 
-          # Validate current Premium scope, not Marvell/Osem.
           leftovers = []
           for path in Path('premium web').rglob('*'):
               if path.is_file() and path.suffix.lower() in {'.html', '.css', '.js', '.json', '.md', '.txt'}:
@@ -135,11 +58,9 @@ jobs:
                   if 'מרוול' in text or 'מארוול' in text:
                       leftovers.append(str(path))
           if leftovers:
-              raise SystemExit('Hebrew Marvell wording remains in Premium: ' + ', '.join(leftovers))
-          if changed_articles == 0:
-              raise SystemExit('Expected to update Premium article branding but found no matches')
-          if '<body class="news-landing">' not in landing.read_text(encoding='utf-8'):
-              raise SystemExit('News landing class missing')
+              raise SystemExit('Hebrew Marvell wording remains: ' + ', '.join(leftovers))
+          if changed == 0:
+              raise SystemExit('No Premium article branding matches found')
           if "premium-static-v16" not in sw_path.read_text(encoding='utf-8'):
               raise SystemExit('Cache bump missing')
           PY
@@ -149,7 +70,7 @@ jobs:
         run: |
           changed="$(git diff --name-only)"
           echo "$changed"
-          if echo "$changed" | grep -vE '^(premium web/news/.*\.html|premium web/premium-ui-2026\.css|service-worker\.js)$' | grep -q .; then
+          if echo "$changed" | grep -vE '^(premium web/news/news[0-9]+\.html|service-worker\.js)$' | grep -q .; then
             echo 'Unexpected file changed'
             exit 1
           fi
