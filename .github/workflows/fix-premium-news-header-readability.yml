@@ -27,97 +27,73 @@ jobs:
           css_path = Path('premium web/premium-ui-2026.css')
           css = css_path.read_text(encoding='utf-8')
 
-          # Do not paint full hero pseudo-elements with the accent gradient.
-          old = '''.hero::before,
-.hero-banner::before,
-.wide-card::before,
-.card::before,
-.flow-item::before {
-  background: linear-gradient(90deg, var(--premium-teal), var(--premium-cyan), var(--premium-purple)) !important;
-}'''
-          new = '''.wide-card::before,
-.card::before,
-.flow-item::before {
-  background: linear-gradient(90deg, var(--premium-teal), var(--premium-cyan), var(--premium-purple)) !important;
-}'''
+          old = ".hero::before,\n.hero-banner::before,\n.wide-card::before,\n.card::before,\n.flow-item::before {\n  background: linear-gradient(90deg, var(--premium-teal), var(--premium-cyan), var(--premium-purple)) !important;\n}"
+          new = ".wide-card::before,\n.card::before,\n.flow-item::before {\n  background: linear-gradient(90deg, var(--premium-teal), var(--premium-cyan), var(--premium-purple)) !important;\n}"
           if old in css:
               css = css.replace(old, new, 1)
 
           marker = '/* Premium news landing: compact header + readable intro */'
+          compact = """
+          /* Premium news landing: compact header + readable intro */
+          .header-inner {
+            padding: 10px 16px 12px !important;
+          }
+          .site-logo {
+            max-width: 82px !important;
+            margin: 0 auto 2px !important;
+          }
+          .logo {
+            font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
+            margin-bottom: 0 !important;
+            line-height: 1.18 !important;
+          }
+          .top-bar {
+            padding: 7px 14px !important;
+            font-size: 0.82rem !important;
+          }
+          .header-inner .home-link {
+            width: 38px !important;
+            height: 38px !important;
+            top: 12px !important;
+            right: 16px !important;
+          }
+          main {
+            margin-top: 18px !important;
+          }
+          main > .hero {
+            padding: 18px 20px !important;
+            margin-bottom: 18px !important;
+            background: linear-gradient(135deg, #ffffff 0%, #f2f9fa 58%, #edf7f7 100%) !important;
+            border: 1px solid rgba(15,76,92,0.12) !important;
+            border-right: 5px solid var(--premium-teal) !important;
+            box-shadow: 0 12px 28px rgba(16,42,67,0.08) !important;
+          }
+          main > .hero::before {
+            background: radial-gradient(circle at 88% 18%, rgba(56,189,248,0.08), transparent 32%), radial-gradient(circle at 8% 88%, rgba(20,184,166,0.06), transparent 34%) !important;
+          }
+          main > .hero h1 {
+            color: var(--premium-navy) !important;
+            font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
+            margin-bottom: 6px !important;
+          }
+          main > .hero p {
+            color: #425b70 !important;
+            font-size: 0.96rem !important;
+            line-height: 1.75 !important;
+            font-weight: 500 !important;
+            max-width: 980px !important;
+          }
+          @media (max-width: 768px) {
+            .site-logo { max-width: 66px !important; }
+            .header-inner { padding: 9px 12px 10px !important; }
+            .logo { font-size: 1.35rem !important; }
+            .top-bar { padding: 6px 10px !important; font-size: 0.76rem !important; }
+            .header-inner .home-link { width: 34px !important; height: 34px !important; right: 12px !important; top: 10px !important; }
+            main > .hero { padding: 15px 14px !important; }
+          }
+          """
           if marker not in css:
-              css += r'''
-
-/* Premium news landing: compact header + readable intro */
-.header-inner {
-  padding: 10px 16px 12px !important;
-}
-
-.site-logo {
-  max-width: 82px !important;
-  margin: 0 auto 2px !important;
-}
-
-.logo {
-  font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
-  margin-bottom: 0 !important;
-  line-height: 1.18 !important;
-}
-
-.top-bar {
-  padding: 7px 14px !important;
-  font-size: 0.82rem !important;
-}
-
-.header-inner .home-link {
-  width: 38px !important;
-  height: 38px !important;
-  top: 12px !important;
-  right: 16px !important;
-}
-
-main {
-  margin-top: 18px !important;
-}
-
-main > .hero {
-  padding: 18px 20px !important;
-  margin-bottom: 18px !important;
-  background: linear-gradient(135deg, #ffffff 0%, #f2f9fa 58%, #edf7f7 100%) !important;
-  border: 1px solid rgba(15,76,92,0.12) !important;
-  border-right: 5px solid var(--premium-teal) !important;
-  box-shadow: 0 12px 28px rgba(16,42,67,0.08) !important;
-}
-
-main > .hero::before {
-  background:
-    radial-gradient(circle at 88% 18%, rgba(56,189,248,0.08), transparent 32%),
-    radial-gradient(circle at 8% 88%, rgba(20,184,166,0.06), transparent 34%) !important;
-}
-
-main > .hero h1 {
-  color: var(--premium-navy) !important;
-  font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
-  margin-bottom: 6px !important;
-}
-
-main > .hero p {
-  color: #425b70 !important;
-  font-size: 0.96rem !important;
-  line-height: 1.75 !important;
-  font-weight: 500 !important;
-  max-width: 980px !important;
-}
-
-@media (max-width: 768px) {
-  .site-logo { max-width: 66px !important; }
-  .header-inner { padding: 9px 12px 10px !important; }
-  .logo { font-size: 1.35rem !important; }
-  .top-bar { padding: 6px 10px !important; font-size: 0.76rem !important; }
-  .header-inner .home-link { width: 34px !important; height: 34px !important; right: 12px !important; top: 10px !important; }
-  main > .hero { padding: 15px 14px !important; }
-}
-'''
-
+              css += compact
           css_path.write_text(css, encoding='utf-8')
 
           sw_path = Path('service-worker.js')
@@ -127,7 +103,6 @@ main > .hero p {
               raise SystemExit('Could not bump cache version')
           sw_path.write_text(sw, encoding='utf-8')
 
-          # Validate expected changes.
           final_css = css_path.read_text(encoding='utf-8')
           if marker not in final_css:
               raise SystemExit('Compact news styles missing')
