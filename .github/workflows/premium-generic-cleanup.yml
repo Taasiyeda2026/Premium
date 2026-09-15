@@ -23,23 +23,36 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          import sys
 
           root = Path('premium web')
           if not root.is_dir():
               raise SystemExit('premium web directory is missing')
 
-          # Remove/rename the two Marvell-specific files that were copied into the generic area.
+          # The generic landing page is premium web/index.html; the copied Marvell landing must go.
           old_index = root / 'index-marvell.html'
           if old_index.exists():
               old_index.unlink()
 
+          # The shared generic theme keeps the same styling, only without Marvell-specific naming.
           old_theme = root / 'marvell-theme.css'
           new_theme = root / 'premium-theme.css'
           if old_theme.exists():
               if new_theme.exists():
                   raise SystemExit('Both marvell-theme.css and premium-theme.css exist; refusing to overwrite')
               old_theme.rename(new_theme)
+
+          # Rename every other Marvell-named asset/page inside generic Premium.
+          # References are rewritten below with the same marvell -> premium mapping.
+          marvell_name = re.compile(r'marvell', re.I)
+          rename_candidates = [p for p in root.rglob('*') if marvell_name.search(p.name)]
+          for path in sorted(rename_candidates, key=lambda p: len(p.parts), reverse=True):
+              if not path.exists():
+                  continue
+              new_name = marvell_name.sub('premium', path.name)
+              target = path.with_name(new_name)
+              if target.exists():
+                  raise SystemExit(f'Rename target already exists: {target}')
+              path.rename(target)
 
           text_suffixes = {'.html', '.css', '.js', '.json', '.md', '.txt'}
           changed = []
@@ -50,11 +63,11 @@ jobs:
               text = path.read_text(encoding='utf-8')
               original = text
 
-              # First fix known navigation/file references so generic replacement cannot create bad paths.
+              # Known navigation/file references first.
               text = text.replace('index-marvell.html', 'index.html')
               text = text.replace('marvell-theme.css', 'premium-theme.css')
 
-              # Remove brand-specific wording from the generic Premium copy.
+              # Genericize every remaining Marvell reference within premium web only.
               text = text.replace('פרימיום מארוול', 'פרימיום')
               text = text.replace('פרימיום Marvell', 'פרימיום')
               text = text.replace('MARVELL', 'PREMIUM')
@@ -66,13 +79,7 @@ jobs:
                   path.write_text(text, encoding='utf-8')
                   changed.append(str(path))
 
-          # Rename Marvell-prefixed CSS custom properties in allprd consistently.
-          # (Covered by the generic lowercase replacement above, but asserted here.)
-          allprd = root / 'allprd.html'
-          if allprd.exists() and '--marvell-' in allprd.read_text(encoding='utf-8'):
-              raise SystemExit('Marvell CSS custom properties remain in allprd.html')
-
-          # Bump the root service worker cache so clients receive the cleaned Premium pages.
+          # Bump cache so browsers/PWA do not keep the branded copies.
           sw = Path('service-worker.js')
           sw_text = sw.read_text(encoding='utf-8')
           sw_new, count = re.subn(
@@ -85,7 +92,7 @@ jobs:
               raise SystemExit('Could not find Premium CACHE_NAME in service-worker.js')
           sw.write_text(sw_new, encoding='utf-8')
 
-          # Validate: no Marvell naming/content remains anywhere inside generic Premium.
+          # Validation: no Marvell naming or wording may remain in generic Premium.
           leftovers = []
           name_pattern = re.compile(r'marvell|מארוול', re.I)
           for path in sorted(root.rglob('*')):
@@ -100,7 +107,6 @@ jobs:
               print('\n'.join(leftovers))
               raise SystemExit('Marvell leftovers remain in premium web')
 
-          # Validate the intended generic navigation/theme files.
           if not (root / 'index.html').is_file():
               raise SystemExit('premium web/index.html is missing')
           if not (root / 'premium-theme.css').is_file():
@@ -126,6 +132,10 @@ jobs:
           echo '--- residual Marvell references in premium web ---'
           if grep -RniE --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' --exclude='*.webp' --exclude='*.gif' 'marvell|מארוול' 'premium web'; then
             echo 'ERROR: residual Marvell reference found'
+            exit 1
+          fi
+          if find 'premium web' -iname '*marvell*' -print | grep -q .; then
+            echo 'ERROR: residual Marvell filename found'
             exit 1
           fi
 
