@@ -30,9 +30,7 @@
       --btn-border: rgba(125, 232, 255, 0.78);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -42,7 +40,6 @@
     }
 
     body {
-      zoom: 75%;
       min-height: 100vh;
       background-image:
         linear-gradient(to bottom, rgba(4, 10, 24, 0.30), rgba(4, 10, 24, 0.52)),
@@ -140,13 +137,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,0.16),
-        transparent 45%,
-        transparent 60%,
-        rgba(125, 232, 255, 0.08)
-      );
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), transparent 45%, transparent 60%, rgba(125, 232, 255, 0.08));
       pointer-events: none;
     }
 
@@ -187,35 +178,14 @@
     }
 
     @media (max-width: 560px) {
-      body {
-        padding: 20px 16px 40px;
-      }
-
-      .brand-logo {
-        width: min(80px, 22vw);
-        margin-bottom: 6px;
-      }
-
-      .page-title {
-        font-size: clamp(1.6rem, 7vw, 2.4rem);
-        margin-bottom: 20px;
-      }
-
-      .button-grid {
-        grid-template-columns: 1fr;
-        width: 100%;
-        max-width: 260px;
-        gap: 14px;
-        padding: 8px 0;
-      }
-
-      .magic-btn {
-        font-size: 1.2rem;
-      }
+      body { padding: 20px 16px 40px; }
+      .brand-logo { width: min(80px, 22vw); margin-bottom: 6px; }
+      .page-title { font-size: clamp(1.6rem, 7vw, 2.4rem); margin-bottom: 20px; }
+      .button-grid { grid-template-columns: 1fr; width: 100%; max-width: 260px; gap: 14px; padding: 8px 0; }
+      .magic-btn { font-size: 1.2rem; }
     }
   </style>
 </head>
-
 <body>
   <div class="hero-brand">
     <img class="brand-logo" src="images/logo.png" alt="" />
