@@ -307,3 +307,35 @@ main > .hero p {
   .header-inner .home-link { width: 34px !important; height: 34px !important; right: 12px !important; top: 10px !important; }
   main > .hero { padding: 15px 14px !important; }
 }
+
+/* Premium newsletter 4: readable light cards */
+.newsletter .explanation-card,
+.newsletter .remember-box {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(241,248,251,0.98) 100%) !important;
+  border-color: rgba(15,76,92,0.14) !important;
+  box-shadow: 0 14px 30px rgba(16,42,67,0.10) !important;
+}
+
+.newsletter .explanation-card h2,
+.newsletter .remember-box h3 {
+  color: #102a43 !important;
+  text-shadow: none !important;
+}
+
+.newsletter .explanation-card p,
+.newsletter .remember-box p,
+.newsletter .remember-list,
+.newsletter .remember-list li {
+  color: #40586e !important;
+  opacity: 1 !important;
+}
+
+.newsletter .card-label {
+  color: #ffffff !important;
+  background: linear-gradient(90deg, #0f4c5c 0%, #14b8a6 58%, #38bdf8 100%) !important;
+  border-color: rgba(56,189,248,0.28) !important;
+}
+
+.newsletter .remember-list li::marker {
+  color: #14b8a6 !important;
+}
