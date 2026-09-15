@@ -1,0 +1,179 @@
+name: Move Premium article logo into masthead
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Premium article layout
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          news_dir = Path('premium web/news')
+          marker = '/* PREMIUM ARTICLE LOGO INSIDE MASTHEAD */'
+          changed = []
+
+          for i in range(1, 13):
+              path = news_dir / f'news{i}.html'
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # Capture the existing logo link from the standalone site header.
+              m = re.search(
+                  r'\n\s*(<a class="logo-link" href="\.\./index\.html"[^>]*>\s*<img class="site-logo"[^>]*>\s*</a>)',
+                  text,
+                  flags=re.S,
+              )
+              if m:
+                  logo_block = m.group(1)
+                  text = text[:m.start()] + text[m.end():]
+              else:
+                  # If already moved, reuse the logo markup currently in the masthead.
+                  m2 = re.search(
+                      r'(<a class="logo-link masthead-logo" href="\.\./index\.html"[^>]*>\s*<img class="site-logo"[^>]*>\s*</a>)',
+                      text,
+                      flags=re.S,
+                  )
+                  if m2:
+                      logo_block = m2.group(1)
+                  else:
+                      raise SystemExit(f'Could not locate logo block in {path}')
+
+              logo_block = logo_block.replace('class="logo-link"', 'class="logo-link masthead-logo"')
+
+              if 'class="logo-link masthead-logo"' not in text:
+                  anchor = '<div class="paper-title-wrap">'
+                  if anchor not in text:
+                      raise SystemExit(f'Could not locate paper-title-wrap in {path}')
+                  text = text.replace(anchor, anchor + '\n          ' + logo_block, 1)
+
+              if marker not in text:
+                  css = r'''
+
+    /* PREMIUM ARTICLE LOGO INSIDE MASTHEAD */
+    .masthead .masthead-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      margin: 0 auto 10px;
+      padding: 5px 8px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 18px rgba(2,8,23,0.18);
+    }
+
+    .masthead .masthead-logo:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(2,8,23,0.22), 0 0 14px rgba(56,189,248,0.10);
+    }
+
+    .masthead .masthead-logo .site-logo {
+      width: auto;
+      max-width: 64px;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.18));
+    }
+
+    .site-header {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .masthead .masthead-logo {
+        margin-bottom: 8px;
+        padding: 4px 7px;
+      }
+
+      .masthead .masthead-logo .site-logo {
+        max-width: 50px;
+      }
+
+      .site-header {
+        margin-bottom: 8px;
+      }
+    }
+'''
+                  if '</style>' not in text:
+                      raise SystemExit(f'Missing style close tag in {path}')
+                  text = text.replace('</style>', css + '\n  </style>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          # Force fresh navigation from the article landing page.
+          landing = news_dir / 'allnews.html'
+          landing_text = landing.read_text(encoding='utf-8')
+          landing_text = re.sub(r'href="news(\d+)\.html(?:\?v=\d+)?"', r'href="news\1.html?v=18"', landing_text)
+          landing.write_text(landing_text, encoding='utf-8')
+
+          # Bump SW cache.
+          sw_path = Path('service-worker.js')
+          sw = sw_path.read_text(encoding='utf-8')
+          sw, count = re.subn(r"const CACHE_NAME = 'premium-static-v\d+';", "const CACHE_NAME = 'premium-static-v18';", sw, count=1)
+          if count != 1:
+              raise SystemExit('Could not bump cache version')
+          sw_path.write_text(sw, encoding='utf-8')
+
+          # Validate all Premium article pages.
+          for i in range(1, 13):
+              path = news_dir / f'news{i}.html'
+              final = path.read_text(encoding='utf-8')
+              before_masthead = final.split('<header class="masthead">', 1)[0]
+              if 'class="logo-link"' in before_masthead or 'class="logo-link masthead-logo"' in before_masthead:
+                  raise SystemExit(f'Standalone logo still exists before masthead in {path}')
+              masthead = final.split('<header class="masthead">', 1)[1].split('</header>', 1)[0]
+              if 'class="logo-link masthead-logo"' not in masthead:
+                  raise SystemExit(f'Logo not inside masthead in {path}')
+              if marker not in final:
+                  raise SystemExit(f'Logo sizing CSS missing in {path}')
+
+          if "premium-static-v18" not in sw_path.read_text(encoding='utf-8'):
+              raise SystemExit('Cache bump missing')
+
+          print('Updated article pages:', len(changed))
+          PY
+
+      - name: Verify scope
+        shell: bash
+        run: |
+          changed="$(git diff --name-only)"
+          echo "$changed"
+          if echo "$changed" | grep -vE '^(premium web/news/(allnews|news([1-9]|1[0-2]))\.html|service-worker\.js)$' | grep -q .; then
+            echo 'Unexpected file changed'
+            exit 1
+          fi
+          if git diff --name-only | grep -qE '^(marvell_web/|osem web/)'; then
+            echo 'Marvell/Osem must remain untouched'
+            exit 1
+          fi
+
+      - name: Commit changes and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/move-premium-news-logo.yml
+          git add -A
+          git commit -m 'Place Premium article logo inside news masthead'
+          git push origin HEAD:main
