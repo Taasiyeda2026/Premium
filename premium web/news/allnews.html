@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#f4f8fb" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -13,7 +13,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="../images/logo.png" />
   <link rel="apple-touch-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../styles/pwa.css" />
-  <title>עמוד כתבות ראשי</title>
+  <title>פרימיום | מרחב הכתבות</title>
   <style>
     * {
       box-sizing: border-box;
@@ -500,6 +500,182 @@
         height: 128px;
       }
     }
+  
+    /* PREMIUM 2026 LIGHT INNOVATION OVERRIDES */
+    :root {
+      --premium-navy: #102a43;
+      --premium-petrol: #0f4c5c;
+      --premium-teal: #14b8a6;
+      --premium-cyan: #38bdf8;
+      --premium-purple: #8b5cf6;
+      --premium-amber: #f4b942;
+      --premium-surface: #f4f8fb;
+      --premium-white: #fbfdff;
+      --premium-line: rgba(15, 76, 92, 0.14);
+      --premium-muted: #617286;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 88% 10%, rgba(56, 189, 248, 0.10), transparent 28%),
+        radial-gradient(circle at 8% 28%, rgba(20, 184, 166, 0.08), transparent 24%),
+        radial-gradient(circle at 72% 86%, rgba(139, 92, 246, 0.06), transparent 25%),
+        linear-gradient(180deg, #f7fbfd 0%, #eef5f8 52%, #f8fbfc 100%);
+      color: var(--premium-navy);
+    }
+
+    .top-bar {
+      background: rgba(16, 42, 67, 0.96);
+      color: #bff7ff;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.20);
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.12);
+    }
+
+    header {
+      background:
+        radial-gradient(circle at 68% 18%, rgba(56, 189, 248, 0.18), transparent 28%),
+        radial-gradient(circle at 30% 92%, rgba(20, 184, 166, 0.16), transparent 32%),
+        linear-gradient(128deg, #102a43 0%, #0f4c5c 55%, #153b58 100%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.24);
+      box-shadow: 0 16px 34px rgba(16, 42, 67, 0.16);
+    }
+
+    header::before {
+      background:
+        linear-gradient(90deg, rgba(191, 247, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(191, 247, 255, 0.05) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.30;
+    }
+
+    .home-link {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(103, 232, 249, 0.28);
+      box-shadow: 0 10px 22px rgba(3, 20, 32, 0.16), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .home-link:hover {
+      background: rgba(20, 184, 166, 0.14);
+      border-color: rgba(103, 232, 249, 0.64);
+      box-shadow: 0 12px 28px rgba(3, 20, 32, 0.18), 0 0 18px rgba(56,189,248,0.12);
+    }
+
+    .home-link svg { fill: #8ef3ff; }
+
+    .site-logo {
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.20));
+    }
+
+    .logo-link:hover {
+      filter: drop-shadow(0 0 16px rgba(56,189,248,0.18));
+    }
+
+    .logo {
+      background: linear-gradient(90deg, #d9fbff 0%, #8ef3ff 42%, #5eead4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(56, 189, 248, 0.13);
+      letter-spacing: 0.2px;
+    }
+
+    main { margin-top: 28px; }
+
+    .hero {
+      background:
+        radial-gradient(circle at 88% 22%, rgba(56,189,248,0.10), transparent 32%),
+        linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(241,249,251,0.96) 55%, rgba(234,247,249,0.94) 100%);
+      border: 1px solid rgba(15, 76, 92, 0.12);
+      border-top: 0;
+      border-right: 5px solid var(--premium-teal);
+      box-shadow: 0 16px 38px rgba(16, 42, 67, 0.10);
+      border-radius: 20px;
+    }
+
+    .hero::before {
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.09), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(139,92,246,0.05), transparent 38%);
+    }
+
+    .hero h1 {
+      color: var(--premium-navy);
+      font-weight: 900;
+      text-shadow: none;
+    }
+
+    .hero p {
+      color: var(--premium-muted);
+      font-size: 0.94rem;
+    }
+
+    .section-title {
+      color: var(--premium-navy);
+      border-right-color: var(--premium-teal);
+      text-shadow: none;
+    }
+
+    .article-card {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(15, 76, 92, 0.12);
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.10);
+      border-radius: 18px;
+    }
+
+    .article-card::after {
+      background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 68%);
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(20,184,166,0.34);
+      box-shadow: 0 20px 38px rgba(16, 42, 67, 0.14), 0 0 18px rgba(56,189,248,0.08);
+    }
+
+    .tag {
+      background: linear-gradient(180deg, #e8fbff 0%, #d9f8f4 100%);
+      color: #0f4c5c;
+      border-color: rgba(20,184,166,0.20);
+      box-shadow: none;
+    }
+
+    .article-image {
+      border-color: rgba(15, 76, 92, 0.10);
+      box-shadow: 0 9px 20px rgba(16, 42, 67, 0.10);
+    }
+
+    .article-card h2 { color: var(--premium-navy); }
+
+    .meta-line {
+      background: #f6fafc;
+      border-color: rgba(15, 76, 92, 0.09);
+      color: #465b6f;
+    }
+
+    .meta-label { color: var(--premium-petrol); }
+    .article-card p { color: #526579; }
+
+    .article-btn {
+      background: linear-gradient(135deg, #0f4c5c 0%, #14b8a6 100%);
+      border-color: rgba(103,232,249,0.26);
+      box-shadow: 0 9px 20px rgba(15,76,92,0.18);
+    }
+
+    .article-btn:hover {
+      background: linear-gradient(135deg, #0f4c5c 0%, #38bdf8 100%);
+      box-shadow: 0 12px 24px rgba(15,76,92,0.22), 0 0 16px rgba(56,189,248,0.10);
+    }
+
+    footer {
+      color: #718296;
+      text-shadow: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero { border-right-width: 4px; }
+      .logo { font-size: clamp(1.45rem, 7vw, 2.15rem); }
+    }
+
   </style>
 </head>
 <body>
@@ -515,15 +691,15 @@
       <a class="logo-link" href="../index.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
         <img class="site-logo" src="../images/logo.png" alt="תעשיידע" />
       </a>
-      <div class="logo">חדשות היום</div>
+      <div class="logo">פרימיום | מרחב הכתבות</div>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <h1>ברוכים הבאים לעמוד הכתבות</h1>
+      <h1>עמוד הכתבות</h1>
       <p>
-        לפניכם כתבות קצרות מחיי היומיום של תלמידים, משפחות וסביבה לימודית. בחרו כתבה, קראו את המקרה, וזהו מתוכה בעיה אמיתית שאפשר להפוך לאתגר יזמי.
+        בחרו כתבה, קראו את המקרה, וזהו מתוכה בעיה או צורך אמיתי שאפשר להפוך להזדמנות לחשיבה יזמית.
       </p>
     </section>
 
