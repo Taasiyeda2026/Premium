@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7 כלים למעבר מבעיה לאתגר</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #071a36;
+      --bg-mid: #0d2045;
+      --bg-card: rgba(255, 255, 255, 0.96);
+      --bg-card-soft: rgba(238, 246, 255, 0.94);
+      --text: #10213d;
+      --muted: #5f708b;
+      --line: rgba(140, 184, 230, 0.34);
+      --primary: #0d2045;
+      --primary-2: #1e66a8;
+      --cyan: #35c4e8;
+      --cyan-soft: #9cecff;
+      --orange: #f6a742;
+      --green: #3cc58f;
+      --red: #d75f5f;
+      --shadow: 0 28px 70px rgba(0, 7, 22, 0.42);
+      --shadow-soft: 0 18px 42px rgba(0, 16, 45, 0.22);
+      --radius-lg: 28px;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      zoom: 75%;
+      min-height: 100vh;
+      font-family: "Assistant", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 8%, rgba(53, 196, 232, 0.24), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(70, 120, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(246, 167, 66, 0.10), transparent 30%),
+        linear-gradient(145deg, #071a36 0%, #0d2045 48%, #061329 100%);
+      padding: 22px 14px 40px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      opacity: 0.65;
+    }
+
+    button, input, textarea, select { font-family: inherit; }
+
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      background:
+        radial-gradient(circle at top right, rgba(53,196,232,0.16), transparent 28%),
+        linear-gradient(180deg, rgba(10, 33, 69, 0.94), rgba(6, 19, 41, 0.96));
+      border: 1px solid rgba(131, 190, 255, 0.30);
+      border-radius: 34px;
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(53,196,232,0.09) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(53,196,232,0.07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 60%);
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      padding: 10px 18px;
+      color: #eaf7ff;
+      background: linear-gradient(90deg, #061329 0%, #0d3a76 50%, #061329 100%);
+      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      padding: 24px 24px 18px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(53,196,232,0.18), transparent 28%),
+        linear-gradient(135deg, rgba(8, 30, 64, 0.92), rgba(10, 48, 92, 0.84));
+      border-bottom: 1px solid rgba(131, 190, 255, 0.25);
+    }
+
+    .home-link {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      text-decoration: none;
+      border: 1px solid rgba(160, 210, 255, 0.55);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(226,242,255,0.9));
+      box-shadow: 0 12px 22px rgba(0, 10, 30, 0.24);
+    }
+
+    .home-link svg { width: 21px; height: 21px; fill: #0d2045; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .brand img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+    }
+
+    .brand-copy h1 {
+      color: #ffffff;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.04;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-copy p {
+      margin-top: 8px;
+      color: #c8e9ff;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .selected-problem,
+    .card,
+    .tool,
+    .action-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,246,255,0.92));
+      border: 1px solid rgba(140, 184, 230, 0.40);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 20px 46px rgba(0, 10, 32, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.82);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .selected-problem {
+      z-index: 2;
+      margin: 20px 24px 0;
+      padding: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(53,196,232,0.15), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(233,245,255,0.94));
+    }
+
+    .problem-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .kicker,
+    .phase-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(53, 196, 232, 0.12);
+      color: #0b5f83;
+      border: 1px solid rgba(53, 196, 232, 0.32);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .selected-problem h2 {
+      margin-top: 8px;
+      color: #123b64;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .mini-btn {
+      border: 1px solid #d9e3ef;
+      color: #47617c;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.83rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .problem-item,
+    .method-box,
+    .preview,
+    .summary-box,
+    .analysis-box,
+    .print-summary,
+    .rating-card {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(120, 170, 220, 0.34);
+      background: linear-gradient(180deg, #ffffff, #f2f7fd);
+      color: #4f6078;
+      line-height: 1.75;
+      font-weight: 600;
+    }
+
+    .problem-item { padding: 13px; }
+    .problem-item strong,
+    .method-box strong,
+    .preview strong,
+    .summary-box strong,
+    .analysis-box strong,
+    .print-summary strong {
+      display: block;
+      color: #17395e;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 16px;
+      padding: 20px 24px 24px;
+      border-bottom: 1px solid rgba(131, 190, 255, 0.22);
+    }
+
+    .card::before,
+    .tool::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #35c4e8 0%, #1e66a8 52%, #f6a742 100%);
+    }
+
+    .intro,
+    .meta { padding: 22px; }
+
+    .intro h2 {
+      color: #163b63;
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+
+    .intro p {
+      color: #485872;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      font-weight: 500;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field + .field { margin-top: 13px; }
+
+    label {
+      color: #18385c;
+      font-size: 0.94rem;
+      font-weight: 900;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #d6e2f0;
+      border-radius: 15px;
+      background: #fff;
+      color: var(--text);
+      font-size: 1rem;
+      padding: 12px 13px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    textarea { min-height: 92px; resize: vertical; line-height: 1.65; }
+    textarea.short { min-height: 70px; }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(40, 120, 184, 0.74);
+      box-shadow: 0 0 0 4px rgba(40, 120, 184, 0.10);
+      background: #fbfdff;
+    }
+
+    .progress-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 12px 24px;
+      background: rgba(6, 19, 41, 0.84);
+      border-bottom: 1px solid rgba(131, 190, 255, 0.26);
+      backdrop-filter: blur(14px);
+    }
+
+    .progress-inner {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .nav-step {
+      text-decoration: none;
+      color: #d7ecff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(131, 190, 255, 0.22);
+      border-radius: 14px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7px 6px;
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 1.15;
+      box-shadow: 0 10px 22px rgba(0, 5, 18, 0.22);
+    }
+
+    .nav-step.is-complete {
+      color: #061329;
+      background: linear-gradient(180deg, #35c4e8, #9cecff);
+      border-color: rgba(255,255,255,0.55);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 22px 24px 10px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .tool { padding: 20px; }
+    .tool.phase-b::before { background: linear-gradient(90deg, #f6a742 0%, #ffca73 100%); }
+    .tool.phase-c::before { background: linear-gradient(90deg, #35c4e8 0%, #3cc58f 100%); }
+
+    .tool-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .phase-label {
+      gap: 7px;
+      margin-bottom: 9px;
+      padding: 5px 11px;
+      font-size: 0.78rem;
+    }
+
+    .phase-b .phase-label {
+      color: #805d14;
+      background: rgba(242, 157, 53, 0.12);
+      border-color: rgba(242, 157, 53, 0.28);
+    }
+
+    .phase-c .phase-label {
+      color: #1d6f63;
+      background: rgba(43, 147, 111, 0.10);
+      border-color: rgba(43, 147, 111, 0.25);
+    }
+
+    .tool h3 {
+      color: #123b64;
+      font-size: 1.35rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 5px;
+    }
+
+    .tool-subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .tool-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.35rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #35c4e8, #0d3a76);
+      box-shadow: 0 14px 26px rgba(13, 58, 118, 0.34);
+    }
+
+    .phase-b .tool-num { background: linear-gradient(180deg, #ffca73, #f6a742); }
+    .phase-c .tool-num { background: linear-gradient(180deg, #52d6b2, #187b66); }
+
+    .method-row,
+    .tool-grid,
+    .auto-grid,
+    .score-row,
+    .option-select,
+    .rating-grid,
+    .choice-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .method-row,
+    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .auto-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
+    .rating-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .choice-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .score-row { grid-template-columns: 170px 1fr; margin-top: 14px; }
+    .option-select { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 14px; }
+    .span-2 { grid-column: 1 / -1; }
+
+    .method-box p { color: #52627a; font-size: 0.96rem; line-height: 1.6; font-weight: 600; }
+    .mini-note { color: #65758e; font-size: 0.88rem; line-height: 1.55; font-weight: 600; }
+
+    .choice { position: relative; }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+
+    .choice label {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 9px;
+      border-radius: 16px;
+      border: 1px solid rgba(120, 170, 220, 0.35);
+      background: linear-gradient(180deg, #ffffff, #eef6ff);
+      color: #40546f;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 6px 14px rgba(22,38,67,0.05);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    .choice input:checked + label {
+      color: #ffffff;
+      border-color: rgba(53,196,232,0.7);
+      background: linear-gradient(180deg, #1e66a8, #0d2045);
+      box-shadow: 0 12px 20px rgba(23, 74, 124, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .sentence-builder { display: grid; grid-template-columns: 1fr; gap: 12px; counter-reset: builder; }
+    .builder-field { position: relative; padding-right: 44px; }
+
+    .builder-field::before {
+      counter-increment: builder;
+      content: counter(builder);
+      position: absolute;
+      top: 30px;
+      right: 0;
+      width: 31px;
+      height: 31px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(180deg, #35c4e8, #0d2045);
+      font-weight: 900;
+    }
+
+    .rating-card { display: flex; flex-direction: column; gap: 7px; padding: 12px; background: #fff; }
+    .rating-card select { min-height: 48px; font-weight: 900; text-align: center; }
+
+    .score-total {
+      min-height: 154px;
+      border-radius: 20px;
+      color: white;
+      background: linear-gradient(180deg, #f2b75a, #ba7d1e);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 14px 24px rgba(186, 125, 30, 0.18);
+      font-weight: 900;
+    }
+
+    .score-total .big { font-size: 3rem; line-height: 1; margin: 7px 0; }
+    .analysis-box.good { background: linear-gradient(180deg, #effbf6, #fff); border-color: rgba(43,147,111,0.35); }
+    .analysis-box.warn { background: linear-gradient(180deg, #fff9ef, #fff); border-color: rgba(242,157,53,0.35); }
+    .analysis-box.bad { background: linear-gradient(180deg, #fff3f3, #fff); border-color: rgba(200,84,84,0.35); }
+
+    .option-choice label {
+      min-height: 84px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: right;
+      line-height: 1.45;
+    }
+
+    .final-preview {
+      margin-top: 14px;
+      background: linear-gradient(135deg, rgba(43,147,111,0.09), #fff);
+      border-color: rgba(43,147,111,0.28);
+    }
+
+    .action-panel {
+      position: relative;
+      z-index: 2;
+      margin: 8px 24px 0;
+      padding: 18px;
+    }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 15px;
+      padding: 11px 16px;
+      min-width: 138px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.94rem;
+      font-weight: 900;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 9px 16px rgba(22,38,67,0.08);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { color: white; background: linear-gradient(90deg, #0d3a76, #1e66a8); }
+    .btn.secondary { color: #40546f; border-color: #d6e2f0; background: linear-gradient(180deg, #fff, #f3f7fc); }
+    .btn.accent { color: white; background: linear-gradient(90deg, #f08a24, #f6a742); }
+    .status { color: #65758e; font-size: 0.92rem; font-weight: 800; }
+    .footer { position: relative; z-index: 2; padding: 20px 18px 28px; text-align: center; color: #b8d9f7; font-weight: 700; }
+    .print-only { display: none; }
+
+    @media (max-width: 1040px) {
+      .progress-inner, .rating-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 860px) {
+      .hero, .method-row, .tool-grid, .auto-grid, .score-row, .problem-grid, .option-select { grid-template-columns: 1fr; }
+      .home-link { position: static; margin-bottom: 10px; }
+      .brand { flex-direction: column; }
+      .progress-nav { position: static; }
+    }
+
+    @media (max-width: 620px) {
+      body { padding: 10px 8px 28px; }
+      .page { border-radius: 24px; }
+      .header, .hero, .content, .progress-nav, .action-panel { padding-left: 14px; padding-right: 14px; }
+      .selected-problem, .action-panel { margin-left: 14px; margin-right: 14px; }
+      .progress-inner, .choice-grid, .rating-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { zoom: 1; padding: 0; background: white; }
+      body::before { display: none; }
+      .page { width: 100%; max-width: none; border: none; border-radius: 0; box-shadow: none; background: white; }
+      .page::before, .topbar, .home-link, .progress-nav, .buttons, .status, .mini-btn { display: none !important; }
+      .header, .hero, .content, .selected-problem, .action-panel, .footer { padding: 10px 14px; margin: 0; border: none; box-shadow: none; background: white; }
+      .brand-copy h1 { color: #123b64; text-shadow: none; font-size: 1.7rem; letter-spacing: 0.01em; }
+      .brand-copy p { color: #52627a; }
+      .brand img { width: 52px; height: 52px; filter: none; }
+      .intro, .meta, .tool, .selected-problem, .action-panel, .card { box-shadow: none; break-inside: avoid; }
+      .tool { page-break-inside: avoid; margin-bottom: 10px; padding: 12px; }
+      input, textarea, select { border: 1px solid #ccd7e5; box-shadow: none; }
+      textarea:placeholder-shown, input:placeholder-shown { color: transparent; }
+      .empty-print { display: none !important; }
+      .print-hide { display: none !important; }
+      #tool2 .choice-grid { grid-template-columns: 1fr; }
+      #tool2 .choice input { display: none !important; }
+      #tool2 .choice label { min-height: auto; justify-content: flex-start; text-align: right; padding: 10px 12px; }
+      .print-only { display: block; color: #123b64; }
+      .footer { color: #65758e; }
+    }
+
+    /* תיקוני יישור וריווח סופיים */
+
+    #tool2 .method-row + .field {
+      margin-top: 20px;
+    }
+
+    #tool3 .sentence-builder {
+      gap: 14px;
+    }
+
+    #tool3 .builder-field {
+      display: grid;
+      grid-template-columns: 31px minmax(0, 1fr);
+      column-gap: 13px;
+      align-items: start;
+      padding-right: 0;
+    }
+
+    #tool3 .builder-field::before {
+      position: static;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      margin-top: 29px;
+    }
+
+    #tool3 .builder-field label,
+    #tool3 .builder-field textarea {
+      grid-column: 2;
+      width: 100%;
+    }
+
+    #tool4 .auto-grid {
+      align-items: stretch;
+    }
+
+    #tool4 .summary-box {
+      min-height: 132px;
+      height: 100%;
+    }
+
+    #tool4 .tool-grid {
+      align-items: stretch;
+    }
+
+    #tool4 .tool-grid .field {
+      height: 100%;
+      margin-top: 0;
+    }
+
+    #tool4 .tool-grid textarea {
+      min-height: 104px;
+      height: 100%;
+    }
+
+    #tool5 .rating-card select {
+      width: 86px;
+      min-height: 42px;
+      padding: 8px 10px;
+      align-self: center;
+      text-align: center;
+    }
+
+    .analysis-details {
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .analysis-item {
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(120,170,220,0.22);
+    }
+
+    .analysis-item strong {
+      display: inline;
+      margin: 0;
+    }
+
+    #tool6 .tool-grid .field {
+      margin-top: 0;
+    }
+
+    #tool6 .tool-grid label {
+      display: block;
+      min-height: 24px;
+    }
+
+    #tool6 .option-choice label {
+      display: block;
+      padding: 14px 16px;
+      text-align: right;
+      white-space: normal;
+    }
+
+    #tool6 .option-choice .mini-note {
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">דף עבודה אינטראקטיבי | מבעיה לאתגר</div>
+
+    <header class="header">
+      <a class="home-link" href="../index-marvell.html" aria-label="חזרה לעמוד הבית" title="חזרה לעמוד הבית">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 10.5v9.3c0 .6.4 1 1 1h5.3c.6 0 1-.4 1-1v-4.3h3.4v4.3c0 .6.4 1 1 1H20c.6 0 1-.4 1-1v-9.3L12 3.2Zm0 2.6 7 5.7v7.3h-3.3v-4.3c0-.6-.4-1-1-1H9.3c-.6 0-1 .4-1 1v4.3H5v-7.3l7-5.7Z"/></svg>
+      </a>
+      <div class="brand">
+        <img src="../images/logo.png" alt="לוגו תעשיידע">
+        <div class="brand-copy">
+          <h1>7 כלים למעבר מבעיה לאתגר</h1>
+          <p>לא קופצים לפתרון. קודם ממפים, ממקדים, מנסחים, בודקים ובוחרים אתגר ברור.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="selected-problem" id="selectedProblemPanel">
+      <div class="problem-head">
+        <div>
+          <span class="kicker">הבעיה שנבחרה מהעמוד הקודם</span>
+          <h2 id="selectedProblemTitle"></h2>
+        </div>
+        <button class="mini-btn" id="clearSelectedProblemBtn" type="button">ניקוי בחירה</button>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-item"><strong>בעיה מרכזית</strong><div id="selectedProblemText"></div></div>
+        <div class="problem-item"><strong>מי מושפע?</strong><div id="selectedProblemAudience"></div></div>
+        <div class="problem-item"><strong>כיוון אפשרי</strong><div id="selectedProblemDirection"></div></div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="card intro">
+        <h2>מטרת הפעילות</h2>
+        <p>בפעילות זו כל צוות לוקח בעיה שנבחרה מתוך כתבה או מצב יומיומי, ומעבד אותה בעזרת שבעה כלי חשיבה. התהליך אינו מיועד למציאת פתרון מיידי, אלא לבנייה של הבנה מדויקת יותר: מה לא עובד, למי זה מפריע, מתי זה קורה, מה ההשפעה, ואיך הופכים את הבעיה לשאלת אתגר פתוחה וברורה.</p>
+      </div>
+      <div class="card meta">
+        <div class="field"><label for="groupName">שם הקבוצה</label><input id="groupName" type="text" placeholder="למשל: קבוצת חדשנות 2"></div>
+        <div class="field"><label for="members">שמות המשתתפים</label><textarea id="members" class="short" placeholder="כתבו את שמות חברי הקבוצה"></textarea></div>
+      </div>
+    </section>
+
+    <nav class="progress-nav" aria-label="ניווט בין הכלים">
+      <div class="progress-inner">
+        <a class="nav-step" href="#tool1" data-step="1">1<br>מפת בעיה</a>
+        <a class="nav-step" href="#tool2" data-step="2">2<br>מצפן כיוון</a>
+        <a class="nav-step" href="#tool3" data-step="3">3<br>איך אפשר</a>
+        <a class="nav-step" href="#tool4" data-step="4">4<br>דיוק ניסוח</a>
+        <a class="nav-step" href="#tool5" data-step="5">5<br>חמש על חמש</a>
+        <a class="nav-step" href="#tool6" data-step="6">6<br>בחירת אתגר</a>
+        <a class="nav-step" href="#tool7" data-step="7">7<br>בחירה סופית</a>
+      </div>
+    </nav>
+
+    <main class="content">
+      <section class="tool" id="tool1" data-required="problemWhat,problemWho,problemStage,problemImpact">
+        <div class="tool-head"><div><div class="phase-label">שלב א׳ | הבנת הבעיה</div><h3>כלי 1 – מפת בעיה ב־4 שאלות</h3><p class="tool-subtitle">הצוות ממפה את הבעיה דרך ארבע שאלות: מה לא עובד, למי זה מפריע, מתי זה קורה ומה ההשפעה. המטרה היא להבין את הבעיה לפני שמתחילים לחשוב על פתרון.</p></div><div class="tool-num">1</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>להבין מהי הבעיה המרכזית ומה בדיוק לא עובד במצב הקיים.</p></div><div class="method-box"><strong>מה עושים?</strong><p>עונים על ארבע שאלות: מה לא עובד, למי זה מפריע, מתי זה קורה ומה ההשפעה.</p></div></div>
+        <div class="tool-grid">
+          <div class="field"><label for="problemWhat">1. מה בדיוק לא עובד?</label><textarea id="problemWhat" placeholder="תארו בקצרה ובדיוק את הקושי המרכזי"></textarea></div>
+          <div class="field"><label for="problemWho">2. למי זה מפריע?</label><textarea id="problemWho" placeholder="מי מושפע מהבעיה?"></textarea></div>
+          <div class="field"><label for="problemStage">3. מתי או איפה זה קורה?</label><textarea id="problemStage" class="short" placeholder="באיזה שלב, מצב, מקום או רגע הבעיה מופיעה?"></textarea></div>
+          <div class="field"><label for="problemImpact">4. מה ההשפעה?</label><textarea id="problemImpact" class="short" placeholder="מה המחיר של הבעיה?"></textarea></div>
+        </div>
+      </section>
+
+      <section class="tool" id="tool2" data-required="thinkingDirection,directionReason">
+        <div class="tool-head"><div><div class="phase-label">שלב א׳ | הבנת הבעיה</div><h3>כלי 2 – מצפן כיוון</h3><p class="tool-subtitle">הצוות בוחר כיוון חשיבה אחד שימקד את המשך העבודה. הבחירה עוזרת להחליט האם רוצים לשפר, למנוע, לצמצם, לזהות מוקדם יותר או לדייק את הבעיה.</p></div><div class="tool-num">2</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לבחור מאיזו זווית נכון להמשיך לעבוד על הבעיה.</p></div><div class="method-box"><strong>מה עושים?</strong><p>מסמנים כיוון אחד וכותבים למה הוא מתאים לבעיה שנבחרה.</p></div></div>
+        <div class="field" style="margin-bottom:10px;"><label>בחרו כיוון אחד מרכזי</label><div class="mini-note">אין כאן תשובה אחת נכונה. בחרו את הכיוון שמאפשר לכם להתקדם בצורה הכי ממוקדת.</div></div>
+        <div class="choice-grid">
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirImprove" value="לשפר"><label for="dirImprove">לשפר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirPrevent" value="למנוע"><label for="dirPrevent">למנוע</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirEarly" value="לזהות מוקדם יותר"><label for="dirEarly">לזהות מוקדם יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirReduce" value="לצמצם"><label for="dirReduce">לצמצם</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirClear" value="להפוך לברור יותר"><label for="dirClear">להפוך לברור יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirSafe" value="להפוך לבטוח יותר"><label for="dirSafe">להפוך לבטוח יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirAccurate" value="להפוך למדויק יותר"><label for="dirAccurate">להפוך למדויק יותר</label></div>
+          <div class="choice"><input type="radio" name="thinkingDirection" id="dirOther" value="כיוון אחר"><label for="dirOther">כיוון אחר</label></div>
+        </div>
+        <div class="tool-grid" style="margin-top:14px;"><div class="field"><label for="directionOther">כיוון אחר, אם נבחר</label><input id="directionOther" type="text" placeholder="כתבו כיוון אחר במידת הצורך"></div><div class="field"><label for="directionReason">בחרנו בכיוון הזה כי...</label><textarea id="directionReason" class="short" placeholder="הסבירו למה זה הכיוון המתאים ביותר"></textarea></div></div>
+      </section>
+
+      <section class="tool" id="tool3" data-required="challengeVerb,challengeWhat,challengeForWhom,challengeStage,challengeImpact">
+        <div class="tool-head"><div><div class="phase-label">שלב א׳ | הבנת הבעיה</div><h3>כלי 3 – תבנית “איך אפשר...”</h3><p class="tool-subtitle">בכלי הזה הופכים את הבעיה לשאלת אתגר פתוחה. התבנית עוזרת לנסח אתגר שמזמין רעיונות, בלי לקבוע עדיין פתרון מסוים.</p></div><div class="tool-num">3</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לנסח אתגר ראשוני שמתחיל ב־“איך אפשר...”.</p></div><div class="method-box"><strong>מה עושים?</strong><p>משלימים את התבנית: פעולה, מה רוצים לשנות, עבור מי, באיזה מצב ומה התוצאה הרצויה.</p></div></div>
+        <div class="sentence-builder">
+          <div class="field builder-field"><label for="challengeVerb">איך אפשר...</label><textarea id="challengeVerb" class="short" placeholder="לשפר / למנוע / לצמצם / לזהות מוקדם יותר..."></textarea></div>
+          <div class="field builder-field"><label for="challengeWhat">את מה?</label><textarea id="challengeWhat" class="short" placeholder="למשל: את תהליך הזיהוי, הסימון, ההתראה..."></textarea></div>
+          <div class="field builder-field"><label for="challengeForWhom">עבור מי?</label><textarea id="challengeForWhom" class="short" placeholder="למי זה מיועד או מי מושפע מהבעיה?"></textarea></div>
+          <div class="field builder-field"><label for="challengeStage">באיזה מצב או שלב?</label><textarea id="challengeStage" class="short" placeholder="מתי הבעיה מתרחשת?"></textarea></div>
+          <div class="field builder-field"><label for="challengeImpact">כך ש...</label><textarea id="challengeImpact" class="short" placeholder="מה התוצאה הרצויה של האתגר?"></textarea></div>
+        </div>
+        <div class="preview" style="margin-top:14px;"><strong>אתגר ראשוני מנוסח:</strong><div id="challengePreview" style="margin-top:7px;">עדיין לא הושלם ניסוח האתגר.</div></div>
+      </section>
+
+      <section class="tool phase-b" id="tool4" data-required="tool4Draft">
+        <div class="tool-head"><div><div class="phase-label">שלב ב׳ | ניסוח ודיוק</div><h3>כלי 4 – מגדירים ואז מנסחים</h3><p class="tool-subtitle">חוזרים למה שנכתב עד עכשיו ומנסחים את האתגר בצורה מדויקת יותר. המטרה היא לוודא שהבעיה, קהל היעד וכיוון החשיבה מחוברים לניסוח ברור.</p></div><div class="tool-num">4</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לדייק את האתגר הראשוני בעזרת הבעיה, קהל היעד וכיוון החשיבה.</p></div><div class="method-box"><strong>מה עושים?</strong><p>קוראים את הסיכום האוטומטי, בודקים מה חסר, ומנסחים טיוטת אתגר ברורה יותר.</p></div></div>
+        <div class="auto-grid"><div class="summary-box"><strong>הבעיה שהוגדרה</strong><div id="autoProblemSummary" class="mini-note" style="margin-top:7px;"></div></div><div class="summary-box"><strong>כיוון החשיבה</strong><div id="autoDirectionSummary" class="mini-note" style="margin-top:7px;"></div></div><div class="summary-box"><strong>האתגר הראשוני</strong><div id="autoChallengeSummary" class="mini-note" style="margin-top:7px;"></div></div></div>
+        <div class="tool-grid" style="margin-top:14px;"><div class="field"><label for="tool4Missing">מה צריך לדייק או להשלים?</label><textarea id="tool4Missing" class="short" placeholder="למשל: קהל היעד לא מספיק ברור / חסר שלב / ההשפעה כללית מדי"></textarea></div><div class="field"><label for="tool4Draft">ניסוח ביניים משופר של האתגר</label><textarea id="tool4Draft" class="short" placeholder="נסחו כאן את האתגר מחדש"></textarea></div></div>
+      </section>
+
+      <section class="tool phase-b" id="tool5" data-required="rateProblem,rateAudience,rateStage,rateImpact,rateQuality">
+        <div class="tool-head"><div><div class="phase-label">שלב ב׳ | ניסוח ודיוק</div><h3>כלי 5 – חמש על חמש</h3><p class="tool-subtitle">בודקים את איכות האתגר לפי חמישה קריטריונים: בעיה, קהל יעד, מצב, השפעה ואיכות ניסוח. הציון עוזר להבין מה כבר ברור ומה עדיין צריך לדייק.</p></div><div class="tool-num">5</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לבחון האם האתגר ברור, ממוקד ומתאים לבעיה.</p></div><div class="method-box"><strong>מה עושים?</strong><p>נותנים ציון 1–5 לכל קריטריון, ואז קוראים את הניתוח האוטומטי ומחזקים את הניסוח.</p></div></div>
+        <div class="rating-grid">
+          <div class="rating-card"><label for="rateProblem">1. הבעיה ברורה</label><select id="rateProblem"><option value="">בחרו</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="mini-note">ברור מה בדיוק לא עובד?</div></div>
+          <div class="rating-card"><label for="rateAudience">2. קהל היעד ברור</label><select id="rateAudience"><option value="">בחרו</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="mini-note">ברור למי זה מפריע?</div></div>
+          <div class="rating-card"><label for="rateStage">3. המצב ברור</label><select id="rateStage"><option value="">בחרו</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="mini-note">ברור מתי או איפה זה קורה?</div></div>
+          <div class="rating-card"><label for="rateImpact">4. ההשפעה ברורה</label><select id="rateImpact"><option value="">בחרו</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="mini-note">ברור למה זה חשוב?</div></div>
+          <div class="rating-card"><label for="rateQuality">5. איכות הניסוח</label><select id="rateQuality"><option value="">בחרו</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="mini-note">האתגר פתוח ולא פתרוני מדי?</div></div>
+        </div>
+        <div class="score-row"><div class="score-total"><div>ציון סופי</div><div class="big" id="scoreTotal">0</div><div>/ 25</div></div><div class="analysis-box warn" id="scoreAnalysis"><strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">בחרו ציונים בכל חמשת הסעיפים כדי לקבל ניתוח.</div></div></div>
+      </section>
+
+      <section class="tool phase-c" id="tool6" data-required="option1,option2,finalChoice,finalReason">
+        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | בחירה והכרעה</div><h3>כלי 6 – בחירת האתגר הסופי</h3><p class="tool-subtitle">משווים בין כמה ניסוחי אתגר אפשריים ובוחרים את הניסוח המתאים ביותר. הבחירה צריכה להיות מנומקת לפי בהירות, מיקוד והתאמה לבעיה.</p></div><div class="tool-num">6</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לבחור את ניסוח האתגר המדויק ביותר להמשך העבודה.</p></div><div class="method-box"><strong>מה עושים?</strong><p>כותבים 2–3 אפשרויות, משווים ביניהן, מסמנים בחירה וכותבים נימוק.</p></div></div>
+        <div class="tool-grid"><div class="field span-2"><label for="option1">אתגר אפשרי 1</label><textarea id="option1" class="short" placeholder="כתבו אתגר אפשרי ראשון"></textarea></div><div class="field span-2"><label for="option2">אתגר אפשרי 2</label><textarea id="option2" class="short" placeholder="כתבו אתגר אפשרי שני"></textarea></div><div class="field span-2"><label for="option3">אתגר אפשרי 3</label><textarea id="option3" class="short" placeholder="כתבו אתגר אפשרי שלישי, אם יש"></textarea></div></div>
+        <div class="option-select"><div class="choice option-choice"><input type="radio" name="finalChoice" id="final1" value="1"><label for="final1">בחירה באתגר&nbsp;1<br><span id="option1Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final2" value="2"><label for="final2">בחירה באתגר&nbsp;2<br><span id="option2Mini" class="mini-note"></span></label></div><div class="choice option-choice"><input type="radio" name="finalChoice" id="final3" value="3"><label for="final3">בחירה באתגר&nbsp;3<br><span id="option3Mini" class="mini-note"></span></label></div></div>
+        <div class="field" style="margin-top:14px;"><label for="finalReason">בחרנו באתגר הזה כי...</label><textarea id="finalReason" class="short" placeholder="למשל: הוא הכי ברור, הכי ממוקד, הכי מתאים לבעיה"></textarea></div>
+        <div class="preview final-preview"><strong>האתגר הסופי שנבחר:</strong><div id="finalChallengePreview" style="margin-top:7px;">עדיין לא נבחר אתגר סופי.</div></div>
+      </section>
+
+      <section class="tool phase-c" id="tool7" data-required="canvasProblem,canvasFinal">
+        <div class="tool-head"><div><div class="phase-label">שלב ג׳ | בחירה והכרעה</div><h3>כלי 7 – בחירה סופית</h3><p class="tool-subtitle">בכלי הזה מרכזים את תהליך החשיבה ובוחרים את האתגר הסופי שממנו ממשיכים לשלב הרעיונות.</p></div><div class="tool-num">7</div></div>
+        <div class="method-row"><div class="method-box"><strong>המשימה</strong><p>לסכם את מהלך החשיבה ולהכין בסיס ברור לשלב הבא.</p></div><div class="method-box"><strong>מה עושים?</strong><p>מרכזים את הבעיה, קהל היעד, ההשפעה, הכיוון שנבחר והאתגר הסופי.</p></div></div>
+        <div class="tool-grid"><div class="field"><label for="canvasProblem">1. שם הבעיה ומה לא עובד</label><textarea id="canvasProblem" placeholder="כתבו את שם הבעיה ואת הקושי המרכזי"></textarea></div><div class="field"><label for="canvasAudienceImpact">2. מי מושפע ומה ההשפעה</label><textarea id="canvasAudienceImpact" placeholder="כתבו מי מושפע מהבעיה ולמה זה חשוב"></textarea></div><div class="field"><label for="canvasDirection">3. כיוון החשיבה שנבחר</label><textarea id="canvasDirection" class="short" placeholder="כתבו את הכיוון שנבחר ואת הסיבה"></textarea></div><div class="field"><label for="canvasOptions">4. אתגרים אפשריים</label><textarea id="canvasOptions" class="short" placeholder="כתבו בקצרה את 2–3 האתגרים האפשריים"></textarea></div><div class="field span-2"><label for="canvasFinal">5. האתגר הסופי להמשך העבודה</label><textarea id="canvasFinal" class="short" placeholder="כתבו את האתגר שנבחר ולמה הוא מתאים להמשך"></textarea></div></div>
+        <div class="print-summary" style="margin-top:14px;"><strong>משפט סיכום לצוות:</strong><div id="teamSummary" style="margin-top:7px;">לאחר השלמת הכלים יופיע כאן סיכום קצר של המעבר מבעיה לאתגר.</div></div>
+      </section>
+    </main>
+
+    <section class="action-panel">
+      <div class="buttons">
+        <button class="btn secondary" id="clearBtn" type="button">נקה את העבודה</button>
+        <button class="btn accent" id="printBtn" type="button">הדפסה / PDF</button>
+        <span class="status" id="saveStatus">הנתונים נשמרים אוטומטית.</span>
+      </div>
+      <div class="print-only" style="margin-top:12px;"><strong>דף עבודה קבוצתי:</strong> 7 כלים למעבר מבעיה לאתגר</div>
+    </section>
+
+    <footer class="footer">© פרימיום | תעשיידע</footer>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'premiumProblemToChallenge7Tools_v2';
+      const SELECTED_PROBLEM_KEY = 'marvell-selected-problem';
+      const LAST_SELECTED_SIGNATURE_KEY = 'premiumProblemToChallenge_lastSelectedProblem';
+      const fields = Array.from(document.querySelectorAll('input, textarea, select'));
+      const saveStatus = document.getElementById('saveStatus');
+      const selectedProblemPanel = document.getElementById('selectedProblemPanel');
+      const selectedProblemTitle = document.getElementById('selectedProblemTitle');
+      const selectedProblemText = document.getElementById('selectedProblemText');
+      const selectedProblemAudience = document.getElementById('selectedProblemAudience');
+      const selectedProblemDirection = document.getElementById('selectedProblemDirection');
+
+      function byId(id) { return document.getElementById(id); }
+      function valueOf(id) { const field = byId(id); return field ? String(field.value || '').trim() : ''; }
+      function setValue(id, value, overwrite) { const field = byId(id); if (field && (overwrite || !String(field.value || '').trim())) field.value = value || ''; }
+      function trimText(text, max) { return text.length > max ? text.slice(0, max).trim() + '…' : text; }
+      function lineJoin(items) { return items.filter(Boolean).join(String.fromCharCode(10)); }
+      function arrivedFromSelection() { const params = new URLSearchParams(window.location.search); return params.has('source') || params.has('article'); }
+
+      function getSelectedDirection() {
+        const selected = document.querySelector('input[name="thinkingDirection"]:checked');
+        if (!selected) return '';
+        return selected.value === 'כיוון אחר' ? (valueOf('directionOther') || 'כיוון אחר') : selected.value;
+      }
+
+      function getFinalChoiceNumber() {
+        const selected = document.querySelector('input[name="finalChoice"]:checked');
+        return selected ? selected.value : '';
+      }
+
+      function getFinalChallengeText() {
+        const number = getFinalChoiceNumber();
+        return number ? valueOf(`option${number}`) : '';
+      }
+
+      function getData() {
+        const data = {};
+        fields.forEach((field) => {
+          if (field.id) data[field.id] = field.type === 'radio' ? field.checked : field.value;
+        });
+        return data;
+      }
+
+      function setData(data) {
+        fields.forEach((field) => {
+          if (!field.id || !(field.id in data)) return;
+          if (field.type === 'radio') field.checked = Boolean(data[field.id]);
+          else field.value = data[field.id];
+        });
+      }
+
+      function saveData(message) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
+        if (saveStatus) saveStatus.textContent = message || 'הטיוטה נשמרה אוטומטית.';
+      }
+
+      function loadData() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) setData(JSON.parse(raw));
+        } catch (error) { console.error(error); }
+      }
+
+      function clearWorkbookFields() {
+        fields.forEach((field) => {
+          if (field.type === 'radio') field.checked = false;
+          else field.value = '';
+        });
+        localStorage.removeItem(STORAGE_KEY);
+      }
+
+      function getSelectedProblemPayload() {
+        if (!arrivedFromSelection()) return null;
+
+        let payload = null;
+
+        try {
+          const raw = localStorage.getItem(SELECTED_PROBLEM_KEY);
+          if (raw) payload = JSON.parse(raw);
+        } catch (error) {
+          console.error(error);
+        }
+
+        if (!payload || (!payload.title && !payload.problem && !payload.audience && !payload.direction)) {
+          return null;
+        }
+
+        return payload;
+      }
+
+      function selectedProblemSignature(payload) {
+        return [payload?.title, payload?.problem, payload?.audience, payload?.direction].map((v) => String(v || '').trim()).join('|');
+      }
+
+      function renderSelectedProblem(payload) {
+        if (!payload) {
+          selectedProblemTitle.textContent = 'לא נבחרה בעיה לעבודה.';
+          selectedProblemText.textContent = 'כדי להתחיל, חזרו לעמוד הכרטיסים ובחרו בעיה דרך הכפתור "מבעיה לאתגר".';
+          selectedProblemAudience.textContent = '—';
+          selectedProblemDirection.textContent = '—';
+          return;
+        }
+        selectedProblemTitle.textContent = payload.title || 'בעיה נבחרת';
+        selectedProblemText.textContent = payload.problem || '—';
+        selectedProblemAudience.textContent = payload.audience || '—';
+        selectedProblemDirection.textContent = payload.direction || '—';
+      }
+
+      function fillFromSelectedProblem(payload) {
+        if (!payload) return;
+        const signature = selectedProblemSignature(payload);
+        const lastSignature = localStorage.getItem(LAST_SELECTED_SIGNATURE_KEY);
+        if (signature === lastSignature) return;
+
+        setValue('directionOther', payload.direction || '', false);
+        localStorage.setItem(LAST_SELECTED_SIGNATURE_KEY, signature);
+      }
+
+      function updateDerivedContent() {
+        const challengeText = [valueOf('challengeVerb'), valueOf('challengeWhat'), valueOf('challengeForWhom'), valueOf('challengeStage'), valueOf('challengeImpact')].filter(Boolean).join(' | ');
+        byId('challengePreview').textContent = challengeText || 'עדיין לא הושלם ניסוח האתגר.';
+
+        byId('autoProblemSummary').textContent = lineJoin([valueOf('problemWhat'), valueOf('problemWho'), valueOf('problemStage'), valueOf('problemImpact')]) || 'עדיין לא הושלמו פרטי הבעיה.';
+        byId('autoDirectionSummary').textContent = lineJoin([getSelectedDirection(), valueOf('directionReason')]) || 'עדיין לא נבחר כיוון חשיבה.';
+        byId('autoChallengeSummary').textContent = byId('challengePreview').textContent;
+
+        ['1','2','3'].forEach((n)=>{ byId(`option${n}Mini`).textContent = trimText(valueOf(`option${n}`), 90); });
+
+        const finalText = getFinalChallengeText();
+        byId('finalChallengePreview').textContent = finalText || 'עדיין לא נבחר אתגר סופי.';
+
+        const scores = ['rateProblem','rateAudience','rateStage','rateImpact','rateQuality'].map((id)=>Number(valueOf(id)||0));
+        const total = scores.reduce((a,b)=>a+b,0);
+        byId('scoreTotal').textContent = String(total);
+
+        const analysis = byId('scoreAnalysis');
+        const allFilled = scores.every((n)=>n>=1 && n<=5);
+        const scoreCriteria = [
+          {
+            id: 'rateProblem',
+            title: 'הבעיה ברורה',
+            low: 'צריך לדייק מה בדיוק לא עובד במצב הקיים.',
+            mid: 'הבעיה מתחילה להיות ברורה, אבל כדאי לחדד את הקושי המרכזי.',
+            high: 'הבעיה מנוסחת בצורה ברורה ומאפשרת להתקדם.'
+          },
+          {
+            id: 'rateAudience',
+            title: 'קהל היעד ברור',
+            low: 'צריך לדייק למי הבעיה מפריעה ומי מושפע ממנה.',
+            mid: 'קהל היעד קיים, אבל כדאי להפוך אותו לממוקד יותר.',
+            high: 'ברור מי מושפע מהבעיה.'
+          },
+          {
+            id: 'rateStage',
+            title: 'המצב ברור',
+            low: 'צריך לדייק מתי, איפה או באיזה שלב הבעיה מתרחשת.',
+            mid: 'המצב מתואר חלקית, אבל כדאי להוסיף הקשר ברור יותר.',
+            high: 'ברור באיזה מצב או שלב הבעיה מופיעה.'
+          },
+          {
+            id: 'rateImpact',
+            title: 'ההשפעה ברורה',
+            low: 'צריך להסביר למה הבעיה חשובה ומה המחיר שלה.',
+            mid: 'ההשפעה קיימת, אבל כדאי לחדד למה זה משמעותי.',
+            high: 'ההשפעה של הבעיה ברורה ומשכנעת.'
+          },
+          {
+            id: 'rateQuality',
+            title: 'איכות הניסוח',
+            low: 'האתגר עדיין סגור מדי או פתרוני מדי. כדאי לפתוח אותו לשאלה רחבה יותר.',
+            mid: 'הניסוח בכיוון טוב, אבל כדאי להפוך אותו לפתוח, ברור ומדויק יותר.',
+            high: 'האתגר מנוסח בצורה פתוחה וברורה, בלי לקבוע פתרון מראש.'
+          }
+        ];
+        if (!allFilled) {
+          analysis.className = 'analysis-box warn';
+          analysis.innerHTML = '<strong>ניתוח אוטומטי:</strong><div style="margin-top:7px;">בחרו ציונים בכל חמשת הסעיפים כדי לקבל ניתוח.</div>';
+        } else {
+          const summary = total >= 21
+            ? 'האתגר ברור ומוכן להמשך עבודה.'
+            : total >= 15
+              ? 'יש בסיס טוב, אך כדאי לדייק כמה נקודות לפני שלב הרעיונות.'
+              : 'נדרש חידוד משמעותי לפני מעבר לשלב הבא.';
+          analysis.className = total >= 21 ? 'analysis-box good' : (total >= 15 ? 'analysis-box warn' : 'analysis-box bad');
+          const detailItems = scoreCriteria.map((criterion) => {
+            const score = Number(valueOf(criterion.id) || 0);
+            const message = score <= 2 ? criterion.low : (score === 3 ? criterion.mid : criterion.high);
+            return `<div class="analysis-item"><strong>${criterion.title} (${score}/5):</strong> ${message}</div>`;
+          }).join('');
+          analysis.innerHTML = `<strong>ניתוח תוצאות מורחב:</strong><div style="margin-top:7px;">${summary}</div><div class="analysis-details">${detailItems}</div>`;
+        }
+
+        byId('teamSummary').textContent = finalText ? `בחרנו להתמקד באתגר: ${finalText}` : 'לאחר השלמת הכלים יופיע כאן סיכום קצר של המעבר מבעיה לאתגר.';
+      }
+
+
+
+      function preparePrintState() {
+        document.querySelectorAll('#tool2 .print-hide, #tool2 .empty-print').forEach((el) => el.classList.remove('print-hide', 'empty-print'));
+        const choices = Array.from(document.querySelectorAll('#tool2 .choice'));
+        const checked = document.querySelector('input[name="thinkingDirection"]:checked');
+        choices.forEach((choice) => {
+          const input = choice.querySelector('input[name="thinkingDirection"]');
+          if (!input || !input.checked) choice.classList.add('print-hide');
+        });
+
+        const choiceGrid = document.querySelector('#tool2 .choice-grid');
+        if (choiceGrid) {
+          if (!checked) choiceGrid.classList.add('print-hide');
+          else choiceGrid.classList.remove('print-hide');
+        }
+
+        const directionOther = byId('directionOther');
+        const dirOtherChoice = byId('dirOther');
+        if (directionOther) {
+          const showOther = !!(dirOtherChoice && dirOtherChoice.checked && valueOf('directionOther'));
+          directionOther.classList.toggle('print-hide', !showOther);
+        }
+
+        const directionReason = byId('directionReason');
+        if (directionReason) directionReason.classList.toggle('print-hide', !valueOf('directionReason'));
+      }
+
+      function afterPrintCleanup() {
+        document.querySelectorAll('#tool2 .print-hide, #tool2 .empty-print').forEach((el) => el.classList.remove('print-hide', 'empty-print'));
+      }
+      function bindEvents() {
+        fields.forEach((field) => {
+          field.addEventListener('input', () => { updateDerivedContent(); saveData(); });
+          field.addEventListener('change', () => { updateDerivedContent(); saveData(); });
+        });
+
+        byId('clearBtn').addEventListener('click', () => {
+          if (!window.confirm('לנקות את כל הטופס?')) return;
+          clearWorkbookFields();
+          updateDerivedContent();
+          saveData('הטופס נוקה ונשמר.');
+        });
+
+        byId('printBtn').addEventListener('click', () => { preparePrintState(); window.print(); });
+        byId('clearSelectedProblemBtn').addEventListener('click', () => {
+          localStorage.removeItem(SELECTED_PROBLEM_KEY);
+          localStorage.removeItem(LAST_SELECTED_SIGNATURE_KEY);
+          renderSelectedProblem(null);
+        });
+      }
+
+      loadData();
+      const selectedProblem = getSelectedProblemPayload();
+      renderSelectedProblem(selectedProblem);
+      window.addEventListener('beforeprint', preparePrintState);
+      window.addEventListener('afterprint', afterPrintCleanup);
+      fillFromSelectedProblem(selectedProblem);
+      bindEvents();
+      updateDerivedContent();
+      saveData('הנתונים נשמרים אוטומטית.');
+    })();
+  </script>
+</body>
+</html>
