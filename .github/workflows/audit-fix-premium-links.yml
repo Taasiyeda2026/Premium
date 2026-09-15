@@ -1,0 +1,171 @@
+name: Audit and repair Premium navigation links
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Audit and repair Premium internal links
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, re
+          from urllib.parse import unquote, urlsplit
+
+          repo = Path('.').resolve()
+          premium = repo / 'premium web'
+          home = premium / 'index.html'
+          html_files = sorted(premium.rglob('*.html'))
+          changed = []
+
+          HOME_HINTS = ('home-link','home-icon','header-logo','logo-link','brand-logo-link')
+          HOME_WORDS = ('חזרה לעמוד הבית','חזרה לדף הבית','דף הבית','עמוד הבית','title="בית"','aria-label="בית"')
+
+          def home_rel(path: Path) -> str:
+              return Path(os.path.relpath(home, path.parent)).as_posix()
+
+          anchor_re = re.compile(r'<a\b[^>]*?href=(?P<q>["\'])(?P<href>.*?)(?P=q)[^>]*>', re.I | re.S)
+
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+              desired_home = home_rel(path)
+
+              def fix_anchor(m):
+                  tag = m.group(0)
+                  href = m.group('href')
+                  lower = tag.lower()
+                  homeish = any(h in lower for h in HOME_HINTS) or any(w in tag for w in HOME_WORDS)
+                  if not homeish:
+                      return tag
+                  # Do not rewrite external/action links accidentally.
+                  if href.startswith(('http://','https://','mailto:','tel:','javascript:','#')):
+                      return tag
+                  return tag[:m.start('href')-m.start()] + desired_home + tag[m.end('href')-m.start():]
+
+              text = anchor_re.sub(fix_anchor, text)
+
+              # Also normalize JS home navigations only when the nearby code explicitly says home.
+              lines = text.splitlines()
+              for idx, line in enumerate(lines):
+                  if ('window.location' in line or 'location.href' in line) and 'index.html' in line:
+                      context = ' '.join(lines[max(0, idx-2):min(len(lines), idx+3)])
+                      if any(w in context for w in ('בית','home','Home')):
+                          line = re.sub(r'(["\'])((?:\.\./)*index\.html)(["\'])', lambda m: m.group(1)+desired_home+m.group(3), line)
+                          lines[idx] = line
+              text = '\n'.join(lines)
+              if original.endswith('\n'):
+                  text += '\n'
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path.relative_to(repo)))
+
+          # Static internal-link audit across all Premium HTML pages.
+          broken = []
+          ref_re = re.compile(r'\b(?:href|src)=(?P<q>["\'])(?P<url>.*?)(?P=q)', re.I | re.S)
+          js_re = re.compile(r'(?:window\.)?location(?:\.href)?\s*=\s*(?P<q>["\'])(?P<url>.*?)(?P=q)', re.I)
+
+          def resolve_local(source: Path, raw: str):
+              raw = raw.strip()
+              if not raw or raw.startswith(('#','data:','mailto:','tel:','javascript:','http://','https://','//')):
+                  return None
+              u = urlsplit(raw)
+              loc = unquote(u.path)
+              if not loc:
+                  return None
+              if loc.startswith('/Premium/'):
+                  target = repo / loc[len('/Premium/'):]
+              elif loc.startswith('/'):
+                  return None
+              else:
+                  target = (source.parent / loc).resolve()
+              if target.is_dir():
+                  target = target / 'index.html'
+              return target
+
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              refs = [m.group('url') for m in ref_re.finditer(text)] + [m.group('url') for m in js_re.finditer(text)]
+              for raw in refs:
+                  target = resolve_local(path, raw)
+                  if target is None:
+                      continue
+                  try:
+                      target.relative_to(repo)
+                  except ValueError:
+                      broken.append((str(path.relative_to(repo)), raw, 'escapes repository'))
+                      continue
+                  if not target.exists():
+                      broken.append((str(path.relative_to(repo)), raw, str(target.relative_to(repo))))
+
+          # Validate every explicit Home control resolves to Premium home, not repository root.
+          wrong_home = []
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              expected = home_rel(path)
+              for m in anchor_re.finditer(text):
+                  tag = m.group(0)
+                  lower = tag.lower()
+                  homeish = any(h in lower for h in HOME_HINTS) or any(w in tag for w in HOME_WORDS)
+                  if homeish and not m.group('href').startswith(('http://','https://','#')) and m.group('href') != expected:
+                      wrong_home.append((str(path.relative_to(repo)), m.group('href'), expected))
+
+          print(f'PREMIUM_HTML_PAGES={len(html_files)}')
+          print(f'FILES_WITH_HOME_LINK_FIXES={len(changed)}')
+          for c in changed:
+              print('FIXED_HOME:', c)
+
+          print(f'BROKEN_INTERNAL_REFERENCES={len(broken)}')
+          for source, raw, target in broken[:200]:
+              print(f'BROKEN: {source} :: {raw} -> {target}')
+
+          print(f'WRONG_HOME_LINKS={len(wrong_home)}')
+          for item in wrong_home:
+              print('WRONG_HOME:', item)
+
+          # Always bump cache when navigation changes.
+          if changed:
+              sw_path = repo / 'service-worker.js'
+              sw = sw_path.read_text(encoding='utf-8')
+              m = re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';", sw)
+              if not m:
+                  raise SystemExit('Could not find Premium cache version')
+              version = int(m.group(1)) + 1
+              sw = sw[:m.start()] + f"const CACHE_NAME = 'premium-static-v{version}';" + sw[m.end():]
+              sw_path.write_text(sw, encoding='utf-8')
+              print('CACHE_VERSION=', version)
+
+          if wrong_home:
+              raise SystemExit('Home-link normalization failed')
+          if broken:
+              raise SystemExit('Broken internal references remain; see audit output')
+          PY
+
+      - name: Commit repairs and remove temporary workflow
+        if: success()
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/audit-fix-premium-links.yml
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git commit -m 'Repair Premium navigation links and verify internal routes'
+          git push origin HEAD:main
