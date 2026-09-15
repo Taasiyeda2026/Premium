@@ -1,0 +1,87 @@
+name: Fix remaining Premium readability issues
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply scoped readability fixes in Premium only
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          changed=[]
+
+          # Use one readable Premium-petrol color for "back to articles" actions.
+          for i in range(1,13):
+              p=Path(f'premium web/news/news{i}.html')
+              s=p.read_text(encoding='utf-8'); old=s
+              s, n = re.subn(
+                  r'(\.action-link\.back\s*\{[^{}]*?color\s*:\s*)#[0-9a-fA-F]{3,8}',
+                  r'\1#0f4c5c', s, count=1, flags=re.S
+              )
+              if n and s!=old:
+                  p.write_text(s,encoding='utf-8'); changed.append(str(p))
+
+          # Disabled states must still be readable while remaining visibly disabled.
+          p=Path('premium web/news/shortnews.html')
+          s=p.read_text(encoding='utf-8'); old=s
+          s=re.sub(r'(\.activity-btn\.is-disabled\s*\{[^{}]*?opacity\s*:\s*)0?\.45', r'\g<1>0.78', s, count=1, flags=re.S)
+          if s!=old:
+              p.write_text(s,encoding='utf-8'); changed.append(str(p))
+
+          p=Path('premium web/promptpremium.html')
+          s=p.read_text(encoding='utf-8'); old=s
+          s=s.replace('.btn[disabled]{opacity:.45;cursor:not-allowed}', '.btn[disabled]{opacity:.78;cursor:not-allowed}')
+          if s!=old:
+              p.write_text(s,encoding='utf-8'); changed.append(str(p))
+
+          # Poster editor: improve contrast of active control, counters, upload hints and empty numbered outputs.
+          p=Path('premium web/posterpremium.html')
+          s=p.read_text(encoding='utf-8'); old=s
+          marker='/* PREMIUM READABILITY CONTRAST FIX */'
+          if marker not in s:
+              css='''\n\n/* PREMIUM READABILITY CONTRAST FIX */\n.mode-btn.active{background:#1d4ed8!important;color:#fff!important}\n.logo-box .ltxt{color:#475569!important}\n.counter{color:#475569!important}\n.iph span{color:#40586e!important}\n.iph small{color:#526579!important}\n.numbered-answer.empty span{color:#475569!important}\n'''
+              if '</style>' not in s:
+                  raise SystemExit('poster style close tag not found')
+              s=s.replace('</style>', css+'\n</style>', 1)
+          if s!=old:
+              p.write_text(s,encoding='utf-8'); changed.append(str(p))
+
+          # Bump cache so the corrected Premium pages replace any previously cached copies.
+          swp=Path('service-worker.js')
+          sw=swp.read_text(encoding='utf-8')
+          m=re.search(r"const CACHE_NAME = 'premium-static-v(\d+)';", sw)
+          if not m:
+              raise SystemExit('cache version not found')
+          v=int(m.group(1))+1
+          sw=sw[:m.start()]+f"const CACHE_NAME = 'premium-static-v{v}';"+sw[m.end():]
+          swp.write_text(sw,encoding='utf-8')
+
+          print('FILES_CHANGED=',len(changed))
+          for x in changed: print('CHANGED',x)
+          print('CACHE_VERSION=',v)
+          PY
+
+      - name: Commit fixes and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-premium-readability.yml
+          git add 'premium web' service-worker.js
+          git commit -m 'Improve Premium text contrast and disabled-state readability'
+          git push origin HEAD:main
