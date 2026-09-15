@@ -54,7 +54,6 @@ jobs:
               for tag,key,raw in parser.refs:
                   target=resolve(p,raw)
                   if target is None: continue
-                  # Directory URLs resolve to index.html for website navigation.
                   exists=target.exists() or (target.is_dir() and (target/'index.html').exists())
                   if not exists:
                       problems.append((rel,f'{tag}[{key}]',raw,target.relative_to(repo).as_posix() if str(target).startswith(str(repo)) else str(target)))
@@ -64,7 +63,6 @@ jobs:
                   if target is not None and not (target.exists() or (target.is_dir() and (target/'index.html').exists())):
                       problems.append((rel,'window.location',raw,target.relative_to(repo).as_posix() if str(target).startswith(str(repo)) else str(target)))
 
-              # Flag Premium content navigation escaping the Premium subtree. Root-shared static assets are allowed.
               for tag,key,raw in parser.refs:
                   if key not in ('href','action','formaction'): continue
                   target=resolve(p,raw)
