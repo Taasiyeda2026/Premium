@@ -1,0 +1,132 @@
+name: Audit Premium readability
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install audit dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 axe-core@4.10.3 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+
+      - name: Start local server
+        run: |
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/premium-http.log 2>&1 &
+          echo $! > /tmp/premium-http.pid
+          sleep 2
+
+      - name: Audit all Premium HTML pages
+        shell: bash
+        run: |
+          cat > /tmp/audit-premium.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'fs';
+          import path from 'path';
+          import axeSource from 'axe-core';
+
+          const root = path.resolve('premium web');
+          const files = [];
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              else if (entry.isFile() && entry.name.endsWith('.html')) files.push(full);
+            }
+          }
+          walk(root);
+          files.sort();
+
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 1440, height: 1200 } });
+          let failedPages = 0;
+          let totalViolations = 0;
+
+          for (const file of files) {
+            const page = await context.newPage();
+            const rel = file.split(path.sep).join('/');
+            const url = 'http://127.0.0.1:8000/' + rel.split('/').map(encodeURIComponent).join('/');
+            try {
+              await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+              await page.addScriptTag({ content: axeSource.source });
+              const result = await page.evaluate(async () => {
+                const r = await axe.run(document, {
+                  runOnly: { type: 'rule', values: ['color-contrast'] }
+                });
+                return r.violations.map(v => ({
+                  id: v.id,
+                  impact: v.impact,
+                  nodes: v.nodes.map(n => ({
+                    target: n.target.join(' '),
+                    html: n.html,
+                    summary: n.failureSummary
+                  }))
+                }));
+              });
+
+              const weakOpacity = await page.evaluate(() => {
+                const els = [...document.querySelectorAll('body *')];
+                return els.filter(el => {
+                  const text = (el.textContent || '').trim();
+                  if (!text || el.children.length > 0) return false;
+                  const s = getComputedStyle(el);
+                  const opacity = parseFloat(s.opacity || '1');
+                  const visible = s.display !== 'none' && s.visibility !== 'hidden';
+                  return visible && opacity < 0.75;
+                }).slice(0, 20).map(el => ({
+                  tag: el.tagName,
+                  cls: el.className,
+                  text: (el.textContent || '').trim().slice(0, 90),
+                  opacity: getComputedStyle(el).opacity
+                }));
+              });
+
+              if (result.length || weakOpacity.length) {
+                failedPages++;
+                console.log(`\nPAGE: ${rel}`);
+                for (const v of result) {
+                  totalViolations += v.nodes.length;
+                  console.log(`  CONTRAST ${v.impact || ''}: ${v.nodes.length} node(s)`);
+                  for (const n of v.nodes.slice(0, 12)) {
+                    console.log(`    ${n.target}: ${n.html}`);
+                    console.log(`      ${String(n.summary || '').replace(/\n/g, ' | ')}`);
+                  }
+                }
+                if (weakOpacity.length) {
+                  console.log(`  LOW-OPACITY TEXT: ${weakOpacity.length} sample(s)`);
+                  for (const item of weakOpacity) console.log(`    ${item.tag}.${item.cls} opacity=${item.opacity} text=${item.text}`);
+                }
+              } else {
+                console.log(`OK: ${rel}`);
+              }
+            } catch (e) {
+              failedPages++;
+              console.log(`\nPAGE ERROR: ${rel}: ${e.message}`);
+            } finally {
+              await page.close();
+            }
+          }
+
+          await browser.close();
+          console.log(`\nAUDITED_HTML_PAGES=${files.length}`);
+          console.log(`PAGES_WITH_ISSUES=${failedPages}`);
+          console.log(`CONTRAST_NODES=${totalViolations}`);
+          if (failedPages > 0) process.exit(2);
+          JS
+          node /tmp/audit-premium.mjs
