@@ -45,7 +45,7 @@
       min-height: 100vh;
       background-image:
         linear-gradient(to bottom, rgba(4, 10, 24, 0.30), rgba(4, 10, 24, 0.52)),
-        url('bg.png');
+        url('images/bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -97,9 +97,9 @@
     }
 
     .button-grid {
-      width: min(460px, 100%);
+      width: min(640px, 100%);
       display: grid;
-      grid-template-columns: repeat(2, minmax(150px, 190px));
+      grid-template-columns: repeat(3, minmax(120px, 170px));
       justify-content: center;
       gap: 22px;
       padding: 16px;
@@ -223,12 +223,16 @@
 
   <div class="center-wrap">
     <div class="button-grid">
-      <button class="magic-btn" onclick="window.location.href='index_osem.html'">
+      <button class="magic-btn" onclick="window.location.href='marvell_web/index-marvell.html'">
+        <span>מארוול</span>
+      </button>
+
+      <button class="magic-btn" onclick="window.location.href='osem web/index_osem.html'">
         <span>אסם</span>
       </button>
 
-      <button class="magic-btn" onclick="window.location.href='marvell_web/index-marvell.html'">
-        <span>מארוול</span>
+      <button class="magic-btn" onclick="window.location.href='premium web/index.html'">
+        <span>פרימיום</span>
       </button>
     </div>
   </div>
