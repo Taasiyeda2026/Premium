@@ -1,0 +1,140 @@
+name: Premium generic cleanup
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove Marvell leftovers from generic Premium
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+
+          root = Path('premium web')
+          if not root.is_dir():
+              raise SystemExit('premium web directory is missing')
+
+          # Remove/rename the two Marvell-specific files that were copied into the generic area.
+          old_index = root / 'index-marvell.html'
+          if old_index.exists():
+              old_index.unlink()
+
+          old_theme = root / 'marvell-theme.css'
+          new_theme = root / 'premium-theme.css'
+          if old_theme.exists():
+              if new_theme.exists():
+                  raise SystemExit('Both marvell-theme.css and premium-theme.css exist; refusing to overwrite')
+              old_theme.rename(new_theme)
+
+          text_suffixes = {'.html', '.css', '.js', '.json', '.md', '.txt'}
+          changed = []
+
+          for path in sorted(root.rglob('*')):
+              if not path.is_file() or path.suffix.lower() not in text_suffixes:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # First fix known navigation/file references so generic replacement cannot create bad paths.
+              text = text.replace('index-marvell.html', 'index.html')
+              text = text.replace('marvell-theme.css', 'premium-theme.css')
+
+              # Remove brand-specific wording from the generic Premium copy.
+              text = text.replace('פרימיום מארוול', 'פרימיום')
+              text = text.replace('פרימיום Marvell', 'פרימיום')
+              text = text.replace('MARVELL', 'PREMIUM')
+              text = text.replace('Marvell', 'Premium')
+              text = text.replace('marvell', 'premium')
+              text = text.replace('מארוול', 'פרימיום')
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          # Rename Marvell-prefixed CSS custom properties in allprd consistently.
+          # (Covered by the generic lowercase replacement above, but asserted here.)
+          allprd = root / 'allprd.html'
+          if allprd.exists() and '--marvell-' in allprd.read_text(encoding='utf-8'):
+              raise SystemExit('Marvell CSS custom properties remain in allprd.html')
+
+          # Bump the root service worker cache so clients receive the cleaned Premium pages.
+          sw = Path('service-worker.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          sw_new, count = re.subn(
+              r"const CACHE_NAME = 'premium-static-v\d+';",
+              "const CACHE_NAME = 'premium-static-v11';",
+              sw_text,
+              count=1,
+          )
+          if count != 1:
+              raise SystemExit('Could not find Premium CACHE_NAME in service-worker.js')
+          sw.write_text(sw_new, encoding='utf-8')
+
+          # Validate: no Marvell naming/content remains anywhere inside generic Premium.
+          leftovers = []
+          name_pattern = re.compile(r'marvell|מארוול', re.I)
+          for path in sorted(root.rglob('*')):
+              if name_pattern.search(path.name):
+                  leftovers.append(f'filename: {path}')
+              if path.is_file() and path.suffix.lower() in text_suffixes:
+                  text = path.read_text(encoding='utf-8')
+                  for i, line in enumerate(text.splitlines(), 1):
+                      if name_pattern.search(line):
+                          leftovers.append(f'{path}:{i}: {line.strip()}')
+          if leftovers:
+              print('\n'.join(leftovers))
+              raise SystemExit('Marvell leftovers remain in premium web')
+
+          # Validate the intended generic navigation/theme files.
+          if not (root / 'index.html').is_file():
+              raise SystemExit('premium web/index.html is missing')
+          if not (root / 'premium-theme.css').is_file():
+              raise SystemExit('premium web/premium-theme.css is missing after rename')
+          if (root / 'index-marvell.html').exists() or (root / 'marvell-theme.css').exists():
+              raise SystemExit('Old Marvell-specific files still exist in premium web')
+
+          print(f'Updated {len(changed)} Premium text files')
+          for item in changed:
+              print(item)
+          PY
+
+      - name: Show diff and verify scope
+        shell: bash
+        run: |
+          echo '--- changed files ---'
+          git status --short
+          echo '--- ensure marvell_web untouched ---'
+          if git diff --name-only | grep -q '^marvell_web/'; then
+            echo 'ERROR: marvell_web was modified'
+            exit 1
+          fi
+          echo '--- residual Marvell references in premium web ---'
+          if grep -RniE --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' --exclude='*.webp' --exclude='*.gif' 'marvell|מארוול' 'premium web'; then
+            echo 'ERROR: residual Marvell reference found'
+            exit 1
+          fi
+
+      - name: Commit cleanup and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/premium-generic-cleanup.yml
+          git add -A
+          git commit -m 'Remove Marvell leftovers from generic Premium site'
+          git push origin HEAD:main
