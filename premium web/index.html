@@ -168,9 +168,14 @@
         0 2px 8px rgba(0, 0, 0, 0.32);
     }
 
+    .questionnaire-btn {
+      grid-column: 2;
+    }
+
     @media (max-width: 860px) {
       .button-grid { grid-template-columns: repeat(2, 98px); }
       .magic-btn { width: 98px; height: 98px; }
+      .questionnaire-btn { grid-column: auto; }
     }
 
     @media (max-width: 560px) {
@@ -219,6 +224,7 @@
       <button class="magic-btn" onclick="window.location.href='newsletter7.html'"><span>מנטורינג</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter10.html'"><span>פוסטר ופרומפט</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter11.html'"><span>פרזנטציה</span></button>
+      <button class="magic-btn questionnaire-btn" onclick="window.location.href='team-questionnaire/'"><span>שאלון</span></button>
     </div>
   </div>
   <script src="../pwa-register.js" defer></script>
