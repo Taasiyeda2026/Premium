@@ -38,7 +38,7 @@
       overflow-x: hidden;
     }
 
-    button, input { font: inherit; }
+    button, input, textarea { font: inherit; }
     button { -webkit-tap-highlight-color: transparent; }
 
     .app {
@@ -166,34 +166,41 @@
     }
 
     .form-grid {
+      width: min(100%, 330px);
       display: grid;
       gap: 12px;
-      text-align: right;
-      margin-top: 20px;
+      margin: 20px auto 0;
     }
 
-    label {
-      font-size: 14px;
-      font-weight: 800;
-      color: #324c69;
-    }
-
-    input {
+    input, textarea {
       width: 100%;
-      min-height: 54px;
       border: 1px solid #cddced;
       border-radius: 16px;
       background: #fff;
       color: var(--text);
-      padding: 0 15px;
       outline: none;
       transition: border-color .18s ease, box-shadow .18s ease;
     }
 
-    input:focus {
+    input {
+      min-height: 52px;
+      padding: 0 15px;
+      text-align: right;
+    }
+
+    textarea {
+      min-height: 92px;
+      padding: 13px 15px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    input:focus, textarea:focus {
       border-color: #5a9ce8;
       box-shadow: 0 0 0 4px rgba(24,103,201,.10);
     }
+
+    input::placeholder, textarea::placeholder { color: #7a8ba0; opacity: 1; }
 
     .primary-btn, .secondary-btn {
       width: 100%;
@@ -214,9 +221,9 @@
 
     #startBtn {
       width: auto;
-      min-width: 160px;
-      min-height: 48px;
-      padding: 0 28px;
+      min-width: 150px;
+      min-height: 46px;
+      padding: 0 26px;
       margin: 18px auto 0;
       display: block;
       border-radius: 14px;
@@ -317,6 +324,40 @@
 
     .question-actions .primary-btn { margin: 0; }
 
+    .fun-card { padding: 24px 18px; }
+
+    .fun-intro {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .fun-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .fun-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .fun-label {
+      color: #234a70;
+      font-weight: 800;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .submit-status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: #b24a3e;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+
     .finish-icon {
       width: 76px;
       height: 76px;
@@ -327,17 +368,6 @@
       font-size: 38px;
       background: linear-gradient(145deg, #e8f5ff, #eafbf8);
       border: 1px solid #cfe6ef;
-    }
-
-    .waiting-box {
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 18px;
-      background: #f4f9fe;
-      border: 1px solid #d9e8f6;
-      color: #365573;
-      font-size: 15px;
-      line-height: 1.55;
     }
 
     .debug {
@@ -356,7 +386,7 @@
     @media (min-width: 680px) {
       .app { padding-inline: 24px; }
       .card { padding: 34px 32px; }
-      .question-card { padding: 30px; }
+      .question-card, .fun-card { padding: 30px; }
       .answers { grid-template-columns: 1fr 1fr; }
       .answer-btn { min-height: 82px; }
       .progress-wrap { display: block; }
@@ -372,6 +402,7 @@
       .question-card { min-height: calc(100dvh - 98px); display: flex; flex-direction: column; }
       .answers { flex: 1; align-content: start; }
       .question-actions { position: sticky; bottom: max(6px, env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.96) 22%); padding-top: 18px; }
+      .form-grid { width: min(84%, 330px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -404,14 +435,8 @@
         <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה — פשוט בוחרים וממשיכים.</p>
 
         <div class="form-grid">
-          <div>
-            <label for="studentName">שם פרטי ומשפחה</label>
-            <input id="studentName" type="text" autocomplete="name" maxlength="60" />
-          </div>
-          <div>
-            <label for="classCode">קוד כיתה</label>
-            <input id="classCode" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="4 ספרות" maxlength="6" />
-          </div>
+          <input id="studentName" type="text" autocomplete="name" maxlength="60" placeholder="שם פרטי ומשפחה" aria-label="שם פרטי ומשפחה" />
+          <input id="classCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="קוד כיתה" aria-label="קוד כיתה" />
         </div>
 
         <button class="primary-btn" id="startBtn" disabled>מתחילים</button>
@@ -430,12 +455,37 @@
       </div>
     </section>
 
+    <section class="screen" id="funScreen">
+      <div class="card fun-card">
+        <div class="eyebrow">😄 שלב אחרון</div>
+        <h2>שלוש שאלות לסיום</h2>
+        <p class="fun-intro">כאן אין ניקוד ואין תשובה נכונה. פשוט כותבים את הדבר הראשון שעולה לכם לראש.</p>
+        <div class="fun-grid">
+          <div class="fun-field">
+            <div class="fun-label">1. אם לצוות שלכם נשארו רק 5% סוללה בטלפון באמצע משימה - מה אתם עושים קודם?</div>
+            <textarea id="funAnswer1" maxlength="400" placeholder="מה הייתם עושים?"></textarea>
+          </div>
+          <div class="fun-field">
+            <div class="fun-label">2. איזה משפט הכי סביר שישמעו מכם באמצע עבודה קבוצתית?</div>
+            <textarea id="funAnswer2" maxlength="400" placeholder="המשפט שלכם..."></textarea>
+          </div>
+          <div class="fun-field">
+            <div class="fun-label">3. אם הייתם יכולים להמציא מוצר אחד שמעלים דבר מעצבן מהיום-יום - מה הוא היה?</div>
+            <textarea id="funAnswer3" maxlength="400" placeholder="ההמצאה שלכם..."></textarea>
+          </div>
+        </div>
+        <div class="question-actions">
+          <button class="primary-btn" id="submitBtn" disabled>שליחה</button>
+          <button class="secondary-btn" id="funBackBtn" type="button">חזרה</button>
+        </div>
+        <div class="submit-status" id="submitStatus" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="screen" id="finishScreen">
       <div class="card hero">
         <div class="finish-icon" aria-hidden="true">✓</div>
-        <h1>סיימת!</h1>
-        <p class="lead">התשובות שלך נשמרו. עכשיו מחכים לשאר הכיתה כדי להרכיב את צוותי המיזם.</p>
-        <div class="waiting-box">כשתהליך ההרכבה יסתיים, יוצגו הצוות שלך ותחום האחריות שקיבלת בתוך הצוות.</div>
+        <h1>התשובות התקבלו.</h1>
         <div class="debug" id="debugBox"></div>
       </div>
     </section>
@@ -445,8 +495,12 @@
     (() => {
       'use strict';
 
-      const STORAGE_KEY = 'premiumTeamQuizDraftV1';
-      const RESULT_KEY = 'premiumTeamQuizResultV1';
+      const STORAGE_KEY = 'premiumTeamQuizDraftV2';
+      const LEGACY_STORAGE_KEY = 'premiumTeamQuizDraftV1';
+      const RESULT_KEY = 'premiumTeamQuizResultV2';
+      const QUESTIONNAIRE_VERSION = 2;
+      const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const dimensions = ['S', 'R', 'P', 'C'];
 
       const questions = [
@@ -581,6 +635,7 @@
       const els = {
         startScreen: document.getElementById('startScreen'),
         questionScreen: document.getElementById('questionScreen'),
+        funScreen: document.getElementById('funScreen'),
         finishScreen: document.getElementById('finishScreen'),
         studentName: document.getElementById('studentName'),
         classCode: document.getElementById('classCode'),
@@ -593,19 +648,37 @@
         progressWrap: document.getElementById('progressWrap'),
         progressLabel: document.getElementById('progressLabel'),
         progressBar: document.getElementById('progressBar'),
+        funAnswers: [
+          document.getElementById('funAnswer1'),
+          document.getElementById('funAnswer2'),
+          document.getElementById('funAnswer3')
+        ],
+        submitBtn: document.getElementById('submitBtn'),
+        funBackBtn: document.getElementById('funBackBtn'),
+        submitStatus: document.getElementById('submitStatus'),
         debugBox: document.getElementById('debugBox')
       };
 
-      let state = loadDraft() || {
-        current: 0,
-        name: '',
-        classCode: '',
-        answers: Array(questions.length).fill(null),
-        orders: questions.map((q, index) => shuffledIndexes(q.options.length, index + 17))
-      };
+      let state = loadDraft() || createInitialState();
+
+      function createInitialState() {
+        return {
+          current: 0,
+          name: '',
+          classCode: '',
+          answers: Array(questions.length).fill(null),
+          orders: questions.map((q, index) => shuffledIndexes(q.options.length, index + 17)),
+          funAnswers: ['', '', ''],
+          submissionId: makeId()
+        };
+      }
+
+      function makeId() {
+        return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}-0000-4000-8000-000000000000`.slice(0, 36);
+      }
 
       function seededRandom(seed) {
-        let value = Math.sin(seed * 999.91) * 10000;
+        const value = Math.sin(seed * 999.91) * 10000;
         return value - Math.floor(value);
       }
 
@@ -620,10 +693,15 @@
 
       function loadDraft() {
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
+          const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
           if (!raw) return null;
           const parsed = JSON.parse(raw);
           if (!parsed || !Array.isArray(parsed.answers) || parsed.answers.length !== questions.length) return null;
+          if (!Array.isArray(parsed.orders) || parsed.orders.length !== questions.length) {
+            parsed.orders = questions.map((q, index) => shuffledIndexes(q.options.length, index + 17));
+          }
+          if (!Array.isArray(parsed.funAnswers) || parsed.funAnswers.length !== 3) parsed.funAnswers = ['', '', ''];
+          if (!parsed.submissionId) parsed.submissionId = makeId();
           return parsed;
         } catch (_) {
           return null;
@@ -635,14 +713,14 @@
       }
 
       function switchScreen(target) {
-        [els.startScreen, els.questionScreen, els.finishScreen].forEach(el => el.classList.remove('active'));
+        [els.startScreen, els.questionScreen, els.funScreen, els.finishScreen].forEach(el => el.classList.remove('active'));
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       function validateStart() {
         const hasName = els.studentName.value.trim().length >= 2;
-        const hasCode = els.classCode.value.trim().length >= 3;
+        const hasCode = /^\d{3,6}$/.test(els.classCode.value.trim());
         els.startBtn.disabled = !(hasName && hasCode);
       }
 
@@ -672,11 +750,27 @@
         });
 
         els.nextBtn.disabled = state.answers[qIndex] === null;
-        els.nextBtn.textContent = qIndex === questions.length - 1 ? 'סיום' : 'המשך';
+        els.nextBtn.textContent = qIndex === questions.length - 1 ? 'לשלב האחרון' : 'המשך';
         els.backBtn.style.visibility = qIndex === 0 ? 'hidden' : 'visible';
         els.progressLabel.textContent = `שאלה ${qIndex + 1} מתוך ${questions.length}`;
         els.progressBar.style.width = `${((qIndex + 1) / questions.length) * 100}%`;
         els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
+      }
+
+      function renderFunStage() {
+        els.progressLabel.textContent = 'שלב אחרון · 3 שאלות לסיום';
+        els.progressBar.style.width = '100%';
+        els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
+        els.funAnswers.forEach((input, index) => {
+          input.value = state.funAnswers[index] || '';
+        });
+        validateFunStage();
+      }
+
+      function validateFunStage() {
+        state.funAnswers = els.funAnswers.map(input => input.value.trim());
+        els.submitBtn.disabled = !state.funAnswers.every(answer => answer.length > 0);
+        saveDraft();
       }
 
       function calculateScores() {
@@ -689,25 +783,71 @@
         return scores;
       }
 
-      function finishQuiz() {
+      async function submitQuiz() {
+        if (els.submitBtn.disabled) return;
+
+        state.funAnswers = els.funAnswers.map(input => input.value.trim());
+        saveDraft();
+
         const scores = calculateScores();
+        const completedAt = new Date().toISOString();
         const result = {
-          id: (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
+          id: state.submissionId,
           name: state.name,
           classCode: state.classCode,
           scores,
           answers: state.answers,
-          completedAt: new Date().toISOString(),
-          version: 1
+          funAnswers: state.funAnswers,
+          completedAt,
+          version: QUESTIONNAIRE_VERSION
         };
-        localStorage.setItem(RESULT_KEY, JSON.stringify(result));
-        localStorage.removeItem(STORAGE_KEY);
-        switchScreen(els.finishScreen);
 
-        const debug = new URLSearchParams(location.search).get('debug') === '1';
-        if (debug) {
-          els.debugBox.style.display = 'block';
-          els.debugBox.textContent = JSON.stringify(result, null, 2);
+        els.submitBtn.disabled = true;
+        els.submitBtn.textContent = 'שולחים...';
+        els.funBackBtn.disabled = true;
+        els.submitStatus.textContent = '';
+
+        try {
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/premium_questionnaire_responses`, {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_PUBLISHABLE_KEY,
+              'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              submission_id: state.submissionId,
+              student_name: state.name,
+              class_code: state.classCode,
+              scored_answers: state.answers,
+              scores,
+              fun_answers: state.funAnswers,
+              questionnaire_version: QUESTIONNAIRE_VERSION,
+              completed_at: completedAt
+            })
+          });
+
+          if (!response.ok && response.status !== 409) {
+            throw new Error(`Save failed: ${response.status}`);
+          }
+
+          localStorage.setItem(RESULT_KEY, JSON.stringify(result));
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+          switchScreen(els.finishScreen);
+
+          const debug = new URLSearchParams(location.search).get('debug') === '1';
+          if (debug) {
+            els.debugBox.style.display = 'block';
+            els.debugBox.textContent = JSON.stringify(result, null, 2);
+          }
+        } catch (error) {
+          console.error(error);
+          els.submitStatus.textContent = 'לא הצלחנו לשמור את התשובות. בדקו את החיבור ונסו שוב.';
+          els.submitBtn.disabled = false;
+          els.submitBtn.textContent = 'נסו שוב';
+          els.funBackBtn.disabled = false;
         }
       }
 
@@ -728,6 +868,7 @@
 
       els.classCode.addEventListener('input', () => {
         els.classCode.value = els.classCode.value.replace(/\D/g, '').slice(0, 6);
+        validateStart();
       });
 
       els.startBtn.addEventListener('click', () => {
@@ -742,7 +883,8 @@
       els.nextBtn.addEventListener('click', () => {
         if (state.answers[state.current] === null) return;
         if (state.current >= questions.length - 1) {
-          finishQuiz();
+          switchScreen(els.funScreen);
+          renderFunStage();
           return;
         }
         state.current += 1;
@@ -759,8 +901,20 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
+      els.funAnswers.forEach(input => input.addEventListener('input', validateFunStage));
+
+      els.funBackBtn.addEventListener('click', () => {
+        state.current = questions.length - 1;
+        saveDraft();
+        switchScreen(els.questionScreen);
+        renderQuestion();
+      });
+
+      els.submitBtn.addEventListener('click', submitQuiz);
+
       window.addEventListener('resize', () => {
         if (els.questionScreen.classList.contains('active')) renderQuestion();
+        if (els.funScreen.classList.contains('active')) renderFunStage();
       });
     })();
   </script>
