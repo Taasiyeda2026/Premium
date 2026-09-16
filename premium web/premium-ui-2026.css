@@ -339,3 +339,82 @@ main > .hero p {
 .newsletter .remember-list li::marker {
   color: #14b8a6 !important;
 }
+
+/* Premium image placement refinement | v25 */
+.newsletter .hero-banner .hero-graphic-wrap {
+  min-height: 0 !important;
+  padding: 10px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.newsletter .hero-banner .hero-image,
+.newsletter .hero-banner .hero-graphic {
+  width: auto !important;
+  height: auto !important;
+  max-width: 92% !important;
+  max-height: 170px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 auto !important;
+}
+
+.newsletter .hero .hero-top .hero-visual {
+  min-height: 0 !important;
+  aspect-ratio: 16 / 10 !important;
+  padding: 8px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+.newsletter .hero .hero-top .hero-visual::before {
+  display: none !important;
+}
+.newsletter .hero .hero-top .hero-visual .hero-graphic {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 14px !important;
+  filter: none !important;
+  box-shadow: 0 8px 22px rgba(16,42,67,0.12) !important;
+}
+
+.newsletter .mentor-stage .product-card .card-icon {
+  width: 156px !important;
+  height: 156px !important;
+  min-width: 156px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.newsletter .mentor-stage .product-card .card-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+@media (max-width: 768px) {
+  .newsletter .hero-banner .hero-image,
+  .newsletter .hero-banner .hero-graphic {
+    max-width: 96% !important;
+    max-height: 150px !important;
+  }
+  .newsletter .hero .hero-top .hero-visual {
+    aspect-ratio: 16 / 9 !important;
+    padding: 6px !important;
+  }
+  .newsletter .mentor-stage .product-card .card-icon {
+    width: 138px !important;
+    height: 138px !important;
+    min-width: 138px !important;
+  }
+}
