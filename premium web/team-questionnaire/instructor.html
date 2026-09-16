@@ -140,9 +140,18 @@
     .students-table th { color: #4d6479; font-size: 13px; }
     .students-table tr:last-child td { border-bottom: 0; }
 
-    .score-grid { display: grid; grid-template-columns: repeat(4, auto); gap: 5px; direction: ltr; justify-content: start; }
-    .score-chip { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 4px 7px; background: #edf5fb; color: #36536e; font-size: 12px; font-weight: 800; }
+    .score-summary { display: grid; gap: 7px; }
+    .primary-fit { display: inline-flex; width: fit-content; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 10px; background: #eafbf7; color: #0b7d73; font-size: 12px; font-weight: 900; }
+    .score-grid { display: flex; flex-wrap: wrap; gap: 6px; direction: rtl; justify-content: flex-start; }
+    .score-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 5px 8px; background: #edf5fb; color: #36536e; font-size: 12px; font-weight: 800; }
     .score-chip strong { color: var(--navy); }
+    .score-chip.leading { background: #eafbf7; color: #0b7d73; box-shadow: inset 0 0 0 1px rgba(20,184,166,.18); }
+    .role-guide { margin: 0 0 14px; border: 1px solid #dce8f0; border-radius: 14px; background: #fbfdff; overflow: hidden; }
+    .role-guide summary { cursor: pointer; padding: 11px 13px; font-weight: 900; color: #31526f; }
+    .role-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; padding: 0 13px 13px; }
+    .role-guide-item { padding: 10px 11px; border-radius: 11px; background: #fff; border: 1px solid #e4edf4; }
+    .role-guide-item strong { display: block; margin-bottom: 3px; color: var(--navy); }
+    .role-guide-item span { color: #62758a; font-size: 12px; line-height: 1.45; }
 
     details.fun-details { margin-top: 6px; }
     details.fun-details summary { cursor: pointer; color: #547087; font-size: 12px; font-weight: 700; }
@@ -189,6 +198,7 @@
       .students-table td { border: 0; padding: 4px 0; }
       .students-table td[data-label]::before { content: attr(data-label) ': '; color: #718497; font-size: 12px; font-weight: 700; }
       .score-grid { margin-top: 5px; }
+      .role-guide-grid { grid-template-columns: 1fr; }
       .member { grid-template-columns: 1fr; }
       .role { width: fit-content; }
     }
@@ -254,6 +264,16 @@
           <div><h2>תלמידים שסיימו</h2><div class="muted" id="studentsHint">כשהשאלון פעיל, הרשימה מתעדכנת אוטומטית.</div></div>
           <div class="section-actions"><button class="secondary-btn" id="refreshBtn" type="button">רענון עכשיו</button></div>
         </div>
+        <details class="role-guide">
+          <summary>מה המשמעות של כל תפקיד?</summary>
+          <div class="role-guide-grid">
+            <div class="role-guide-item"><strong>מוביל/ת תהליך</strong><span>מנהל/ת את התקדמות הצוות, שומר/ת על החיבור בין הבעיה לפתרון ומתעד/ת החלטות מרכזיות.</span></div>
+            <div class="role-guide-item"><strong>חוקר/ת ובודק/ת</strong><span>אוסף/ת מידע, בודק/ת את הצורך ופתרונות קיימים ומוודא/ת שהמסקנות מבוססות.</span></div>
+            <div class="role-guide-item"><strong>מפתח/ת מוצר</strong><span>מתרגם/ת את הרעיון למוצר, מפתח/ת קונספט ואב־טיפוס ובודק/ת היתכנות.</span></div>
+            <div class="role-guide-item"><strong>מציג/ה ומתקשר/ת</strong><span>מנסח/ת את המסר, מסביר/ה את הרעיון בצורה ברורה ומוביל/ה את הצגת המיזם.</span></div>
+            <div class="role-guide-item"><strong>מפתח/ת ומציג/ה</strong><span>תפקיד משולב לצוות של שלושה: פיתוח המוצר והצגתו.</span></div>
+          </div>
+        </details>
         <div id="studentsWrap"></div>
       </section>
 
@@ -285,6 +305,13 @@
       const POLL_MS = 8000;
 
       const roleLabels = { S: 'מוביל/ת תהליך', R: 'חוקר/ת ובודק/ת', P: 'מפתח/ת מוצר', C: 'מציג/ה ומתקשר/ת', PC: 'מפתח/ת ומציג/ה' };
+      const roleDescriptions = {
+        S: 'מנהל/ת את התקדמות הצוות, שומר/ת על החיבור בין הבעיה לפתרון ומתעד/ת החלטות מרכזיות.',
+        R: 'אוסף/ת מידע, בודק/ת את הצורך ופתרונות קיימים ומוודא/ת שהמסקנות מבוססות.',
+        P: 'מתרגם/ת את הרעיון למוצר, מפתח/ת קונספט ואב־טיפוס ובודק/ת היתכנות.',
+        C: 'מנסח/ת את המסר, מסביר/ה את הרעיון בצורה ברורה ומוביל/ה את הצגת המיזם.',
+        PC: 'בצוות של שלושה: משלב/ת את האחריות על פיתוח המוצר ועל הצגתו.'
+      };
 
       const els = {
         entryScreen: document.getElementById('entryScreen'), dashboardScreen: document.getElementById('dashboardScreen'), homeBtn: document.getElementById('homeBtn'),
@@ -456,12 +483,12 @@
       function renderStudents() {
         if (!currentResponses.length) { els.studentsWrap.innerHTML = '<div class="empty">עדיין אין תלמידים שסיימו את השאלון.</div>'; return; }
         const table = document.createElement('table'); table.className = 'students-table';
-        table.innerHTML = '<thead><tr><th>#</th><th>תלמיד/ה</th><th>פרופיל S/R/P/C</th><th>סיום</th></tr></thead>';
+        table.innerHTML = '<thead><tr><th>#</th><th>תלמיד/ה</th><th>התאמה לתפקידים</th><th>סיום</th></tr></thead>';
         const tbody = document.createElement('tbody');
         currentResponses.forEach((student, index) => {
           const scores = normalizeScores(student.scores); const tr = document.createElement('tr');
           const tdIndex = document.createElement('td'), tdName = document.createElement('td'), tdScores = document.createElement('td'), tdTime = document.createElement('td');
-          tdIndex.dataset.label = 'מספר'; tdName.dataset.label = 'תלמיד/ה'; tdScores.dataset.label = 'פרופיל'; tdTime.dataset.label = 'סיום';
+          tdIndex.dataset.label = 'מספר'; tdName.dataset.label = 'תלמיד/ה'; tdScores.dataset.label = 'התאמה לתפקידים'; tdTime.dataset.label = 'סיום';
           tdIndex.textContent = String(index + 1); tdName.innerHTML = `<strong>${escapeHtml(student.name || 'ללא שם')}</strong>${renderFunAnswers(student.funAnswers)}`;
           tdScores.innerHTML = scoreChips(scores); tdTime.textContent = formatTime(student.completedAt); tr.append(tdIndex, tdName, tdScores, tdTime); tbody.appendChild(tr);
         });
@@ -481,7 +508,12 @@
       }
 
       function scoreChips(scores) {
-        return `<div class="score-grid"><span class="score-chip"><strong>S</strong>${scores.S}</span><span class="score-chip"><strong>R</strong>${scores.R}</span><span class="score-chip"><strong>P</strong>${scores.P}</span><span class="score-chip"><strong>C</strong>${scores.C}</span></div>`;
+        const roles = ['S', 'R', 'P', 'C'].map(role => ({ role, label: roleLabels[role], score: Number(scores[role] || 0) }));
+        const maxScore = Math.max(...roles.map(item => item.score));
+        const leaders = roles.filter(item => item.score === maxScore);
+        const leadText = leaders.map(item => item.label).join(' / ');
+        const chips = roles.map(item => `<span class="score-chip${item.score === maxScore ? ' leading' : ''}" title="${escapeHtml(roleDescriptions[item.role] || '')}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.score)}</strong></span>`).join('');
+        return `<div class="score-summary"><div class="primary-fit">התאמה מובילה: ${escapeHtml(leadText)} · ${escapeHtml(maxScore)}</div><div class="score-grid">${chips}</div></div>`;
       }
 
       function groupSizesFor(n) {
@@ -588,7 +620,7 @@
           card.innerHTML = `<div class="team-title"><span>צוות ${escapeHtml(team.team)}</span><span class="team-size">${members.length} תלמידים</span></div>`;
           members.forEach(member => {
             const row = document.createElement('div'); row.className = 'member';
-            const roleLabel = member.roleLabel || roleLabels[member.role] || member.role || '';
+            const roleLabel = roleLabels[member.role] || member.roleLabel || member.role || '';
             const score = memberRoleScore(member);
             row.innerHTML = `<div class="member-name">${escapeHtml(member.name || 'ללא שם')}</div><div class="role">${escapeHtml(roleLabel)}</div><div class="member-score">${score === null ? '—' : escapeHtml(score)}</div>`;
             card.appendChild(row);
@@ -606,7 +638,7 @@
       function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
       function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
       function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\
-${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${member.roleLabel || roleLabels[member.role] || member.role} — ניקוד: ${score === null ? '—' : score}`; }).join('\
+${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${roleLabels[member.role] || member.roleLabel || member.role} — ניקוד: ${score === null ? '—' : score}`; }).join('\
 ')}`).join('\
 \
 '); }
