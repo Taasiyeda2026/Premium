@@ -1,0 +1,42 @@
+name: Update questionnaire role names
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-questionnaire-role-names.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Update role labels and cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('premium web/team-questionnaire/instructor.html')
+          text = path.read_text(encoding='utf-8')
+          old = "const roleLabels = { S: 'מיזם ותהליך', R: 'חקר ואימות', P: 'מוצר ופיתוח', C: 'תקשורת והצגה', PC: 'מוצר ותקשורת' };"
+          new = "const roleLabels = { S: 'מוביל/ת תהליך', R: 'חוקר/ת ובודק/ת', P: 'מפתח/ת מוצר', C: 'מציג/ה ומתקשר/ת', PC: 'מפתח/ת ומציג/ה' };"
+          if old not in text:
+              raise SystemExit('Expected roleLabels line not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          sw = Path('service-worker.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          if "premium-static-v38" not in sw_text:
+              raise SystemExit('Expected cache v38 not found')
+          sw.write_text(sw_text.replace('premium-static-v38', 'premium-static-v39', 1), encoding='utf-8')
+          PY
+
+          git config user.name "Taasiyeda2026"
+          git config user.email "actions@users.noreply.github.com"
+          git add 'premium web/team-questionnaire/instructor.html' service-worker.js
+          git commit -m "Rename questionnaire team roles"
+          git push origin main
