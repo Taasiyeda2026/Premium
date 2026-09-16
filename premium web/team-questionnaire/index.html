@@ -22,7 +22,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { min-height: 100%; background: var(--bg-2); }
 
     body {
@@ -76,42 +75,12 @@
       color: transparent;
     }
 
-    .progress-wrap {
-      flex: 1;
-      max-width: 240px;
-      display: none;
-    }
+    .progress-wrap { flex: 1; max-width: 240px; display: none; }
+    .progress-label { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 5px; }
+    .progress-track { height: 8px; border-radius: 999px; background: #dce8f5; overflow: hidden; }
+    .progress-bar { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width .25s ease; }
 
-    .progress-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
-      margin-bottom: 5px;
-    }
-
-    .progress-track {
-      height: 8px;
-      border-radius: 999px;
-      background: #dce8f5;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width .25s ease;
-    }
-
-    .screen {
-      flex: 1;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 0 18px;
-    }
-
+    .screen { flex: 1; display: none; align-items: center; justify-content: center; padding: 10px 0 18px; }
     .screen.active { display: flex; }
 
     .card {
@@ -124,10 +93,7 @@
       backdrop-filter: blur(10px);
     }
 
-    .hero {
-      text-align: center;
-      padding: 28px 20px;
-    }
+    .hero { text-align: center; padding: 28px 20px; }
 
     .eyebrow {
       display: inline-flex;
@@ -143,27 +109,9 @@
     }
 
     h1, h2, p { margin-top: 0; }
-
-    h1 {
-      font-size: clamp(30px, 8vw, 48px);
-      line-height: 1.08;
-      margin-bottom: 12px;
-      letter-spacing: -.02em;
-    }
-
-    h2 {
-      font-size: clamp(24px, 6.6vw, 36px);
-      line-height: 1.18;
-      margin-bottom: 10px;
-      letter-spacing: -.015em;
-    }
-
-    .lead {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.55;
-      margin-bottom: 22px;
-    }
+    h1 { font-size: clamp(30px, 8vw, 48px); line-height: 1.08; margin-bottom: 12px; letter-spacing: -.02em; }
+    h2 { font-size: clamp(24px, 6.6vw, 36px); line-height: 1.18; margin-bottom: 10px; letter-spacing: -.015em; }
+    .lead { color: var(--muted); font-size: 17px; line-height: 1.55; margin-bottom: 22px; }
 
     .form-grid {
       width: min(100%, 330px);
@@ -182,25 +130,20 @@
       transition: border-color .18s ease, box-shadow .18s ease;
     }
 
-    input {
-      min-height: 52px;
-      padding: 0 15px;
+    input { min-height: 52px; padding: 0 15px; text-align: right; }
+    textarea { min-height: 92px; padding: 13px 15px; resize: vertical; line-height: 1.45; }
+    input:focus, textarea:focus { border-color: #5a9ce8; box-shadow: 0 0 0 4px rgba(24,103,201,.10); }
+    input::placeholder, textarea::placeholder { color: #7a8ba0; opacity: 1; }
+
+    .class-code-status {
+      width: min(100%, 330px);
+      margin: 8px auto 0;
+      color: #b24a3e;
+      font-size: 13px;
+      font-weight: 700;
       text-align: right;
     }
-
-    textarea {
-      min-height: 92px;
-      padding: 13px 15px;
-      resize: vertical;
-      line-height: 1.45;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #5a9ce8;
-      box-shadow: 0 0 0 4px rgba(24,103,201,.10);
-    }
-
-    input::placeholder, textarea::placeholder { color: #7a8ba0; opacity: 1; }
+    .class-code-status:empty { display: none; }
 
     .primary-btn, .secondary-btn {
       width: 100%;
@@ -230,32 +173,12 @@
     }
 
     .primary-btn:active, .secondary-btn:active { transform: scale(.985); }
-
-    .primary-btn:disabled {
-      opacity: .48;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    .primary-btn:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
 
     .question-card { padding: 21px 16px 17px; }
-
-    .question-kicker {
-      color: var(--primary);
-      font-weight: 900;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .question-title {
-      font-size: clamp(23px, 6vw, 32px);
-      line-height: 1.25;
-      margin-bottom: 18px;
-    }
-
-    .answers {
-      display: grid;
-      gap: 11px;
-    }
+    .question-kicker { color: var(--primary); font-weight: 900; font-size: 13px; margin-bottom: 8px; }
+    .question-title { font-size: clamp(23px, 6vw, 32px); line-height: 1.25; margin-bottom: 18px; }
+    .answers { display: grid; gap: 11px; }
 
     .answer-btn {
       width: 100%;
@@ -278,12 +201,7 @@
 
     .answer-btn:hover { border-color: #9fc1e7; }
     .answer-btn:active { transform: scale(.988); }
-
-    .answer-btn.selected {
-      border-color: #287bd2;
-      background: #eff7ff;
-      box-shadow: 0 0 0 3px rgba(24,103,201,.08);
-    }
+    .answer-btn.selected { border-color: #287bd2; background: #eff7ff; box-shadow: 0 0 0 3px rgba(24,103,201,.08); }
 
     .answer-dot {
       flex: 0 0 28px;
@@ -299,18 +217,9 @@
       font-weight: 900;
     }
 
-    .answer-btn.selected .answer-dot {
-      color: #fff;
-      border-color: transparent;
-      background: linear-gradient(145deg, var(--primary), var(--accent));
-    }
+    .answer-btn.selected .answer-dot { color: #fff; border-color: transparent; background: linear-gradient(145deg, var(--primary), var(--accent)); }
 
-    .question-actions {
-      margin-top: 15px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-    }
+    .question-actions { margin-top: 15px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
 
     .secondary-btn {
       min-width: 92px;
@@ -323,40 +232,13 @@
     }
 
     .question-actions .primary-btn { margin: 0; }
-
     .fun-card { padding: 24px 18px; }
+    .fun-intro { color: var(--muted); line-height: 1.5; margin-bottom: 18px; }
+    .fun-grid { display: grid; gap: 14px; }
+    .fun-field { display: grid; gap: 7px; }
+    .fun-label { color: #234a70; font-weight: 800; font-size: 15px; line-height: 1.4; }
 
-    .fun-intro {
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 18px;
-    }
-
-    .fun-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .fun-field {
-      display: grid;
-      gap: 7px;
-    }
-
-    .fun-label {
-      color: #234a70;
-      font-weight: 800;
-      font-size: 15px;
-      line-height: 1.4;
-    }
-
-    .submit-status {
-      min-height: 22px;
-      margin-top: 10px;
-      color: #b24a3e;
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-    }
+    .submit-status { min-height: 22px; margin-top: 10px; color: #b24a3e; font-size: 14px; font-weight: 700; text-align: center; }
 
     .finish-icon {
       width: 76px;
@@ -370,18 +252,7 @@
       border: 1px solid #cfe6ef;
     }
 
-    .debug {
-      display: none;
-      margin-top: 14px;
-      direction: ltr;
-      text-align: left;
-      font: 12px/1.4 monospace;
-      white-space: pre-wrap;
-      color: #445;
-      background: #f7f7f8;
-      border-radius: 12px;
-      padding: 10px;
-    }
+    .debug { display: none; margin-top: 14px; direction: ltr; text-align: left; font: 12px/1.4 monospace; white-space: pre-wrap; color: #445; background: #f7f7f8; border-radius: 12px; padding: 10px; }
 
     @media (min-width: 680px) {
       .app { padding-inline: 24px; }
@@ -403,16 +274,14 @@
       .answers { flex: 1; align-content: start; }
       .question-actions { position: sticky; bottom: max(6px, env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.96) 22%); padding-top: 18px; }
       .form-grid { width: min(84%, 330px); }
+      .class-code-status { width: min(84%, 330px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
     }
 
-    :focus-visible {
-      outline: 3px solid rgba(24,103,201,.35);
-      outline-offset: 2px;
-    }
+    :focus-visible { outline: 3px solid rgba(24,103,201,.35); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -438,6 +307,7 @@
           <input id="studentName" type="text" autocomplete="name" maxlength="60" placeholder="שם פרטי ומשפחה" aria-label="שם פרטי ומשפחה" />
           <input id="classCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="קוד כיתה" aria-label="קוד כיתה" />
         </div>
+        <div class="class-code-status" id="classCodeStatus" role="status" aria-live="polite"></div>
 
         <button class="primary-btn" id="startBtn" disabled>מתחילים</button>
       </div>
@@ -639,6 +509,7 @@
         finishScreen: document.getElementById('finishScreen'),
         studentName: document.getElementById('studentName'),
         classCode: document.getElementById('classCode'),
+        classCodeStatus: document.getElementById('classCodeStatus'),
         startBtn: document.getElementById('startBtn'),
         questionKicker: document.getElementById('questionKicker'),
         questionTitle: document.getElementById('questionTitle'),
@@ -648,11 +519,7 @@
         progressWrap: document.getElementById('progressWrap'),
         progressLabel: document.getElementById('progressLabel'),
         progressBar: document.getElementById('progressBar'),
-        funAnswers: [
-          document.getElementById('funAnswer1'),
-          document.getElementById('funAnswer2'),
-          document.getElementById('funAnswer3')
-        ],
+        funAnswers: [document.getElementById('funAnswer1'), document.getElementById('funAnswer2'), document.getElementById('funAnswer3')],
         submitBtn: document.getElementById('submitBtn'),
         funBackBtn: document.getElementById('funBackBtn'),
         submitStatus: document.getElementById('submitStatus'),
@@ -660,6 +527,8 @@
       };
 
       let state = loadDraft() || createInitialState();
+      let verifiedClassCode = null;
+      let codeCheckSequence = 0;
 
       function createInitialState() {
         return {
@@ -697,9 +566,7 @@
           if (!raw) return null;
           const parsed = JSON.parse(raw);
           if (!parsed || !Array.isArray(parsed.answers) || parsed.answers.length !== questions.length) return null;
-          if (!Array.isArray(parsed.orders) || parsed.orders.length !== questions.length) {
-            parsed.orders = questions.map((q, index) => shuffledIndexes(q.options.length, index + 17));
-          }
+          if (!Array.isArray(parsed.orders) || parsed.orders.length !== questions.length) parsed.orders = questions.map((q, index) => shuffledIndexes(q.options.length, index + 17));
           if (!Array.isArray(parsed.funAnswers) || parsed.funAnswers.length !== 3) parsed.funAnswers = ['', '', ''];
           if (!parsed.submissionId) parsed.submissionId = makeId();
           return parsed;
@@ -708,9 +575,7 @@
         }
       }
 
-      function saveDraft() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      }
+      function saveDraft() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
       function switchScreen(target) {
         [els.startScreen, els.questionScreen, els.funScreen, els.finishScreen].forEach(el => el.classList.remove('active'));
@@ -719,9 +584,56 @@
       }
 
       function validateStart() {
-        const hasName = els.studentName.value.trim().length >= 2;
-        const hasCode = /^\d{3,6}$/.test(els.classCode.value.trim());
-        els.startBtn.disabled = !(hasName && hasCode);
+        const nameOk = els.studentName.value.trim().length >= 2;
+        const code = els.classCode.value.trim();
+        els.startBtn.disabled = !(nameOk && /^\d{6}$/.test(code) && verifiedClassCode === code);
+      }
+
+      async function verifyClassCode(showError = true) {
+        const code = els.classCode.value.trim();
+        const sequence = ++codeCheckSequence;
+        verifiedClassCode = null;
+        validateStart();
+
+        if (!/^\d{6}$/.test(code)) {
+          if (showError && code.length) els.classCodeStatus.textContent = 'יש להזין קוד כיתה בן 6 ספרות.';
+          else els.classCodeStatus.textContent = '';
+          return false;
+        }
+
+        try {
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/premium_questionnaire_class_is_active`, {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_PUBLISHABLE_KEY,
+              'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ p_class_code: code })
+          });
+
+          if (!response.ok) throw new Error(`Class check failed: ${response.status}`);
+          const isActive = await response.json();
+          if (sequence !== codeCheckSequence || code !== els.classCode.value.trim()) return false;
+
+          if (isActive === true) {
+            verifiedClassCode = code;
+            els.classCodeStatus.textContent = '';
+            validateStart();
+            return true;
+          }
+
+          els.classCodeStatus.textContent = 'קוד הכיתה לא נמצא. בדקו את הקוד שקיבלתם מהמדריך.';
+          validateStart();
+          return false;
+        } catch (error) {
+          console.error(error);
+          if (sequence === codeCheckSequence) {
+            els.classCodeStatus.textContent = 'לא ניתן לבדוק כרגע את קוד הכיתה. נסו שוב.';
+            validateStart();
+          }
+          return false;
+        }
       }
 
       function renderQuestion() {
@@ -729,7 +641,6 @@
         const q = questions[qIndex];
         const selected = state.answers[qIndex];
         const order = state.orders[qIndex] || q.options.map((_, i) => i);
-
         els.questionKicker.textContent = `מצב ${qIndex + 1}`;
         els.questionTitle.textContent = q.title;
         els.answers.replaceChildren();
@@ -761,9 +672,7 @@
         els.progressLabel.textContent = 'שלב אחרון · 3 שאלות לסיום';
         els.progressBar.style.width = '100%';
         els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
-        els.funAnswers.forEach((input, index) => {
-          input.value = state.funAnswers[index] || '';
-        });
+        els.funAnswers.forEach((input, index) => { input.value = state.funAnswers[index] || ''; });
         validateFunStage();
       }
 
@@ -785,22 +694,12 @@
 
       async function submitQuiz() {
         if (els.submitBtn.disabled) return;
-
         state.funAnswers = els.funAnswers.map(input => input.value.trim());
         saveDraft();
 
         const scores = calculateScores();
         const completedAt = new Date().toISOString();
-        const result = {
-          id: state.submissionId,
-          name: state.name,
-          classCode: state.classCode,
-          scores,
-          answers: state.answers,
-          funAnswers: state.funAnswers,
-          completedAt,
-          version: QUESTIONNAIRE_VERSION
-        };
+        const result = { id: state.submissionId, name: state.name, classCode: state.classCode, scores, answers: state.answers, funAnswers: state.funAnswers, completedAt, version: QUESTIONNAIRE_VERSION };
 
         els.submitBtn.disabled = true;
         els.submitBtn.textContent = 'שולחים...';
@@ -828,9 +727,7 @@
             })
           });
 
-          if (!response.ok && response.status !== 409) {
-            throw new Error(`Save failed: ${response.status}`);
-          }
+          if (!response.ok && response.status !== 409) throw new Error(`Save failed: ${response.status}`);
 
           localStorage.setItem(RESULT_KEY, JSON.stringify(result));
           localStorage.removeItem(STORAGE_KEY);
@@ -864,16 +761,30 @@
       els.classCode.value = state.classCode || '';
       validateStart();
 
-      [els.studentName, els.classCode].forEach(input => input.addEventListener('input', validateStart));
+      els.studentName.addEventListener('input', validateStart);
 
       els.classCode.addEventListener('input', () => {
         els.classCode.value = els.classCode.value.replace(/\D/g, '').slice(0, 6);
+        verifiedClassCode = null;
+        codeCheckSequence += 1;
+        els.classCodeStatus.textContent = '';
         validateStart();
+        if (els.classCode.value.length === 6) verifyClassCode(true);
       });
 
-      els.startBtn.addEventListener('click', () => {
+      els.classCode.addEventListener('blur', () => {
+        if (els.classCode.value.length) verifyClassCode(true);
+      });
+
+      els.startBtn.addEventListener('click', async () => {
+        const code = els.classCode.value.trim();
+        if (verifiedClassCode !== code) {
+          const ok = await verifyClassCode(true);
+          if (!ok) return;
+        }
+
         state.name = els.studentName.value.trim();
-        state.classCode = els.classCode.value.trim();
+        state.classCode = code;
         state.current = Math.min(Math.max(state.current || 0, 0), questions.length - 1);
         saveDraft();
         switchScreen(els.questionScreen);
@@ -916,6 +827,8 @@
         if (els.questionScreen.classList.contains('active')) renderQuestion();
         if (els.funScreen.classList.contains('active')) renderFunStage();
       });
+
+      if (/^\d{6}$/.test(els.classCode.value.trim())) verifyClassCode(false);
     })();
   </script>
 </body>
