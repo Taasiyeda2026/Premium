@@ -1,0 +1,132 @@
+name: Update questionnaire scoring v2
+'on':
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-questionnaire-scoring-v2.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch scoring logic
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('premium web/team-questionnaire/instructor.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = "      const ALGORITHM_VERSION = 1;"
+          assert old in s
+          s = s.replace(old, "      const ALGORITHM_VERSION = 2;", 1)
+
+          anchor = "      const POLL_MS = 8000;\n"
+          assert anchor in s
+          scoring_block = """
+      const SCORE_NORMALIZATION = {
+        S: { mean: 16.00, sd: 4.22788363 },
+        R: { mean: 13.50, sd: 4.58257569 },
+        P: { mean: 13.25, sd: 4.61654633 },
+        C: { mean: 13.25, sd: 4.63006479 }
+      };
+      const FIT_CENTER = 50;
+      const FIT_SCALE = 10;
+      const CLOSE_FIT_GAP = 5;
+
+      function combinedPCScore(scores) {
+        const p = Math.max(0, Number(scores?.P) || 0);
+        const c = Math.max(0, Number(scores?.C) || 0);
+        if (p <= 0 || c <= 0) return 0;
+        return (2 * p * c) / (p + c);
+      }
+"""
+          s = s.replace(anchor, anchor + scoring_block, 1)
+
+          new_normalize = """      function normalizeScores(value) {
+        const source = value && typeof value === 'object' ? value : {};
+        const result = {};
+        ['S', 'R', 'P', 'C'].forEach(role => {
+          const raw = Number(source[role]) || 0;
+          const profile = SCORE_NORMALIZATION[role];
+          const z = (raw - profile.mean) / profile.sd;
+          const normalized = FIT_CENTER + FIT_SCALE * z;
+          result[role] = Number(Math.max(0, Math.min(100, normalized)).toFixed(1));
+        });
+        return result;
+      }
+
+      function scoreChips(scores) {
+        const ordered = ['S', 'R', 'P', 'C'].map(role => ({ role, label: roleLabels[role], score: Number(scores[role] || 0) }));
+        const ranked = ordered.slice().sort((a, b) => b.score - a.score);
+        const top = ranked[0];
+        const second = ranked[1];
+        const close = Boolean(second && (top.score - second.score) <= CLOSE_FIT_GAP);
+        const leadRoles = close ? [top, second] : [top];
+        const leadSet = new Set(leadRoles.map(item => item.role));
+        const leadText = leadRoles.map(item => `${item.label} · ${Math.round(item.score)}`).join(' / ');
+        const chips = ordered.map(item => `<span class=\"score-chip${leadSet.has(item.role) ? ' leading' : ''}\" title=\"${escapeHtml(roleDescriptions[item.role] || '')}\"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(Math.round(item.score))}</strong></span>`).join('');
+        const prefix = close ? 'התאמות מובילות' : 'התאמה מובילה';
+        return `<div class=\"score-summary\"><div class=\"primary-fit\">${prefix}: ${escapeHtml(leadText)}</div><div class=\"score-grid\">${chips}</div></div>`;
+      }"""
+
+          s, n = re.subn(
+            r"      function normalizeScores\(value\) \{.*?      function groupSizesFor\(n\) \{",
+            new_normalize + "\n\n      function groupSizesFor(n) {",
+            s,
+            count=1,
+            flags=re.S
+          )
+          assert n == 1
+
+          old_pc = "{ id:'PC', value:s=>((s.P+s.C)/2)+Math.min(s.P,s.C)*0.08 }"
+          assert old_pc in s
+          s = s.replace(old_pc, "{ id:'PC', value:s=>combinedPCScore(s) }", 1)
+
+          old_member_pc = "        if (member.role === 'PC') return Number((((scores.P + scores.C) / 2) + Math.min(scores.P, scores.C) * 0.08).toFixed(1));"
+          assert old_member_pc in s
+          s = s.replace(old_member_pc, "        if (member.role === 'PC') return Number(combinedPCScore(scores).toFixed(1));", 1)
+
+          old_latest = """          const latest = snapshot?.latestTeamRun;
+          if (latest?.teams && Array.isArray(latest.teams)) {
+            currentTeams = latest.teams; renderTeams(currentTeams); els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'חלוקה שמורה';
+          } else if (!currentTeams.length) { renderTeams([]); }"""
+          new_latest = """          const latest = snapshot?.latestTeamRun;
+          if (latest?.teams && Array.isArray(latest.teams) && Number(latest.algorithmVersion) === ALGORITHM_VERSION) {
+            currentTeams = latest.teams; renderTeams(currentTeams); els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'חלוקה שמורה';
+          } else {
+            currentTeams = [];
+            renderTeams([]);
+            if (latest?.teams && Array.isArray(latest.teams)) {
+              els.teamStatus.classList.remove('error');
+              els.teamStatus.textContent = 'שיטת הניקוד עודכנה. יש לחשב מחדש את הצוותים.';
+            }
+          }"""
+          assert old_latest in s
+          s = s.replace(old_latest, new_latest, 1)
+
+          s = s.replace(".member-score::before { content: 'ניקוד · ';", ".member-score::before { content: 'מדד · ';", 1)
+          s = s.replace("— ניקוד: ${score === null ? '—' : score}", "— מדד התאמה: ${score === null ? '—' : score}", 1)
+
+          assert "const ALGORITHM_VERSION = 2;" in s
+          assert "SCORE_NORMALIZATION" in s
+          assert "combinedPCScore" in s
+          assert "שיטת הניקוד עודכנה" in s
+          assert "Math.min(s.P,s.C)*0.08" not in s
+          p.write_text(s, encoding='utf-8')
+
+          sw = Path('service-worker.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          assert "premium-static-v42" in sw_text
+          sw.write_text(sw_text.replace("premium-static-v42", "premium-static-v43", 1), encoding='utf-8')
+          PY
+
+          git config user.name Taasiyeda2026
+          git config user.email actions@users.noreply.github.com
+          git add 'premium web/team-questionnaire/instructor.html' service-worker.js
+          git commit -m 'Normalize questionnaire scoring and team assignment'
+          git push
