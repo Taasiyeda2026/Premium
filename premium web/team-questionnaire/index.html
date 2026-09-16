@@ -831,11 +831,14 @@
       });
 
       els.studentName.addEventListener('blur', () => {
-        if (els.classCode.value.length === 6 && normalizedStudentName().length >= 2) verifyClassCode(true);
+        const key = currentStudentKey();
+        if (key && verifiedStudentKey !== key) verifyClassCode(true);
       });
 
       els.classCode.addEventListener('blur', () => {
-        if (els.classCode.value.length && normalizedStudentName().length >= 2) verifyClassCode(true);
+        const code = els.classCode.value.trim();
+        const key = currentStudentKey();
+        if (key && (verifiedClassCode !== code || verifiedStudentKey !== key)) verifyClassCode(true);
       });
 
       els.startBtn.addEventListener('click', async () => {
