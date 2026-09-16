@@ -419,7 +419,7 @@
   <main class="app">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark" aria-label="לוגו תעשיידע"></div>
+        <div class="brand-mark" aria-label="לוגו תעשיידע" onclick="this._ic=(this._ic||0)+1;clearTimeout(this._it);if(this._ic>=4){location.href='instructor.html'}else{this._it=setTimeout(()=>{this._ic=0},2500)}"></div>
         <div class="brand-label">תעשיידע | פרימיום</div>
       </div>
       <div class="progress-wrap" id="progressWrap" aria-hidden="true">
