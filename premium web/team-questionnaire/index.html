@@ -304,8 +304,8 @@
         <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה — פשוט בוחרים וממשיכים.</p>
 
         <div class="form-grid">
-          <input id="studentName" type="text" autocomplete="name" maxlength="60" placeholder="שם פרטי ומשפחה" aria-label="שם פרטי ומשפחה" />
-          <input id="classCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="קוד כיתה" aria-label="קוד כיתה" />
+          <input id="studentName" type="text" autocomplete="off" data-form-type="other" maxlength="60" placeholder="שם פרטי ומשפחה" aria-label="שם פרטי ומשפחה" />
+          <input id="classCode" type="text" inputmode="numeric" autocomplete="off" data-form-type="other" maxlength="6" placeholder="קוד כיתה" aria-label="קוד כיתה" />
         </div>
         <div class="class-code-status" id="classCodeStatus" role="status" aria-live="polite"></div>
 
@@ -526,7 +526,9 @@
         debugBox: document.getElementById('debugBox')
       };
 
-      let state = loadDraft() || createInitialState();
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      let state = createInitialState();
       let verifiedClassCode = null;
       let codeCheckSequence = 0;
 
@@ -757,8 +759,9 @@
           .replaceAll("'", '&#039;');
       }
 
-      els.studentName.value = state.name || '';
-      els.classCode.value = state.classCode || '';
+      els.studentName.value = '';
+      els.classCode.value = '';
+      els.classCodeStatus.textContent = '';
       validateStart();
 
       els.studentName.addEventListener('input', validateStart);
