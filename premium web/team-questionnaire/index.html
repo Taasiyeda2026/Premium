@@ -327,23 +327,11 @@
 
     <section class="screen" id="funScreen">
       <div class="card question-card">
-        <div class="question-kicker">שאלות 15–17</div>
-        <div class="fun-grid">
-          <div class="fun-field">
-            <div class="fun-label">15. אם לצוות שלכם נשארו רק 5% סוללה בטלפון באמצע משימה - מה אתם עושים קודם?</div>
-            <textarea id="funAnswer1" maxlength="400" placeholder="מה הייתם עושים?"></textarea>
-          </div>
-          <div class="fun-field">
-            <div class="fun-label">16. איזה משפט הכי סביר שישמעו מכם באמצע עבודה קבוצתית?</div>
-            <textarea id="funAnswer2" maxlength="400" placeholder="המשפט שלכם..."></textarea>
-          </div>
-          <div class="fun-field">
-            <div class="fun-label">17. אם הייתם יכולים להמציא מוצר אחד שמעלים דבר מעצבן מהיום-יום - מה הוא היה?</div>
-            <textarea id="funAnswer3" maxlength="400" placeholder="ההמצאה שלכם..."></textarea>
-          </div>
-        </div>
+        <div class="question-kicker" id="funQuestionKicker">שאלה 15</div>
+        <h2 class="question-title" id="funQuestionTitle"></h2>
+        <textarea id="funAnswer" maxlength="400" placeholder="כתבו את התשובה שלכם..."></textarea>
         <div class="question-actions">
-          <button class="primary-btn" id="submitBtn" disabled>שליחה</button>
+          <button class="primary-btn" id="submitBtn" disabled>המשך</button>
           <button class="secondary-btn" id="funBackBtn" type="button">חזרה</button>
         </div>
         <div class="submit-status" id="submitStatus" role="status" aria-live="polite"></div>
@@ -370,6 +358,11 @@
       const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const dimensions = ['S', 'R', 'P', 'C'];
+      const openQuestions = [
+        { title: 'אם לצוות שלכם נשארו רק 5% סוללה בטלפון באמצע משימה - מה אתם עושים קודם?', placeholder: 'מה הייתם עושים?' },
+        { title: 'איזה משפט הכי סביר שישמעו מכם באמצע עבודה קבוצתית?', placeholder: 'המשפט שלכם...' },
+        { title: 'אם הייתם יכולים להמציא מוצר אחד שמעלים דבר מעצבן מהיום-יום - מה הוא היה?', placeholder: 'ההמצאה שלכם...' }
+      ];
 
       const questions = [
         {
@@ -517,7 +510,9 @@
         progressWrap: document.getElementById('progressWrap'),
         progressLabel: document.getElementById('progressLabel'),
         progressBar: document.getElementById('progressBar'),
-        funAnswers: [document.getElementById('funAnswer1'), document.getElementById('funAnswer2'), document.getElementById('funAnswer3')],
+        funQuestionKicker: document.getElementById('funQuestionKicker'),
+        funQuestionTitle: document.getElementById('funQuestionTitle'),
+        funAnswer: document.getElementById('funAnswer'),
         submitBtn: document.getElementById('submitBtn'),
         funBackBtn: document.getElementById('funBackBtn'),
         submitStatus: document.getElementById('submitStatus'),
@@ -540,6 +535,7 @@
           answers: Array(questions.length).fill(null),
           orders: questions.map((q, index) => shuffledIndexes(q.options.length, index + 17)),
           funAnswers: ['', '', ''],
+          funCurrent: 0,
           submissionId: makeId()
         };
       }
@@ -570,6 +566,7 @@
           if (!parsed || !Array.isArray(parsed.answers) || parsed.answers.length !== questions.length) return null;
           if (!Array.isArray(parsed.orders) || parsed.orders.length !== questions.length) parsed.orders = questions.map((q, index) => shuffledIndexes(q.options.length, index + 17));
           if (!Array.isArray(parsed.funAnswers) || parsed.funAnswers.length !== 3) parsed.funAnswers = ['', '', ''];
+          if (!Number.isInteger(parsed.funCurrent) || parsed.funCurrent < 0 || parsed.funCurrent >= openQuestions.length) parsed.funCurrent = 0;
           if (!parsed.submissionId) parsed.submissionId = makeId();
           return parsed;
         } catch (_) {
@@ -718,16 +715,25 @@
       }
 
       function renderFunStage() {
-        els.progressLabel.textContent = 'שאלות 15–17 מתוך 17';
-        els.progressBar.style.width = '100%';
+        const index = Math.min(Math.max(state.funCurrent || 0, 0), openQuestions.length - 1);
+        state.funCurrent = index;
+        const number = questions.length + index + 1;
+        const total = questions.length + openQuestions.length;
+        const item = openQuestions[index];
+        els.funQuestionKicker.textContent = `שאלה ${number}`;
+        els.funQuestionTitle.textContent = item.title;
+        els.funAnswer.placeholder = item.placeholder;
+        els.funAnswer.value = state.funAnswers[index] || '';
+        els.submitBtn.textContent = index === openQuestions.length - 1 ? 'שליחה' : 'המשך';
+        els.progressLabel.textContent = `שאלה ${number} מתוך ${total}`;
+        els.progressBar.style.width = `${(number / total) * 100}%`;
         els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
-        els.funAnswers.forEach((input, index) => { input.value = state.funAnswers[index] || ''; });
         validateFunStage();
       }
 
       function validateFunStage() {
-        state.funAnswers = els.funAnswers.map(input => input.value.trim());
-        els.submitBtn.disabled = !state.funAnswers.every(answer => answer.length > 0);
+        state.funAnswers[state.funCurrent] = els.funAnswer.value.trim();
+        els.submitBtn.disabled = state.funAnswers[state.funCurrent].length === 0;
         saveDraft();
       }
 
@@ -743,7 +749,7 @@
 
       async function submitQuiz() {
         if (els.submitBtn.disabled) return;
-        state.funAnswers = els.funAnswers.map(input => input.value.trim());
+        state.funAnswers[state.funCurrent] = els.funAnswer.value.trim();
         saveDraft();
 
         const scores = calculateScores();
@@ -858,6 +864,7 @@
       els.nextBtn.addEventListener('click', () => {
         if (state.answers[state.current] === null) return;
         if (state.current >= questions.length - 1) {
+          state.funCurrent = 0;
           switchScreen(els.funScreen);
           renderFunStage();
           return;
@@ -876,16 +883,35 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      els.funAnswers.forEach(input => input.addEventListener('input', validateFunStage));
+      els.funAnswer.addEventListener('input', validateFunStage);
 
       els.funBackBtn.addEventListener('click', () => {
+        state.funAnswers[state.funCurrent] = els.funAnswer.value.trim();
+        if (state.funCurrent > 0) {
+          state.funCurrent -= 1;
+          saveDraft();
+          renderFunStage();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
         state.current = questions.length - 1;
         saveDraft();
         switchScreen(els.questionScreen);
         renderQuestion();
       });
 
-      els.submitBtn.addEventListener('click', submitQuiz);
+      els.submitBtn.addEventListener('click', () => {
+        if (els.submitBtn.disabled) return;
+        state.funAnswers[state.funCurrent] = els.funAnswer.value.trim();
+        if (state.funCurrent < openQuestions.length - 1) {
+          state.funCurrent += 1;
+          saveDraft();
+          renderFunStage();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        submitQuiz();
+      });
 
       window.addEventListener('resize', () => {
         if (els.questionScreen.classList.contains('active')) renderQuestion();
