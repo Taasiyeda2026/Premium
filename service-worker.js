@@ -1,4 +1,4 @@
-const CACHE_NAME = 'premium-static-v31';
+const CACHE_NAME = 'premium-static-v32';
 const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
@@ -222,7 +222,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Keep the registration/bootstrap script fresh so UI fixes are not held by an old cache.
   if (requestUrl.pathname.endsWith('/pwa-register.js')) {
     event.respondWith(
       fetch(event.request)
