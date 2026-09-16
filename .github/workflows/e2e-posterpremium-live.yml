@@ -27,7 +27,7 @@ jobs:
         env:
           POSTER_URL: https://taasiyeda2026.github.io/Premium/premium%20web/posterpremium.html
         run: |
-          cat > /tmp/e2e-poster.cjs <<'NODE'
+          cat > e2e-poster.cjs <<'NODE'
           const { chromium } = require('playwright');
           const { PDFDocument } = require('pdf-lib');
           const assert = (ok, msg) => { if (!ok) throw new Error(msg); };
@@ -115,4 +115,4 @@ jobs:
             }
           })().catch(err => { console.error(err); process.exit(1); });
           NODE
-          node /tmp/e2e-poster.cjs
+          node e2e-poster.cjs
