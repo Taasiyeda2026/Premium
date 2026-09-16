@@ -1,0 +1,173 @@
+name: Questionnaire live E2E
+
+on:
+  push:
+    paths:
+      - '.github/workflows/e2e-questionnaire-live.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run live questionnaire flow
+        env:
+          BASE_URL: https://taasiyeda2026.github.io/Premium/premium%20web/team-questionnaire
+        run: |
+          cat > /tmp/e2e-questionnaire.mjs <<'NODE'
+          import { chromium } from 'playwright';
+
+          const base = process.env.BASE_URL;
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 1440, height: 1100 } });
+          const instructor = await context.newPage();
+          const testName = `E2E-QUESTIONNAIRE-${Date.now()}`;
+          let classCode = '';
+
+          function assert(cond, msg) {
+            if (!cond) throw new Error(msg);
+          }
+
+          async function studentRun(name, answerOffset) {
+            const page = await context.newPage();
+            await page.goto(`${base}/index.html?e2e=${Date.now()}`, { waitUntil: 'networkidle' });
+            await page.locator('#studentName').fill(name);
+            await page.locator('#classCode').fill(classCode);
+            await page.locator('#startBtn').waitFor({ state: 'visible' });
+            await page.waitForFunction(() => !document.querySelector('#startBtn')?.disabled, null, { timeout: 15000 });
+            await page.locator('#startBtn').click();
+
+            for (let q = 0; q < 14; q++) {
+              await page.locator('#questionScreen.active').waitFor({ state: 'visible' });
+              const answers = page.locator('#answers .answer-btn');
+              await answers.first().waitFor({ state: 'visible' });
+              assert(await answers.count() === 4, `Expected 4 answers on question ${q + 1}`);
+              await answers.nth((q + answerOffset) % 4).click();
+              await page.waitForFunction(() => !document.querySelector('#nextBtn')?.disabled);
+              await page.locator('#nextBtn').click();
+            }
+
+            await page.locator('#funScreen.active').waitFor({ state: 'visible' });
+            await page.locator('#funAnswer1').fill(`בדיקת סוללה ${name}`);
+            await page.locator('#funAnswer2').fill(`בדיקת צוות ${name}`);
+            await page.locator('#funAnswer3').fill(`בדיקת מוצר ${name}`);
+            await page.waitForFunction(() => !document.querySelector('#submitBtn')?.disabled);
+            await page.locator('#submitBtn').click();
+            await page.locator('#finishScreen.active').waitFor({ state: 'visible', timeout: 15000 });
+            const finishText = (await page.locator('#finishScreen').innerText()).trim();
+            assert(finishText.includes('התשובות התקבלו'), `Finish screen missing for ${name}`);
+            await page.close();
+          }
+
+          try {
+            await instructor.goto(`${base}/instructor.html?e2e=${Date.now()}`, { waitUntil: 'networkidle' });
+            await instructor.locator('#classNameInput').fill(testName);
+            await instructor.locator('#createClassBtn').click();
+            await instructor.locator('#dashboardScreen.active').waitFor({ state: 'visible', timeout: 15000 });
+            classCode = (await instructor.locator('#classCodeDisplay').innerText()).trim();
+            assert(/^\d{6}$/.test(classCode), `Invalid class code: ${classCode}`);
+            console.log(`TEST_CLASS_CODE=${classCode}`);
+            console.log(`TEST_CLASS_NAME=${testName}`);
+
+            await instructor.locator('#sessionToggleBtn').click();
+            await instructor.waitForFunction(() => document.querySelector('#sessionStatusText')?.textContent?.includes('פעיל'), null, { timeout: 15000 });
+            assert((await instructor.locator('#sessionStatusText').innerText()).includes('פעיל'), 'Session did not activate');
+
+            const students = [
+              ['בדיקה תלמיד 1',0], ['בדיקה תלמיד 2',1], ['בדיקה תלמיד 3',2], ['בדיקה תלמיד 4',3],
+              ['בדיקה תלמיד 5',0], ['בדיקה תלמיד 6',1], ['בדיקה תלמיד 7',2]
+            ];
+            for (const [name, offset] of students) {
+              console.log(`FILLING=${name}`);
+              await studentRun(name, offset);
+            }
+
+            const duplicate = await context.newPage();
+            await duplicate.goto(`${base}/index.html?dup=${Date.now()}`, { waitUntil: 'networkidle' });
+            await duplicate.locator('#studentName').fill('בדיקה תלמיד 1');
+            await duplicate.locator('#classCode').fill(classCode);
+            await duplicate.waitForFunction(() => document.querySelector('#classCodeStatus')?.textContent?.includes('כבר מילאתם'), null, { timeout: 15000 });
+            const dupMessage = (await duplicate.locator('#classCodeStatus').innerText()).trim();
+            assert(dupMessage.includes('כבר מילאתם'), `Duplicate guard message missing: ${dupMessage}`);
+            assert(await duplicate.locator('#startBtn').isDisabled(), 'Duplicate start button should stay disabled');
+            console.log('DUPLICATE_GUARD=PASS');
+            await duplicate.close();
+
+            await instructor.locator('#refreshBtn').click();
+            await instructor.waitForFunction(() => document.querySelectorAll('#studentsWrap tbody tr').length === 7, null, { timeout: 15000 });
+            const studentRows = await instructor.locator('#studentsWrap tbody tr').count();
+            assert(studentRows === 7, `Expected 7 students, got ${studentRows}`);
+            for (const [name] of students) {
+              assert((await instructor.locator('#studentsWrap').innerText()).includes(name), `Missing instructor result for ${name}`);
+            }
+            console.log('INSTRUCTOR_RESPONSES=7');
+
+            await instructor.waitForFunction(() => !document.querySelector('#buildTeamsBtn')?.disabled, null, { timeout: 10000 });
+            await instructor.locator('#buildTeamsBtn').click();
+            await instructor.waitForFunction(() => document.querySelector('#teamStatus')?.textContent?.includes('החלוקה נשמרה'), null, { timeout: 20000 });
+
+            const teamCards = instructor.locator('#teamsGrid .team-card');
+            assert(await teamCards.count() === 2, `Expected 2 teams, got ${await teamCards.count()}`);
+            const memberCounts = [];
+            for (let i = 0; i < 2; i++) memberCounts.push(await teamCards.nth(i).locator('.member').count());
+            assert(memberCounts.sort().join(',') === '3,4', `Expected team sizes 3 and 4, got ${memberCounts.join(',')}`);
+
+            const members = instructor.locator('#teamsGrid .member');
+            assert(await members.count() === 7, `Expected 7 team members, got ${await members.count()}`);
+            for (let i = 0; i < 7; i++) {
+              const row = members.nth(i);
+              const name = (await row.locator('.member-name').innerText()).trim();
+              const role = (await row.locator('.role').innerText()).trim();
+              const score = (await row.locator('.member-score').innerText()).trim();
+              assert(name.length > 2, `Member ${i + 1} missing name`);
+              assert(role.includes('התאמה'), `Member ${name} missing fit label: ${role}`);
+              assert(score.includes('ניקוד'), `Member ${name} missing score label: ${score}`);
+              assert(/\d/.test(score), `Member ${name} missing numeric score: ${score}`);
+            }
+            console.log(`TEAM_SIZES=${memberCounts.join('+')}`);
+            console.log('TEAM_RESULT_FIELDS=PASS');
+
+            const managerUrl = instructor.url();
+            await instructor.reload({ waitUntil: 'networkidle' });
+            await instructor.locator('#dashboardScreen.active').waitFor({ state: 'visible', timeout: 15000 });
+            await instructor.waitForFunction(() => document.querySelectorAll('#teamsGrid .team-card').length === 2, null, { timeout: 15000 });
+            assert(await instructor.locator('#teamsGrid .member').count() === 7, 'Saved team run did not reload');
+            console.log('TEAM_PERSISTENCE=PASS');
+            console.log(`MANAGER_URL_PRESENT=${managerUrl.includes('token=')}`);
+
+            if ((await instructor.locator('#sessionStatusText').innerText()).includes('פעיל')) {
+              await instructor.locator('#sessionToggleBtn').click();
+              await instructor.waitForFunction(() => document.querySelector('#sessionStatusText')?.textContent?.includes('לא פעיל'), null, { timeout: 10000 });
+            }
+
+            console.log('E2E_RESULT=PASS');
+          } catch (error) {
+            console.error('E2E_RESULT=FAIL');
+            console.error(error);
+            try { await instructor.screenshot({ path: 'e2e-questionnaire-failure.png', fullPage: true }); } catch {}
+            process.exitCode = 1;
+          } finally {
+            await browser.close();
+          }
+          NODE
+          node /tmp/e2e-questionnaire.mjs
+      - name: Upload failure screenshot
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: questionnaire-e2e-failure
+          path: e2e-questionnaire-failure.png
+          if-no-files-found: ignore
