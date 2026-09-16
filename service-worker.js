@@ -1,4 +1,4 @@
-const CACHE_NAME = 'premium-static-v25';
+const CACHE_NAME = 'premium-static-v26';
 const BASE = new URL(self.registration.scope).pathname;
 
 const CORE_ASSETS = [
@@ -10,6 +10,7 @@ const CORE_ASSETS = [
   BASE + 'pwa-register.js',
   BASE + 'styles/pwa.css',
   BASE + 'premium web/index.html',
+  BASE + 'premium web/team-questionnaire/index.html',
   BASE + 'premium web/images/web.png',
   BASE + 'premium web/images/logo.png',
   BASE + 'premium web/images/etgar.png',
