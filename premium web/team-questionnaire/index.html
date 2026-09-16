@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2747" />
+  <title>שאלון פתיחה | פרימיום תעשיידע</title>
+  <style>
+    :root {
+      --bg-1: #f7fbff;
+      --bg-2: #eef6ff;
+      --card: rgba(255,255,255,.94);
+      --text: #10233e;
+      --muted: #607189;
+      --line: #dbe7f4;
+      --primary: #1867c9;
+      --primary-dark: #0d4f9d;
+      --accent: #12a7a1;
+      --warm: #f0a23b;
+      --shadow: 0 16px 42px rgba(28, 62, 104, .12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg-2); }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      color: var(--text);
+      font-family: "Heebo", "Arial", sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(24,103,201,.13), transparent 34%),
+        radial-gradient(circle at 0% 95%, rgba(18,167,161,.10), transparent 30%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+
+    .app {
+      width: min(100%, 760px);
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: max(14px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: #183555;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #1768c8, #1aa9a3);
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(24,103,201,.22);
+      font-size: 19px;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      max-width: 240px;
+      display: none;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: #dce8f5;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width .25s ease;
+    }
+
+    .screen {
+      flex: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0 18px;
+    }
+
+    .screen.active { display: flex; }
+
+    .card {
+      width: 100%;
+      border: 1px solid rgba(201,218,236,.86);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 24px 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #edf6ff;
+      color: #17589e;
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 48px);
+      line-height: 1.08;
+      margin-bottom: 12px;
+      letter-spacing: -.02em;
+    }
+
+    h2 {
+      font-size: clamp(24px, 6.6vw, 36px);
+      line-height: 1.18;
+      margin-bottom: 10px;
+      letter-spacing: -.015em;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 14px 0 0;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #324c69;
+    }
+
+    input {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid #cddced;
+      border-radius: 16px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 15px;
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus {
+      border-color: #5a9ce8;
+      box-shadow: 0 0 0 4px rgba(24,103,201,.10);
+    }
+
+    .primary-btn, .secondary-btn {
+      width: 100%;
+      min-height: 56px;
+      border-radius: 17px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), #2383d8 55%, var(--accent));
+      color: #fff;
+      box-shadow: 0 11px 24px rgba(24,103,201,.23);
+      margin-top: 18px;
+    }
+
+    .primary-btn:active, .secondary-btn:active { transform: scale(.985); }
+
+    .primary-btn:disabled {
+      opacity: .48;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .question-card { padding: 21px 16px 17px; }
+
+    .question-kicker {
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .question-title {
+      font-size: clamp(23px, 6vw, 32px);
+      line-height: 1.25;
+      margin-bottom: 18px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 11px;
+    }
+
+    .answer-btn {
+      width: 100%;
+      min-height: 66px;
+      border: 1px solid #d2e0ee;
+      border-radius: 18px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      padding: 13px 15px;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.35;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(38,72,110,.05);
+      transition: border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;
+    }
+
+    .answer-btn:hover { border-color: #9fc1e7; }
+    .answer-btn:active { transform: scale(.988); }
+
+    .answer-btn.selected {
+      border-color: #287bd2;
+      background: #eff7ff;
+      box-shadow: 0 0 0 3px rgba(24,103,201,.08);
+    }
+
+    .answer-dot {
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      border: 1px solid #c6d8e9;
+      display: grid;
+      place-items: center;
+      color: transparent;
+      background: #f9fcff;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .answer-btn.selected .answer-dot {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(145deg, var(--primary), var(--accent));
+    }
+
+    .question-actions {
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .secondary-btn {
+      min-width: 92px;
+      width: auto;
+      padding: 0 17px;
+      border: 1px solid #d1dfed;
+      background: #fff;
+      color: #35536f;
+      box-shadow: none;
+    }
+
+    .question-actions .primary-btn { margin: 0; }
+
+    .finish-icon {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 18px;
+      border-radius: 26px;
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      background: linear-gradient(145deg, #e8f5ff, #eafbf8);
+      border: 1px solid #cfe6ef;
+    }
+
+    .waiting-box {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 18px;
+      background: #f4f9fe;
+      border: 1px solid #d9e8f6;
+      color: #365573;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .debug {
+      display: none;
+      margin-top: 14px;
+      direction: ltr;
+      text-align: left;
+      font: 12px/1.4 monospace;
+      white-space: pre-wrap;
+      color: #445;
+      background: #f7f7f8;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    @media (min-width: 680px) {
+      .app { padding-inline: 24px; }
+      .card { padding: 34px 32px; }
+      .question-card { padding: 30px; }
+      .answers { grid-template-columns: 1fr 1fr; }
+      .answer-btn { min-height: 82px; }
+      .progress-wrap { display: block; }
+    }
+
+    @media (max-width: 679px) {
+      .app { padding-inline: 12px; }
+      .topbar { position: sticky; top: 0; z-index: 5; padding: 5px 2px 8px; background: linear-gradient(180deg, rgba(247,251,255,.96), rgba(247,251,255,.78), transparent); }
+      .brand-label { font-size: 14px; }
+      .screen { align-items: flex-start; padding-top: 2px; }
+      .card { border-radius: 21px; }
+      .question-card { min-height: calc(100dvh - 98px); display: flex; flex-direction: column; }
+      .answers { flex: 1; align-content: start; }
+      .question-actions { position: sticky; bottom: max(6px, env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.96) 22%); padding-top: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(24,103,201,.35);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✦</div>
+        <div class="brand-label">תעשיידע | פרימיום</div>
+      </div>
+      <div class="progress-wrap" id="progressWrap" aria-hidden="true">
+        <div class="progress-label" id="progressLabel">שאלה 1 מתוך 14</div>
+        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+    </header>
+
+    <section class="screen active" id="startScreen">
+      <div class="card hero">
+        <div class="eyebrow">⚡ 14 מצבים קצרים</div>
+        <h1>איך אתם פועלים ביום־יום?</h1>
+        <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה — פשוט בוחרים וממשיכים.</p>
+
+        <div class="form-grid">
+          <div>
+            <label for="studentName">שם פרטי ומשפחה</label>
+            <input id="studentName" type="text" autocomplete="name" placeholder="למשל: נועה כהן" maxlength="60" />
+          </div>
+          <div>
+            <label for="classCode">קוד כיתה</label>
+            <input id="classCode" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="4 ספרות" maxlength="6" />
+          </div>
+        </div>
+
+        <button class="primary-btn" id="startBtn" disabled>מתחילים</button>
+        <p class="mini-note">הבחירות משמשות רק להרכבת צוותי עבודה מאוזנים ולחלוקת תחומי אחריות בתוך הצוות.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="questionScreen">
+      <div class="card question-card">
+        <div class="question-kicker" id="questionKicker">מצב 1</div>
+        <h2 class="question-title" id="questionTitle"></h2>
+        <div class="answers" id="answers"></div>
+        <div class="question-actions">
+          <button class="primary-btn" id="nextBtn" disabled>המשך</button>
+          <button class="secondary-btn" id="backBtn" type="button">חזרה</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="finishScreen">
+      <div class="card hero">
+        <div class="finish-icon" aria-hidden="true">✓</div>
+        <h1>סיימת!</h1>
+        <p class="lead">התשובות שלך נשמרו. עכשיו מחכים לשאר הכיתה כדי להרכיב את צוותי המיזם.</p>
+        <div class="waiting-box">כשתהליך ההרכבה יסתיים, יוצגו הצוות שלך ותחום האחריות שקיבלת בתוך הצוות.</div>
+        <div class="debug" id="debugBox"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const STORAGE_KEY = 'premiumTeamQuizDraftV1';
+      const RESULT_KEY = 'premiumTeamQuizResultV1';
+      const dimensions = ['S', 'R', 'P', 'C'];
+
+      const questions = [
+        {
+          title: 'הזמנתם משהו באינטרנט. באפליקציה כתוב “נמסר”, אבל החבילה לא ליד הדלת. מה הדבר הראשון שאתם עושים?',
+          options: [
+            { text: 'בודקים איפה בדרך משהו השתבש ומה הצעד הכי הגיוני עכשיו.', score: { S: 3, R: 1 } },
+            { text: 'פותחים מעקב, הזמנה והודעות ובודקים בדיוק מה כתוב שם.', score: { R: 3, S: 1 } },
+            { text: 'חושבים איך היה אפשר לבנות את תהליך המשלוח כך שזה לא יקרה.', score: { P: 3, S: 1 } },
+            { text: 'שולחים צילום מסך לחברים עם הודעה כמו “החבילה שלי התחילה חיים חדשים”.', score: { C: 3, R: 1 } }
+          ]
+        },
+        {
+          title: 'חבר מראה לכם אפליקציה חדשה ואומר שזו המצאת השנה. מה הכי מסקרן אתכם?',
+          options: [
+            { text: 'איזו בעיה היא באמת פותרת ולמי?', score: { S: 3, R: 1 } },
+            { text: 'כמה משתמשים יש לה ומה אנשים כותבים עליה?', score: { R: 3, C: 1 } },
+            { text: 'תראה לי איך זה עובד בפועל.', score: { P: 3, S: 1 } },
+            { text: 'אפשר להסביר אותה בסרטון של 15 שניות?', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'אתם רוצים לקנות אוזניות חדשות ויש עשרות אפשרויות. איך אתם מתחילים?',
+          options: [
+            { text: 'מחליטים קודם מה באמת חשוב: מחיר, סוללה, נוחות או משהו אחר.', score: { S: 3, P: 1 } },
+            { text: 'פותחים השוואות, ביקורות ותגובות ומתחילים לבדוק.', score: { R: 3, S: 1 } },
+            { text: 'בודקים מפרט, כפתורים, חיבורים ומה כל פונקציה עושה.', score: { P: 3, R: 1 } },
+            { text: 'גם איך הן נראות ואיך מציגים אותן משפיע על הבחירה שלי.', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'פתחתם קבוצת WhatsApp ויש 73 הודעות. מה אתם מחפשים קודם?',
+          options: [
+            { text: 'מה החלטנו בסוף ומה צריך לקרות עכשיו?', score: { S: 3, C: 1 } },
+            { text: 'מה העובדות שעליהן כולם מדברים ומה השתנה?', score: { R: 3, S: 1 } },
+            { text: 'איזה פתרון אפשר להציע כדי לסגור את הדיון ולהתקדם?', score: { P: 3, S: 1 } },
+            { text: 'איך לסכם לכולם במשפטים ברורים בלי שיצטרכו לקרוא הכול.', score: { C: 3, S: 1 } }
+          ]
+        },
+        {
+          title: 'נפתחה גלידרייה חדשה ופתאום כולם מדברים עליה. מה אתם חושבים?',
+          options: [
+            { text: 'למה דווקא העסק הזה הצליח למשוך כל כך הרבה תשומת לב?', score: { S: 3, C: 1 } },
+            { text: 'היא באמת טובה או שזה בעיקר הייפ? צריך לבדוק.', score: { R: 3, C: 1 } },
+            { text: 'מה מיוחד במוצר עצמו לעומת גלידות אחרות?', score: { P: 3, R: 1 } },
+            { text: 'איך הם גרמו לכל כך הרבה אנשים לדבר עליהם?', score: { C: 3, S: 1 } }
+          ]
+        },
+        {
+          title: 'קיבלתם 1,000 ₪ כדי לשפר משהו בבית הספר. מה הדבר הראשון שאתם עושים?',
+          options: [
+            { text: 'בוחרים איזו בעיה הכי שווה לפתור עם הסכום הזה.', score: { S: 3, R: 1 } },
+            { text: 'שואלים תלמידים מה באמת מפריע להם ביום־יום.', score: { R: 3, C: 1 } },
+            { text: 'מתחילים לחשוב מה אפשר לבנות, לשנות או להוסיף.', score: { P: 3, S: 1 } },
+            { text: 'חושבים איך לגרום לתלמידים להכיר את השינוי ולהשתמש בו.', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'העליתם Reel ופתאום הוא קיבל הרבה יותר צפיות מהרגיל. מה מעניין אתכם לדעת?',
+          options: [
+            { text: 'מה עשינו אחרת הפעם שאפשר לנסות שוב?', score: { S: 3, R: 1 } },
+            { text: 'מאיפה הגיעו הצפיות ומי באמת צפה בו?', score: { R: 3, C: 1 } },
+            { text: 'באיזה חלק אנשים נשארו לצפות ולא גללו הלאה?', score: { P: 3, R: 1 } },
+            { text: 'איך הופכים את הסרטון הבא לחד וברור אפילו יותר?', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'יש מוצר שאתם משתמשים בו וכל פעם משהו בו מעצבן אתכם. מה עובר לכם בראש?',
+          options: [
+            { text: 'למה בכלל תכננו אותו בצורה הזאת?', score: { S: 3, P: 1 } },
+            { text: 'מעניין אם גם אנשים אחרים מתלוננים על אותו דבר.', score: { R: 3, S: 1 } },
+            { text: 'כבר יש לי רעיון איך הייתי משנה אותו.', score: { P: 3, S: 1 } },
+            { text: 'אני יכול להסביר לחברה בדיוק מה לא ברור או לא נוח.', score: { C: 3, R: 1 } }
+          ]
+        },
+        {
+          title: 'אתם מתכננים יום כיף עם חברים. מה התפקיד שאתם לוקחים באופן טבעי?',
+          options: [
+            { text: 'מסדרים את התמונה הגדולה: זמן, תקציב, מרחק ומה חשוב לכולם.', score: { S: 3, C: 1 } },
+            { text: 'בודקים שעות, מחירים, ביקורות ומזג אוויר.', score: { R: 3, S: 1 } },
+            { text: 'בונים מסלול שאפשר באמת לבצע בלי להיתקע.', score: { P: 3, S: 1 } },
+            { text: 'מציגים לכולם שתי אפשרויות ברורות כדי שיחליטו.', score: { C: 3, S: 1 } }
+          ]
+        },
+        {
+          title: 'כלי AI נתן לכם תשובה שנשמעת קצת חשודה. מה אתם עושים?',
+          options: [
+            { text: 'בודקים קודם אם הוא בכלל ענה על מה שביקשנו.', score: { S: 3, C: 1 } },
+            { text: 'מאמתים את העובדות במקום נוסף.', score: { R: 3, S: 1 } },
+            { text: 'משנים את הפרומפט ומנסים שוב עד שהתוצאה עובדת טוב יותר.', score: { P: 3, S: 1 } },
+            { text: 'מנסחים מחדש את הבקשה כך שהתוצאה תהיה ברורה ומדויקת יותר.', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'מישהו מניח על השולחן גאדג׳ט שאתם לא מכירים. מה קורה קודם?',
+          options: [
+            { text: 'אני רוצה להבין בשביל מה המציאו אותו בכלל.', score: { S: 3, R: 1 } },
+            { text: 'אני בודק מי ייצר אותו ומה אומרים עליו.', score: { R: 3, C: 1 } },
+            { text: 'אני לוחץ. אין סיכוי שאני לא לוחץ.', score: { P: 3, R: 1 } },
+            { text: 'אני כבר חושב איך הייתי מציג אותו למישהו אחר.', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'חבר אומר: “יש לי רעיון לאפליקציה, זה יהיה מטורף”. מה השאלה הראשונה שלכם?',
+          options: [
+            { text: 'איזו בעיה היא פותרת?', score: { S: 3, R: 1 } },
+            { text: 'אין כבר משהו כזה?', score: { R: 3, S: 1 } },
+            { text: 'איך זה יעבוד?', score: { P: 3, S: 1 } },
+            { text: 'איך תסביר את זה למישהו שלא מכיר?', score: { C: 3, P: 1 } }
+          ]
+        },
+        {
+          title: 'עברו חמש דקות מתחילת משימה קבוצתית והשולחן כבר מבולגן. מה אתם אומרים?',
+          options: [
+            { text: 'בואו נחליט מה חייב להיות מוכן עד סוף השיעור.', score: { S: 3, C: 1 } },
+            { text: 'רגע, חסר לנו מידע לפני שממשיכים.', score: { R: 3, S: 1 } },
+            { text: 'בואו ננסה משהו ונראה אם זה עובד.', score: { P: 3, S: 1 } },
+            { text: 'אני עושה סדר במה שכבר יש כדי שכולם יבינו איפה אנחנו.', score: { C: 3, S: 1 } }
+          ]
+        },
+        {
+          title: 'תחשבו על מוצר שאתם ממש אוהבים. מה בדרך כלל גורם לכם להעריך אותו?',
+          options: [
+            { text: 'הוא פותר בעיה בצורה חכמה ופשוטה.', score: { S: 3, P: 1 } },
+            { text: 'מרגיש שמי שפיתח אותו באמת הבין את המשתמשים.', score: { R: 3, C: 1 } },
+            { text: 'הוא פשוט עובד טוב, בלי לסבך אותי.', score: { P: 3, S: 1 } },
+            { text: 'כל החוויה והדרך שבה הוא מוצג גורמות לי לזכור אותו.', score: { C: 3, P: 1 } }
+          ]
+        }
+      ];
+
+      const els = {
+        startScreen: document.getElementById('startScreen'),
+        questionScreen: document.getElementById('questionScreen'),
+        finishScreen: document.getElementById('finishScreen'),
+        studentName: document.getElementById('studentName'),
+        classCode: document.getElementById('classCode'),
+        startBtn: document.getElementById('startBtn'),
+        questionKicker: document.getElementById('questionKicker'),
+        questionTitle: document.getElementById('questionTitle'),
+        answers: document.getElementById('answers'),
+        nextBtn: document.getElementById('nextBtn'),
+        backBtn: document.getElementById('backBtn'),
+        progressWrap: document.getElementById('progressWrap'),
+        progressLabel: document.getElementById('progressLabel'),
+        progressBar: document.getElementById('progressBar'),
+        debugBox: document.getElementById('debugBox')
+      };
+
+      let state = loadDraft() || {
+        current: 0,
+        name: '',
+        classCode: '',
+        answers: Array(questions.length).fill(null),
+        orders: questions.map((q, index) => shuffledIndexes(q.options.length, index + 17))
+      };
+
+      function seededRandom(seed) {
+        let value = Math.sin(seed * 999.91) * 10000;
+        return value - Math.floor(value);
+      }
+
+      function shuffledIndexes(length, seed) {
+        const arr = Array.from({ length }, (_, i) => i);
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(seededRandom(seed + i * 13.7) * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function loadDraft() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (!parsed || !Array.isArray(parsed.answers) || parsed.answers.length !== questions.length) return null;
+          return parsed;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function saveDraft() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function switchScreen(target) {
+        [els.startScreen, els.questionScreen, els.finishScreen].forEach(el => el.classList.remove('active'));
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function validateStart() {
+        const hasName = els.studentName.value.trim().length >= 2;
+        const hasCode = els.classCode.value.trim().length >= 3;
+        els.startBtn.disabled = !(hasName && hasCode);
+      }
+
+      function renderQuestion() {
+        const qIndex = state.current;
+        const q = questions[qIndex];
+        const selected = state.answers[qIndex];
+        const order = state.orders[qIndex] || q.options.map((_, i) => i);
+
+        els.questionKicker.textContent = `מצב ${qIndex + 1}`;
+        els.questionTitle.textContent = q.title;
+        els.answers.replaceChildren();
+
+        order.forEach(optionIndex => {
+          const option = q.options[optionIndex];
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'answer-btn' + (selected === optionIndex ? ' selected' : '');
+          btn.setAttribute('aria-pressed', selected === optionIndex ? 'true' : 'false');
+          btn.innerHTML = `<span class="answer-dot">✓</span><span>${escapeHtml(option.text)}</span>`;
+          btn.addEventListener('click', () => {
+            state.answers[qIndex] = optionIndex;
+            saveDraft();
+            renderQuestion();
+          });
+          els.answers.appendChild(btn);
+        });
+
+        els.nextBtn.disabled = state.answers[qIndex] === null;
+        els.nextBtn.textContent = qIndex === questions.length - 1 ? 'סיום' : 'המשך';
+        els.backBtn.style.visibility = qIndex === 0 ? 'hidden' : 'visible';
+        els.progressLabel.textContent = `שאלה ${qIndex + 1} מתוך ${questions.length}`;
+        els.progressBar.style.width = `${((qIndex + 1) / questions.length) * 100}%`;
+        els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
+      }
+
+      function calculateScores() {
+        const scores = { S: 0, R: 0, P: 0, C: 0 };
+        state.answers.forEach((answerIndex, qIndex) => {
+          const option = questions[qIndex]?.options?.[answerIndex];
+          if (!option) return;
+          dimensions.forEach(dim => { scores[dim] += option.score[dim] || 0; });
+        });
+        return scores;
+      }
+
+      function finishQuiz() {
+        const scores = calculateScores();
+        const result = {
+          id: (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
+          name: state.name,
+          classCode: state.classCode,
+          scores,
+          answers: state.answers,
+          completedAt: new Date().toISOString(),
+          version: 1
+        };
+        localStorage.setItem(RESULT_KEY, JSON.stringify(result));
+        localStorage.removeItem(STORAGE_KEY);
+        switchScreen(els.finishScreen);
+
+        const debug = new URLSearchParams(location.search).get('debug') === '1';
+        if (debug) {
+          els.debugBox.style.display = 'block';
+          els.debugBox.textContent = JSON.stringify(result, null, 2);
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      els.studentName.value = state.name || '';
+      els.classCode.value = state.classCode || '';
+      validateStart();
+
+      [els.studentName, els.classCode].forEach(input => input.addEventListener('input', validateStart));
+
+      els.classCode.addEventListener('input', () => {
+        els.classCode.value = els.classCode.value.replace(/\D/g, '').slice(0, 6);
+      });
+
+      els.startBtn.addEventListener('click', () => {
+        state.name = els.studentName.value.trim();
+        state.classCode = els.classCode.value.trim();
+        state.current = Math.min(Math.max(state.current || 0, 0), questions.length - 1);
+        saveDraft();
+        switchScreen(els.questionScreen);
+        renderQuestion();
+      });
+
+      els.nextBtn.addEventListener('click', () => {
+        if (state.answers[state.current] === null) return;
+        if (state.current >= questions.length - 1) {
+          finishQuiz();
+          return;
+        }
+        state.current += 1;
+        saveDraft();
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      els.backBtn.addEventListener('click', () => {
+        if (state.current <= 0) return;
+        state.current -= 1;
+        saveDraft();
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('resize', () => {
+        if (els.questionScreen.classList.contains('active')) renderQuestion();
+      });
+    })();
+  </script>
+</body>
+</html>
