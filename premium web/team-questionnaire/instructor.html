@@ -157,10 +157,14 @@
     .team-card { border: 1px solid #dbe8f0; border-radius: 18px; overflow: hidden; background: #fff; }
     .team-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 15px; background: #f5fafc; border-bottom: 1px solid #e2edf3; font-weight: 900; color: var(--navy); }
     .team-size { font-size: 12px; color: #668095; font-weight: 700; }
-    .member { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 12px 15px; border-bottom: 1px solid #edf2f6; }
+    .member { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 10px; align-items: center; padding: 12px 15px; border-bottom: 1px solid #edf2f6; }
     .member:last-child { border-bottom: 0; }
     .member-name { font-weight: 800; }
+    .member-name::before { content: 'שם המועמד/ת'; display: block; margin-bottom: 2px; color: #7a8d9e; font-size: 10px; font-weight: 700; }
     .role { font-size: 13px; font-weight: 800; color: #0b7d73; background: #eafbf7; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
+    .role::before { content: 'התאמה · '; opacity: .72; font-weight: 700; }
+    .member-score { font-size: 13px; font-weight: 800; color: #36536e; background: #edf5fb; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
+    .member-score::before { content: 'ניקוד · '; opacity: .72; font-weight: 700; }
 
     .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); background: #102a43; color: #fff; border-radius: 13px; padding: 10px 15px; font-weight: 800; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -548,7 +552,7 @@
           }
           if (!globalBest || best.score > globalBest.score) globalBest = best;
         }
-        return globalBest.assignments.map((assignment,index)=>({ team:index+1, members:assignment.members.map(item=>({ submissionId:item.student.submissionId, name:item.student.name, role:item.role, roleLabel:roleLabels[item.role] })) }));
+        return globalBest.assignments.map((assignment,index)=>({ team:index+1, members:assignment.members.map(item=>({ submissionId:item.student.submissionId, name:item.student.name, role:item.role, roleLabel:roleLabels[item.role], roleScore:Number(item.roleScore.toFixed(1)) })) }));
       }
 
       async function buildTeams() {
@@ -566,13 +570,29 @@
         } finally { updateTeamAvailability(); els.buildTeamsBtn.textContent = currentTeams.length ? 'חשב חלוקה מחדש' : 'הרכב את הצוותים'; }
       }
 
+      function memberRoleScore(member) {
+        if (Number.isFinite(Number(member?.roleScore))) return Number(member.roleScore);
+        const student = currentResponses.find(item => String(item.submissionId) === String(member?.submissionId));
+        if (!student) return null;
+        const scores = normalizeScores(student.scores);
+        if (member.role === 'PC') return Number((((scores.P + scores.C) / 2) + Math.min(scores.P, scores.C) * 0.08).toFixed(1));
+        if (['S','R','P','C'].includes(member.role)) return scores[member.role];
+        return null;
+      }
+
       function renderTeams(teams) {
         els.teamsGrid.replaceChildren(); els.copyTeamsBtn.disabled = !teams.length; els.teamCount.textContent = teams.length ? String(teams.length) : '—';
         if (!teams.length) { els.teamsGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">הצוותים יופיעו כאן לאחר שכל התלמידים הרלוונטיים סיימו.</div>'; return; }
         teams.forEach(team => {
           const card = document.createElement('article'); card.className = 'team-card'; const members = Array.isArray(team.members) ? team.members : [];
           card.innerHTML = `<div class="team-title"><span>צוות ${escapeHtml(team.team)}</span><span class="team-size">${members.length} תלמידים</span></div>`;
-          members.forEach(member => { const row = document.createElement('div'); row.className = 'member'; const roleLabel = member.roleLabel || roleLabels[member.role] || member.role || ''; row.innerHTML = `<div class="member-name">${escapeHtml(member.name || 'ללא שם')}</div><div class="role">${escapeHtml(roleLabel)}</div>`; card.appendChild(row); });
+          members.forEach(member => {
+            const row = document.createElement('div'); row.className = 'member';
+            const roleLabel = member.roleLabel || roleLabels[member.role] || member.role || '';
+            const score = memberRoleScore(member);
+            row.innerHTML = `<div class="member-name">${escapeHtml(member.name || 'ללא שם')}</div><div class="role">${escapeHtml(roleLabel)}</div><div class="member-score">${score === null ? '—' : escapeHtml(score)}</div>`;
+            card.appendChild(row);
+          });
           els.teamsGrid.appendChild(card);
         });
       }
@@ -586,7 +606,7 @@
       function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
       function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
       function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\
-${team.members.map(member => `• ${member.name} — ${member.roleLabel || roleLabels[member.role] || member.role}`).join('\
+${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${member.roleLabel || roleLabels[member.role] || member.role} — ניקוד: ${score === null ? '—' : score}`; }).join('\
 ')}`).join('\
 \
 '); }
