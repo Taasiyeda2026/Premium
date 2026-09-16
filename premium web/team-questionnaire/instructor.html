@@ -28,6 +28,7 @@
     body {
       margin: 0;
       min-height: 100dvh;
+      zoom: 82%;
       color: var(--text);
       font-family: "Heebo", "Arial", sans-serif;
       background:
@@ -279,6 +280,7 @@
     .loading { opacity: .62; pointer-events: none; }
 
     @media (max-width: 760px) {
+      body { zoom: 92%; }
       .app { width: min(100% - 20px, 1180px); }
       .entry-card { margin-top: 2vh; padding: 23px 17px; }
       .create-row { grid-template-columns: 1fr; }
