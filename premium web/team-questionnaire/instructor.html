@@ -635,17 +635,16 @@
             const student = group[perm[roleIndex]];
             const assignedFit = role.value(student.scores);
             const bestAvailableFit = Math.max(...rolesForTeam.map(candidate => candidate.value(student.scores)));
-            return { student, role:role.id, roleScore:assignedFit, regret:Math.max(0, bestAvailableFit-assignedFit) };
+            return { student, role:role.id, roleScore:assignedFit, regret:Math.max(0,bestAvailableFit-assignedFit) };
           });
           const metrics = assignmentMetrics(members);
           const candidate = { members, metrics };
-          if (!best || compareMetrics(metrics, best.metrics) < 0) best = candidate;
+          if (!best || compareMetrics(metrics,best.metrics)<0) best=candidate;
         });
         return best;
       }
 
-      function partitionQuality(groups) {
-        const assignments = groups.map(bestAssignment);
+      function partitionFromAssignments(assignments) {
         const members = assignments.flatMap(item => item.members);
         const averages = assignments.map(item => item.metrics.teamAverage);
         return {
@@ -660,13 +659,17 @@
         };
       }
 
+      function partitionQuality(groups) {
+        return partitionFromAssignments(groups.map(bestAssignment));
+      }
+
       function cloneGroups(groups) { return groups.map(group => group.slice()); }
 
       function localImprove(groups) {
         let current = partitionQuality(groups);
         let changed = true;
         let passes = 0;
-        while (changed && passes < 24) {
+        while (changed && passes < 14) {
           changed = false;
           passes += 1;
           let bestSwap = null;
@@ -676,7 +679,10 @@
               for (let ia=0; ia<groups[a].length; ia++) {
                 for (let ib=0; ib<groups[b].length; ib++) {
                   [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
-                  const candidate = partitionQuality(groups);
+                  const assignments = current.assignments.slice();
+                  assignments[a] = bestAssignment(groups[a]);
+                  assignments[b] = bestAssignment(groups[b]);
+                  const candidate = partitionFromAssignments(assignments);
                   [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
                   if (compareMetrics(candidate.metrics,bestCandidate.metrics)<0) {
                     bestCandidate = candidate;
@@ -689,7 +695,7 @@
           if (bestSwap) {
             const {a,b,ia,ib}=bestSwap;
             [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
-            current = partitionQuality(groups);
+            current = bestCandidate;
             changed = true;
           }
         }
@@ -699,7 +705,7 @@
       function optimizeTeams(students, sizes, seedText) {
         const baseSeed = hashString(seedText);
         let globalBest = null;
-        const restarts = Math.max(8, Math.min(18, students.length));
+        const restarts = Math.max(6, Math.min(10, Math.ceil(students.length / 3)));
         for (let restart=0; restart<restarts; restart++) {
           const rng = makeRng((baseSeed + Math.imul(restart+1,2654435761)) >>> 0);
           const order = shuffled(students,rng);
