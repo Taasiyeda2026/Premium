@@ -301,7 +301,7 @@
       const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const STORAGE_KEY = 'premiumQuestionnaireInstructorClassesV1';
-      const ALGORITHM_VERSION = 2;
+      const ALGORITHM_VERSION = 3;
       const POLL_MS = 8000;
 
       const SCORE_NORMALIZATION = {
@@ -312,7 +312,7 @@
       };
       const FIT_CENTER = 50;
       const FIT_SCALE = 10;
-      const CLOSE_FIT_GAP = 5;
+      const CLOSE_FIT_GAP = 8;
 
       function combinedPCScore(scores) {
         const p = Math.max(0, Number(scores?.P) || 0);
@@ -510,10 +510,10 @@
         table.innerHTML = '<thead><tr><th>#</th><th>תלמיד/ה</th><th>התאמה לתפקידים</th><th>סיום</th></tr></thead>';
         const tbody = document.createElement('tbody');
         currentResponses.forEach((student, index) => {
-          const scores = normalizeScores(student.scores); const tr = document.createElement('tr');
+          const scores = responseFit(student); const tr = document.createElement('tr');
           const tdIndex = document.createElement('td'), tdName = document.createElement('td'), tdScores = document.createElement('td'), tdTime = document.createElement('td');
           tdIndex.dataset.label = 'מספר'; tdName.dataset.label = 'תלמיד/ה'; tdScores.dataset.label = 'התאמה לתפקידים'; tdTime.dataset.label = 'סיום';
-          tdIndex.textContent = String(index + 1); tdName.innerHTML = `<strong>${escapeHtml(student.name || 'ללא שם')}</strong>${renderFunAnswers(student.funAnswers)}`;
+          tdIndex.textContent = String(index + 1); tdName.innerHTML = `<strong>${escapeHtml(student.name || 'ללא שם')}</strong>`;
           tdScores.innerHTML = scoreChips(scores); tdTime.textContent = formatTime(student.completedAt); tr.append(tdIndex, tdName, tdScores, tdTime); tbody.appendChild(tr);
         });
         table.appendChild(tbody); els.studentsWrap.replaceChildren(table);
@@ -526,7 +526,7 @@
         return `<details class="fun-details"><summary>שאלות פתוחות</summary>${rows}</details>`;
       }
 
-      function normalizeScores(value) {
+      function legacyNormalizeScores(value) {
         const source = value && typeof value === 'object' ? value : {};
         const result = {};
         ['S', 'R', 'P', 'C'].forEach(role => {
@@ -537,6 +537,20 @@
           result[role] = Number(Math.max(0, Math.min(100, normalized)).toFixed(1));
         });
         return result;
+      }
+
+      function responseFit(student) {
+        const source = student?.scores && typeof student.scores === 'object' ? student.scores : {};
+        if (Number(student?.questionnaireVersion) >= 3) {
+          const result = {};
+          ['S', 'R', 'P', 'C'].forEach(role => { result[role] = Math.max(0, Math.min(100, Number(source[role]) || 0)); });
+          const total = Object.values(result).reduce((sum, value) => sum + value, 0);
+          if (total > 0 && Math.abs(total - 100) > 0.3) {
+            Object.keys(result).forEach(role => { result[role] = Number((result[role] / total * 100).toFixed(1)); });
+          }
+          return result;
+        }
+        return legacyNormalizeScores(source);
       }
 
       function scoreChips(scores) {
@@ -583,45 +597,128 @@
       function permutations(values) { if (values.length <= 1) return [values.slice()]; const result = []; values.forEach((value, index) => { const rest = values.slice(0, index).concat(values.slice(index + 1)); permutations(rest).forEach(p => result.push([value, ...p])); }); return result; }
       const perms3 = permutations([0,1,2]), perms4 = permutations([0,1,2,3]);
 
+      function assignmentMetrics(members) {
+        const regrets = members.map(item => item.regret);
+        const fits = members.map(item => item.roleScore);
+        return {
+          maxRegret: Math.max(...regrets),
+          totalRegret: regrets.reduce((sum, value) => sum + value, 0),
+          minFit: Math.min(...fits),
+          totalFit: fits.reduce((sum, value) => sum + value, 0),
+          teamAverage: fits.reduce((sum, value) => sum + value, 0) / fits.length
+        };
+      }
+
+      function compareNumber(a, b, direction = 'asc') {
+        const delta = Number(a) - Number(b);
+        if (Math.abs(delta) < 1e-9) return 0;
+        return direction === 'asc' ? (delta < 0 ? -1 : 1) : (delta > 0 ? -1 : 1);
+      }
+
+      function compareMetrics(a, b) {
+        return compareNumber(a.maxRegret, b.maxRegret, 'asc') ||
+          compareNumber(a.totalRegret, b.totalRegret, 'asc') ||
+          compareNumber(a.minFit, b.minFit, 'desc') ||
+          compareNumber(a.teamSpread || 0, b.teamSpread || 0, 'asc') ||
+          compareNumber(a.totalFit, b.totalFit, 'desc');
+      }
+
       function bestAssignment(group) {
         const isFour = group.length === 4;
-        const roles = isFour
+        const rolesForTeam = isFour
           ? [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'P', value:s=>s.P }, { id:'C', value:s=>s.C }]
           : [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'PC', value:s=>combinedPCScore(s) }];
-        const perms = isFour ? perms4 : perms3; let best = null;
+        const perms = isFour ? perms4 : perms3;
+        let best = null;
         perms.forEach(perm => {
-          const values = roles.map((role, roleIndex) => role.value(group[perm[roleIndex]].scores));
-          const sum = values.reduce((a,b)=>a+b,0), min = Math.min(...values), max = Math.max(...values), quality = sum + min * .72 - (max-min) * .08;
-          if (!best || quality > best.quality) best = { quality, members: roles.map((role, roleIndex) => ({ student: group[perm[roleIndex]], role: role.id, roleScore: values[roleIndex] })) };
+          const members = rolesForTeam.map((role, roleIndex) => {
+            const student = group[perm[roleIndex]];
+            const assignedFit = role.value(student.scores);
+            const bestAvailableFit = Math.max(...rolesForTeam.map(candidate => candidate.value(student.scores)));
+            return { student, role:role.id, roleScore:assignedFit, regret:Math.max(0, bestAvailableFit-assignedFit) };
+          });
+          const metrics = assignmentMetrics(members);
+          const candidate = { members, metrics };
+          if (!best || compareMetrics(metrics, best.metrics) < 0) best = candidate;
         });
         return best;
       }
 
       function partitionQuality(groups) {
-        const assignments = groups.map(bestAssignment), qualities = assignments.map(item=>item.quality), sum = qualities.reduce((a,b)=>a+b,0), min = Math.min(...qualities), max = Math.max(...qualities);
-        return { score: sum + min * .38 - (max-min) * .07, assignments };
+        const assignments = groups.map(bestAssignment);
+        const members = assignments.flatMap(item => item.members);
+        const averages = assignments.map(item => item.metrics.teamAverage);
+        return {
+          metrics: {
+            maxRegret: Math.max(...members.map(item=>item.regret)),
+            totalRegret: members.reduce((sum,item)=>sum+item.regret,0),
+            minFit: Math.min(...members.map(item=>item.roleScore)),
+            totalFit: members.reduce((sum,item)=>sum+item.roleScore,0),
+            teamSpread: Math.max(...averages)-Math.min(...averages)
+          },
+          assignments
+        };
       }
+
       function cloneGroups(groups) { return groups.map(group => group.slice()); }
 
-      function optimizeTeams(students, sizes, seedText) {
-        const baseSeed = hashString(seedText); let globalBest = null;
-        for (let restart = 0; restart < 5; restart++) {
-          const rng = makeRng((baseSeed + restart * 2654435761) >>> 0), order = shuffled(students, rng), groups = []; let cursor = 0;
-          sizes.forEach(size => { groups.push(order.slice(cursor, cursor + size)); cursor += size; });
-          let current = partitionQuality(groups), best = { score: current.score, groups: cloneGroups(groups), assignments: current.assignments };
-          const iterations = Math.max(2600, students.length * 130);
-          for (let step = 0; step < iterations; step++) {
-            if (groups.length < 2) break;
-            let a = Math.floor(rng()*groups.length), b = Math.floor(rng()*groups.length); if (a === b) b = (b+1)%groups.length;
-            const ia = Math.floor(rng()*groups[a].length), ib = Math.floor(rng()*groups[b].length); [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
-            const candidate = partitionQuality(groups), progress = step/iterations, temperature = 2.2*(1-progress)+.05, delta = candidate.score-current.score;
-            const accept = delta >= 0 || Math.exp(delta/temperature) > rng();
-            if (accept) { current = candidate; if (candidate.score > best.score) best = { score:candidate.score, groups:cloneGroups(groups), assignments:candidate.assignments }; }
-            else [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
+      function localImprove(groups) {
+        let current = partitionQuality(groups);
+        let changed = true;
+        let passes = 0;
+        while (changed && passes < 24) {
+          changed = false;
+          passes += 1;
+          let bestSwap = null;
+          let bestCandidate = current;
+          for (let a=0; a<groups.length; a++) {
+            for (let b=a+1; b<groups.length; b++) {
+              for (let ia=0; ia<groups[a].length; ia++) {
+                for (let ib=0; ib<groups[b].length; ib++) {
+                  [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
+                  const candidate = partitionQuality(groups);
+                  [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
+                  if (compareMetrics(candidate.metrics,bestCandidate.metrics)<0) {
+                    bestCandidate = candidate;
+                    bestSwap = {a,b,ia,ib};
+                  }
+                }
+              }
+            }
           }
-          if (!globalBest || best.score > globalBest.score) globalBest = best;
+          if (bestSwap) {
+            const {a,b,ia,ib}=bestSwap;
+            [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
+            current = partitionQuality(groups);
+            changed = true;
+          }
         }
-        return globalBest.assignments.map((assignment,index)=>({ team:index+1, members:assignment.members.map(item=>({ submissionId:item.student.submissionId, name:item.student.name, role:item.role, roleLabel:roleLabels[item.role], roleScore:Number(item.roleScore.toFixed(1)) })) }));
+        return { groups:cloneGroups(groups), ...current };
+      }
+
+      function optimizeTeams(students, sizes, seedText) {
+        const baseSeed = hashString(seedText);
+        let globalBest = null;
+        const restarts = Math.max(8, Math.min(18, students.length));
+        for (let restart=0; restart<restarts; restart++) {
+          const rng = makeRng((baseSeed + Math.imul(restart+1,2654435761)) >>> 0);
+          const order = shuffled(students,rng);
+          const groups=[];
+          let cursor=0;
+          sizes.forEach(size=>{ groups.push(order.slice(cursor,cursor+size)); cursor+=size; });
+          const improved = localImprove(groups);
+          if (!globalBest || compareMetrics(improved.metrics,globalBest.metrics)<0) globalBest=improved;
+        }
+        return globalBest.assignments.map((assignment,index)=>({
+          team:index+1,
+          members:assignment.members.map(item=>({
+            submissionId:item.student.submissionId,
+            name:item.student.name,
+            role:item.role,
+            roleLabel:roleLabels[item.role],
+            roleScore:Number(item.roleScore.toFixed(1))
+          }))
+        }));
       }
 
       async function buildTeams() {
@@ -629,7 +726,7 @@
         els.buildTeamsBtn.disabled = true; els.buildTeamsBtn.textContent = 'מרכיבים...'; els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'מחשבים חלוקה מאוזנת לכל הכיתה...';
         await new Promise(resolve => setTimeout(resolve, 20));
         try {
-          const students = currentResponses.map(student => ({ submissionId:String(student.submissionId), name:student.name || 'ללא שם', scores:normalizeScores(student.scores) }));
+          const students = currentResponses.map(student => ({ submissionId:String(student.submissionId), name:student.name || 'ללא שם', scores:responseFit(student) }));
           const seedText = `${activeClass.code}|${students.map(s=>s.submissionId).sort().join('|')}|${ALGORITHM_VERSION}`;
           const teams = optimizeTeams(students, sizes, seedText); currentTeams = teams; renderTeams(teams); els.teamStatus.textContent = 'החלוקה נוצרה. שומרים...';
           await rpc('premium_questionnaire_save_team_run', { p_class_code:activeClass.code, p_manager_token:activeClass.token, p_teams:teams, p_algorithm_version:ALGORITHM_VERSION });
@@ -643,7 +740,7 @@
         if (Number.isFinite(Number(member?.roleScore))) return Number(member.roleScore);
         const student = currentResponses.find(item => String(item.submissionId) === String(member?.submissionId));
         if (!student) return null;
-        const scores = normalizeScores(student.scores);
+        const scores = responseFit(student);
         if (member.role === 'PC') return Number(combinedPCScore(scores).toFixed(1));
         if (['S','R','P','C'].includes(member.role)) return scores[member.role];
         return null;
