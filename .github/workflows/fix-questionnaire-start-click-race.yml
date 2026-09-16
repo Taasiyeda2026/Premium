@@ -1,0 +1,60 @@
+name: Fix questionnaire start click race
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-questionnaire-start-click-race.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Fix blur verification race and bump cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('premium web/team-questionnaire/index.html')
+          text = path.read_text(encoding='utf-8')
+          old = """      els.studentName.addEventListener('blur', () => {
+        if (els.classCode.value.length === 6 && normalizedStudentName().length >= 2) verifyClassCode(true);
+      });
+
+      els.classCode.addEventListener('blur', () => {
+        if (els.classCode.value.length && normalizedStudentName().length >= 2) verifyClassCode(true);
+      });
+"""
+          new = """      els.studentName.addEventListener('blur', () => {
+        const key = currentStudentKey();
+        if (key && verifiedStudentKey !== key) verifyClassCode(true);
+      });
+
+      els.classCode.addEventListener('blur', () => {
+        const code = els.classCode.value.trim();
+        const key = currentStudentKey();
+        if (key && (verifiedClassCode !== code || verifiedStudentKey !== key)) verifyClassCode(true);
+      });
+"""
+          if old not in text:
+              raise SystemExit('Expected blur handlers not found')
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+
+          sw = Path('service-worker.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          if "premium-static-v37" not in sw_text:
+              raise SystemExit('Expected cache v37 not found')
+          sw.write_text(sw_text.replace('premium-static-v37', 'premium-static-v38', 1), encoding='utf-8')
+          PY
+
+          git config user.name "Taasiyeda2026"
+          git config user.email "actions@users.noreply.github.com"
+          git add 'premium web/team-questionnaire/index.html' service-worker.js
+          git commit -m "Fix questionnaire start click race"
+          git push origin main
