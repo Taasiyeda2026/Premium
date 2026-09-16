@@ -530,7 +530,9 @@
       localStorage.removeItem(LEGACY_STORAGE_KEY);
       let state = createInitialState();
       let verifiedClassCode = null;
+      let verifiedStudentKey = null;
       let codeCheckSequence = 0;
+      let startCheckTimer = null;
 
       function createInitialState() {
         return {
@@ -585,16 +587,29 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      function validateStart() {
-        const nameOk = els.studentName.value.trim().length >= 2;
+      function normalizedStudentName() {
+        return els.studentName.value.trim().replace(/\s+/g, ' ').toLocaleLowerCase('he');
+      }
+
+      function currentStudentKey() {
         const code = els.classCode.value.trim();
-        els.startBtn.disabled = !(nameOk && /^\d{6}$/.test(code) && verifiedClassCode === code);
+        const name = normalizedStudentName();
+        return /^\d{6}$/.test(code) && name.length >= 2 ? `${code}|${name}` : '';
+      }
+
+      function validateStart() {
+        const code = els.classCode.value.trim();
+        const key = currentStudentKey();
+        els.startBtn.disabled = !(key && verifiedClassCode === code && verifiedStudentKey === key);
       }
 
       async function verifyClassCode(showError = true) {
         const code = els.classCode.value.trim();
+        const studentName = els.studentName.value.trim().replace(/\s+/g, ' ');
+        const key = currentStudentKey();
         const sequence = ++codeCheckSequence;
         verifiedClassCode = null;
+        verifiedStudentKey = null;
         validateStart();
 
         if (!/^\d{6}$/.test(code)) {
@@ -602,8 +617,13 @@
           else els.classCodeStatus.textContent = '';
           return false;
         }
+        if (studentName.length < 2) {
+          els.classCodeStatus.textContent = '';
+          return false;
+        }
 
         try {
+          els.classCodeStatus.textContent = 'בודקים את הפרטים...';
           const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/premium_questionnaire_class_is_active`, {
             method: 'POST',
             headers: {
@@ -613,28 +633,57 @@
             },
             body: JSON.stringify({ p_class_code: code })
           });
-
           if (!response.ok) throw new Error(`Class check failed: ${response.status}`);
           const isActive = await response.json();
-          if (sequence !== codeCheckSequence || code !== els.classCode.value.trim()) return false;
-
-          if (isActive === true) {
-            verifiedClassCode = code;
-            els.classCodeStatus.textContent = '';
+          if (sequence !== codeCheckSequence || key !== currentStudentKey()) return false;
+          if (isActive !== true) {
+            els.classCodeStatus.textContent = 'קוד הכיתה לא פעיל. בדקו את הקוד שקיבלתם מהמדריך.';
             validateStart();
-            return true;
+            return false;
           }
 
-          els.classCodeStatus.textContent = 'קוד הכיתה לא נמצא. בדקו את הקוד שקיבלתם מהמדריך.';
+          const duplicateResponse = await fetch(`${SUPABASE_URL}/rest/v1/rpc/premium_questionnaire_submission_exists`, {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_PUBLISHABLE_KEY,
+              'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ p_class_code: code, p_student_name: studentName })
+          });
+          if (!duplicateResponse.ok) throw new Error(`Duplicate check failed: ${duplicateResponse.status}`);
+          const alreadySubmitted = await duplicateResponse.json();
+          if (sequence !== codeCheckSequence || key !== currentStudentKey()) return false;
+          if (alreadySubmitted === true) {
+            els.classCodeStatus.textContent = 'כבר מילאתם את השאלון בכיתה הזו. אי אפשר למלא אותו פעם נוספת.';
+            validateStart();
+            return false;
+          }
+
+          verifiedClassCode = code;
+          verifiedStudentKey = key;
+          els.classCodeStatus.textContent = '';
           validateStart();
-          return false;
+          return true;
         } catch (error) {
           console.error(error);
           if (sequence === codeCheckSequence) {
-            els.classCodeStatus.textContent = 'לא ניתן לבדוק כרגע את קוד הכיתה. נסו שוב.';
+            els.classCodeStatus.textContent = 'לא ניתן לבדוק כרגע את הפרטים. נסו שוב.';
             validateStart();
           }
           return false;
+        }
+      }
+
+      function scheduleStartCheck() {
+        clearTimeout(startCheckTimer);
+        verifiedClassCode = null;
+        verifiedStudentKey = null;
+        codeCheckSequence += 1;
+        els.classCodeStatus.textContent = '';
+        validateStart();
+        if (/^\d{6}$/.test(els.classCode.value.trim()) && normalizedStudentName().length >= 2) {
+          startCheckTimer = setTimeout(() => verifyClassCode(true), 280);
         }
       }
 
@@ -729,7 +778,17 @@
             })
           });
 
-          if (!response.ok && response.status !== 409) throw new Error(`Save failed: ${response.status}`);
+          if (!response.ok) {
+            const errorBody = await response.text();
+            if (response.status === 409 && errorBody.includes('premium_questionnaire_responses_class_student_unique')) {
+              els.submitStatus.textContent = 'כבר נשמרה תשובה עבור השם הזה בכיתה. אי אפשר לשלוח שאלון נוסף.';
+              els.submitBtn.disabled = true;
+              els.submitBtn.textContent = 'כבר נשלח';
+              els.funBackBtn.disabled = false;
+              return;
+            }
+            if (response.status !== 409) throw new Error(`Save failed: ${response.status}`);
+          }
 
           localStorage.setItem(RESULT_KEY, JSON.stringify(result));
           localStorage.removeItem(STORAGE_KEY);
@@ -764,24 +823,25 @@
       els.classCodeStatus.textContent = '';
       validateStart();
 
-      els.studentName.addEventListener('input', validateStart);
+      els.studentName.addEventListener('input', scheduleStartCheck);
 
       els.classCode.addEventListener('input', () => {
         els.classCode.value = els.classCode.value.replace(/\D/g, '').slice(0, 6);
-        verifiedClassCode = null;
-        codeCheckSequence += 1;
-        els.classCodeStatus.textContent = '';
-        validateStart();
-        if (els.classCode.value.length === 6) verifyClassCode(true);
+        scheduleStartCheck();
+      });
+
+      els.studentName.addEventListener('blur', () => {
+        if (els.classCode.value.length === 6 && normalizedStudentName().length >= 2) verifyClassCode(true);
       });
 
       els.classCode.addEventListener('blur', () => {
-        if (els.classCode.value.length) verifyClassCode(true);
+        if (els.classCode.value.length && normalizedStudentName().length >= 2) verifyClassCode(true);
       });
 
       els.startBtn.addEventListener('click', async () => {
         const code = els.classCode.value.trim();
-        if (verifiedClassCode !== code) {
+        const key = currentStudentKey();
+        if (verifiedClassCode !== code || verifiedStudentKey !== key) {
           const ok = await verifyClassCode(true);
           if (!ok) return;
         }
