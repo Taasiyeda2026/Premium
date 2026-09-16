@@ -292,14 +292,14 @@
         <div class="brand-label">תעשיידע | פרימיום</div>
       </div>
       <div class="progress-wrap" id="progressWrap" aria-hidden="true">
-        <div class="progress-label" id="progressLabel">שאלה 1 מתוך 14</div>
+        <div class="progress-label" id="progressLabel">שאלה 1 מתוך 17</div>
         <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
       </div>
     </header>
 
     <section class="screen active" id="startScreen">
       <div class="card hero">
-        <div class="eyebrow">⚡ 14 מצבים קצרים</div>
+        <div class="eyebrow">⚡ 17 שאלות קצרות</div>
         <h1>איך אתם פועלים ביום-יום?</h1>
         <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה — פשוט בוחרים וממשיכים.</p>
 
@@ -326,21 +326,19 @@
     </section>
 
     <section class="screen" id="funScreen">
-      <div class="card fun-card">
-        <div class="eyebrow">😄 שלב אחרון</div>
-        <h2>שלוש שאלות לסיום</h2>
-        <p class="fun-intro">כאן אין ניקוד ואין תשובה נכונה. פשוט כותבים את הדבר הראשון שעולה לכם לראש.</p>
+      <div class="card question-card">
+        <div class="question-kicker">שאלות 15–17</div>
         <div class="fun-grid">
           <div class="fun-field">
-            <div class="fun-label">1. אם לצוות שלכם נשארו רק 5% סוללה בטלפון באמצע משימה - מה אתם עושים קודם?</div>
+            <div class="fun-label">15. אם לצוות שלכם נשארו רק 5% סוללה בטלפון באמצע משימה - מה אתם עושים קודם?</div>
             <textarea id="funAnswer1" maxlength="400" placeholder="מה הייתם עושים?"></textarea>
           </div>
           <div class="fun-field">
-            <div class="fun-label">2. איזה משפט הכי סביר שישמעו מכם באמצע עבודה קבוצתית?</div>
+            <div class="fun-label">16. איזה משפט הכי סביר שישמעו מכם באמצע עבודה קבוצתית?</div>
             <textarea id="funAnswer2" maxlength="400" placeholder="המשפט שלכם..."></textarea>
           </div>
           <div class="fun-field">
-            <div class="fun-label">3. אם הייתם יכולים להמציא מוצר אחד שמעלים דבר מעצבן מהיום-יום - מה הוא היה?</div>
+            <div class="fun-label">17. אם הייתם יכולים להמציא מוצר אחד שמעלים דבר מעצבן מהיום-יום - מה הוא היה?</div>
             <textarea id="funAnswer3" maxlength="400" placeholder="ההמצאה שלכם..."></textarea>
           </div>
         </div>
@@ -712,15 +710,15 @@
         });
 
         els.nextBtn.disabled = state.answers[qIndex] === null;
-        els.nextBtn.textContent = qIndex === questions.length - 1 ? 'לשלב האחרון' : 'המשך';
+        els.nextBtn.textContent = 'המשך';
         els.backBtn.style.visibility = qIndex === 0 ? 'hidden' : 'visible';
-        els.progressLabel.textContent = `שאלה ${qIndex + 1} מתוך ${questions.length}`;
-        els.progressBar.style.width = `${((qIndex + 1) / questions.length) * 100}%`;
+        els.progressLabel.textContent = `שאלה ${qIndex + 1} מתוך ${questions.length + 3}`;
+        els.progressBar.style.width = `${((qIndex + 1) / (questions.length + 3)) * 100}%`;
         els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
       }
 
       function renderFunStage() {
-        els.progressLabel.textContent = 'שלב אחרון · 3 שאלות לסיום';
+        els.progressLabel.textContent = 'שאלות 15–17 מתוך 17';
         els.progressBar.style.width = '100%';
         els.progressWrap.style.display = window.innerWidth >= 680 ? 'block' : 'none';
         els.funAnswers.forEach((input, index) => { input.value = state.funAnswers[index] || ''; });

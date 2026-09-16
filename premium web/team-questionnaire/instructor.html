@@ -499,7 +499,7 @@
         if (!Array.isArray(answers) || !answers.some(Boolean)) return '';
         const questions = ['5% סוללה באמצע משימה', 'המשפט שלי בעבודה קבוצתית', 'מוצר שמעלים משהו מעצבן'];
         const rows = answers.map((answer, i) => `<div class="fun-answer"><strong>${escapeHtml(questions[i] || `שאלה ${i + 1}`)}:</strong> ${escapeHtml(answer || '—')}</div>`).join('');
-        return `<details class="fun-details"><summary>3 שאלות הסיום</summary>${rows}</details>`;
+        return `<details class="fun-details"><summary>שאלות פתוחות</summary>${rows}</details>`;
       }
 
       function normalizeScores(value) {
