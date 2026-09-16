@@ -1,7 +1,8 @@
-name: Fix newsletter10 card images and poster class placeholder
+name: Apply Premium image placement and class-field fix
 
 on:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/fix-newsletter10-image-and-poster-class.yml'
 
@@ -9,13 +10,11 @@ permissions:
   contents: write
 
 jobs:
-  patch:
+  apply-fix:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Apply focused UI fixes
+      - name: Update Premium image placement and class field
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -63,35 +62,29 @@ jobs:
           if 'Premium card image placement refinement' not in text:
               if marker not in text:
                   raise SystemExit('newsletter10 style marker not found')
-              text = text.replace(marker, override + '\n' + marker, 1)
-              newsletter.write_text(text, encoding='utf-8')
+              newsletter.write_text(text.replace(marker, override + '\n' + marker, 1), encoding='utf-8')
 
           poster = Path('premium web/posterpremium.html')
           ptext = poster.read_text(encoding='utf-8')
           old = 'id="poster-class" type="text" placeholder="ה׳ 1" oninput="autoWidth(this)"'
           new = 'id="poster-class" type="text" oninput="autoWidth(this)"'
           if old in ptext:
-              ptext = ptext.replace(old, new, 1)
-              poster.write_text(ptext, encoding='utf-8')
+              poster.write_text(ptext.replace(old, new, 1), encoding='utf-8')
           elif new not in ptext:
               raise SystemExit('poster class field pattern not found')
 
           sw = Path('service-worker.js')
           swtext = sw.read_text(encoding='utf-8')
-          if "premium-static-v34" in swtext:
-              swtext = swtext.replace("premium-static-v34", "premium-static-v35", 1)
-              sw.write_text(swtext, encoding='utf-8')
-          elif "premium-static-v35" not in swtext:
+          if 'premium-static-v34' in swtext:
+              sw.write_text(swtext.replace('premium-static-v34', 'premium-static-v35', 1), encoding='utf-8')
+          elif 'premium-static-v35' not in swtext:
               raise SystemExit('unexpected service worker cache version')
           PY
-      - name: Commit changes
-        run: |
+
+          rm .github/workflows/fix-newsletter10-image-and-poster-class.yml
+
           git config user.name "Taasiyeda2026"
           git config user.email "actions@users.noreply.github.com"
-          git add 'premium web/newsletter10.html' 'premium web/posterpremium.html' service-worker.js
-          if git diff --cached --quiet; then
-            echo "No changes needed"
-            exit 0
-          fi
+          git add 'premium web/newsletter10.html' 'premium web/posterpremium.html' service-worker.js .github/workflows/fix-newsletter10-image-and-poster-class.yml
           git commit -m "Fix Premium card image placement and empty class field"
           git push
