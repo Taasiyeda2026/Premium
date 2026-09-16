@@ -173,7 +173,7 @@
     .role { font-size: 13px; font-weight: 800; color: #0b7d73; background: #eafbf7; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
     .role::before { content: 'התאמה · '; opacity: .72; font-weight: 700; }
     .member-score { font-size: 13px; font-weight: 800; color: #36536e; background: #edf5fb; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
-    .member-score::before { content: 'ניקוד · '; opacity: .72; font-weight: 700; }
+    .member-score::before { content: 'מדד · '; opacity: .72; font-weight: 700; }
 
     .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); background: #102a43; color: #fff; border-radius: 13px; padding: 10px 15px; font-weight: 800; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -301,8 +301,25 @@
       const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const STORAGE_KEY = 'premiumQuestionnaireInstructorClassesV1';
-      const ALGORITHM_VERSION = 1;
+      const ALGORITHM_VERSION = 2;
       const POLL_MS = 8000;
+
+      const SCORE_NORMALIZATION = {
+        S: { mean: 16.00, sd: 4.22788363 },
+        R: { mean: 13.50, sd: 4.58257569 },
+        P: { mean: 13.25, sd: 4.61654633 },
+        C: { mean: 13.25, sd: 4.63006479 }
+      };
+      const FIT_CENTER = 50;
+      const FIT_SCALE = 10;
+      const CLOSE_FIT_GAP = 5;
+
+      function combinedPCScore(scores) {
+        const p = Math.max(0, Number(scores?.P) || 0);
+        const c = Math.max(0, Number(scores?.C) || 0);
+        if (p <= 0 || c <= 0) return 0;
+        return (2 * p * c) / (p + c);
+      }
 
       const roleLabels = { S: 'מוביל/ת תהליך', R: 'חוקר/ת ובודק/ת', P: 'מפתח/ת מוצר', C: 'מציג/ה ומתקשר/ת', PC: 'מפתח/ת ומציג/ה' };
       const roleDescriptions = {
@@ -472,9 +489,16 @@
           renderSessionState(); renderStudents(); updateTeamAvailability();
 
           const latest = snapshot?.latestTeamRun;
-          if (latest?.teams && Array.isArray(latest.teams)) {
+          if (latest?.teams && Array.isArray(latest.teams) && Number(latest.algorithmVersion) === ALGORITHM_VERSION) {
             currentTeams = latest.teams; renderTeams(currentTeams); els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'חלוקה שמורה';
-          } else if (!currentTeams.length) { renderTeams([]); }
+          } else {
+            currentTeams = [];
+            renderTeams([]);
+            if (latest?.teams && Array.isArray(latest.teams)) {
+              els.teamStatus.classList.remove('error');
+              els.teamStatus.textContent = 'שיטת הניקוד עודכנה. יש לחשב מחדש את הצוותים.';
+            }
+          }
         } catch (error) {
           console.error(error); els.teamStatus.classList.add('error'); els.teamStatus.textContent = 'לא הצלחנו לרענן את נתוני הכיתה.';
         } finally { loadingSnapshot = false; els.dashboardScreen.classList.remove('loading'); }
@@ -503,17 +527,30 @@
       }
 
       function normalizeScores(value) {
-        const s = value && typeof value === 'object' ? value : {};
-        return { S: Number(s.S) || 0, R: Number(s.R) || 0, P: Number(s.P) || 0, C: Number(s.C) || 0 };
+        const source = value && typeof value === 'object' ? value : {};
+        const result = {};
+        ['S', 'R', 'P', 'C'].forEach(role => {
+          const raw = Number(source[role]) || 0;
+          const profile = SCORE_NORMALIZATION[role];
+          const z = (raw - profile.mean) / profile.sd;
+          const normalized = FIT_CENTER + FIT_SCALE * z;
+          result[role] = Numer(Math.max(0, Math.min(100, normalized)).toFixed(1));
+        });
+        return result;
       }
 
       function scoreChips(scores) {
-        const roles = ['S', 'R', 'P', 'C'].map(role => ({ role, label: roleLabels[role], score: Number(scores[role] || 0) }));
-        const maxScore = Math.max(...roles.map(item => item.score));
-        const leaders = roles.filter(item => item.score === maxScore);
-        const leadText = leaders.map(item => item.label).join(' / ');
-        const chips = roles.map(item => `<span class="score-chip${item.score === maxScore ? ' leading' : ''}" title="${escapeHtml(roleDescriptions[item.role] || '')}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.score)}</strong></span>`).join('');
-        return `<div class="score-summary"><div class="primary-fit">התאמה מובילה: ${escapeHtml(leadText)} · ${escapeHtml(maxScore)}</div><div class="score-grid">${chips}</div></div>`;
+        const ordered = ['S', 'R', 'P', 'C'].map(role => ({ role, label: roleLabels[role], score: Number(scores[role] || 0) }));
+        const ranked = ordered.slice().sort((a, b) => b.score - a.score);
+        const top = ranked[0];
+        const second = ranked[1];
+        const close = Boolean(second && (top.score - second.score) <= CLOSE_FIT_GAP);
+        const leadRoles = close ? [top, second] : [top];
+        const leadSet = new Set(leadRoles.map(item => item.role));
+        const leadText = leadRoles.map(item => `${item.label} · ${Math.round(item.score)}`).join(' / ');
+        const chips = ordered.map(item => `<span class="score-chip${leadSet.has(item.role) ? ' leading' : ''}" title="${escapeHtml(roleDescriptions[item.role] || '')}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(Math.round(item.score))}</strong></span>`).join('');
+        const prefix = close ? 'התאמות מודיות' : 'התאמה מובילה';
+        return `<div class="score-summary"><div class="primary-fit">${prefix}: ${escapeHtml(leadText)}</div><div class="score-grid">${chips}</div></div>`;
       }
 
       function groupSizesFor(n) {
@@ -550,7 +587,7 @@
         const isFour = group.length === 4;
         const roles = isFour
           ? [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'P', value:s=>s.P }, { id:'C', value:s=>s.C }]
-          : [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'PC', value:s=>((s.P+s.C)/2)+Math.min(s.P,s.C)*0.08 }];
+          : [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'PC', value:s=>combinedPCScore(s) }];
         const perms = isFour ? perms4 : perms3; let best = null;
         perms.forEach(perm => {
           const values = roles.map((role, roleIndex) => role.value(group[perm[roleIndex]].scores));
@@ -607,7 +644,7 @@
         const student = currentResponses.find(item => String(item.submissionId) === String(member?.submissionId));
         if (!student) return null;
         const scores = normalizeScores(student.scores);
-        if (member.role === 'PC') return Number((((scores.P + scores.C) / 2) + Math.min(scores.P, scores.C) * 0.08).toFixed(1));
+        if (member.role === 'PC') return Number(combinedPCScore(scores).toFixed(1));
         if (['S','R','P','C'].includes(member.role)) return scores[member.role];
         return null;
       }
@@ -638,7 +675,7 @@
       function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
       function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
       function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\
-${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${roleLabels[member.role] || member.roleLabel || member.role} — ניקוד: ${score === null ? '—' : score}`; }).join('\
+${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${roleLabels[member.role] || member.roleLabel || member.role} — מדד התאמה: ${score === null ? '—' : score}`; }).join('\
 ')}`).join('\
 \
 '); }
