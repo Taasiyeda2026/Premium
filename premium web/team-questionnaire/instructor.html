@@ -36,7 +36,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    button, input, select { font: inherit; }
+    button, input { font: inherit; }
     button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     button:disabled { cursor: not-allowed; opacity: .5; }
 
@@ -88,7 +88,7 @@
 
     .create-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 22px; }
 
-    input, select {
+    input {
       width: 100%;
       min-height: 50px;
       border: 1px solid #cbdbe8;
@@ -98,7 +98,7 @@
       color: var(--text);
       background: #fff;
     }
-    input:focus, select:focus { border-color: #62a8d3; box-shadow: 0 0 0 4px rgba(56,189,248,.11); }
+    input:focus { border-color: #62a8d3; box-shadow: 0 0 0 4px rgba(56,189,248,.11); }
 
     .recent { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
     .recent-list { display: grid; gap: 9px; margin-top: 12px; }
@@ -119,9 +119,7 @@
     .session-status { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,.11); font-size: 13px; font-weight: 900; }
     .session-dot { width: 8px; height: 8px; border-radius: 50%; background: #aebfcb; }
     .session-status.active .session-dot { background: #5ee6bd; box-shadow: 0 0 0 4px rgba(94,230,189,.13); }
-    .session-controls { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin-top: 9px; }
-    .session-controls select { min-height: 38px; border-color: rgba(255,255,255,.24); background: rgba(255,255,255,.1); color: #fff; padding-inline: 10px; }
-    .session-controls select option { color: #102a43; background: #fff; }
+    .session-controls { display: grid; grid-template-columns: 1fr; gap: 7px; margin-top: 9px; }
     .session-controls .small-btn { min-width: 110px; }
     .session-controls .danger-btn { min-height: 38px; padding: 0 12px; }
 
@@ -205,7 +203,7 @@
       <div class="card entry-card">
         <div class="eyebrow">👥 מסך מדריך</div>
         <h1>פתיחת כיתה וחלוקת צוותים</h1>
-        <p class="muted">פותחים כיתה, מפעילים את השאלון לזמן מוגדר, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
+        <p class="muted">פותחים כיתה, מפעילים את השאלון, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
         <div class="create-row">
           <input id="classNameInput" maxlength="80" placeholder="שם כיתה / קבוצה — לדוגמה ט׳2" aria-label="שם כיתה או קבוצה" />
           <button class="primary-btn" id="createClassBtn" type="button">פתיחת כיתה חדשה</button>
@@ -236,11 +234,6 @@
           <div class="session-box">
             <div class="session-status" id="sessionStatus"><span class="session-dot"></span><span id="sessionStatusText">השאלון לא פעיל</span></div>
             <div class="session-controls">
-              <select id="sessionDuration" aria-label="משך הפעלת השאלון">
-                <option value="30">30 דקות</option>
-                <option value="45" selected>45 דקות</option>
-                <option value="60">60 דקות</option>
-              </select>
               <button class="small-btn" id="sessionToggleBtn" type="button">הפעלת השאלון</button>
             </div>
           </div>
@@ -295,7 +288,7 @@
         recentWrap: document.getElementById('recentWrap'), recentList: document.getElementById('recentList'), backToClassesBtn: document.getElementById('backToClassesBtn'),
         classTitle: document.getElementById('classTitle'), classSubline: document.getElementById('classSubline'), classCodeDisplay: document.getElementById('classCodeDisplay'),
         copyCodeBtn: document.getElementById('copyCodeBtn'), copyStudentShareBtn: document.getElementById('copyStudentShareBtn'), copyManagerLinkBtn: document.getElementById('copyManagerLinkBtn'),
-        sessionStatus: document.getElementById('sessionStatus'), sessionStatusText: document.getElementById('sessionStatusText'), sessionDuration: document.getElementById('sessionDuration'), sessionToggleBtn: document.getElementById('sessionToggleBtn'),
+        sessionStatus: document.getElementById('sessionStatus'), sessionStatusText: document.getElementById('sessionStatusText'), sessionToggleBtn: document.getElementById('sessionToggleBtn'),
         responseCount: document.getElementById('responseCount'), teamCount: document.getElementById('teamCount'), refreshBtn: document.getElementById('refreshBtn'), studentsHint: document.getElementById('studentsHint'),
         studentsWrap: document.getElementById('studentsWrap'), teamHelp: document.getElementById('teamHelp'), buildTeamsBtn: document.getElementById('buildTeamsBtn'), teamStatus: document.getElementById('teamStatus'),
         teamsGrid: document.getElementById('teamsGrid'), copyTeamsBtn: document.getElementById('copyTeamsBtn'), toast: document.getElementById('toast')
@@ -407,7 +400,6 @@
         els.sessionStatusText.textContent = isActive ? 'השאלון פעיל' : 'השאלון לא פעיל';
         els.classSubline.textContent = isActive ? 'הקוד פתוח כעת לתלמידים.' : 'הקוד סגור. תלמידים לא יכולים להתחיל את השאלון.';
         els.studentsHint.textContent = isActive ? 'הרשימה מתעדכנת אוטומטית בזמן שהשאלון פעיל.' : 'השאלון אינו פעיל. ניתן לרענן את הרשימה ידנית.';
-        els.sessionDuration.disabled = isActive || sessionBusy;
         els.copyStudentShareBtn.disabled = !isActive;
         els.sessionToggleBtn.disabled = sessionBusy;
         els.sessionToggleBtn.className = isActive ? 'danger-btn' : 'small-btn';
@@ -420,12 +412,10 @@
         sessionBusy = true; renderSessionState();
         try {
           const action = activeClass.isActive ? 'stop' : 'start';
-          const duration = Number(els.sessionDuration.value) || 45;
           const result = await rpc('premium_questionnaire_set_class_session', {
             p_class_code: activeClass.code,
             p_manager_token: activeClass.token,
-            p_action: action,
-            p_duration_minutes: duration
+            p_action: action
           });
           activeClass.isActive = Boolean(result?.isActive);
           activeClass.expiresAt = result?.expiresAt || null;
@@ -595,7 +585,11 @@
 
       function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
       function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
-      function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\n${team.members.map(member => `• ${member.name} — ${member.roleLabel || roleLabels[member.role] || member.role}`).join('\n')}`).join('\n\n'); }
+      function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\
+${team.members.map(member => `• ${member.name} — ${member.roleLabel || roleLabels[member.role] || member.role}`).join('\
+')}`).join('\
+\
+'); }
 
       let toastTimer = null;
       function showToast(message) { els.toast.textContent = message; els.toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(()=>els.toast.classList.remove('show'),1800); }
@@ -617,7 +611,8 @@
       els.sessionToggleBtn.addEventListener('click', toggleSession);
       els.buildTeamsBtn.addEventListener('click', buildTeams);
       els.copyCodeBtn.addEventListener('click', () => activeClass && copyText(activeClass.code, 'קוד הכיתה הועתק'));
-      els.copyStudentShareBtn.addEventListener('click', () => { if (!activeClass?.isActive) return; copyText(`שאלון פרימיום: ${studentUrl()}\nקוד כיתה: ${activeClass.code}`, 'הודעה לתלמידים הועתקה'); });
+      els.copyStudentShareBtn.addEventListener('click', () => { if (!activeClass?.isActive) return; copyText(`שאלון פרימיום: ${studentUrl()}\
+קוד כיתה: ${activeClass.code}`, 'הודעה לתלמידים הועתקה'); });
       els.copyManagerLinkBtn.addEventListener('click', () => activeClass && copyText(managerUrl(), 'קישור הניהול הועתק'));
       els.copyTeamsBtn.addEventListener('click', () => currentTeams.length && copyText(teamsAsText(), 'חלוקת הצוותים הועתקה'));
       document.addEventListener('visibilitychange', () => { if (!document.hidden && activeClass) loadSnapshot(false); });
