@@ -68,15 +68,12 @@
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, #1768c8, #1aa9a3);
-      color: #fff;
-      box-shadow: 0 7px 18px rgba(24,103,201,.22);
-      font-size: 19px;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      background: url('../images/logo.png') center / contain no-repeat;
+      font-size: 0;
+      color: transparent;
     }
 
     .progress-wrap {
@@ -366,6 +363,7 @@
       .app { padding-inline: 12px; }
       .topbar { position: sticky; top: 0; z-index: 5; padding: 5px 2px 8px; background: linear-gradient(180deg, rgba(247,251,255,.96), rgba(247,251,255,.78), transparent); }
       .brand-label { font-size: 14px; }
+      .brand-mark { width: 40px; height: 40px; flex-basis: 40px; }
       .screen { align-items: flex-start; padding-top: 2px; }
       .card { border-radius: 21px; }
       .question-card { min-height: calc(100dvh - 98px); display: flex; flex-direction: column; }
@@ -387,7 +385,7 @@
   <main class="app">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true">✦</div>
+        <div class="brand-mark" aria-label="לוגו תעשיידע"></div>
         <div class="brand-label">תעשיידע | פרימיום</div>
       </div>
       <div class="progress-wrap" id="progressWrap" aria-hidden="true">
