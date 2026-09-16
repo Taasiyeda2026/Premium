@@ -534,7 +534,7 @@
           const profile = SCORE_NORMALIZATION[role];
           const z = (raw - profile.mean) / profile.sd;
           const normalized = FIT_CENTER + FIT_SCALE * z;
-          result[role] = Numer(Math.max(0, Math.min(100, normalized)).toFixed(1));
+          result[role] = Number(Math.max(0, Math.min(100, normalized)).toFixed(1));
         });
         return result;
       }
@@ -549,7 +549,7 @@
         const leadSet = new Set(leadRoles.map(item => item.role));
         const leadText = leadRoles.map(item => `${item.label} · ${Math.round(item.score)}`).join(' / ');
         const chips = ordered.map(item => `<span class="score-chip${leadSet.has(item.role) ? ' leading' : ''}" title="${escapeHtml(roleDescriptions[item.role] || '')}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(Math.round(item.score))}</strong></span>`).join('');
-        const prefix = close ? 'התאמות מודיות' : 'התאמה מובילה';
+        const prefix = close ? 'התאמות מובילות' : 'התאמה מובילה';
         return `<div class="score-summary"><div class="primary-fit">${prefix}: ${escapeHtml(leadText)}</div><div class="score-grid">${chips}</div></div>`;
       }
 
