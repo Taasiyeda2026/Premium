@@ -1,0 +1,118 @@
+name: Posterpremium live E2E
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/e2e-posterpremium-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install browser test dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 pdf-lib@1.17.1
+          npx playwright install --with-deps chromium
+      - name: Run live poster flow
+        env:
+          POSTER_URL: https://taasiyeda2026.github.io/Premium/premium%20web/posterpremium.html
+        run: |
+          cat > /tmp/e2e-poster.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const { PDFDocument } = require('pdf-lib');
+          const assert = (ok, msg) => { if (!ok) throw new Error(msg); };
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({ viewport: { width: 900, height: 1000 } });
+            const page = await context.newPage();
+            const pageErrors = [];
+            page.on('pageerror', err => pageErrors.push(String(err)));
+            try {
+              await page.goto(`${process.env.POSTER_URL}?e2e=${Date.now()}`, { waitUntil: 'networkidle' });
+              assert(await page.locator('text=📄 הפקת PDF').count() === 1, 'PDF action missing');
+              assert(await page.locator('text=שמור HTML').count() === 0, 'HTML save still visible');
+              assert(await page.locator('button:has-text("מגבלות")').count() === 0, 'Limits button still visible');
+              assert(await page.locator('#flow-to-solution').count() === 1, 'Flow cue missing');
+
+              const previewBox = await page.locator('#poster').boundingBox();
+              assert(previewBox && previewBox.width < 794, `Preview should scale on a 900px viewport, got ${previewBox?.width}`);
+
+              await page.locator('#poster-project').fill('בדיקת פוסטר E2E');
+              await page.locator('#problem').fill('בעיה לבדיקה אוטומטית');
+              await page.locator('#poster-school').fill('בית ספר בדיקה');
+              await page.locator('[data-mode="digital"]').click();
+              await page.waitForTimeout(100);
+              assert(await page.locator('body').evaluate(el => el.classList.contains('digital-mode')), 'Digital mode was not activated');
+              assert((await page.locator('#img-main-label').innerText()).trim() === 'מסך 1', 'Digital image label 1 wrong');
+              assert((await page.locator('#img-1-label').innerText()).trim() === 'מסך 2', 'Digital image label 2 wrong');
+              assert((await page.locator('#img-2-label').innerText()).trim() === 'מסך 3', 'Digital image label 3 wrong');
+
+              const useLines = page.locator('#use .na-line');
+              const b0 = await useLines.nth(0).boundingBox();
+              const b1 = await useLines.nth(1).boundingBox();
+              const b2 = await useLines.nth(2).boundingBox();
+              assert(b0 && b1 && b2 && b0.x > b1.x && b1.x > b2.x, `Digital use order is not 1→2→3 RTL: ${b0?.x},${b1?.x},${b2?.x}`);
+
+              const tinyPng = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl2pZ0AAAAASUVORK5CYII=', 'base64');
+              await page.locator('#img-main-file').setInputFiles({ name: 'tiny.png', mimeType: 'image/png', buffer: tinyPng });
+              await page.waitForFunction(() => document.querySelector('#img-main')?.classList.contains('show'));
+              await page.waitForTimeout(700);
+
+              let restored = false;
+              page.once('dialog', async dialog => {
+                restored = dialog.message().includes('טיוטה');
+                await dialog.accept();
+              });
+              await page.reload({ waitUntil: 'networkidle' });
+              await page.waitForTimeout(500);
+              assert(restored, 'Autosave restore dialog did not appear');
+              assert(await page.locator('#poster-project').inputValue() === 'בדיקת פוסטר E2E', 'Project name was not restored');
+              assert(await page.locator('#problem').inputValue() === 'בעיה לבדיקה אוטומטית', 'Problem text was not restored');
+              assert(await page.locator('body').evaluate(el => el.classList.contains('digital-mode')), 'Saved digital mode was not restored');
+              assert(await page.locator('#img-main').evaluate(el => el.classList.contains('show') && (el.getAttribute('src')||'').startsWith('data:image/png')), 'Uploaded image was not restored');
+
+              await page.emulateMedia({ media: 'print' });
+              const printState = await page.evaluate(() => ({
+                toolbar: getComputedStyle(document.querySelector('#toolbar')).display,
+                panel: getComputedStyle(document.querySelector('#sp')).display,
+                posterWidth: getComputedStyle(document.querySelector('#poster')).width,
+                posterHeight: getComputedStyle(document.querySelector('#poster')).height
+              }));
+              assert(printState.toolbar === 'none' && printState.panel === 'none', 'Toolbar/panel visible in print');
+              const digitalPdfBytes = await page.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
+              const digitalPdf = await PDFDocument.load(digitalPdfBytes);
+              assert(digitalPdf.getPageCount() === 1, `Digital PDF has ${digitalPdf.getPageCount()} pages`);
+
+              await page.emulateMedia({ media: 'screen' });
+              await page.locator('[data-mode="physical"]').click();
+              await page.waitForTimeout(100);
+              assert((await page.locator('#img-main-label').innerText()).trim() === 'תמונה ראשית', 'Physical main label wrong');
+              assert((await page.locator('#img-1-label').innerText()).trim() === 'תהליך / אב־טיפוס', 'Physical image 2 label wrong');
+              assert((await page.locator('#img-2-label').innerText()).trim() === 'שימוש / בדיקה', 'Physical image 3 label wrong');
+              const physicalPdfBytes = await page.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
+              const physicalPdf = await PDFDocument.load(physicalPdfBytes);
+              assert(physicalPdf.getPageCount() === 1, `Physical PDF has ${physicalPdf.getPageCount()} pages`);
+
+              assert(pageErrors.length === 0, `Page errors: ${pageErrors.join(' | ')}`);
+              console.log('POSTER_LIVE_E2E=PASS');
+              console.log(`PRINT_SIZE=${printState.posterWidth}x${printState.posterHeight}`);
+              console.log('AUTOSAVE_WITH_IMAGE=PASS');
+              console.log('DIGITAL_ORDER=PASS');
+              console.log('DIGITAL_PDF_ONE_PAGE=PASS');
+              console.log('PHYSICAL_PDF_ONE_PAGE=PASS');
+            } finally {
+              await browser.close();
+            }
+          })().catch(err => { console.error(err); process.exit(1); });
+          NODE
+          node /tmp/e2e-poster.cjs
