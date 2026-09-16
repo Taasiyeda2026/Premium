@@ -165,13 +165,6 @@
       margin-bottom: 22px;
     }
 
-    .mini-note {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 14px 0 0;
-    }
-
     .form-grid {
       display: grid;
       gap: 12px;
@@ -217,6 +210,16 @@
       color: #fff;
       box-shadow: 0 11px 24px rgba(24,103,201,.23);
       margin-top: 18px;
+    }
+
+    #startBtn {
+      width: auto;
+      min-width: 160px;
+      min-height: 48px;
+      padding: 0 28px;
+      margin: 18px auto 0;
+      display: block;
+      border-radius: 14px;
     }
 
     .primary-btn:active, .secondary-btn:active { transform: scale(.985); }
@@ -398,12 +401,12 @@
       <div class="card hero">
         <div class="eyebrow">⚡ 14 מצבים קצרים</div>
         <h1>איך אתם פועלים ביום־יום?</h1>
-        <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה — פשוט בוחרים וממשיכים.</p>
+        <p class="lead">בכל מצב בחרו את התגובה שהכי דומה למה שהייתם עושים באמת. אין תשובה נכונה או לא נכונה - פשוט בוחרים וממשיכים.</p>
 
         <div class="form-grid">
           <div>
             <label for="studentName">שם פרטי ומשפחה</label>
-            <input id="studentName" type="text" autocomplete="name" placeholder="למשל: נועה כהן" maxlength="60" />
+            <input id="studentName" type="text" autocomplete="name" maxlength="60" />
           </div>
           <div>
             <label for="classCode">קוד כיתה</label>
@@ -412,7 +415,6 @@
         </div>
 
         <button class="primary-btn" id="startBtn" disabled>מתחילים</button>
-        <p class="mini-note">הבחירות משמשות רק להרכבת צוותי עבודה מאוזנים ולחלוקת תחומי אחריות בתוך הצוות.</p>
       </div>
     </section>
 
