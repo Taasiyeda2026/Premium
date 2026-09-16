@@ -1,0 +1,132 @@
+name: Fix Premium newsletter image layout
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Improve Premium image placement
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          css_path = Path('premium web/premium-ui-2026.css')
+          css = css_path.read_text(encoding='utf-8')
+          marker = '/* Premium image placement refinement | v25 */'
+          block = r'''
+
+/* Premium image placement refinement | v25 */
+/* Newsletter 4: keep the wide VS graphic centered, contained and away from the frame edges. */
+.newsletter .hero-banner .hero-graphic-wrap {
+  min-height: 0 !important;
+  padding: 10px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.newsletter .hero-banner .hero-image,
+.newsletter .hero-banner .hero-graphic {
+  width: auto !important;
+  height: auto !important;
+  max-width: 92% !important;
+  max-height: 170px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 auto !important;
+}
+
+/* Newsletters 5–6: use the image as a real visual panel instead of a small image floating in a tall box. */
+.newsletter .hero .hero-top .hero-visual {
+  min-height: 0 !important;
+  aspect-ratio: 16 / 10 !important;
+  padding: 8px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+.newsletter .hero .hero-top .hero-visual::before {
+  display: none !important;
+}
+.newsletter .hero .hero-top .hero-visual .hero-graphic {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 14px !important;
+  filter: none !important;
+  box-shadow: 0 8px 22px rgba(16,42,67,0.12) !important;
+}
+
+/* Newsletter 9: remove the box-inside-box effect and let the product illustrations breathe. */
+.newsletter .mentor-stage .product-card .card-icon {
+  width: 156px !important;
+  height: 156px !important;
+  min-width: 156px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.newsletter .mentor-stage .product-card .card-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+@media (max-width: 768px) {
+  .newsletter .hero-banner .hero-image,
+  .newsletter .hero-banner .hero-graphic {
+    max-width: 96% !important;
+    max-height: 150px !important;
+  }
+  .newsletter .hero .hero-top .hero-visual {
+    aspect-ratio: 16 / 9 !important;
+    padding: 6px !important;
+  }
+  .newsletter .mentor-stage .product-card .card-icon {
+    width: 138px !important;
+    height: 138px !important;
+    min-width: 138px !important;
+  }
+}
+'''
+          if marker not in css:
+              css_path.write_text(css.rstrip() + block + '\n', encoding='utf-8')
+
+          sw_path = Path('service-worker.js')
+          sw = sw_path.read_text(encoding='utf-8')
+          sw, n = re.subn(r"const CACHE_NAME = 'premium-static-v\d+';", "const CACHE_NAME = 'premium-static-v25';", sw, count=1)
+          if n != 1:
+              raise SystemExit('Could not update cache version')
+          sw_path.write_text(sw, encoding='utf-8')
+          PY
+
+      - name: Commit fix and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-premium-image-layout.yml
+          git add 'premium web/premium-ui-2026.css' service-worker.js
+          git commit -m 'Improve Premium newsletter image placement and bump cache'
+          git push origin HEAD:main
