@@ -16,8 +16,6 @@
       --petrol: #0f4c5c;
       --teal: #14b8a6;
       --cyan: #38bdf8;
-      --purple: #8b5cf6;
-      --amber: #f4b942;
       --danger: #c65353;
       --shadow: 0 14px 36px rgba(16,42,67,.11);
       --radius: 22px;
@@ -38,7 +36,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    button, input { font: inherit; }
+    button, input, select { font: inherit; }
     button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     button:disabled { cursor: not-allowed; opacity: .5; }
 
@@ -58,14 +56,9 @@
     }
 
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--navy); }
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      background: url('../images/logo.png') center / contain no-repeat;
-      flex: 0 0 44px;
-    }
+    .brand-mark { width: 44px; height: 44px; background: url('../images/logo.png') center / contain no-repeat; flex: 0 0 44px; }
 
-    .ghost-btn, .small-btn, .primary-btn, .secondary-btn {
+    .ghost-btn, .small-btn, .primary-btn, .secondary-btn, .danger-btn {
       border-radius: 14px;
       border: 1px solid var(--line);
       min-height: 44px;
@@ -73,40 +66,19 @@
       font-weight: 800;
       transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
-
     .ghost-btn, .secondary-btn { background: #fff; color: #31526f; }
     .small-btn { min-height: 38px; padding: 0 12px; background: #fff; color: #31526f; }
-    .primary-btn {
-      border-color: transparent;
-      color: #fff;
-      background: linear-gradient(135deg, var(--petrol), var(--teal));
-      box-shadow: 0 9px 22px rgba(15,76,92,.18);
-    }
-    .primary-btn:active, .secondary-btn:active, .ghost-btn:active, .small-btn:active { transform: scale(.985); }
+    .primary-btn { border-color: transparent; color: #fff; background: linear-gradient(135deg, var(--petrol), var(--teal)); box-shadow: 0 9px 22px rgba(15,76,92,.18); }
+    .danger-btn { border-color: rgba(198,83,83,.22); color: #a33f3f; background: #fff5f5; }
+    .primary-btn:active, .secondary-btn:active, .ghost-btn:active, .small-btn:active, .danger-btn:active { transform: scale(.985); }
 
     .screen { display: none; }
     .screen.active { display: block; }
 
-    .card {
-      background: rgba(255,255,255,.96);
-      border: 1px solid rgba(210,225,237,.95);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
+    .card { background: rgba(255,255,255,.96); border: 1px solid rgba(210,225,237,.95); border-radius: var(--radius); box-shadow: var(--shadow); }
 
     .entry-card { width: min(720px, 100%); margin: 7vh auto 0; padding: 32px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: #ecfbf8;
-      color: #08786f;
-      font-size: 13px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 999px; background: #ecfbf8; color: #08786f; font-size: 13px; font-weight: 900; margin-bottom: 12px; }
 
     h1, h2, h3, p { margin-top: 0; }
     h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.08; margin-bottom: 10px; }
@@ -114,14 +86,9 @@
     h3 { font-size: 19px; margin-bottom: 6px; }
     .muted { color: var(--muted); line-height: 1.5; }
 
-    .create-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      margin-top: 22px;
-    }
+    .create-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 22px; }
 
-    input {
+    input, select {
       width: 100%;
       min-height: 50px;
       border: 1px solid #cbdbe8;
@@ -131,76 +98,44 @@
       color: var(--text);
       background: #fff;
     }
-    input:focus { border-color: #62a8d3; box-shadow: 0 0 0 4px rgba(56,189,248,.11); }
+    input:focus, select:focus { border-color: #62a8d3; box-shadow: 0 0 0 4px rgba(56,189,248,.11); }
 
     .recent { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
     .recent-list { display: grid; gap: 9px; margin-top: 12px; }
-    .recent-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: #fbfdff;
-    }
+    .recent-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 15px; background: #fbfdff; }
     .recent-code { font-weight: 900; letter-spacing: .08em; direction: ltr; display: inline-block; }
 
-    .dashboard-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: start;
-      margin-bottom: 16px;
-    }
-
+    .dashboard-head { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; margin-bottom: 16px; }
     .class-title { margin-bottom: 4px; }
     .class-subline { color: var(--muted); font-size: 14px; }
 
-    .code-card {
-      min-width: 230px;
-      padding: 17px 18px;
-      text-align: center;
-      background: linear-gradient(145deg, #0f4c5c, #102a43);
-      color: #fff;
-      border-radius: 20px;
-      box-shadow: 0 12px 28px rgba(16,42,67,.18);
-    }
+    .code-card { min-width: 270px; padding: 17px 18px; text-align: center; background: linear-gradient(145deg, #0f4c5c, #102a43); color: #fff; border-radius: 20px; box-shadow: 0 12px 28px rgba(16,42,67,.18); }
     .code-caption { opacity: .78; font-size: 13px; font-weight: 700; }
     .class-code { font-size: 34px; font-weight: 900; letter-spacing: .14em; direction: ltr; margin: 4px 0 10px; }
     .code-actions { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; }
     .code-card .small-btn { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.24); color: #fff; }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
+    .session-box { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.18); }
+    .session-status { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,.11); font-size: 13px; font-weight: 900; }
+    .session-dot { width: 8px; height: 8px; border-radius: 50%; background: #aebfcb; }
+    .session-status.active .session-dot { background: #5ee6bd; box-shadow: 0 0 0 4px rgba(94,230,189,.13); }
+    .session-controls { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin-top: 9px; }
+    .session-controls select { min-height: 38px; border-color: rgba(255,255,255,.24); background: rgba(255,255,255,.1); color: #fff; padding-inline: 10px; }
+    .session-controls select option { color: #102a43; background: #fff; }
+    .session-controls .small-btn { min-width: 110px; }
+    .session-controls .danger-btn { min-height: 38px; padding: 0 12px; }
+
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
     .stat { padding: 17px 18px; }
     .stat-value { font-size: 29px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
     .stat-label { color: var(--muted); font-size: 13px; font-weight: 700; }
 
     .section-card { padding: 22px; margin-bottom: 16px; }
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
+    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
     .section-head h2 { margin: 0; }
     .section-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .empty {
-      padding: 34px 18px;
-      text-align: center;
-      color: var(--muted);
-      border: 1px dashed #c9dbe8;
-      border-radius: 16px;
-      background: #fbfdff;
-    }
+    .empty { padding: 34px 18px; text-align: center; color: var(--muted); border: 1px dashed #c9dbe8; border-radius: 16px; background: #fbfdff; }
 
     .students-table { width: 100%; border-collapse: collapse; }
     .students-table th, .students-table td { padding: 11px 8px; border-bottom: 1px solid #e6eef5; text-align: right; vertical-align: top; }
@@ -208,75 +143,29 @@
     .students-table tr:last-child td { border-bottom: 0; }
 
     .score-grid { display: grid; grid-template-columns: repeat(4, auto); gap: 5px; direction: ltr; justify-content: start; }
-    .score-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      border-radius: 999px;
-      padding: 4px 7px;
-      background: #edf5fb;
-      color: #36536e;
-      font-size: 12px;
-      font-weight: 800;
-    }
+    .score-chip { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 4px 7px; background: #edf5fb; color: #36536e; font-size: 12px; font-weight: 800; }
     .score-chip strong { color: var(--navy); }
 
     details.fun-details { margin-top: 6px; }
     details.fun-details summary { cursor: pointer; color: #547087; font-size: 12px; font-weight: 700; }
     .fun-answer { margin: 6px 0 0; padding: 7px 9px; background: #f7fafc; border-radius: 9px; color: #53697c; font-size: 12px; line-height: 1.35; }
 
-    .team-controls {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(20,184,166,.07), rgba(56,189,248,.08));
-      border: 1px solid #d8ebe9;
-      margin-bottom: 15px;
-    }
+    .team-controls { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 14px; border-radius: 16px; background: linear-gradient(135deg, rgba(20,184,166,.07), rgba(56,189,248,.08)); border: 1px solid #d8ebe9; margin-bottom: 15px; }
     .team-help { color: #4f687d; font-size: 14px; line-height: 1.45; }
     .team-status { min-height: 20px; margin-top: 8px; color: #507083; font-size: 13px; font-weight: 700; }
     .team-status.error { color: var(--danger); }
 
     .teams-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .team-card { border: 1px solid #dbe8f0; border-radius: 18px; overflow: hidden; background: #fff; }
-    .team-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 13px 15px;
-      background: #f5fafc;
-      border-bottom: 1px solid #e2edf3;
-      font-weight: 900;
-      color: var(--navy);
-    }
+    .team-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 15px; background: #f5fafc; border-bottom: 1px solid #e2edf3; font-weight: 900; color: var(--navy); }
     .team-size { font-size: 12px; color: #668095; font-weight: 700; }
     .member { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 12px 15px; border-bottom: 1px solid #edf2f6; }
     .member:last-child { border-bottom: 0; }
     .member-name { font-weight: 800; }
     .role { font-size: 13px; font-weight: 800; color: #0b7d73; background: #eafbf7; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
 
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: max(20px, env(safe-area-inset-bottom));
-      transform: translateX(-50%) translateY(20px);
-      background: #102a43;
-      color: #fff;
-      border-radius: 13px;
-      padding: 10px 15px;
-      font-weight: 800;
-      font-size: 13px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-      z-index: 20;
-    }
+    .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); background: #102a43; color: #fff; border-radius: 13px; padding: 10px 15px; font-weight: 800; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
     .loading { opacity: .62; pointer-events: none; }
 
     @media (max-width: 760px) {
@@ -287,7 +176,6 @@
       .dashboard-head { grid-template-columns: 1fr; }
       .code-card { min-width: 0; }
       .stats { grid-template-columns: 1fr 1fr; }
-      .stats .stat:last-child { grid-column: 1 / -1; }
       .section-card { padding: 17px 13px; }
       .section-head { align-items: flex-start; flex-direction: column; }
       .team-controls { grid-template-columns: 1fr; }
@@ -317,14 +205,12 @@
       <div class="card entry-card">
         <div class="eyebrow">👥 מסך מדריך</div>
         <h1>פתיחת כיתה וחלוקת צוותים</h1>
-        <p class="muted">פותחים כיתה, משתפים את הקוד עם התלמידים, רואים מי סיים — ואז המערכת מרכיבה צוותים של 3–4 תלמידים ומחלקת תפקידים לפי התמונה של הכיתה כולה.</p>
-
+        <p class="muted">פותחים כיתה, מפעילים את השאלון לזמן מוגדר, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
         <div class="create-row">
           <input id="classNameInput" maxlength="80" placeholder="שם כיתה / קבוצה — לדוגמה ט׳2" aria-label="שם כיתה או קבוצה" />
           <button class="primary-btn" id="createClassBtn" type="button">פתיחת כיתה חדשה</button>
         </div>
         <div class="team-status" id="entryStatus" role="status" aria-live="polite"></div>
-
         <div class="recent" id="recentWrap" hidden>
           <h3>כיתות אחרונות במכשיר הזה</h3>
           <div class="recent-list" id="recentList"></div>
@@ -337,15 +223,26 @@
         <div>
           <button class="small-btn" id="backToClassesBtn" type="button">← הכיתות שלי</button>
           <h1 class="class-title" id="classTitle">כיתה</h1>
-          <div class="class-subline" id="classSubline"></div>
+          <div class="class-subline" id="classSubline">השאלון לא פעיל.</div>
         </div>
         <div class="code-card">
           <div class="code-caption">קוד הכיתה לתלמידים</div>
           <div class="class-code" id="classCodeDisplay">------</div>
           <div class="code-actions">
             <button class="small-btn" id="copyCodeBtn" type="button">העתקת קוד</button>
-            <button class="small-btn" id="copyStudentShareBtn" type="button">העתקת הודעה לתלמידים</button>
+            <button class="small-btn" id="copyStudentShareBtn" type="button" disabled>העתקת הודעה לתלמידים</button>
             <button class="small-btn" id="copyManagerLinkBtn" type="button">קישור ניהול</button>
+          </div>
+          <div class="session-box">
+            <div class="session-status" id="sessionStatus"><span class="session-dot"></span><span id="sessionStatusText">השאלון לא פעיל</span></div>
+            <div class="session-controls">
+              <select id="sessionDuration" aria-label="משך הפעלת השאלון">
+                <option value="30">30 דקות</option>
+                <option value="45" selected>45 דקות</option>
+                <option value="60">60 דקות</option>
+              </select>
+              <button class="small-btn" id="sessionToggleBtn" type="button">הפעלת השאלון</button>
+            </div>
           </div>
         </div>
       </div>
@@ -353,12 +250,11 @@
       <div class="stats">
         <div class="card stat"><div class="stat-value" id="responseCount">0</div><div class="stat-label">תלמידים שסיימו</div></div>
         <div class="card stat"><div class="stat-value" id="teamCount">—</div><div class="stat-label">צוותים בחלוקה האחרונה</div></div>
-        <div class="card stat"><div class="stat-value" id="refreshClock">—</div><div class="stat-label">עדכון אחרון · מתעדכן אוטומטית</div></div>
       </div>
 
       <section class="card section-card">
         <div class="section-head">
-          <div><h2>תלמידים שסיימו</h2><div class="muted">הנתונים מתעדכנים אוטומטית. הציונים משמשים רק להרכבת הצוותים.</div></div>
+          <div><h2>תלמידים שסיימו</h2><div class="muted" id="studentsHint">כשהשאלון פעיל, הרשימה מתעדכנת אוטומטית.</div></div>
           <div class="section-actions"><button class="secondary-btn" id="refreshBtn" type="button">רענון עכשיו</button></div>
         </div>
         <div id="studentsWrap"></div>
@@ -369,7 +265,6 @@
           <div><h2>הרכבת צוותים</h2><div class="muted">המערכת בוחנת את כל הכיתה יחד ולא מחלקת תלמידים לפי “הציון הכי גבוה” בלבד.</div></div>
           <div class="section-actions"><button class="secondary-btn" id="copyTeamsBtn" type="button" disabled>העתקת החלוקה</button></div>
         </div>
-
         <div class="team-controls">
           <div class="team-help" id="teamHelp">נדרשים לפחות 3 תלמידים שסיימו את השאלון.</div>
           <button class="primary-btn" id="buildTeamsBtn" type="button" disabled>הרכב את הצוותים</button>
@@ -392,41 +287,18 @@
       const ALGORITHM_VERSION = 1;
       const POLL_MS = 8000;
 
-      const roleLabels = {
-        S: 'מיזם ותהליך',
-        R: 'חקר ואימות',
-        P: 'מוצר ופיתוח',
-        C: 'תקשורת והצגה',
-        PC: 'מוצר ותקשורת'
-      };
+      const roleLabels = { S: 'מיזם ותהליך', R: 'חקר ואימות', P: 'מוצר ופיתוח', C: 'תקשורת והצגה', PC: 'מוצר ותקשורת' };
 
       const els = {
-        entryScreen: document.getElementById('entryScreen'),
-        dashboardScreen: document.getElementById('dashboardScreen'),
-        homeBtn: document.getElementById('homeBtn'),
-        classNameInput: document.getElementById('classNameInput'),
-        createClassBtn: document.getElementById('createClassBtn'),
-        entryStatus: document.getElementById('entryStatus'),
-        recentWrap: document.getElementById('recentWrap'),
-        recentList: document.getElementById('recentList'),
-        backToClassesBtn: document.getElementById('backToClassesBtn'),
-        classTitle: document.getElementById('classTitle'),
-        classSubline: document.getElementById('classSubline'),
-        classCodeDisplay: document.getElementById('classCodeDisplay'),
-        copyCodeBtn: document.getElementById('copyCodeBtn'),
-        copyStudentShareBtn: document.getElementById('copyStudentShareBtn'),
-        copyManagerLinkBtn: document.getElementById('copyManagerLinkBtn'),
-        responseCount: document.getElementById('responseCount'),
-        teamCount: document.getElementById('teamCount'),
-        refreshClock: document.getElementById('refreshClock'),
-        refreshBtn: document.getElementById('refreshBtn'),
-        studentsWrap: document.getElementById('studentsWrap'),
-        teamHelp: document.getElementById('teamHelp'),
-        buildTeamsBtn: document.getElementById('buildTeamsBtn'),
-        teamStatus: document.getElementById('teamStatus'),
-        teamsGrid: document.getElementById('teamsGrid'),
-        copyTeamsBtn: document.getElementById('copyTeamsBtn'),
-        toast: document.getElementById('toast')
+        entryScreen: document.getElementById('entryScreen'), dashboardScreen: document.getElementById('dashboardScreen'), homeBtn: document.getElementById('homeBtn'),
+        classNameInput: document.getElementById('classNameInput'), createClassBtn: document.getElementById('createClassBtn'), entryStatus: document.getElementById('entryStatus'),
+        recentWrap: document.getElementById('recentWrap'), recentList: document.getElementById('recentList'), backToClassesBtn: document.getElementById('backToClassesBtn'),
+        classTitle: document.getElementById('classTitle'), classSubline: document.getElementById('classSubline'), classCodeDisplay: document.getElementById('classCodeDisplay'),
+        copyCodeBtn: document.getElementById('copyCodeBtn'), copyStudentShareBtn: document.getElementById('copyStudentShareBtn'), copyManagerLinkBtn: document.getElementById('copyManagerLinkBtn'),
+        sessionStatus: document.getElementById('sessionStatus'), sessionStatusText: document.getElementById('sessionStatusText'), sessionDuration: document.getElementById('sessionDuration'), sessionToggleBtn: document.getElementById('sessionToggleBtn'),
+        responseCount: document.getElementById('responseCount'), teamCount: document.getElementById('teamCount'), refreshBtn: document.getElementById('refreshBtn'), studentsHint: document.getElementById('studentsHint'),
+        studentsWrap: document.getElementById('studentsWrap'), teamHelp: document.getElementById('teamHelp'), buildTeamsBtn: document.getElementById('buildTeamsBtn'), teamStatus: document.getElementById('teamStatus'),
+        teamsGrid: document.getElementById('teamsGrid'), copyTeamsBtn: document.getElementById('copyTeamsBtn'), toast: document.getElementById('toast')
       };
 
       let activeClass = null;
@@ -434,26 +306,17 @@
       let currentTeams = [];
       let pollTimer = null;
       let loadingSnapshot = false;
+      let sessionBusy = false;
 
       function apiHeaders() {
-        return {
-          'apikey': SUPABASE_PUBLISHABLE_KEY,
-          'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
-          'Content-Type': 'application/json'
-        };
+        return { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' };
       }
 
       async function rpc(name, payload) {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
-          method: 'POST',
-          headers: apiHeaders(),
-          body: JSON.stringify(payload || {})
-        });
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload || {}) });
         const text = await response.text();
         let body = null;
-        if (text) {
-          try { body = JSON.parse(text); } catch (_) { body = text; }
-        }
+        if (text) { try { body = JSON.parse(text); } catch (_) { body = text; } }
         if (!response.ok) {
           const message = body && typeof body === 'object' ? (body.message || body.error || response.statusText) : (body || response.statusText);
           throw new Error(message || `HTTP ${response.status}`);
@@ -465,9 +328,7 @@
         try {
           const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
           return Array.isArray(parsed) ? parsed.filter(item => item && item.code && item.token) : [];
-        } catch (_) {
-          return [];
-        }
+        } catch (_) { return []; }
       }
 
       function saveClassAccess(item) {
@@ -486,12 +347,9 @@
           row.className = 'recent-item';
           row.innerHTML = `<div><strong>${escapeHtml(item.name || 'כיתה ללא שם')}</strong><br><span class="recent-code">${escapeHtml(item.code)}</span></div>`;
           const btn = document.createElement('button');
-          btn.className = 'small-btn';
-          btn.type = 'button';
-          btn.textContent = 'פתיחה';
+          btn.className = 'small-btn'; btn.type = 'button'; btn.textContent = 'פתיחה';
           btn.addEventListener('click', () => openClass(item));
-          row.appendChild(btn);
-          els.recentList.appendChild(row);
+          row.appendChild(btn); els.recentList.appendChild(row);
         });
       }
 
@@ -502,192 +360,147 @@
 
       async function createClass() {
         const className = els.classNameInput.value.trim();
-        setEntryBusy(true);
-        els.entryStatus.textContent = '';
+        setEntryBusy(true); els.entryStatus.textContent = ''; els.entryStatus.classList.remove('error');
         try {
           const result = await rpc('premium_questionnaire_create_class', { p_class_name: className || null });
           const row = Array.isArray(result) ? result[0] : result;
           if (!row?.class_code || !row?.manager_token) throw new Error('לא התקבל קוד כיתה');
-          const item = {
-            code: String(row.class_code),
-            token: String(row.manager_token),
-            name: row.class_name || className || '',
-            createdAt: row.created_at || new Date().toISOString()
-          };
+          const item = { code: String(row.class_code), token: String(row.manager_token), name: row.class_name || className || '', createdAt: row.created_at || new Date().toISOString() };
           saveClassAccess(item);
           await openClass(item);
         } catch (error) {
-          console.error(error);
-          els.entryStatus.textContent = 'לא הצלחנו לפתוח כיתה. נסו שוב.';
-          els.entryStatus.classList.add('error');
-        } finally {
-          setEntryBusy(false);
-        }
+          console.error(error); els.entryStatus.textContent = 'לא הצלחנו לפתוח כיתה. נסו שוב.'; els.entryStatus.classList.add('error');
+        } finally { setEntryBusy(false); }
       }
 
       function switchScreen(target) {
         [els.entryScreen, els.dashboardScreen].forEach(el => el.classList.remove('active'));
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       async function openClass(item) {
-        activeClass = { ...item };
-        saveClassAccess(activeClass);
-        switchScreen(els.dashboardScreen);
-        updateUrl();
-        els.classTitle.textContent = activeClass.name || 'כיתה';
-        els.classCodeDisplay.textContent = activeClass.code;
-        els.classSubline.textContent = 'הקוד פעיל. תלמידים יכולים לשלוח תשובות כל עוד הכיתה פתוחה.';
-        currentResponses = [];
-        currentTeams = [];
-        renderStudents();
-        renderTeams([]);
-        startPolling();
+        activeClass = { ...item, isActive: false, expiresAt: null };
+        saveClassAccess(activeClass); switchScreen(els.dashboardScreen); updateUrl();
+        els.classTitle.textContent = activeClass.name || 'כיתה'; els.classCodeDisplay.textContent = activeClass.code;
+        currentResponses = []; currentTeams = []; renderStudents(); renderTeams([]); stopPolling();
         await loadSnapshot(true);
       }
 
       function updateUrl() {
         if (!activeClass) return;
-        const url = new URL(location.href);
-        url.searchParams.set('class', activeClass.code);
-        url.hash = `token=${encodeURIComponent(activeClass.token)}`;
-        history.replaceState(null, '', url);
+        const url = new URL(location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; history.replaceState(null, '', url);
       }
 
-      function clearUrl() {
-        const url = new URL(location.href);
-        url.search = '';
-        url.hash = '';
-        history.replaceState(null, '', url);
-      }
+      function clearUrl() { const url = new URL(location.href); url.search = ''; url.hash = ''; history.replaceState(null, '', url); }
 
       function startPolling() {
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = setInterval(() => {
-          if (!document.hidden && activeClass) loadSnapshot(false);
-        }, POLL_MS);
+        if (!activeClass?.isActive) return;
+        stopPolling();
+        pollTimer = setInterval(() => { if (!document.hidden && activeClass?.isActive) loadSnapshot(false); }, POLL_MS);
       }
 
-      function stopPolling() {
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = null;
+      function stopPolling() { if (pollTimer) clearInterval(pollTimer); pollTimer = null; }
+
+      function renderSessionState() {
+        const isActive = Boolean(activeClass?.isActive);
+        els.sessionStatus.classList.toggle('active', isActive);
+        els.sessionStatusText.textContent = isActive ? 'השאלון פעיל' : 'השאלון לא פעיל';
+        els.classSubline.textContent = isActive ? 'הקוד פתוח כעת לתלמידים.' : 'הקוד סגור. תלמידים לא יכולים להתחיל את השאלון.';
+        els.studentsHint.textContent = isActive ? 'הרשימה מתעדכנת אוטומטית בזמן שהשאלון פעיל.' : 'השאלון אינו פעיל. ניתן לרענן את הרשימה ידנית.';
+        els.sessionDuration.disabled = isActive || sessionBusy;
+        els.copyStudentShareBtn.disabled = !isActive;
+        els.sessionToggleBtn.disabled = sessionBusy;
+        els.sessionToggleBtn.className = isActive ? 'danger-btn' : 'small-btn';
+        els.sessionToggleBtn.textContent = sessionBusy ? 'מעדכנים...' : (isActive ? 'סיום השאלון' : 'הפעלת השאלון');
+        if (isActive) startPolling(); else stopPolling();
+      }
+
+      async function toggleSession() {
+        if (!activeClass || sessionBusy) return;
+        sessionBusy = true; renderSessionState();
+        try {
+          const action = activeClass.isActive ? 'stop' : 'start';
+          const duration = Number(els.sessionDuration.value) || 45;
+          const result = await rpc('premium_questionnaire_set_class_session', {
+            p_class_code: activeClass.code,
+            p_manager_token: activeClass.token,
+            p_action: action,
+            p_duration_minutes: duration
+          });
+          activeClass.isActive = Boolean(result?.isActive);
+          activeClass.expiresAt = result?.expiresAt || null;
+          showToast(activeClass.isActive ? 'השאלון הופעל' : 'השאלון נסגר');
+          await loadSnapshot(false);
+        } catch (error) {
+          console.error(error); showToast('לא הצלחנו לעדכן את מצב השאלון');
+        } finally { sessionBusy = false; renderSessionState(); }
       }
 
       async function loadSnapshot(showLoading) {
         if (!activeClass || loadingSnapshot) return;
-        loadingSnapshot = true;
-        if (showLoading) els.dashboardScreen.classList.add('loading');
+        loadingSnapshot = true; if (showLoading) els.dashboardScreen.classList.add('loading');
         try {
-          const snapshot = await rpc('premium_questionnaire_class_snapshot', {
-            p_class_code: activeClass.code,
-            p_manager_token: activeClass.token
-          });
+          const snapshot = await rpc('premium_questionnaire_class_snapshot', { p_class_code: activeClass.code, p_manager_token: activeClass.token });
           const classInfo = snapshot?.class || {};
           activeClass.name = classInfo.name || activeClass.name || '';
+          activeClass.isActive = Boolean(classInfo.isActive);
+          activeClass.expiresAt = classInfo.expiresAt || null;
           currentResponses = Array.isArray(snapshot?.responses) ? snapshot.responses : [];
           els.classTitle.textContent = activeClass.name || 'כיתה';
           els.responseCount.textContent = currentResponses.length;
-          els.refreshClock.textContent = new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date());
-          renderStudents();
-          updateTeamAvailability();
+          renderSessionState(); renderStudents(); updateTeamAvailability();
 
           const latest = snapshot?.latestTeamRun;
           if (latest?.teams && Array.isArray(latest.teams)) {
-            currentTeams = latest.teams;
-            renderTeams(currentTeams);
-            els.teamStatus.classList.remove('error');
-            els.teamStatus.textContent = `חלוקה שמורה · ${formatDateTime(latest.createdAt)}`;
-          } else if (!currentTeams.length) {
-            renderTeams([]);
-          }
+            currentTeams = latest.teams; renderTeams(currentTeams); els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'חלוקה שמורה';
+          } else if (!currentTeams.length) { renderTeams([]); }
         } catch (error) {
-          console.error(error);
-          els.teamStatus.classList.add('error');
-          els.teamStatus.textContent = 'לא הצלחנו לרענן את נתוני הכיתה.';
-        } finally {
-          loadingSnapshot = false;
-          els.dashboardScreen.classList.remove('loading');
-        }
+          console.error(error); els.teamStatus.classList.add('error'); els.teamStatus.textContent = 'לא הצלחנו לרענן את נתוני הכיתה.';
+        } finally { loadingSnapshot = false; els.dashboardScreen.classList.remove('loading'); }
       }
 
       function renderStudents() {
-        if (!currentResponses.length) {
-          els.studentsWrap.innerHTML = '<div class="empty">עדיין אין תלמידים שסיימו את השאלון.</div>';
-          return;
-        }
-
-        const table = document.createElement('table');
-        table.className = 'students-table';
+        if (!currentResponses.length) { els.studentsWrap.innerHTML = '<div class="empty">עדיין אין תלמידים שסיימו את השאלון.</div>'; return; }
+        const table = document.createElement('table'); table.className = 'students-table';
         table.innerHTML = '<thead><tr><th>#</th><th>תלמיד/ה</th><th>פרופיל S/R/P/C</th><th>סיום</th></tr></thead>';
         const tbody = document.createElement('tbody');
-
         currentResponses.forEach((student, index) => {
-          const scores = normalizeScores(student.scores);
-          const tr = document.createElement('tr');
-          const tdIndex = document.createElement('td');
-          const tdName = document.createElement('td');
-          const tdScores = document.createElement('td');
-          const tdTime = document.createElement('td');
-          tdIndex.dataset.label = 'מספר';
-          tdName.dataset.label = 'תלמיד/ה';
-          tdScores.dataset.label = 'פרופיל';
-          tdTime.dataset.label = 'סיום';
-          tdIndex.textContent = String(index + 1);
-          tdName.innerHTML = `<strong>${escapeHtml(student.name || 'ללא שם')}</strong>${renderFunAnswers(student.funAnswers)}`;
-          tdScores.innerHTML = scoreChips(scores);
-          tdTime.textContent = formatTime(student.completedAt);
-          tr.append(tdIndex, tdName, tdScores, tdTime);
-          tbody.appendChild(tr);
+          const scores = normalizeScores(student.scores); const tr = document.createElement('tr');
+          const tdIndex = document.createElement('td'), tdName = document.createElement('td'), tdScores = document.createElement('td'), tdTime = document.createElement('td');
+          tdIndex.dataset.label = 'מספר'; tdName.dataset.label = 'תלמיד/ה'; tdScores.dataset.label = 'פרופיל'; tdTime.dataset.label = 'סיום';
+          tdIndex.textContent = String(index + 1); tdName.innerHTML = `<strong>${escapeHtml(student.name || 'ללא שם')}</strong>${renderFunAnswers(student.funAnswers)}`;
+          tdScores.innerHTML = scoreChips(scores); tdTime.textContent = formatTime(student.completedAt); tr.append(tdIndex, tdName, tdScores, tdTime); tbody.appendChild(tr);
         });
-        table.appendChild(tbody);
-        els.studentsWrap.replaceChildren(table);
+        table.appendChild(tbody); els.studentsWrap.replaceChildren(table);
       }
 
       function renderFunAnswers(answers) {
         if (!Array.isArray(answers) || !answers.some(Boolean)) return '';
-        const questions = [
-          '5% סוללה באמצע משימה',
-          'המשפט שלי בעבודה קבוצתית',
-          'מוצר שמעלים משהו מעצבן'
-        ];
+        const questions = ['5% סוללה באמצע משימה', 'המשפט שלי בעבודה קבוצתית', 'מוצר שמעלים משהו מעצבן'];
         const rows = answers.map((answer, i) => `<div class="fun-answer"><strong>${escapeHtml(questions[i] || `שאלה ${i + 1}`)}:</strong> ${escapeHtml(answer || '—')}</div>`).join('');
         return `<details class="fun-details"><summary>3 שאלות הסיום</summary>${rows}</details>`;
       }
 
       function normalizeScores(value) {
         const s = value && typeof value === 'object' ? value : {};
-        return {
-          S: Number(s.S) || 0,
-          R: Number(s.R) || 0,
-          P: Number(s.P) || 0,
-          C: Number(s.C) || 0
-        };
+        return { S: Number(s.S) || 0, R: Number(s.R) || 0, P: Number(s.P) || 0, C: Number(s.C) || 0 };
       }
 
       function scoreChips(scores) {
-        return `<div class="score-grid">
-          <span class="score-chip"><strong>S</strong>${scores.S}</span>
-          <span class="score-chip"><strong>R</strong>${scores.R}</span>
-          <span class="score-chip"><strong>P</strong>${scores.P}</span>
-          <span class="score-chip"><strong>C</strong>${scores.C}</span>
-        </div>`;
+        return `<div class="score-grid"><span class="score-chip"><strong>S</strong>${scores.S}</span><span class="score-chip"><strong>R</strong>${scores.R}</span><span class="score-chip"><strong>P</strong>${scores.P}</span><span class="score-chip"><strong>C</strong>${scores.C}</span></div>`;
       }
 
       function groupSizesFor(n) {
         if (n < 3 || n === 5) return null;
         for (let fours = Math.floor(n / 4); fours >= 0; fours--) {
           const remaining = n - fours * 4;
-          if (remaining >= 0 && remaining % 3 === 0) {
-            return [...Array(fours).fill(4), ...Array(remaining / 3).fill(3)];
-          }
+          if (remaining >= 0 && remaining % 3 === 0) return [...Array(fours).fill(4), ...Array(remaining / 3).fill(3)];
         }
         return null;
       }
 
       function updateTeamAvailability() {
-        const n = currentResponses.length;
-        const sizes = groupSizesFor(n);
+        const n = currentResponses.length, sizes = groupSizesFor(n);
         if (!sizes) {
           els.buildTeamsBtn.disabled = true;
           if (n < 3) els.teamHelp.textContent = `יש ${n} תלמידים שסיימו. נדרשים לפחות 3.`;
@@ -696,336 +509,120 @@
           return;
         }
         els.buildTeamsBtn.disabled = false;
-        const fours = sizes.filter(size => size === 4).length;
-        const threes = sizes.filter(size => size === 3).length;
-        const parts = [];
-        if (fours) parts.push(`${fours} צוותי 4`);
-        if (threes) parts.push(`${threes} צוותי 3`);
+        const fours = sizes.filter(size => size === 4).length, threes = sizes.filter(size => size === 3).length, parts = [];
+        if (fours) parts.push(`${fours} צוותי 4`); if (threes) parts.push(`${threes} צוותי 3`);
         els.teamHelp.textContent = `${n} תלמידים → ${parts.join(' + ')}. החלוקה מחושבת עבור כל הכיתה יחד.`;
       }
 
-      function hashString(text) {
-        let h = 2166136261;
-        for (let i = 0; i < text.length; i++) {
-          h ^= text.charCodeAt(i);
-          h = Math.imul(h, 16777619);
-        }
-        return h >>> 0;
-      }
-
-      function makeRng(seed) {
-        let x = seed || 123456789;
-        return () => {
-          x ^= x << 13;
-          x ^= x >>> 17;
-          x ^= x << 5;
-          return (x >>> 0) / 4294967296;
-        };
-      }
-
-      function shuffled(items, rng) {
-        const arr = items.slice();
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(rng() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-
-      function permutations(values) {
-        if (values.length <= 1) return [values.slice()];
-        const result = [];
-        values.forEach((value, index) => {
-          const rest = values.slice(0, index).concat(values.slice(index + 1));
-          permutations(rest).forEach(p => result.push([value, ...p]));
-        });
-        return result;
-      }
-
-      const perms3 = permutations([0, 1, 2]);
-      const perms4 = permutations([0, 1, 2, 3]);
+      function hashString(text) { let h = 2166136261; for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+      function makeRng(seed) { let x = seed || 123456789; return () => { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return (x >>> 0) / 4294967296; }; }
+      function shuffled(items, rng) { const arr = items.slice(); for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+      function permutations(values) { if (values.length <= 1) return [values.slice()]; const result = []; values.forEach((value, index) => { const rest = values.slice(0, index).concat(values.slice(index + 1)); permutations(rest).forEach(p => result.push([value, ...p])); }); return result; }
+      const perms3 = permutations([0,1,2]), perms4 = permutations([0,1,2,3]);
 
       function bestAssignment(group) {
         const isFour = group.length === 4;
         const roles = isFour
-          ? [
-              { id: 'S', value: s => s.S },
-              { id: 'R', value: s => s.R },
-              { id: 'P', value: s => s.P },
-              { id: 'C', value: s => s.C }
-            ]
-          : [
-              { id: 'S', value: s => s.S },
-              { id: 'R', value: s => s.R },
-              { id: 'PC', value: s => ((s.P + s.C) / 2) + Math.min(s.P, s.C) * 0.08 }
-            ];
-        const perms = isFour ? perms4 : perms3;
-        let best = null;
-
+          ? [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'P', value:s=>s.P }, { id:'C', value:s=>s.C }]
+          : [{ id:'S', value:s=>s.S }, { id:'R', value:s=>s.R }, { id:'PC', value:s=>((s.P+s.C)/2)+Math.min(s.P,s.C)*0.08 }];
+        const perms = isFour ? perms4 : perms3; let best = null;
         perms.forEach(perm => {
           const values = roles.map((role, roleIndex) => role.value(group[perm[roleIndex]].scores));
-          const sum = values.reduce((a, b) => a + b, 0);
-          const min = Math.min(...values);
-          const max = Math.max(...values);
-          const quality = sum + min * 0.72 - (max - min) * 0.08;
-          if (!best || quality > best.quality) {
-            best = {
-              quality,
-              members: roles.map((role, roleIndex) => ({
-                student: group[perm[roleIndex]],
-                role: role.id,
-                roleScore: values[roleIndex]
-              }))
-            };
-          }
+          const sum = values.reduce((a,b)=>a+b,0), min = Math.min(...values), max = Math.max(...values), quality = sum + min * .72 - (max-min) * .08;
+          if (!best || quality > best.quality) best = { quality, members: roles.map((role, roleIndex) => ({ student: group[perm[roleIndex]], role: role.id, roleScore: values[roleIndex] })) };
         });
         return best;
       }
 
       function partitionQuality(groups) {
-        const assignments = groups.map(bestAssignment);
-        const qualities = assignments.map(item => item.quality);
-        const sum = qualities.reduce((a, b) => a + b, 0);
-        const min = Math.min(...qualities);
-        const max = Math.max(...qualities);
-        return {
-          score: sum + min * 0.38 - (max - min) * 0.07,
-          assignments
-        };
+        const assignments = groups.map(bestAssignment), qualities = assignments.map(item=>item.quality), sum = qualities.reduce((a,b)=>a+b,0), min = Math.min(...qualities), max = Math.max(...qualities);
+        return { score: sum + min * .38 - (max-min) * .07, assignments };
       }
-
       function cloneGroups(groups) { return groups.map(group => group.slice()); }
 
       function optimizeTeams(students, sizes, seedText) {
-        const baseSeed = hashString(seedText);
-        let globalBest = null;
-
+        const baseSeed = hashString(seedText); let globalBest = null;
         for (let restart = 0; restart < 5; restart++) {
-          const rng = makeRng((baseSeed + restart * 2654435761) >>> 0);
-          const order = shuffled(students, rng);
-          const groups = [];
-          let cursor = 0;
-          sizes.forEach(size => {
-            groups.push(order.slice(cursor, cursor + size));
-            cursor += size;
-          });
-
-          let current = partitionQuality(groups);
-          let best = { score: current.score, groups: cloneGroups(groups), assignments: current.assignments };
+          const rng = makeRng((baseSeed + restart * 2654435761) >>> 0), order = shuffled(students, rng), groups = []; let cursor = 0;
+          sizes.forEach(size => { groups.push(order.slice(cursor, cursor + size)); cursor += size; });
+          let current = partitionQuality(groups), best = { score: current.score, groups: cloneGroups(groups), assignments: current.assignments };
           const iterations = Math.max(2600, students.length * 130);
-
           for (let step = 0; step < iterations; step++) {
             if (groups.length < 2) break;
-            let a = Math.floor(rng() * groups.length);
-            let b = Math.floor(rng() * groups.length);
-            if (a === b) b = (b + 1) % groups.length;
-            const ia = Math.floor(rng() * groups[a].length);
-            const ib = Math.floor(rng() * groups[b].length);
-            [groups[a][ia], groups[b][ib]] = [groups[b][ib], groups[a][ia]];
-
-            const candidate = partitionQuality(groups);
-            const progress = step / iterations;
-            const temperature = 2.2 * (1 - progress) + 0.05;
-            const delta = candidate.score - current.score;
-            const accept = delta >= 0 || Math.exp(delta / temperature) > rng();
-
-            if (accept) {
-              current = candidate;
-              if (candidate.score > best.score) {
-                best = { score: candidate.score, groups: cloneGroups(groups), assignments: candidate.assignments };
-              }
-            } else {
-              [groups[a][ia], groups[b][ib]] = [groups[b][ib], groups[a][ia]];
-            }
+            let a = Math.floor(rng()*groups.length), b = Math.floor(rng()*groups.length); if (a === b) b = (b+1)%groups.length;
+            const ia = Math.floor(rng()*groups[a].length), ib = Math.floor(rng()*groups[b].length); [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
+            const candidate = partitionQuality(groups), progress = step/iterations, temperature = 2.2*(1-progress)+.05, delta = candidate.score-current.score;
+            const accept = delta >= 0 || Math.exp(delta/temperature) > rng();
+            if (accept) { current = candidate; if (candidate.score > best.score) best = { score:candidate.score, groups:cloneGroups(groups), assignments:candidate.assignments }; }
+            else [groups[a][ia],groups[b][ib]]=[groups[b][ib],groups[a][ia]];
           }
-
           if (!globalBest || best.score > globalBest.score) globalBest = best;
         }
-
-        return globalBest.assignments.map((assignment, index) => ({
-          team: index + 1,
-          members: assignment.members.map(item => ({
-            submissionId: item.student.submissionId,
-            name: item.student.name,
-            role: item.role,
-            roleLabel: roleLabels[item.role]
-          }))
-        }));
+        return globalBest.assignments.map((assignment,index)=>({ team:index+1, members:assignment.members.map(item=>({ submissionId:item.student.submissionId, name:item.student.name, role:item.role, roleLabel:roleLabels[item.role] })) }));
       }
 
       async function buildTeams() {
-        const sizes = groupSizesFor(currentResponses.length);
-        if (!sizes) return;
-        els.buildTeamsBtn.disabled = true;
-        els.buildTeamsBtn.textContent = 'מרכיבים...';
-        els.teamStatus.classList.remove('error');
-        els.teamStatus.textContent = 'מחשבים חלוקה מאוזנת לכל הכיתה...';
-
+        const sizes = groupSizesFor(currentResponses.length); if (!sizes) return;
+        els.buildTeamsBtn.disabled = true; els.buildTeamsBtn.textContent = 'מרכיבים...'; els.teamStatus.classList.remove('error'); els.teamStatus.textContent = 'מחשבים חלוקה מאוזנת לכל הכיתה...';
         await new Promise(resolve => setTimeout(resolve, 20));
-
         try {
-          const students = currentResponses.map(student => ({
-            submissionId: String(student.submissionId),
-            name: student.name || 'ללא שם',
-            scores: normalizeScores(student.scores)
-          }));
-          const seedText = `${activeClass.code}|${students.map(s => s.submissionId).sort().join('|')}|${ALGORITHM_VERSION}`;
-          const teams = optimizeTeams(students, sizes, seedText);
-          currentTeams = teams;
-          renderTeams(teams);
-          els.teamStatus.textContent = 'החלוקה נוצרה. שומרים...';
-
-          await rpc('premium_questionnaire_save_team_run', {
-            p_class_code: activeClass.code,
-            p_manager_token: activeClass.token,
-            p_teams: teams,
-            p_algorithm_version: ALGORITHM_VERSION
-          });
+          const students = currentResponses.map(student => ({ submissionId:String(student.submissionId), name:student.name || 'ללא שם', scores:normalizeScores(student.scores) }));
+          const seedText = `${activeClass.code}|${students.map(s=>s.submissionId).sort().join('|')}|${ALGORITHM_VERSION}`;
+          const teams = optimizeTeams(students, sizes, seedText); currentTeams = teams; renderTeams(teams); els.teamStatus.textContent = 'החלוקה נוצרה. שומרים...';
+          await rpc('premium_questionnaire_save_team_run', { p_class_code:activeClass.code, p_manager_token:activeClass.token, p_teams:teams, p_algorithm_version:ALGORITHM_VERSION });
           els.teamStatus.textContent = 'החלוקה נשמרה.';
         } catch (error) {
-          console.error(error);
-          els.teamStatus.classList.add('error');
-          els.teamStatus.textContent = currentTeams.length ? 'החלוקה מוצגת, אבל לא הצלחנו לשמור אותה. נסו שוב.' : 'לא הצלחנו להרכיב את הצוותים.';
-        } finally {
-          updateTeamAvailability();
-          els.buildTeamsBtn.textContent = currentTeams.length ? 'חשב חלוקה מחדש' : 'הרכב את הצוותים';
-        }
+          console.error(error); els.teamStatus.classList.add('error'); els.teamStatus.textContent = currentTeams.length ? 'החלוקה מוצגת, אבל לא הצלחנו לשמור אותה. נסו שוב.' : 'לא הצלחנו להרכיב את הצוותים.';
+        } finally { updateTeamAvailability(); els.buildTeamsBtn.textContent = currentTeams.length ? 'חשב חלוקה מחדש' : 'הרכב את הצוותים'; }
       }
 
       function renderTeams(teams) {
-        els.teamsGrid.replaceChildren();
-        els.copyTeamsBtn.disabled = !teams.length;
-        els.teamCount.textContent = teams.length ? String(teams.length) : '—';
-        if (!teams.length) {
-          els.teamsGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">הצוותים יופיעו כאן לאחר שכל התלמידים הרלוונטיים סיימו.</div>';
-          return;
-        }
-
+        els.teamsGrid.replaceChildren(); els.copyTeamsBtn.disabled = !teams.length; els.teamCount.textContent = teams.length ? String(teams.length) : '—';
+        if (!teams.length) { els.teamsGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">הצוותים יופיעו כאן לאחר שכל התלמידים הרלוונטיים סיימו.</div>'; return; }
         teams.forEach(team => {
-          const card = document.createElement('article');
-          card.className = 'team-card';
-          const members = Array.isArray(team.members) ? team.members : [];
+          const card = document.createElement('article'); card.className = 'team-card'; const members = Array.isArray(team.members) ? team.members : [];
           card.innerHTML = `<div class="team-title"><span>צוות ${escapeHtml(team.team)}</span><span class="team-size">${members.length} תלמידים</span></div>`;
-          members.forEach(member => {
-            const row = document.createElement('div');
-            row.className = 'member';
-            const roleLabel = member.roleLabel || roleLabels[member.role] || member.role || '';
-            row.innerHTML = `<div class="member-name">${escapeHtml(member.name || 'ללא שם')}</div><div class="role">${escapeHtml(roleLabel)}</div>`;
-            card.appendChild(row);
-          });
+          members.forEach(member => { const row = document.createElement('div'); row.className = 'member'; const roleLabel = member.roleLabel || roleLabels[member.role] || member.role || ''; row.innerHTML = `<div class="member-name">${escapeHtml(member.name || 'ללא שם')}</div><div class="role">${escapeHtml(roleLabel)}</div>`; card.appendChild(row); });
           els.teamsGrid.appendChild(card);
         });
       }
 
       async function copyText(text, successMessage) {
-        try {
-          await navigator.clipboard.writeText(text);
-        } catch (_) {
-          const textarea = document.createElement('textarea');
-          textarea.value = text;
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          textarea.remove();
-        }
+        try { await navigator.clipboard.writeText(text); }
+        catch (_) { const textarea = document.createElement('textarea'); textarea.value = text; textarea.style.position='fixed'; textarea.style.opacity='0'; document.body.appendChild(textarea); textarea.select(); document.execCommand('copy'); textarea.remove(); }
         showToast(successMessage);
       }
 
-      function studentUrl() {
-        return new URL('index.html', location.href).href.split('#')[0].split('?')[0];
-      }
-
-      function managerUrl() {
-        const url = new URL('instructor.html', location.href);
-        url.searchParams.set('class', activeClass.code);
-        url.hash = `token=${encodeURIComponent(activeClass.token)}`;
-        return url.href;
-      }
-
-      function teamsAsText() {
-        return currentTeams.map(team => {
-          const lines = team.members.map(member => `• ${member.name} — ${member.roleLabel || roleLabels[member.role] || member.role}`);
-          return `צוות ${team.team}\n${lines.join('\n')}`;
-        }).join('\n\n');
-      }
+      function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
+      function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
+      function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\n${team.members.map(member => `• ${member.name} — ${member.roleLabel || roleLabels[member.role] || member.role}`).join('\n')}`).join('\n\n'); }
 
       let toastTimer = null;
-      function showToast(message) {
-        els.toast.textContent = message;
-        els.toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => els.toast.classList.remove('show'), 1800);
-      }
-
-      function formatTime(value) {
-        if (!value) return '—';
-        try { return new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit' }).format(new Date(value)); }
-        catch (_) { return '—'; }
-      }
-
-      function formatDateTime(value) {
-        if (!value) return '';
-        try { return new Intl.DateTimeFormat('he-IL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(value)); }
-        catch (_) { return ''; }
-      }
-
-      function escapeHtml(value) {
-        return String(value ?? '')
-          .replaceAll('&', '&amp;')
-          .replaceAll('<', '&lt;')
-          .replaceAll('>', '&gt;')
-          .replaceAll('"', '&quot;')
-          .replaceAll("'", '&#039;');
-      }
+      function showToast(message) { els.toast.textContent = message; els.toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(()=>els.toast.classList.remove('show'),1800); }
+      function formatTime(value) { if (!value) return '—'; try { return new Intl.DateTimeFormat('he-IL',{hour:'2-digit',minute:'2-digit'}).format(new Date(value)); } catch (_) { return '—'; } }
+      function escapeHtml(value) { return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;'); }
 
       function tryAutoOpen() {
-        const params = new URLSearchParams(location.search);
-        const code = params.get('class');
-        const hash = new URLSearchParams(location.hash.replace(/^#/, ''));
-        const token = hash.get('token');
-        if (code && token) {
-          const known = getSavedClasses().find(item => item.code === code);
-          openClass({ code, token, name: known?.name || '' });
-          return true;
-        }
-        if (code) {
-          const known = getSavedClasses().find(item => item.code === code);
-          if (known) {
-            openClass(known);
-            return true;
-          }
-        }
+        const params = new URLSearchParams(location.search), code = params.get('class'), hash = new URLSearchParams(location.hash.replace(/^#/,'')), token = hash.get('token');
+        if (code && token) { const known = getSavedClasses().find(item=>item.code===code); openClass({code,token,name:known?.name || ''}); return true; }
+        if (code) { const known = getSavedClasses().find(item=>item.code===code); if (known) { openClass(known); return true; } }
         return false;
       }
 
       els.createClassBtn.addEventListener('click', createClass);
-      els.classNameInput.addEventListener('keydown', event => {
-        if (event.key === 'Enter') createClass();
-      });
+      els.classNameInput.addEventListener('keydown', event => { if (event.key === 'Enter') createClass(); });
       els.homeBtn.addEventListener('click', () => { location.href = '../index.html'; });
-      els.backToClassesBtn.addEventListener('click', () => {
-        stopPolling();
-        activeClass = null;
-        currentResponses = [];
-        currentTeams = [];
-        clearUrl();
-        renderRecent();
-        switchScreen(els.entryScreen);
-      });
+      els.backToClassesBtn.addEventListener('click', () => { stopPolling(); activeClass=null; currentResponses=[]; currentTeams=[]; clearUrl(); renderRecent(); switchScreen(els.entryScreen); });
       els.refreshBtn.addEventListener('click', () => loadSnapshot(true));
+      els.sessionToggleBtn.addEventListener('click', toggleSession);
       els.buildTeamsBtn.addEventListener('click', buildTeams);
       els.copyCodeBtn.addEventListener('click', () => activeClass && copyText(activeClass.code, 'קוד הכיתה הועתק'));
-      els.copyStudentShareBtn.addEventListener('click', () => {
-        if (!activeClass) return;
-        copyText(`שאלון פרימיום: ${studentUrl()}\nקוד כיתה: ${activeClass.code}`, 'הודעה לתלמידים הועתקה');
-      });
+      els.copyStudentShareBtn.addEventListener('click', () => { if (!activeClass?.isActive) return; copyText(`שאלון פרימיום: ${studentUrl()}\nקוד כיתה: ${activeClass.code}`, 'הודעה לתלמידים הועתקה'); });
       els.copyManagerLinkBtn.addEventListener('click', () => activeClass && copyText(managerUrl(), 'קישור הניהול הועתק'));
       els.copyTeamsBtn.addEventListener('click', () => currentTeams.length && copyText(teamsAsText(), 'חלוקת הצוותים הועתקה'));
+      document.addEventListener('visibilitychange', () => { if (!document.hidden && activeClass) loadSnapshot(false); });
 
-      renderRecent();
-      tryAutoOpen();
+      renderRecent(); tryAutoOpen();
     })();
   </script>
 </body>
