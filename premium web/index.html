@@ -168,14 +168,12 @@
         0 2px 8px rgba(0, 0, 0, 0.32);
     }
 
-    .questionnaire-btn {
-      grid-column: 2;
-    }
+    .last-centered { grid-column: 2; }
 
     @media (max-width: 860px) {
       .button-grid { grid-template-columns: repeat(2, 98px); }
       .magic-btn { width: 98px; height: 98px; }
-      .questionnaire-btn { grid-column: auto; }
+      .last-centered { grid-column: auto; }
     }
 
     @media (max-width: 560px) {
@@ -215,6 +213,7 @@
 
   <div class="center-wrap">
     <div class="button-grid">
+      <button class="magic-btn" onclick="window.location.href='team-questionnaire/'"><span>שאלון</span></button>
       <button class="magic-btn" onclick="window.location.href='news/allnews.html'"><span>בעיה</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter4.html'"><span>אתגר</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter5.html'"><span>רעיונות</span></button>
@@ -223,8 +222,7 @@
       <button class="magic-btn" onclick="window.location.href='newsletter9.html'"><span>אב-טיפוס</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter7.html'"><span>מנטורינג</span></button>
       <button class="magic-btn" onclick="window.location.href='newsletter10.html'"><span>פוסטר ופרומפט</span></button>
-      <button class="magic-btn" onclick="window.location.href='newsletter11.html'"><span>פרזנטציה</span></button>
-      <button class="magic-btn questionnaire-btn" onclick="window.location.href='team-questionnaire/'"><span>שאלון</span></button>
+      <button class="magic-btn last-centered" onclick="window.location.href='newsletter11.html'"><span>פרזנטציה</span></button>
     </div>
   </div>
   <script src="../pwa-register.js" defer></script>
