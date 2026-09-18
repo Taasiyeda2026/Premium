@@ -170,5 +170,7 @@ function loadLocal(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){con
 function boot(){initChecks(q('.screen[data-screen="1"]'));renderQuestionCards();loadLocal();setStep(1);qa(".product-btn").forEach(btn=>btn.addEventListener("click",()=>setProduct(btn.dataset.product)));q("#nextBtn").addEventListener("click",()=>{if(step===1&&validateStep1()){captureCurrentProductDraft();renderQuestionCards();if(productDrafts[productType])applyCardState(productDrafts[productType]);setStep(2)}});q("#backBtn").addEventListener("click",()=>setStep(step-1));q("#generateBtn").addEventListener("click",generatePrompts);q("#copyAllBtn").addEventListener("click",copyAll);q("#saveBtn").addEventListener("click",saveLocal);q("#clearBtn").addEventListener("click",clearAll);document.addEventListener("input",e=>{if(e.target.matches("[data-field],[data-name],[data-other]"))invalidatePrompts()});document.addEventListener("change",e=>{if(e.target.matches("select[data-field],select[data-name]"))invalidatePrompts()})}
 boot();
 </script>
+
+<script src="back-to-top.js" defer></script>
 </body>
 </html>
