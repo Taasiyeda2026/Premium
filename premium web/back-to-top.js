@@ -1,6 +1,7 @@
 (() => {
   const STYLE_ID = 'premium-back-to-top-style';
   const BUTTON_ID = 'premiumBackToTop';
+  const FALLBACK_ID = 'premiumBackToTopFallback';
 
   function initBackToTop() {
     if (document.getElementById(BUTTON_ID)) return;
@@ -10,53 +11,70 @@
       style.id = STYLE_ID;
       style.textContent = `
         .premium-back-to-top{
-          position:fixed;
-          left:18px;
-          bottom:18px;
-          z-index:9998;
-          width:32px;
-          height:32px;
+          width:28px;
+          height:28px;
           display:grid;
           place-items:center;
           padding:0;
-          border:1px solid rgba(63,176,198,.42);
+          border:1px solid rgba(63,176,198,.38);
           border-radius:50%;
-          background:rgba(10,31,55,.74);
-          color:rgba(240,253,255,.94);
-          box-shadow:0 3px 12px rgba(0,0,0,.12);
-          backdrop-filter:blur(6px);
-          -webkit-backdrop-filter:blur(6px);
+          background:rgba(10,31,55,.72);
+          color:rgba(240,253,255,.92);
+          box-shadow:0 2px 8px rgba(0,0,0,.10);
           cursor:pointer;
-          opacity:0;
-          visibility:hidden;
-          transform:translateY(6px);
-          transition:opacity .18s ease,transform .18s ease,visibility .18s ease,border-color .18s ease;
-        }
-        .premium-back-to-top.is-visible{
-          opacity:.78;
-          visibility:visible;
-          transform:translateY(0);
+          opacity:.72;
+          transition:opacity .16s ease,border-color .16s ease,transform .16s ease;
+          -webkit-tap-highlight-color:transparent;
         }
         .premium-back-to-top:hover,
         .premium-back-to-top:focus-visible{
           opacity:1;
-          border-color:rgba(91,210,231,.78);
+          border-color:rgba(91,210,231,.72);
+          transform:translateY(-1px);
           outline:none;
         }
         .premium-back-to-top svg{
-          width:16px;
-          height:16px;
+          width:14px;
+          height:14px;
           fill:none;
           stroke:currentColor;
-          stroke-width:1.45;
+          stroke-width:1.35;
           stroke-linecap:round;
           stroke-linejoin:round;
         }
-        @media(max-width:560px){
-          .premium-back-to-top{left:12px;width:30px;height:30px}
+
+        footer.premium-back-to-top-footer{
+          position:relative;
+          padding-left:48px !important;
         }
+        footer.premium-back-to-top-footer > .premium-back-to-top{
+          position:absolute;
+          left:12px;
+          top:50%;
+          transform:translateY(-50%);
+        }
+        footer.premium-back-to-top-footer > .premium-back-to-top:hover,
+        footer.premium-back-to-top-footer > .premium-back-to-top:focus-visible{
+          transform:translateY(calc(-50% - 1px));
+        }
+
+        .premium-back-to-top-fallback{
+          width:min(100% - 32px,1100px);
+          margin:14px auto 18px;
+          display:flex;
+          justify-content:flex-start;
+          direction:ltr;
+        }
+
+        @media(max-width:560px){
+          .premium-back-to-top{width:27px;height:27px}
+          footer.premium-back-to-top-footer{padding-left:44px !important}
+          footer.premium-back-to-top-footer > .premium-back-to-top{left:9px}
+        }
+
         @media print{
-          .premium-back-to-top{display:none!important}
+          .premium-back-to-top,
+          .premium-back-to-top-fallback{display:none!important}
         }
       `;
       document.head.appendChild(style);
@@ -69,29 +87,26 @@
     btn.setAttribute('aria-label', 'חזרה לראש העמוד');
     btn.setAttribute('title', 'חזרה לראש העמוד');
     btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12l5-5 5 5M12 7v10"/></svg>';
-    document.body.appendChild(btn);
-
-    const placeAboveBottomBar = () => {
-      const candidates = [...document.querySelectorAll('.actions,.bar,.bottom-bar,.fixed-bottom,.sticky-actions')];
-      const fixedBottom = candidates.find(el => {
-        const cs = getComputedStyle(el);
-        if (cs.position !== 'fixed' && cs.position !== 'sticky') return false;
-        const rect = el.getBoundingClientRect();
-        return rect.bottom >= window.innerHeight - 4 && rect.height > 24;
-      });
-      btn.style.bottom = fixedBottom ? (fixedBottom.getBoundingClientRect().height + 12) + 'px' : '18px';
-    };
-
-    const update = () => {
-      btn.classList.toggle('is-visible', window.scrollY > 260);
-    };
-
     btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-    window.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', placeAboveBottomBar);
 
-    placeAboveBottomBar();
-    update();
+    const footers = [...document.querySelectorAll('footer')].filter(el => {
+      const cs = getComputedStyle(el);
+      return cs.display !== 'none' && cs.visibility !== 'hidden';
+    });
+
+    const footer = footers.length ? footers[footers.length - 1] : null;
+
+    if (footer) {
+      footer.classList.add('premium-back-to-top-footer');
+      footer.appendChild(btn);
+      return;
+    }
+
+    const fallback = document.createElement('div');
+    fallback.id = FALLBACK_ID;
+    fallback.className = 'premium-back-to-top-fallback';
+    fallback.appendChild(btn);
+    document.body.appendChild(fallback);
   }
 
   if (document.readyState === 'loading') {
