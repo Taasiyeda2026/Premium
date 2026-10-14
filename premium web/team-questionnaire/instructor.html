@@ -215,8 +215,8 @@
 
     <section id="instructorAuthScreen" class="screen active" aria-label="התחברות מדריכים">
       <div class="card entry-card">
-        <h1>כניסת מדריכים – פרימיום</h1>
-        <p class="muted">השתמשו בפרטי ההתחברות הקיימים לדשבורד תעשיידע. אין צורך ליצור חשבון חדש.</p>
+        <h1>כניסה לפרימיום – משתמשי תעשיידע</h1>
+        <p class="muted">התחברו עם מספר עובד או שם משתמש וקוד הכניסה הקיים לדשבורד. אין צורך בחשבון נוסף.</p>
         <form id="premiumInstructorLoginForm">
           <label>מספר עובד / שם משתמש<input type="text" id="premiumInstructorUsername" autocomplete="username" required></label>
           <label>קוד כניסה<input type="password" id="premiumInstructorPassword" autocomplete="current-password" required></label>
@@ -227,7 +227,7 @@
     </section>
     <section class="screen" id="entryScreen">
       <div class="card entry-card">
-        <div class="eyebrow">👥 מסך מדריך</div>
+        <div class="eyebrow">👥 ניהול כיתות פרימיום</div>
         <button type="button" class="small-btn" id="premiumInstructorLogoutBtn">התנתקות</button>
         <h1>פתיחת כיתה וחלוקת צוותים</h1>
         <p class="muted">פותחים כיתה, מפעילים את השאלון, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
@@ -315,6 +315,7 @@
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const STORAGE_KEY = 'premiumQuestionnaireInstructorClassesV1';
       const AUTH_STORAGE_KEY = 'premiumInstructorAuthSessionV1';
+      function personalStorageKey() { return STORAGE_KEY + ':' + String(authSession?.user?.id || 'anonymous'); }
       let authSession = null;
       const authScreen = document.getElementById('instructorAuthScreen');
       const loginForm = document.getElementById('premiumInstructorLoginForm');
@@ -396,14 +397,9 @@
         return response.json();
       }
       async function loadMyClasses() {
-        const stored = getSavedClasses();
-        for (const item of stored) {
-          try { await authenticatedRpc('premium_instructor_claim_class', { p_class_code: item.code, p_manager_token: item.token }); }
-          catch (error) { console.warn('[premium] Existing class not claimed:', item.code); }
-        }
         const mine = await authenticatedRpc('premium_instructor_my_classes');
         if (!Array.isArray(mine)) throw new Error('לא ניתן לטעון את הכיתות.');
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(mine.map(item => ({
+        localStorage.setItem(personalStorageKey(), JSON.stringify(mine.map(item => ({
           code: item.code, name: item.name, token: item.token, createdAt: item.createdAt
         }))));
         renderRecent();
@@ -440,7 +436,7 @@
 
       function getSavedClasses() {
         try {
-          const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+          const parsed = JSON.parse(localStorage.getItem(personalStorageKey()) || '[]');
           return Array.isArray(parsed) ? parsed.filter(item => item && item.code && item.token) : [];
         } catch (_) { return []; }
       }
@@ -448,7 +444,7 @@
       function saveClassAccess(item) {
         const list = getSavedClasses().filter(existing => existing.code !== item.code);
         list.unshift(item);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 12)));
+        localStorage.setItem(personalStorageKey(), JSON.stringify(list.slice(0, 12)));
         renderRecent();
       }
 
@@ -879,7 +875,7 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
 
       function tryAutoOpen() {
         const params = new URLSearchParams(location.search), code = params.get('class'), hash = new URLSearchParams(location.hash.replace(/^#/,'')), token = hash.get('token');
-        if (code && token) { const known = getSavedClasses().find(item=>item.code===code); openClass({code,token,name:known?.name || ''}); return true; }
+        if (code && token) { const known = getSavedClasses().find(item=>item.code===code); if (known && known.token === token) { openClass(known); return true; } }
         if (code) { const known = getSavedClasses().find(item=>item.code===code); if (known) { openClass(known); return true; } }
         return false;
       }
