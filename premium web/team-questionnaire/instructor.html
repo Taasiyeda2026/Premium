@@ -261,16 +261,6 @@
           <button class="primary-btn" id="createClassBtn" type="button">פתיחת כיתה חדשה</button>
         </div>
         <div class="team-status" id="entryStatus" role="status" aria-live="polite"></div>
-        <details class="card" style="margin-top:14px">
-          <summary>שיוך כיתה קיימת לחשבון שלי</summary>
-          <p class="muted">לכיתה שנפתחה לפני המעבר: הזינו את קוד הכיתה ואת אסימון הניהול שלה.</p>
-          <form id="premiumClaimClassForm">
-            <input id="premiumClaimCode" placeholder="קוד כיתה" required inputmode="numeric" maxlength="6">
-            <input id="premiumClaimToken" placeholder="אסימון ניהול הכיתה" required>
-            <button type="submit" class="small-btn">שיוך הכיתה</button>
-          </form>
-          <p id="premiumClaimStatus" role="status"></p>
-        </details>
         <div class="recent" id="recentWrap" hidden>
           <h3>כיתות אחרונות במכשיר הזה</h3>
           <div class="recent-list" id="recentList"></div>
@@ -964,22 +954,6 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
           localStorage.removeItem(AUTH_STORAGE_KEY);
           authStatus.textContent = error.message || 'ההתחברות נכשלה.';
         } finally { button.disabled = false; }
-      });
-      document.getElementById('premiumClaimClassForm').addEventListener('submit', async event => {
-        event.preventDefault();
-        const status = document.getElementById('premiumClaimStatus');
-        const code = document.getElementById('premiumClaimCode').value.trim();
-        const token = document.getElementById('premiumClaimToken').value.trim();
-        status.textContent = 'בודקים שיוך...';
-        try {
-          const claimed = await authenticatedRpc('premium_instructor_claim_class',{p_class_code:code,p_manager_token:token});
-          if (claimed !== true) throw new Error('הכיתה לא נמצאה, או שהיא כבר משויכת למשתמש אחר.');
-          await loadMyClasses();
-          status.textContent = 'הכיתה שויכה לחשבון בהצלחה.';
-          document.getElementById('premiumClaimToken').value = '';
-        } catch(error) {
-          status.textContent = error.message || 'לא ניתן לשייך את הכיתה.';
-        }
       });
       logoutButton.addEventListener('click', () => {
         authSession = null;
