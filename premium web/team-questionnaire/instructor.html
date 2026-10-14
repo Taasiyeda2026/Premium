@@ -218,8 +218,8 @@
         <h1>כניסת מדריכים – פרימיום</h1>
         <p class="muted">השתמשו בפרטי ההתחברות הקיימים לדשבורד תעשיידע. אין צורך ליצור חשבון חדש.</p>
         <form id="premiumInstructorLoginForm">
-          <label>דוא"ל<input type="email" id="premiumInstructorEmail" autocomplete="username" required></label>
-          <label>סיסמה<input type="password" id="premiumInstructorPassword" autocomplete="current-password" required></label>
+          <label>מספר עובד / שם משתמש<input type="text" id="premiumInstructorUsername" autocomplete="username" required></label>
+          <label>קוד כניסה<input type="password" id="premiumInstructorPassword" autocomplete="current-password" required></label>
           <button type="submit" class="primary-btn">כניסה</button>
         </form>
         <p id="premiumInstructorAuthStatus" role="status"></p>
@@ -904,21 +904,33 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
         button.disabled = true;
         authStatus.textContent = 'בודקים הרשאה...';
         try {
+          const username = document.getElementById('premiumInstructorUsername').value.trim().toLowerCase();
+          const password = document.getElementById('premiumInstructorPassword').value.trim();
+          const lookupResponse = await fetch(`${SUPABASE_URL}/rest/v1/rpc/lookup_login_user_by_username`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ p_username: username })
+          });
+          if (!lookupResponse.ok) throw new Error('לא ניתן לאמת את פרטי הכניסה.');
+          const lookup = await lookupResponse.json();
+          const loginUser = Array.isArray(lookup) ? lookup[0] : lookup;
+          if (!loginUser?.auth_email || !loginUser?.auth_user_id) throw new Error('פרטי ההתחברות לא אומתו.');
           const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
             method: 'POST', headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: document.getElementById('premiumInstructorEmail').value.trim(),
-              password: document.getElementById('premiumInstructorPassword').value
-            })
+            body: JSON.stringify({ email: loginUser.auth_email, password })
           });
           if (!response.ok) throw new Error('פרטי ההתחברות לא אומתו.');
-          authSession = await response.json();
+          const candidateSession = await response.json();
+          if (String(candidateSession?.user?.id || '') !== String(loginUser.auth_user_id))
+            throw new Error('לא ניתן לאמת את זהות המשתמש.');
+          authSession = candidateSession;
           document.getElementById('premiumInstructorPassword').value = '';
           await completeInstructorLogin();
           localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
           authStatus.textContent = '';
         } catch (error) {
           authSession = null;
+          localStorage.removeItem(AUTH_STORAGE_KEY);
           authStatus.textContent = error.message || 'ההתחברות נכשלה.';
         } finally { button.disabled = false; }
       });
