@@ -213,9 +213,22 @@
       <button class="ghost-btn" id="homeBtn" type="button">חזרה לפרימיום</button>
     </header>
 
-    <section class="screen active" id="entryScreen">
+    <section id="instructorAuthScreen" class="screen active" aria-label="התחברות מדריכים">
       <div class="card entry-card">
-        <div class="eyebrow">👥 מסך מדריך</div>
+        <h1>כניסה לפרימיום – משתמשי תעשיידע</h1>
+        <p class="muted">התחברו עם מספר עובד או שם משתמש וקוד הכניסה הקיים לדשבורד. אין צורך בחשבון נוסף.</p>
+        <form id="premiumInstructorLoginForm">
+          <label>מספר עובד / שם משתמש<input type="text" id="premiumInstructorUsername" autocomplete="username" required></label>
+          <label>קוד כניסה<input type="password" id="premiumInstructorPassword" autocomplete="current-password" required></label>
+          <button type="submit" class="primary-btn">כניסה</button>
+        </form>
+        <p id="premiumInstructorAuthStatus" role="status"></p>
+      </div>
+    </section>
+    <section class="screen" id="entryScreen">
+      <div class="card entry-card">
+        <div class="eyebrow">👥 ניהול כיתות פרימיום</div>
+        <button type="button" class="small-btn" id="premiumInstructorLogoutBtn">התנתקות</button>
         <h1>פתיחת כיתה וחלוקת צוותים</h1>
         <p class="muted">פותחים כיתה, מפעילים את השאלון, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
         <div class="create-row">
@@ -223,6 +236,16 @@
           <button class="primary-btn" id="createClassBtn" type="button">פתיחת כיתה חדשה</button>
         </div>
         <div class="team-status" id="entryStatus" role="status" aria-live="polite"></div>
+        <details class="card" style="margin-top:14px">
+          <summary>שיוך כיתה קיימת לחשבון שלי</summary>
+          <p class="muted">לכיתה שנפתחה לפני המעבר: הזינו את קוד הכיתה ואת אסימון הניהול שלה.</p>
+          <form id="premiumClaimClassForm">
+            <input id="premiumClaimCode" placeholder="קוד כיתה" required inputmode="numeric" maxlength="6">
+            <input id="premiumClaimToken" placeholder="אסימון ניהול הכיתה" required>
+            <button type="submit" class="small-btn">שיוך הכיתה</button>
+          </form>
+          <p id="premiumClaimStatus" role="status"></p>
+        </details>
         <div class="recent" id="recentWrap" hidden>
           <h3>כיתות אחרונות במכשיר הזה</h3>
           <div class="recent-list" id="recentList"></div>
@@ -301,6 +324,13 @@
       const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const STORAGE_KEY = 'premiumQuestionnaireInstructorClassesV1';
+      const AUTH_STORAGE_KEY = 'premiumInstructorAuthSessionV1';
+      function personalStorageKey() { return STORAGE_KEY + ':' + String(authSession?.user?.id || 'anonymous'); }
+      let authSession = null;
+      const authScreen = document.getElementById('instructorAuthScreen');
+      const loginForm = document.getElementById('premiumInstructorLoginForm');
+      const authStatus = document.getElementById('premiumInstructorAuthStatus');
+      const logoutButton = document.getElementById('premiumInstructorLogoutBtn');
       const ALGORITHM_VERSION = 3;
       const POLL_MS = 8000;
 
@@ -350,11 +380,60 @@
       let sessionBusy = false;
 
       function apiHeaders() {
-        return { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' };
+        return { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${authSession?.access_token || SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' };
+      }
+      async function refreshAuth() {
+        if (!authSession?.refresh_token) return false;
+        const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+          method: 'POST', headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh_token: authSession.refresh_token })
+        });
+        if (!response.ok) return false;
+        authSession = await response.json();
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
+        return true;
+      }
+      async function authenticatedRpc(name, payload = {}) {
+        if (!authSession?.access_token) throw new Error('נדרשת התחברות.');
+        let response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+          method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload)
+        });
+        if (response.status === 401 && await refreshAuth()) {
+          response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+            method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload)
+          });
+        }
+        if (!response.ok) throw new Error('אין הרשאה או שהחיבור נכשל (' + response.status + ')');
+        return response.json();
+      }
+      async function loadMyClasses() {
+        const mine = await authenticatedRpc('premium_instructor_my_classes');
+        if (!Array.isArray(mine)) throw new Error('לא ניתן לטעון את הכיתות.');
+        localStorage.setItem(personalStorageKey(), JSON.stringify(mine.map(item => ({
+          code: item.code, name: item.name, token: item.token, createdAt: item.createdAt
+        }))));
+        renderRecent();
+      }
+      function showInstructorAuth() {
+        stopPolling();
+        activeClass = null;
+        authScreen.classList.add('active');
+        els.entryScreen.classList.remove('active');
+        els.dashboardScreen.classList.remove('active');
+      }
+      async function completeInstructorLogin() {
+        await loadMyClasses();
+        authScreen.classList.remove('active');
+        switchScreen(els.entryScreen);
+        tryAutoOpen();
       }
 
       async function rpc(name, payload) {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload || {}) });
+        if (!authSession?.access_token) throw new Error('נדרשת התחברות למערכת המדריכים.');
+        let response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload || {}) });
+        if (response.status === 401 && await refreshAuth()) {
+          response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload || {}) });
+        }
         const text = await response.text();
         let body = null;
         if (text) { try { body = JSON.parse(text); } catch (_) { body = text; } }
@@ -367,7 +446,7 @@
 
       function getSavedClasses() {
         try {
-          const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+          const parsed = JSON.parse(localStorage.getItem(personalStorageKey()) || '[]');
           return Array.isArray(parsed) ? parsed.filter(item => item && item.code && item.token) : [];
         } catch (_) { return []; }
       }
@@ -375,7 +454,7 @@
       function saveClassAccess(item) {
         const list = getSavedClasses().filter(existing => existing.code !== item.code);
         list.unshift(item);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 12)));
+        localStorage.setItem(personalStorageKey(), JSON.stringify(list.slice(0, 12)));
         renderRecent();
       }
 
@@ -403,7 +482,7 @@
         const className = els.classNameInput.value.trim();
         setEntryBusy(true); els.entryStatus.textContent = ''; els.entryStatus.classList.remove('error');
         try {
-          const result = await rpc('premium_questionnaire_create_class', { p_class_name: className || null });
+          const result = await authenticatedRpc('premium_instructor_create_class', { p_class_name: className || null });
           const row = Array.isArray(result) ? result[0] : result;
           if (!row?.class_code || !row?.manager_token) throw new Error('לא התקבל קוד כיתה');
           const item = { code: String(row.class_code), token: String(row.manager_token), name: row.class_name || className || '', createdAt: row.created_at || new Date().toISOString() };
@@ -415,7 +494,7 @@
       }
 
       function switchScreen(target) {
-        [els.entryScreen, els.dashboardScreen].forEach(el => el.classList.remove('active'));
+        [authScreen, els.entryScreen, els.dashboardScreen].forEach(el => el.classList.remove('active'));
         target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
@@ -806,7 +885,7 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
 
       function tryAutoOpen() {
         const params = new URLSearchParams(location.search), code = params.get('class'), hash = new URLSearchParams(location.hash.replace(/^#/,'')), token = hash.get('token');
-        if (code && token) { const known = getSavedClasses().find(item=>item.code===code); openClass({code,token,name:known?.name || ''}); return true; }
+        if (code && token) { const known = getSavedClasses().find(item=>item.code===code); if (known && known.token === token) { openClass(known); return true; } }
         if (code) { const known = getSavedClasses().find(item=>item.code===code); if (known) { openClass(known); return true; } }
         return false;
       }
@@ -825,7 +904,75 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
       els.copyTeamsBtn.addEventListener('click', () => currentTeams.length && copyText(teamsAsText(), 'חלוקת הצוותים הועתקה'));
       document.addEventListener('visibilitychange', () => { if (!document.hidden && activeClass) loadSnapshot(false); });
 
-      renderRecent(); tryAutoOpen();
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = loginForm.querySelector('button[type=submit]');
+        button.disabled = true;
+        authStatus.textContent = 'בודקים הרשאה...';
+        try {
+          const username = document.getElementById('premiumInstructorUsername').value.trim().toLowerCase();
+          const password = document.getElementById('premiumInstructorPassword').value.trim();
+          const lookupResponse = await fetch(`${SUPABASE_URL}/rest/v1/rpc/lookup_login_user_by_username`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ p_username: username })
+          });
+          if (!lookupResponse.ok) throw new Error('לא ניתן לאמת את פרטי הכניסה.');
+          const lookup = await lookupResponse.json();
+          const loginUser = Array.isArray(lookup) ? lookup[0] : lookup;
+          if (!loginUser?.auth_email || !loginUser?.auth_user_id) throw new Error('פרטי ההתחברות לא אומתו.');
+          const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST', headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: loginUser.auth_email, password })
+          });
+          if (!response.ok) throw new Error('פרטי ההתחברות לא אומתו.');
+          const candidateSession = await response.json();
+          if (String(candidateSession?.user?.id || '') !== String(loginUser.auth_user_id))
+            throw new Error('לא ניתן לאמת את זהות המשתמש.');
+          authSession = candidateSession;
+          document.getElementById('premiumInstructorPassword').value = '';
+          await completeInstructorLogin();
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
+          authStatus.textContent = '';
+        } catch (error) {
+          authSession = null;
+          localStorage.removeItem(AUTH_STORAGE_KEY);
+          authStatus.textContent = error.message || 'ההתחברות נכשלה.';
+        } finally { button.disabled = false; }
+      });
+      document.getElementById('premiumClaimClassForm').addEventListener('submit', async event => {
+        event.preventDefault();
+        const status = document.getElementById('premiumClaimStatus');
+        const code = document.getElementById('premiumClaimCode').value.trim();
+        const token = document.getElementById('premiumClaimToken').value.trim();
+        status.textContent = 'בודקים שיוך...';
+        try {
+          const claimed = await authenticatedRpc('premium_instructor_claim_class',{p_class_code:code,p_manager_token:token});
+          if (claimed !== true) throw new Error('הכיתה לא נמצאה, או שהיא כבר משויכת למשתמש אחר.');
+          await loadMyClasses();
+          status.textContent = 'הכיתה שויכה לחשבון בהצלחה.';
+          document.getElementById('premiumClaimToken').value = '';
+        } catch(error) {
+          status.textContent = error.message || 'לא ניתן לשייך את הכיתה.';
+        }
+      });
+      logoutButton.addEventListener('click', () => {
+        authSession = null;
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+        showInstructorAuth();
+      });
+      (async () => {
+        showInstructorAuth();
+        try {
+          authSession = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+          if (authSession?.refresh_token && await refreshAuth()) await completeInstructorLogin();
+          else { authSession = null; localStorage.removeItem(AUTH_STORAGE_KEY); }
+        } catch (error) {
+          authSession = null;
+          localStorage.removeItem(AUTH_STORAGE_KEY);
+          authStatus.textContent = 'יש להתחבר עם חשבון הדשבורד.';
+        }
+      })();
     })();
   </script>
 </body>
