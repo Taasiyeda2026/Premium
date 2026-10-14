@@ -550,7 +550,7 @@
         const isActive = Boolean(activeClass?.isActive);
         els.sessionStatus.classList.toggle('active', isActive);
         els.sessionStatusText.textContent = isActive ? 'השאלון פעיל' : 'השאלון לא פעיל';
-        els.classSubline.textContent = isActive ? 'הקוד פתוח כעת לתלמידים.' : 'הקוד סגור. תלמידים לא יכולים להתחיל את השאלון.';
+        els.classSubline.textContent = isActive ? 'השאלון פעיל לחמישה ימים ממועד ההפעלה. הקישור פתוח לתלמידים.' : 'השאלון עדיין לא פעיל או שתוקפו הסתיים.';
         els.studentsHint.textContent = isActive ? 'הרשימה מתעדכנת אוטומטית בזמן שהשאלון פעיל.' : 'השאלון אינו פעיל. ניתן לרענן את הרשימה ידנית.';
         els.copyStudentShareBtn.disabled = !isActive;
         els.sessionToggleBtn.disabled = sessionBusy;
@@ -895,7 +895,7 @@
         showToast(successMessage);
       }
 
-      function studentUrl() { return new URL('index.html', location.href).href.split('#')[0].split('?')[0]; }
+      function studentUrl() { const url = new URL('index.html', location.href); if (activeClass?.code) url.searchParams.set('class', activeClass.code); url.hash = ''; return url.href; }
       function managerUrl() { const url = new URL('instructor.html', location.href); url.searchParams.set('class', activeClass.code); url.hash = `token=${encodeURIComponent(activeClass.token)}`; return url.href; }
       function teamsAsText() { return currentTeams.map(team => `צוות ${team.team}\
 ${team.members.map(member => { const score = memberRoleScore(member); return `• ${member.name} — התאמה: ${roleLabels[member.role] || member.roleLabel || member.role} — מדד התאמה: ${score === null ? '—' : score}`; }).join('\
