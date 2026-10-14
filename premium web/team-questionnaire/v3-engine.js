@@ -597,7 +597,8 @@
   }
 
   els.studentName.value = '';
-  els.classCode.value = '';
+  const linkClassCode = new URLSearchParams(window.location.search).get('class') || '';
+  els.classCode.value = /^\d{6}$/.test(linkClassCode) ? linkClassCode : '';
   els.classCodeStatus.textContent = '';
   validateStart();
 
