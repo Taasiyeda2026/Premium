@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>פרימיום | ניהול פרטי</title>
+<style>
+:root{font-family:Arial,"Heebo",sans-serif;color:#182a39;background:#f5f7fb}*{box-sizing:border-box}body{margin:0}main{max-width:1160px;margin:32px auto;padding:0 18px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}h1{font-size:26px}h2{font-size:20px;margin:0 0 12px}.panel{background:white;border:1px solid #dce3ed;border-radius:14px;padding:20px;margin-top:18px;box-shadow:0 2px 10px #1b2e4710}input,button,select{font:inherit;padding:12px;border-radius:8px;border:1px solid #c5cfda}input{width:100%;margin:5px 0 12px}button{background:#164775;color:white;border:0;cursor:pointer}button.secondary{background:#eaf0f6;color:#173b57}button:disabled{opacity:.5;cursor:wait}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.metric{background:#f0f5fa;padding:15px;border-radius:10px}.metric strong{display:block;font-size:26px}.hidden{display:none!important}.muted{color:#58677b}.danger{color:#ab2424}.list{display:grid;gap:12px}.classrow{border:1px solid #dce3ed;border-radius:10px;padding:14px}.classrow summary{cursor:pointer;font-weight:bold}.classmeta{color:#617087;font-size:13px;margin:7px 0}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:11px;text-align:right;border-bottom:1px solid #e4eaf0}th{background:#f4f7fb}small{color:#68788a}#login{max-width:480px;margin:50px auto}#status{min-height:25px}.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#filter{max-width:340px}
+</style>
+</head><body>
+<main>
+<header><div><h1>ניהול פרימיום – תצוגה אישית</h1><div class="muted">לוח מנהל מוגבל לחשבון מורשה אחד</div></div><button id="logout" class="secondary hidden" type="button">התנתקות</button></header>
+<section id="login" class="panel"><h2>התחברות מאובטחת</h2><p class="muted">התחבר באמצעות כתובת הדוא״ל והסיסמה של חשבונך בדשבורד תעשיידע.</p><form id="loginForm"><label>דוא״ל<input id="email" type="email" autocomplete="username" required></label><label>סיסמה<input id="password" type="password" autocomplete="current-password" required></label><button id="loginBtn" type="submit">כניסה</button></form><p id="loginStatus" role="status"></p></section>
+<section id="dashboard" class="hidden">
+<div class="panel"><div class="bar"><button id="reload" type="button">רענון נתונים</button><input id="filter" aria-label="חיפוש כיתה או תלמיד" placeholder="חיפוש כיתה או תלמיד"></div><p id="status" role="status"></p><div id="stats" class="grid"></div></div>
+<section class="panel"><h2>כיתות, תלמידים וצוותים</h2><div id="classes" class="list"></div></section>
+</section>
+</main>
+<script>
+(() => {
+'use strict';
+const BASE='https://szinlhjuwyiyszdpsdop.supabase.co';
+const KEY='sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
+const $=id=>document.getElementById(id);
+let accessToken=null,allClasses=[];
+const E=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const date=value=>value?new Date(value).toLocaleString('he-IL'):'—';
+const show=(id,yes)=>$(id).classList.toggle('hidden',!yes);
+function errorMessage(){return 'לא ניתן לטעון נתונים. ודאו שהתחברתם לחשבון המורשה היחיד.';}
+async function login(email,password){
+ const res=await fetch(BASE+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+ const body=await res.json();if(!res.ok||!body.access_token)throw new Error('פרטי ההתחברות לא אומתו.');
+ return body.access_token;
+}
+async function load(){
+ $('status').textContent='טוען נתונים...';
+ const res=await fetch(BASE+'/rest/v1/rpc/premium_questionnaire_owner_dashboard',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+accessToken,'Content-Type':'application/json'},body:'{}',cache:'no-store'});
+ if(!res.ok){if([401,403].includes(res.status)){$('status').textContent=errorMessage();return;}throw new Error('שגיאה בטעינת הנתונים ('+res.status+')');}
+ allClasses=await res.json();if(!Array.isArray(allClasses))throw new Error('תגובת שרת לא תקינה');
+ $('status').textContent='עודכן: '+date(new Date().toISOString());render();
+}
+function render(){
+ const needle=$('filter').value.trim().toLocaleLowerCase('he');
+ const filtered=allClasses.filter(c=>([c.name,c.code,...(c.responses||[]).map(r=>r.name)].join(' ').toLocaleLowerCase('he')).includes(needle));
+ const total=allClasses.reduce((n,c)=>n+(c.responses||[]).length,0);
+ const teams=allClasses.reduce((n,c)=>n+(c.latestTeamRun?.teams?.length||0),0);
+ $('stats').innerHTML=[['כיתות',allClasses.length],['תשובות תלמידים',total],['צוותים שנוצרו',teams]].map(([label,value])=>'<div class="metric"><span>'+E(label)+'</span><strong>'+value+'</strong></div>').join('');
+ $('classes').innerHTML=filtered.map(c=>{
+ const responses=c.responses||[];
+ const rows=responses.map(r=>'<tr><td>'+E(r.name)+'</td><td>'+E(date(r.completedAt))+'</td><td>'+E(Object.entries(r.scores||{}).map(([k,v])=>k+': '+v).join(' | '))+'</td></tr>').join('');
+ const latest=c.latestTeamRun;
+ const teams=latest?.teams?.length?'<h3>חלוקת צוותים אחרונה</h3><p class="muted">נוצרה: '+E(date(latest.createdAt))+'</p><div class="tablewrap"><table><thead><tr><th>צוות</th><th>חברים</th></tr></thead><tbody>'+latest.teams.map((t,i)=>'<tr><td>'+E(t.team??(i+1))+'</td><td>'+E((t.members||[]).map(m=>typeof m==='string'?m:(m.name||m.studentName||'')).join(', '))+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">אין עדיין חלוקת צוותים.</p>';
+ return '<details class="classrow"><summary>'+E(c.name||'כיתה ללא שם')+' — '+responses.length+' תשובות</summary><div class="classmeta">קוד כיתה: '+E(c.code)+' | סטטוס: '+E(c.status)+' | נפתחה: '+E(date(c.createdAt))+'</div><h3>תוצאות תלמידים</h3><div class="tablewrap"><table><thead><tr><th>שם</th><th>מועד מילוי</th><th>תוצאות הפרופיל</th></tr></thead><tbody>'+ (rows||'<tr><td colspan="3">אין תשובות</td></tr>')+'</tbody></table></div>'+teams+'</details>';
+ }).join('')||'<p class="muted">לא נמצאו כיתות תואמות.</p>';
+}
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('loginBtn').disabled=true;$('loginStatus').textContent='מתחבר...';try{accessToken=await login($('email').value.trim(),$('password').value);$('password').value='';await load();if($('status').textContent===errorMessage()){accessToken=null;throw new Error(errorMessage());}show('login',false);show('dashboard',true);show('logout',true);}catch(err){$('loginStatus').textContent=err.message||errorMessage();}finally{$('loginBtn').disabled=false;}});
+$('logout').addEventListener('click',()=>{accessToken=null;allClasses=[];show('login',true);show('dashboard',false);show('logout',false);$('loginStatus').textContent='נותקת מהתצוגה.';});
+$('reload').addEventListener('click',()=>load().catch(err=>{$('status').textContent=err.message;}));
+$('filter').addEventListener('input',render);
+})();
+</script></body></html>
