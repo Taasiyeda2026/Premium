@@ -213,9 +213,22 @@
       <button class="ghost-btn" id="homeBtn" type="button">חזרה לפרימיום</button>
     </header>
 
-    <section class="screen active" id="entryScreen">
+    <section id="instructorAuthScreen" class="screen active" aria-label="התחברות מדריכים">
+      <div class="card entry-card">
+        <h1>כניסת מדריכים – פרימיום</h1>
+        <p class="muted">השתמשו בפרטי ההתחברות הקיימים לדשבורד תעשיידע. אין צורך ליצור חשבון חדש.</p>
+        <form id="premiumInstructorLoginForm">
+          <label>דוא"ל<input type="email" id="premiumInstructorEmail" autocomplete="username" required></label>
+          <label>סיסמה<input type="password" id="premiumInstructorPassword" autocomplete="current-password" required></label>
+          <button type="submit" class="primary-btn">כניסה</button>
+        </form>
+        <p id="premiumInstructorAuthStatus" role="status"></p>
+      </div>
+    </section>
+    <section class="screen" id="entryScreen">
       <div class="card entry-card">
         <div class="eyebrow">👥 מסך מדריך</div>
+        <button type="button" class="small-btn" id="premiumInstructorLogoutBtn">התנתקות</button>
         <h1>פתיחת כיתה וחלוקת צוותים</h1>
         <p class="muted">פותחים כיתה, מפעילים את השאלון, משתפים את הקוד עם התלמידים ואז מרכיבים צוותים.</p>
         <div class="create-row">
@@ -301,6 +314,12 @@
       const SUPABASE_URL = 'https://szinlhjuwyiyszdpsdop.supabase.co';
       const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k0IbDJlgPA9KTVuDWrCyFw_Zsa5kZIM';
       const STORAGE_KEY = 'premiumQuestionnaireInstructorClassesV1';
+      const AUTH_STORAGE_KEY = 'premiumInstructorAuthSessionV1';
+      let authSession = null;
+      const authScreen = document.getElementById('instructorAuthScreen');
+      const loginForm = document.getElementById('premiumInstructorLoginForm');
+      const authStatus = document.getElementById('premiumInstructorAuthStatus');
+      const logoutButton = document.getElementById('premiumInstructorLogoutBtn');
       const ALGORITHM_VERSION = 3;
       const POLL_MS = 8000;
 
@@ -350,7 +369,57 @@
       let sessionBusy = false;
 
       function apiHeaders() {
-        return { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' };
+        return { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Authorization': `Bearer ${authSession?.access_token || SUPABASE_PUBLISHABLE_KEY}`, 'Content-Type': 'application/json' };
+      }
+      async function refreshAuth() {
+        if (!authSession?.refresh_token) return false;
+        const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+          method: 'POST', headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh_token: authSession.refresh_token })
+        });
+        if (!response.ok) return false;
+        authSession = await response.json();
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
+        return true;
+      }
+      async function authenticatedRpc(name, payload = {}) {
+        if (!authSession?.access_token) throw new Error('נדרשת התחברות.');
+        let response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+          method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload)
+        });
+        if (response.status === 401 && await refreshAuth()) {
+          response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+            method: 'POST', headers: apiHeaders(), body: JSON.stringify(payload)
+          });
+        }
+        if (!response.ok) throw new Error('אין הרשאה או שהחיבור נכשל (' + response.status + ')');
+        return response.json();
+      }
+      async function loadMyClasses() {
+        const stored = getSavedClasses();
+        for (const item of stored) {
+          try { await authenticatedRpc('premium_instructor_claim_class', { p_class_code: item.code, p_manager_token: item.token }); }
+          catch (error) { console.warn('[premium] Existing class not claimed:', item.code); }
+        }
+        const mine = await authenticatedRpc('premium_instructor_my_classes');
+        if (!Array.isArray(mine)) throw new Error('לא ניתן לטעון את הכיתות.');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(mine.map(item => ({
+          code: item.code, name: item.name, token: item.token, createdAt: item.createdAt
+        }))));
+        renderRecent();
+      }
+      function showInstructorAuth() {
+        stopPolling();
+        activeClass = null;
+        authScreen.classList.add('active');
+        els.entryScreen.classList.remove('active');
+        els.dashboardScreen.classList.remove('active');
+      }
+      async function completeInstructorLogin() {
+        await loadMyClasses();
+        authScreen.classList.remove('active');
+        switchScreen(els.entryScreen);
+        tryAutoOpen();
       }
 
       async function rpc(name, payload) {
@@ -403,7 +472,7 @@
         const className = els.classNameInput.value.trim();
         setEntryBusy(true); els.entryStatus.textContent = ''; els.entryStatus.classList.remove('error');
         try {
-          const result = await rpc('premium_questionnaire_create_class', { p_class_name: className || null });
+          const result = await authenticatedRpc('premium_instructor_create_class', { p_class_name: className || null });
           const row = Array.isArray(result) ? result[0] : result;
           if (!row?.class_code || !row?.manager_token) throw new Error('לא התקבל קוד כיתה');
           const item = { code: String(row.class_code), token: String(row.manager_token), name: row.class_name || className || '', createdAt: row.created_at || new Date().toISOString() };
@@ -415,7 +484,7 @@
       }
 
       function switchScreen(target) {
-        [els.entryScreen, els.dashboardScreen].forEach(el => el.classList.remove('active'));
+        [authScreen, els.entryScreen, els.dashboardScreen].forEach(el => el.classList.remove('active'));
         target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
@@ -825,7 +894,47 @@ ${team.members.map(member => { const score = memberRoleScore(member); return `�
       els.copyTeamsBtn.addEventListener('click', () => currentTeams.length && copyText(teamsAsText(), 'חלוקת הצוותים הועתקה'));
       document.addEventListener('visibilitychange', () => { if (!document.hidden && activeClass) loadSnapshot(false); });
 
-      renderRecent(); tryAutoOpen();
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = loginForm.querySelector('button[type=submit]');
+        button.disabled = true;
+        authStatus.textContent = 'בודקים הרשאה...';
+        try {
+          const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST', headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: document.getElementById('premiumInstructorEmail').value.trim(),
+              password: document.getElementById('premiumInstructorPassword').value
+            })
+          });
+          if (!response.ok) throw new Error('פרטי ההתחברות לא אומתו.');
+          authSession = await response.json();
+          document.getElementById('premiumInstructorPassword').value = '';
+          await completeInstructorLogin();
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
+          authStatus.textContent = '';
+        } catch (error) {
+          authSession = null;
+          authStatus.textContent = error.message || 'ההתחברות נכשלה.';
+        } finally { button.disabled = false; }
+      });
+      logoutButton.addEventListener('click', () => {
+        authSession = null;
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+        showInstructorAuth();
+      });
+      (async () => {
+        showInstructorAuth();
+        try {
+          authSession = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+          if (authSession?.refresh_token && await refreshAuth()) await completeInstructorLogin();
+          else { authSession = null; localStorage.removeItem(AUTH_STORAGE_KEY); }
+        } catch (error) {
+          authSession = null;
+          localStorage.removeItem(AUTH_STORAGE_KEY);
+          authStatus.textContent = 'יש להתחבר עם חשבון הדשבורד.';
+        }
+      })();
     })();
   </script>
 </body>
