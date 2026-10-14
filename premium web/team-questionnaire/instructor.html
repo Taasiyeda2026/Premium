@@ -100,6 +100,31 @@
     }
     input:focus { border-color: #62a8d3; box-shadow: 0 0 0 4px rgba(56,189,248,.11); }
 
+    /* Login form only: narrow, aligned fields with centered entry. */
+    #premiumInstructorLoginForm {
+      width: 50%;
+      margin: 20px auto 0;
+      display: grid;
+      gap: 14px;
+    }
+    #premiumInstructorLoginForm label {
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      font-weight: 700;
+    }
+    #premiumInstructorLoginForm input {
+      width: 100%;
+      text-align: center;
+      direction: ltr;
+    }
+    #premiumInstructorLoginForm button[type="submit"] {
+      justify-self: center;
+    }
+    @media (max-width: 600px) {
+      #premiumInstructorLoginForm { width: 100%; }
+    }
+
     .recent { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
     .recent-list { display: grid; gap: 9px; margin-top: 12px; }
     .recent-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 15px; background: #fbfdff; }
